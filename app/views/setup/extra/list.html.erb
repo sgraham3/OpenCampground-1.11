@@ -1,0 +1,44 @@
+<%= render :partial => 'setup/shared/buttons' %>
+<p>
+<%= button_to 'New extra charge', :action => 'new' %>
+<p>
+<%= button_to 'Update Sort Order', :action => 'sort' %>
+
+<table border="1">
+  <tr>
+    <th>Name</th>
+    <% @taxes.each do |t| %>
+      <th><%= t.name %></th>
+    <% end %>
+    <th>Counted</th><th>Measured</th><th>Rate/Unit</th><th>Unit</th><th>Occasional</th><th>Daily</th><th>Weekly</th><th>Monthly</th>
+    <% if @option.use_remote_reservations? %>
+      <th>Display on Remote Reservation</th>
+    <% end %>
+    <th>Active?</th>
+  </tr>
+  
+<% for extra in @extras %>
+  <tr>
+  <td><%= extra.name %></td> 
+  <% @taxes.each do |t| %>
+    <td><%= extra.taxrates.exists?(t.id) %></td>
+  <% end %>
+  <td><%= extra.extra_type == Extra::COUNTED %></td> 
+  <td><%= extra.extra_type == Extra::MEASURED %></td> 
+  <td><%= number_2_currency(extra.rate) if extra.rate? %></td> 
+  <td><%= extra.unit_name %></td> 
+  <td><%= number_2_currency(extra.charge) if extra.extra_type == Extra::OCCASIONAL %></td> 
+  <td><%= number_2_currency(extra.daily) unless extra.daily.zero? %></td> 
+  <td><%= number_2_currency(extra.weekly) unless extra.weekly.zero? %></td> 
+  <td><%= number_2_currency(extra.monthly) unless extra.monthly.zero? %></td> 
+  <% if @option.use_remote_reservations? %>
+    <td><%= extra.remote_display? %></td>
+  <% end %>
+  <td><%= extra.active? %></td>
+  <td><%= link_to 'Edit', :action => 'edit', :id => extra %></td>
+  <td><%= link_to 'Delete', { :action => 'destroy', :id => extra }, :confirm => "Are you sure you want to delete extra charge #{extra.name}?", :method => :post %></td>
+  </tr>
+<% end %>
+</table>
+</p>
+<%= button_to 'Finished', :controller => 'setup/index' %>

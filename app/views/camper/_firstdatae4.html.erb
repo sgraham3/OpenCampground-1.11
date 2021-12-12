@@ -1,0 +1,9 @@
+<form action="<%= @integration.fd_url %>" id="firstdatae4" method="post">
+  <input name="x_login" value="<%= @integration.fd_login %>" type="hidden"> 
+  <input name="x_fp_sequence" value="<%= @reservation.id.to_s %>" type="hidden"> 
+  <input name="x_fp_timestamp" value="<%= @reservation.created_at.strftime("%s") %>" type="hidden"> 
+  <input name="x_invoice" value="<%=@reservation.id.to_s %>" type="hidden"> 
+  <%= fd_charges(@reservation) %>
+  <input name="x_show_form" value="PAYMENT_FORM" type="hidden"> 
+  <input id="pay" name="commit" type="submit" value="<%= I18n.t('reservation.PayNow') %>" />
+</form>

@@ -1,0 +1,11 @@
+<% form_for(@card_transaction) do |f| %>
+  <%= f.label "Amount:" %> <%=  number_2_currency(@card_transaction.amount) %> <br />
+  <%= f.label "Card number:" %>
+  <iframe id="tokenframe" name="tokenframe" src="<%= @cd.cc_endpoint %>/itoke/ajax-tokenizer.html?css=%2Eerror{color:%20red;}" frameborder="0" scrolling="no" width="200" height="30"></iframe><br />
+  <%= f.label "Expiration Date:" %><%= f.text_field :expiry, :size => 4 %><br />
+  <%= f.date_select :expiry, :discard_day => true, :use_short_month => true, :start_year => currentDate.year, :start_month => currentDate.month %>
+  <%= f.hidden_field :mytoken %>
+  <%= f.hidden_field @process_mode %>
+  <%= f.hidden_field :reservation_id %>
+  <%= submit_tag "Process Card", :disable_with => "Processing..." %>
+<% end %>

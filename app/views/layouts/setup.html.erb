@@ -1,0 +1,33 @@
+<html>
+<head>
+  <title>Setup: <%= controller.action_name %></title>
+  <%= stylesheet_link_tag "scaffold", "setup", :media => "all" %>
+</head>
+<body>
+  <div id="banner">
+    <%= @page_title || controller.action_name %>
+  </div>
+  <div id="columns">
+    <div id="side">
+      <p><%= link_to_unless_current 'Reservation List', {:controller => '/reservation', :action => 'list', :page => 1} %> </p>
+      <p><%= link_to_unless_current 'Setup', :controller => 'setup', :action => 'index' %> </p>
+    </div>
+    <div id="main">
+      <% if flash[:error] -%>
+	<div id="error">
+	  <%= flash[:error] %>
+	</div>
+      <% elsif flash[:warning] -%>
+	<div id="warning">
+	  <%= flash[:warning] %>
+	</div>
+      <% elsif flash[:notice] -%>
+	<div id="notice">
+	  <%= flash[:notice] %>
+	</div>
+      <% end -%>
+      <%= @content_for_layout %>
+    </div>
+  </div>
+</body>
+</html>

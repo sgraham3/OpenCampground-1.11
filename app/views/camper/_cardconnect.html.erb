@@ -1,0 +1,9 @@
+<form method="post" id="pay" action="new_card_transaction_url" class="button-to">
+  <div>
+    <input type="hidden" name="card_transaction[card_present]" value="0" />
+    <input type="hidden" name="card_transaction[amount]" value="<%= @reservation.total %>" />
+    <input type="hidden" name="card_transaction[reservation_id]" value="<%= @reservation.id %>" />
+    <input id="pay" name="commit" type="submit" value="Pay with credit card" />
+  </div>
+</form>
+

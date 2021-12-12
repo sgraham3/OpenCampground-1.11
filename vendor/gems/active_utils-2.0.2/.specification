@@ -1,0 +1,159 @@
+--- !ruby/object:Gem::Specification 
+name: active_utils
+version: !ruby/object:Gem::Version 
+  hash: 11
+  prerelease: 
+  segments: 
+  - 2
+  - 0
+  - 2
+  version: 2.0.2
+platform: ruby
+authors: 
+- Shopify
+autorequire: 
+bindir: bin
+cert_chain: []
+
+date: 2014-02-21 00:00:00 -07:00
+default_executable: 
+dependencies: 
+- !ruby/object:Gem::Dependency 
+  name: activesupport
+  prerelease: false
+  requirement: &id001 !ruby/object:Gem::Requirement 
+    none: false
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        hash: 21
+        segments: 
+        - 2
+        - 3
+        - 11
+        version: 2.3.11
+  type: :runtime
+  version_requirements: *id001
+- !ruby/object:Gem::Dependency 
+  name: i18n
+  prerelease: false
+  requirement: &id002 !ruby/object:Gem::Requirement 
+    none: false
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        hash: 3
+        segments: 
+        - 0
+        version: "0"
+  type: :runtime
+  version_requirements: *id002
+- !ruby/object:Gem::Dependency 
+  name: rake
+  prerelease: false
+  requirement: &id003 !ruby/object:Gem::Requirement 
+    none: false
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        hash: 3
+        segments: 
+        - 0
+        version: "0"
+  type: :development
+  version_requirements: *id003
+- !ruby/object:Gem::Dependency 
+  name: mocha
+  prerelease: false
+  requirement: &id004 !ruby/object:Gem::Requirement 
+    none: false
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        hash: 3
+        segments: 
+        - 0
+        version: "0"
+  type: :development
+  version_requirements: *id004
+description: 
+email: 
+- developers@jadedpixel.com
+executables: []
+
+extensions: []
+
+extra_rdoc_files: []
+
+files: 
+- .gitignore
+- Gemfile
+- MIT-LICENSE
+- README.md
+- Rakefile
+- active_utils.gemspec
+- lib/active_utils.rb
+- lib/active_utils/common/connection.rb
+- lib/active_utils/common/country.rb
+- lib/active_utils/common/error.rb
+- lib/active_utils/common/network_connection_retries.rb
+- lib/active_utils/common/post_data.rb
+- lib/active_utils/common/posts_data.rb
+- lib/active_utils/common/requires_parameters.rb
+- lib/active_utils/common/utils.rb
+- lib/active_utils/common/validateable.rb
+- lib/active_utils/version.rb
+- lib/certs/cacert.pem
+- test/test_helper.rb
+- test/unit/connection_test.rb
+- test/unit/country_code_test.rb
+- test/unit/country_test.rb
+- test/unit/network_connection_retries_test.rb
+- test/unit/post_data_test.rb
+- test/unit/posts_data_test.rb
+- test/unit/utils_test.rb
+- test/unit/validateable_test.rb
+has_rdoc: true
+homepage: http://github.com/shopify/active_utils
+licenses: []
+
+post_install_message: 
+rdoc_options: []
+
+require_paths: 
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  none: false
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      hash: 3
+      segments: 
+      - 0
+      version: "0"
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  none: false
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      hash: 3
+      segments: 
+      - 0
+      version: "0"
+requirements: []
+
+rubyforge_project: active_utils
+rubygems_version: 1.4.2
+signing_key: 
+specification_version: 4
+summary: Common utils used by active_merchant, active_fulfillment, and active_shipping
+test_files: 
+- test/test_helper.rb
+- test/unit/connection_test.rb
+- test/unit/country_code_test.rb
+- test/unit/country_test.rb
+- test/unit/network_connection_retries_test.rb
+- test/unit/post_data_test.rb
+- test/unit/posts_data_test.rb
+- test/unit/utils_test.rb
+- test/unit/validateable_test.rb

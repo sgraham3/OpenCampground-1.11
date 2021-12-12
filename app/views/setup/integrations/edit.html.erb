@@ -1,0 +1,27 @@
+<%= render :partial => 'setup/shared/buttons' %>
+<%= error_messages_for 'integrations' %>
+<h2>Payment gateway setup</h2>
+  Select payment gateway to use:
+  None <%= radio_button "integration", "name", "None",
+					{:onchange => remote_function( :url => {:action => 'update'},
+					:with => "'name='+encodeURIComponent(value)")}%> 
+  <% if @option.use_remote_reservations? %>
+    PayPal (remote only) <%= radio_button "integration", "name", "PayPal",
+					  {:onchange => remote_function( :url => {:action => 'update'},
+					  :with => "'name='+encodeURIComponent(value)")}%> 
+    <% if @os == 'Linux' %>
+      CardConnect (remote only) <%= radio_button "integration", "name", "CardConnect_r",
+					    {:onchange => remote_function( :url => {:action => 'update'},
+					    :with => "'name='+encodeURIComponent(value)")}%> 
+      CardConnect(remote & office) <%= radio_button "integration", "name", "CardConnect",
+					    {:onchange => remote_function( :url => {:action => 'update'},
+					    :with => "'name='+encodeURIComponent(value)")}%> 
+    <% end %>
+  <% end %>
+  <% if @os == 'Linux' %>
+    CardConnect (office only) <%= radio_button "integration", "name", "CardConnect_o",
+					  {:onchange => remote_function( :url => {:action => 'update'},
+					  :with => "'name='+encodeURIComponent(value)")}%> 
+  <% end %>
+  <%= render :partial => 'integrations' %>
+  <%= button_to 'Finished', :controller => 'setup/index' %>

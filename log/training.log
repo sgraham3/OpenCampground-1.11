@@ -1,0 +1,50 @@
+# Logfile created on Wed Apr 03 13:45:26 -0700 2019 by logger.rb/22285
+
+
+Processing ReservationController#list (for 127.0.0.1 at 2019-04-03 13:50:08) [GET]
+  Parameters: {"action"=>"list", "controller"=>"reservation"}
+Redirected to http://localhost:3000/reservation/cookies_test
+Filter chain halted as [:cookies_required] rendered_or_redirected.
+Completed in 12542ms (DB: 1) | 302 Found [http://localhost/]
+
+
+Processing ReservationController#cookies_test (for 127.0.0.1 at 2019-04-03 13:50:21) [GET]
+  Parameters: {"action"=>"cookies_test", "controller"=>"reservation"}
+Info 03-04-19 1350: reservation#cookies_test New session
+Info 03-04-19 1350: reservation#cookies_test Startup with release 1.11, version 1750
+Redirected to http://localhost:3000/?%2F=reservation
+Completed in 225ms (DB: 201) | 302 Found [http://localhost/reservation/cookies_test]
+
+
+Processing ReservationController#list (for 127.0.0.1 at 2019-04-03 13:50:21) [GET]
+  Parameters: {"action"=>"list", "/"=>"reservation", "controller"=>"reservation"}
+Rendering template within layouts/application
+Rendering reservation/list
+Completed in 454ms (View: 248, DB: 173) | 200 OK [http://localhost/?%2F=reservation]
+
+
+Processing ReservationController#list (for 127.0.0.1 at 2019-04-03 13:52:24) [GET]
+  Parameters: {"action"=>"list", "controller"=>"reservation"}
+Redirected to http://localhost:3000/setup/index
+Completed in 11ms (DB: 2) | 302 Found [http://localhost/]
+
+
+Processing Setup::IndexController#index (for 127.0.0.1 at 2019-04-03 13:52:24) [GET]
+  Parameters: {"action"=>"index", "controller"=>"setup/index"}
+Rendering template within layouts/application
+Rendering setup/index/index
+Completed in 87ms (View: 59, DB: 22) | 200 OK [http://localhost/setup/index]
+
+
+Processing AdminController#index (for 127.0.0.1 at 2019-04-03 13:52:30) [GET]
+  Parameters: {"action"=>"index", "controller"=>"admin"}
+Rendering template within layouts/application
+Rendering admin/index
+Completed in 32ms (View: 18, DB: 1) | 200 OK [http://localhost/admin]
+
+
+Processing Admin::AboutController#index (for 127.0.0.1 at 2019-04-03 13:52:33) [GET]
+  Parameters: {"action"=>"index", "controller"=>"admin/about"}
+Rendering template within layouts/application
+Rendering admin/about/index
+Completed in 30ms (View: 16, DB: 3) | 200 OK [http://localhost/admin/about]

@@ -1,0 +1,25 @@
+= in_place_editing
+
+A Rails plugin for in-place editing fields.
+
+
+== Installation
+
+In the +Gemfile+:
+
+  gem 'in_place_editing'
+
+
+== Usage
+
+In your controller define what model and fields you want in-place editing support for.
+
+  class BlogController < ApplicationController
+    in_place_edit_for :post, :title
+  end
+
+In a view tell it where to place the JS and data.
+
+  <%= in_place_editor_field :post, 'title' %>
+
+Copyright (c) 2007 David Heinemeier Hansson, released under the MIT license  

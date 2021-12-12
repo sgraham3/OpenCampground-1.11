@@ -1,0 +1,28 @@
+<div class="noprint">
+  <span id="pmt"><%= I18n.t('reservation.PaymentType') %>:
+    <%= collection_select(:payment, :creditcard_id, Creditcard.active, :id, :name, {:class => "flex_item", :prompt => I18n.t('helpers.select.prompt')} ) %>
+    <% if @integration.cc_hsn != 'None' %>
+      <form method="post" action="<%= new_card_transaction_url %>" style="display:inline;"> 
+	<input type="hidden" name="card_transaction[process_mode]" value="<%= CardTransaction::TermCard %>" />
+	<input type="hidden" name="card_transaction[amount]" value="<%= @reservation.due.round(2) %>" />
+	<input type="hidden" name="card_transaction[reservation_id]" value="<%= @reservation.id %>" />
+	<input type="submit" value="<%= "Terminal Process Card"%>" />
+      </form>
+      <form method="post" action="<%= new_card_transaction_url %>" style="display:inline;"> 
+	<input type="hidden" name="card_transaction[process_mode]" value="<%= CardTransaction::TermManual %>" />
+	<input type="hidden" name="card_transaction[amount]" value="<%= @reservation.due.round(2) %>" />
+	<input type="hidden" name="card_transaction[reservation_id]" value="<%= @reservation.id %>" />
+	<input type="submit" value="<%= "Terminal Manual Card"%>" />
+      </form>
+    <% end %>
+    <form method="post" action="<%= new_card_transaction_url %>" style="display:inline;"> 
+      <input type="hidden" name="card_transaction[process_mode]" value="<%= CardTransaction::TokenLocal %>" />
+      <input type="hidden" name="card_transaction[amount]" value="<%= @reservation.due.round(2) %>" />
+      <input type="hidden" name="card_transaction[reservation_id]" value="<%= @reservation.id %>" />
+      <input type="submit" value="<%= "Tokinizer Process Card"%>" />
+    </form>
+  </span>
+</div>
+<%= observe_field :payment_creditcard_id,
+		  :url => {:action => 'update_cc', :only_path => false, :reservation_id => @reservation.id},
+		  :with => "'creditcard_id='+encodeURIComponent(value)" %>

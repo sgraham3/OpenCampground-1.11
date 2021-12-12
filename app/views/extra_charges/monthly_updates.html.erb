@@ -1,0 +1,23 @@
+<%= render :partial => '/admin/buttons' %>
+<table cellpadding="5" cellspacing="0" border="2">
+  <tr>
+    <th><%= I18n.t('reservation.Space') %></th>
+    <th><%= I18n.t('reservation.ReservationNumber') %></th>
+    <th><%= I18n.t('camper.Name') %></th>
+    <th><%= I18n.t('extra.Previous') %></th>
+    <th><%= I18n.t('extra.New') %></th>
+    <th><%= I18n.t('extra.Consumed') %></th>
+    <th><%= I18n.t('extra.Rate') %></th>
+    <th><%= I18n.t('extra.Charge') %></th>
+  </tr>
+
+  <% @reservations.each do |res| %>
+    <%= render :partial => "extra_update", :object => res, :locals => {:extra_charge => @extra_charge} %>
+  <% end %>
+</table>
+<table>
+<tr>
+<td><input type="button" onclick="javascript:window.print()" value="<%= I18n.t('general.Print') %>" /></td>
+<td><%= button_to I18n.t('reservation.DownloadData'), :controller => :extra_charges, :action => :download_monthly %></td>
+</tr>
+</table>

@@ -1,0 +1,32 @@
+<%= render :partial => '/admin/buttons' %>
+<table cellpadding="5" cellspacing="0" border="2">
+  <tr>
+    <th><%= I18n.t('extra.Name') %></th>
+    <th><%= I18n.t('reservation.ReservationNumber') %></th>
+    <th><%= I18n.t('reservation.Space') %></th>
+    <th><%= I18n.t('extra.Initial') %></th>
+    <th><%= I18n.t('extra.Final') %></th>
+    <th><%= I18n.t('extra.Amount') %></th>
+    <th><%= I18n.t('extra.Rate') %></th>
+    <th><%= I18n.t('extra.Charge') %></th>
+    <th><%= I18n.t('extra.Created') %></th>
+    <th><%= I18n.t('extra.Updated') %></th>
+  </tr>
+
+  <% @extra_charges.each do |ec| %>
+    <tr>
+      <td align="right"><%= ec.extra.name %></td>
+      <td align="right"><%= ec.reservation_id %></td>
+      <td align="right"><%= ec.reservation.space.name %></td>
+      <td align="right"><%= ec.initial.to_f %></td>
+      <td align="right"><%= ec.final.to_f %></td>
+      <td align="right"><%= ec.final.to_f - ec.initial.to_f %></td>
+      <td align="right"><%=number_2_currency(ec.measured_rate) %></td>
+      <td align="right"><%=number_2_currency(ec.charge) %></td>
+      <td align="right"><%= DateFmt.format_date ec.created_on %></td>
+      <td align="right"><%= DateFmt.format_date ec.updated_on %></td>
+      <td><%= link_to I18n.t('general.Edit'), edit_extra_charge_path(ec) %></td>
+      <td><%= link_to I18n.t('general.Destroy'), ec, :confirm => I18n.t('general.ConfirmDestroy'), :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>

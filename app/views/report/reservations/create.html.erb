@@ -1,0 +1,23 @@
+<div class="nodisplay" style="text-align: center;"><b><%= @page_title %> </b> </div>
+<%= render :partial => 'report/shared/print' %>
+<form method="post" action="<%= report_reservations_path %>" class="button-to"><input type="hidden" name="csv" value="1" /> <input type="submit" value="Download Data" /></form>
+<b>Reservations</b>
+<table >
+<tr><th>Space</th><th>start date</th><th>end date</th><th>Name</th><th>Address</th><th>City</th><th>State</th><th>ZIP</th><th>Net</th><th>Taxes</th><th>Payments</th><th>Disposition</th></tr>
+<% @result.each do |r| %>
+  <tr>
+  <td><%= r.space.name %> </td>
+  <td><%= r.startdate %> </td>
+  <td><%= r.enddate %> </td>
+  <td><%= r.camper.full_name %> </td>
+  <td><%= r.camper.address %> </td>
+  <td><%= r.camper.city %> </td>
+  <td><%= r.camper.state %> </td>
+  <td><%= r.camper.mail_code %> </td>
+  <td align="right"><%= number_2_currency(r.total) %></td>
+  <td align="right"><%= number_2_currency(r.tax_amount) %></td>
+  <td align="right"><%= number_2_currency(Payment.total(r.id)) %></td>
+  <td><%= r.last_log_entry %> </td>
+  </tr>
+<% end %>
+</table>

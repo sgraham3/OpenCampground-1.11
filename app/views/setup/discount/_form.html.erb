@@ -1,0 +1,29 @@
+<%= error_messages_for 'discount' %>
+
+<!--[form:discount]-->
+<p><label for="discount_name">Name</label><br/>
+<%= text_field 'discount', 'name'  %></p>
+
+<p><label for="discount_discount_percent">Percent Discount</label>
+<%= text_field 'discount', 'discount_percent'  %>
+<label for="discount_disc_appl_daily">Applies to Daily Rate:</label>
+<%= check_box 'discount', 'disc_appl_daily', {}, '1', '0' %>
+<label for="discount_disc_appl_week">Weekly Rate:</label>
+<%= check_box 'discount', 'disc_appl_week', {}, '1', '0' %>
+<label for="discount_disc_appl_month">Monthly Rate:</label>
+<%= check_box 'discount', 'disc_appl_month', {}, '1', '0' %>
+<label for="discount_disc_appl_seasonal">Seasonal Rate:</label>
+<%= check_box 'discount', 'disc_appl_seasonal', {}, '1', '0' %></p>
+<p><label for="discount_amount">Amount Once:</label>
+<%= text_field 'discount', 'amount'  %></p>
+<p><label for="discount_amount">Amount Per Day:</label>
+<%= text_field 'discount', 'amount_daily'  %></p>
+<p><label for="discount_amount">Amount Per Week:</label>
+<%= text_field 'discount', 'amount_weekly'  %></p>
+<p><label for="discount_amount">Amount Per Month:</label>
+<%= text_field 'discount', 'amount_monthly'  %></p>
+<% unless controller.action_name == 'new' %>
+  <p><label for="discount_active">Active?</label>
+  <%= check_box 'discount', 'active', {}, '1', '0' %></p>
+<% end %>
+<!--[eoform:discount]-->

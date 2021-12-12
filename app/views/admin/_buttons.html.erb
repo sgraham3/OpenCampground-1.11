@@ -1,0 +1,51 @@
+<table cellspacing="8">
+  <tr>
+    <% if authorized?(@option.all_backup) %>
+      <td align="center">
+	  <%= link_to 'Database Backup', maintenance_backup_index_path, :class => "link_btn" %>
+      </td>
+    <% end %>
+    <% if authorized?(@option.all_manage_backup) %>
+      <td align="center">
+	  <%= link_to 'Manage Backup Files', maintenance_backup_files_path, :class => "link_btn" %>
+      </td>
+    <% end %>
+    <% if authorized?(@option.all_manage_logs) %>
+      <td align="center">
+	<%= link_to 'Manage Log Files', maintenance_log_files_path, :class => "link_btn" %>
+      </td>
+    <% end %>
+    <% if authorized?(@option.all_manage_payments) %>
+      <td align="center">
+	<%= link_to 'Manage Payments', payments_path, :class => "link_btn" %>
+      </td>
+    <% end %>
+    </tr>
+    <tr>
+    <% if authorized?(@option.all_manage_measured) %>
+      <td align="center">
+	<%= link_to 'Manage Measured Extras', extra_charges_path, :class => "link_btn" %>
+      </td>
+    <% end %>
+    <% if @option.use_variable_charge && authorized?(@option.all_manage_variable) %>
+      <td align="center">
+	<%= link_to 'Manage Variable Charges', variable_charges_path, :class => "link_btn" %>
+      </td>
+    <% end %>
+    <% if authorized?(@option.all_manage_measured) %>
+      <td align="center">
+	<%= link_to 'Meter Readings', {:controller => :extra_charges, :action => :monthly_updates}, :class => "link_btn" %>
+      </td>
+    <% end %>
+    <% if authorized?('admin') %>
+      <td align="center">
+	<%= link_to 'Troubleshoot Reservations', maintenance_troubleshoot_index_path, :class => "link_btn" %>
+      </td>
+    <% end %>
+    <% if ENV["SERVER_SOFTWARE"] =~ /Apache/ %>
+      <td align="center">
+	<%= link_to 'Restart Server', maintenance_restart_index_path, :class => "link_btn" %>
+      </td>
+    <% end %>
+  </tr>
+</table>

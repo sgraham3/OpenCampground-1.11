@@ -1,0 +1,83 @@
+--- !ruby/object:Gem::Specification 
+name: in_place_editing
+version: !ruby/object:Gem::Version 
+  hash: 31
+  prerelease: 
+  segments: 
+  - 1
+  - 2
+  - 0
+  version: 1.2.0
+platform: ruby
+authors: 
+- David Heinemeier Hansson
+- Jeremy Kemper
+- Jose Fernandez
+- Pawel Stradomski, Mark Turner
+autorequire: 
+bindir: bin
+cert_chain: []
+
+date: 2012-07-12 00:00:00 -07:00
+default_executable: 
+dependencies: []
+
+description: In Place Editing Rails Plugin
+email: 
+- mark@amerine.net
+executables: []
+
+extensions: []
+
+extra_rdoc_files: []
+
+files: 
+- .gitignore
+- .travis.yml
+- Gemfile
+- README.rdoc
+- Rakefile
+- in_place_editing.gemspec
+- init.rb
+- lib/in_place_editing.rb
+- lib/in_place_editing/controller_methods.rb
+- lib/in_place_editing/helper_methods.rb
+- test/in_place_editing_test.rb
+- test/test_helper.rb
+has_rdoc: true
+homepage: https://github.com/amerine/in_place_editing
+licenses: []
+
+post_install_message: 
+rdoc_options: []
+
+require_paths: 
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  none: false
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      hash: 3
+      segments: 
+      - 0
+      version: "0"
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  none: false
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      hash: 3
+      segments: 
+      - 0
+      version: "0"
+requirements: []
+
+rubyforge_project: in_place_editing
+rubygems_version: 1.4.2
+signing_key: 
+specification_version: 3
+summary: In Place Editing Rails Plugin
+test_files: 
+- test/in_place_editing_test.rb
+- test/test_helper.rb

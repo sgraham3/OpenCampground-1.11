@@ -1,0 +1,53 @@
+<div class="nodisplay" style="text-align: center;"><b><%= @page_title %> </b> </div>
+<%= render :partial => 'report/shared/print' %>
+<form method="post" action="<%= report_payments_path %>" class="button-to"><input type="hidden" name="csv" value="1" /> <input type="submit" value="Download Data" /></form>
+
+<% total = 0.0
+   t_net = 0.0
+   t_tax = 0.0 %>
+<% @subtotal = 0.0
+   @net_sub = 0.0
+   @tax_sub = 0.0
+   @first_time = true
+   @count = 0
+   @res = 0
+   @week =  @payments.size > 0 ? @payments[0].pmt_date.to_date.cweek : 0
+   @dt = @payments.size > 0 ? @payments[0].pmt_date.to_date : 0
+   @month = @dt.month
+   @card =  @payments.size > 0 ? @payments[0].creditcard_id : 0 
+   @cardname =  @payments.size > 0 ? @payments[0].creditcard.name : "" %>
+<table>
+  <tr>
+    <th>Res #</th>
+    <th>Camper</th>
+    <th>Pmt Type</th>
+    <th>Date</th>
+    <th>Memo</th>
+    <th>Charges</th>
+    <th>Tax</th>
+    <th>Total</th>
+  </tr>
+  <% @payments.each do |p| %>
+    <tr>
+    <%= sub_total(p) if p != @payments[0] %>
+    <%= p_if_needed(p) %>
+    <td><%= p.creditcard ? p.creditcard.name : "" %></td>
+    <td align="right"><%= DateFmt.format_date(p.pmt_date) %></td>
+    <td><%= p.memo %></td>
+    <% net,tax = p.taxes %>
+    <td align="right"><%= number_2_currency(net) %></td>
+    <td align="right"><%= number_2_currency(tax) %></td>
+    <td align="right"><%= @subtotal += p.amount ; total += p.amount ; number_2_currency(p.amount) %></td>
+    </tr>
+    <% @net_sub += net 
+       @tax_sub += tax
+       t_net += net
+       t_tax += tax %>
+  <% end %>
+  <tr>
+  <%= sub_total() %>
+  </tr>
+  <tr>
+  <%= total(total, t_net, t_tax) %>
+  </tr>
+</table>

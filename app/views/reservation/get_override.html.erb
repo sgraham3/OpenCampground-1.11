@@ -1,0 +1,11 @@
+<% form_tag :action => 'override' do %>
+  <%= error_messages_for 'reservation' %>
+  <p>
+  <label for="reservation_override_total"><b><%= I18n.t('reservation.TotaltoDisplay') %>:</b></label>
+  <%= text_field 'reservation', 'override_total', {:size => '4', :autocomplete => 'off', :id => 'override'} %>
+  </p>
+
+  <%= submit_tag I18n.t('reservation.OverrideTotal') %>
+<% end %>
+<%= button_to I18n.t('reservation.Finished'), {:action => :list, :controller => 'reservation'}, {:id => 'finished'} %>
+<%= set_focus_to_id 'override' %>

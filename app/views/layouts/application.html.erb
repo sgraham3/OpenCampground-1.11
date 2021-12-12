@@ -1,0 +1,247 @@
+<% if @option.css.blank? %>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+  <meta name="msapplication-TileColor" content="#2b5797">
+  <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="robots" content="noindex, nofollow"/>
+  <meta http-equiv="Expires" content="-1"/>
+  <meta http-equiv="Pragma" content="no-cache"/>
+  <meta http-equiv="Cache-control" content="no-cache"/>
+  <meta http-equiv="Cache" content="no-cache"/>
+  <meta http-equiv="Expires" content="thu, 01 Jan 1998 12:00:00 GMT"/>
+  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+
+  <%= javascript_include_tag :defaults %>
+  <% if controller.action_name == 'available' %>
+    <%= javascript_include_tag 'tablelock'%>
+  <% end %>
+  <% if controller.controller_name == 'card_transactions' && controller.action_name == 'new' %>
+    <%= javascript_include_tag 'cc_tokenization'%>
+  <% end %>
+  <% CalendarDateSelect.format=:euro_24hr %>
+  <%= calendar_date_select_includes :default,:locale => I18n.locale %>
+  <%= stylesheet_link_tag "colors" %>
+  <%= stylesheet_link_tag "scaffold", :media => "screen" %>
+  <%= stylesheet_link_tag "office", :media => "screen" %>
+  <%= stylesheet_link_tag "#{I18n.locale}", :media => "screen" %>
+  <%= stylesheet_link_tag "card_connect" %>
+  <%= stylesheet_link_tag "print", :media => "print" %>
+  <title><%= controller.action_name %></title>
+</head>
+<body>
+  <div id="banner">
+    <% if File.readable?("#{RAILS_ROOT}/public/images/Logo.png")%>
+      <img src="/images/Logo.png" height="46" alt="Logo" />
+    <% elsif File.readable?("#{RAILS_ROOT}/public/images/Logo.jpg")%>
+      <img src="/images/Logo.jpg" height="46" alt="Logo" />
+    <% elsif File.readable?("#{RAILS_ROOT}/public/images/OC_logo.2.png")%>
+      <img src="/images/OC_logo.2.png" height="46" alt="Logo" />
+    <% elsif File.readable?("#{RAILS_ROOT}/public/images/OC_logo.png")%>
+      <img src="/images/OC_logo.png" height="46" alt="Logo" />
+    <% end %>
+    <%= @page_title || controller.action_name %>
+    <span id="user">
+      <% if ENV['RAILS_ENV'] != 'production' %>
+	Mode: <%= ENV['RAILS_ENV'] %>
+	<br />
+      <% end %>
+      <% if @option.use_login? && defined? @user_login %>
+	<%= I18n.t('layout.banner.user') %>: <%= @user_login.name %>
+      <% end %>
+      <br />
+      <% form_tag '', :method => 'GET', :class => 'locale' do %>
+	<%= select_tag 'locale', options_for_select(LANGUAGES, "#{I18n.locale}"), :onchange => 'this.form.submit()' %>
+	<%= submit_tag 'submit' %>
+	<%= javascript_tag "$$('.locale input').each(Element.hide)" %>
+      <% end %>
+    </span>
+  </div>
+  <% if @option.tabs? %>
+    <div id="tabs">
+      <table><tr>
+	<% if @use_navigation %>
+	  <% if @option.express? %>
+	      <td><%= link_to I18n.t('titles.express'), {:controller => '/reservation', :action => 'express'}, :class => "link_btn"     %></td>
+	  <% end %>
+	  <td><%= link_to I18n.t('titles.res_list'), {:controller => '/reservation', :action => 'list', :page => 1}, :class => "link_btn"     %></td>
+	  <td><%= link_to I18n.t('titles.in_park'), {:controller => '/reservation', :action => 'in_park', :page => 1}, :class => "link_btn"     %></td>
+	  <td><%= link_to I18n.t('titles.new_res'), {:controller => '/reservation', :action => 'new', :stage => 'new'}, :class => "link_btn"      %></td>
+	  <td><%= link_to I18n.t('titles.new_grp_res'), {:controller => '/group_res', :action => 'new', :stage => 'new'}, :class => "link_btn"      %></td>
+	  <td><%= link_to I18n.t('titles.find_res'), {:controller => '/reservation', :action => 'find_reservation'}, :class => "link_btn"      %></td>
+	  <td><%= link_to I18n.t('titles.campers'), {:controller => '/camper', :action => 'list'}, :class => "link_btn"      %></td>
+	  <td><%= link_to I18n.t('titles.find_camper'), {:controller => '/camper', :action => 'find_camper'}, :class => "link_btn"      %></td>
+	  <% if Group.count > 0 %>
+	      <td><%= link_to I18n.t('reservation.Groups'), {:controller => '/group', :action => 'list'}, :class => "link_btn"      %></td>
+	  <% end %>
+	  <td><%= link_to I18n.t('titles.site_av'), {:controller => '/reservation', :action => 'available'}, :class => "link_btn"  %></td>
+	  <% if(authorized?(@option.all_checkin_rpt?) || authorized?(@option.all_leave_rpt?) || authorized?(@option.all_arrival_rpt?) || authorized?(@option.all_departure_rpt?) || authorized?(@option.all_in_park_rpt?) || authorized?(@option.all_space_sum_rpt?) || authorized?(@option.all_occupancy_rpt?) || authorized?(@option.all_campers_rpt?) || authorized?(@option.all_transactions_rpt?) || authorized?(@option.all_payments_rpt?) || authorized?(@option.all_measured_rpt?)) %>
+	    <td> <%= link_to 'Reports', report_index_path, :class => "link_btn" %> </td>
+	  <% end %>
+	  <% if(authorized?(@option.all_backup?) ) %>
+	    <td> <%= link_to 'Database Backup', maintenance_backup_index_path, :class => "link_btn" %> </td>
+	  <% end %>
+	  <td><%= link_to I18n.t('layout.side.admin'), admin_index_path, :class => "link_btn"    %></td>
+	  <% if @option.use_login? %>
+	      <td><%= link_to I18n.t('layout.side.logout'), {:controller => '/login', :action => 'logout'}, :class => "link_btn"    %> </td>
+	      <td><%= link_to I18n.t('layout.side.chg_pwd'), edit_user_path(session[:user_id]), :class => "link_btn"    %></td>
+	  <% end %>
+	<% else %>
+	  <p>
+	  <% if @option.express? %>
+	    <td class="dim"><%= I18n.t('titles.express') %></td>
+	  <% end %>
+	  <td class="dim"><%= I18n.t('titles.res_list') %></td>
+	  <td class="dim"><%= I18n.t('titles.in_park') %></td>
+	  <td class="dim"><%= I18n.t('titles.new_res') %></td>
+	  <td class="dim"><%= I18n.t('titles.new_grp_res') %></td>
+	  <td class="dim"><%= I18n.t('titles.find_res') %></td>
+	  <td class="dim"><%= I18n.t('titles.campers') %></td>
+	  <td class="dim"><%= I18n.t('titles.find_camper') %></td>
+	  <td class="dim"><%= I18n.t('titles.site_av') %></td>
+	  <% if(authorized?(@option.all_checkin_rpt?) || authorized?(@option.all_leave_rpt?) || authorized?(@option.all_arrival_rpt?) || authorized?(@option.all_departure_rpt?) || authorized?(@option.all_in_park_rpt?) || authorized?(@option.all_space_sum_rpt?) || authorized?(@option.all_occupancy_rpt?) || authorized?(@option.all_campers_rpt?) || authorized?(@option.all_transactions_rpt?) || authorized?(@option.all_payments_rpt?) || authorized?(@option.all_measured_rpt?)) %>
+	    <td class="dim">Reports</td>
+	  <% end %>
+	  <td class="dim"><%= I18n.t('layout.side.admin') %></td>
+	  <% if @option.use_login? %>
+	    <td class="dim"><%= I18n.t('layout.side.logout') %></td>
+	    <td class="dim"><%= I18n.t('layout.side.chg_pwd') %></td>
+	  <% end %>
+	  <td>
+	  <% if session[:change] == true %>
+	    <%= link_to  I18n.t('layout.side.canx_chg', :change_action => @change_action),
+				{ :action => :show,
+				  :controller => 'reservation',
+				  :reservation_id => @reservation.id}, :class => "link_btn" %>
+	  <% elsif session[:canx_action] == 'abandon' %>
+	    <%= link_to   I18n.t('layout.side.canx_res'),
+				  { :action => :abandon,
+				    :controller => 'reservation',
+				    :reservation_id => @reservation.id}, :class => "link_btn",
+				  :confirm => I18n.t('layout.side.canx_res_conf') %>
+	  <% else %>
+	    <%= link_to   I18n.t('layout.side.canx_res'),
+				  { :action => :abandon,
+				    :controller => 'reservation',
+				    :reservation_id => @reservation.id}, :class => "link_btn",
+				  :confirm => I18n.t('layout.side.canx_res_conf') %>
+	  <% end %>
+	  </td>
+	<% end %>
+      </tr></table>
+    </div>
+  <% else %>
+    <div id="columns">
+      <div id="side">
+	<% if @use_navigation %>
+	  <% if @option.express? %>
+	    <p><%= link_to I18n.t('titles.express'), {:controller => '/reservation', :action => 'express'}     %> </p>
+	  <% end %>
+	  <p><%= link_to I18n.t('titles.res_list'), {:controller => '/reservation', :action => 'list', :page => 1}     %> </p>
+	  <p><%= link_to I18n.t('titles.in_park'), {:controller => '/reservation', :action => 'in_park', :page => 1}     %> </p>
+	  <p><%= link_to I18n.t('titles.new_res'), {:controller => '/reservation', :action => 'new', :stage => 'new'}      %> </p>
+	  <p><%= link_to I18n.t('titles.new_grp_res'), {:controller => '/group_res', :action => 'new', :stage => 'new'}      %> </p>
+	  <p><%= link_to I18n.t('titles.find_res'), :controller => '/reservation', :action => 'find_reservation'      %> </p>
+	  <p><%= link_to I18n.t('titles.campers'), :controller => '/camper', :action => 'list'      %> </p>
+	  <p><%= link_to I18n.t('titles.find_camper'), :controller => '/camper', :action => 'find_camper'      %> </p>
+	  <% if Group.count > 0 %>
+	    <p><%= link_to I18n.t('reservation.Groups'), :controller => '/group', :action => 'list'      %> </p>
+	  <% end %>
+	  <p><%= link_to I18n.t('titles.site_av'), :controller => '/reservation', :action => 'available'  %> </p>
+	  <% if(authorized?(@option.all_checkin_rpt?) || authorized?(@option.all_leave_rpt?) || authorized?(@option.all_arrival_rpt?) || authorized?(@option.all_departure_rpt?) || authorized?(@option.all_in_park_rpt?) || authorized?(@option.all_space_sum_rpt?) || authorized?(@option.all_occupancy_rpt?) || authorized?(@option.all_campers_rpt?) || authorized?(@option.all_transactions_rpt?) || authorized?(@option.all_payments_rpt?) || authorized?(@option.all_measured_rpt?)) %>
+	    <p> <%= link_to 'Reports', report_index_path %> </p>
+	  <% end %>
+	  <% if(authorized?(@option.all_backup?) ) %>
+	    <p> <%= link_to 'Database Backup', maintenance_backup_index_path %> </p>
+	  <% end %>
+	  <p><%= link_to I18n.t('layout.side.admin'), admin_index_path %> </p>
+	  <% if @option.use_login? %>
+	    <p><%= link_to I18n.t('layout.side.logout'), :controller => '/login', :action => 'logout'    %> </p>
+	    <p><%= link_to I18n.t('layout.side.chg_pwd'), edit_user_path(session[:user_id]) %> </p>
+	  <% end %>
+	<% else %>
+	  <% if @option.express? %>
+	    <p><%= I18n.t('titles.express') %></p>
+	  <% end %>
+	  <p><%= I18n.t('titles.res_list') %></p>
+	  <p><%= I18n.t('titles.in_park') %></p>
+	  <p><%= I18n.t('titles.new_res') %></p>
+	  <p><%= I18n.t('titles.new_grp_res') %></p>
+	  <p><%= I18n.t('titles.find_res') %></p>
+	  <p><%= I18n.t('titles.campers') %></p>
+	  <p><%= I18n.t('titles.find_camper') %></p>
+	  <p><%= I18n.t('titles.site_av') %></p>
+	  <p><%= I18n.t('layout.side.admin') %></p>
+	  <% if @option.use_login? %>
+	    <p><%= I18n.t('layout.side.logout') %></p>
+	    <p><%= I18n.t('layout.side.chg_pwd') %></p>
+	  <% end %>
+	  <p>
+	  <% if session[:change] == true %>
+	    <%= link_to  I18n.t('layout.side.canx_chg', :change_action => @change_action),
+				{ :action => :show,
+				  :controller => 'reservation',
+				  :reservation_id => @reservation.id} %>
+	  <% elsif session[:canx_action] == 'abandon' %>
+	    <%= link_to   I18n.t('layout.side.canx_res'),
+				  { :action => :abandon,
+				    :controller => 'reservation',
+				    :reservation_id => @reservation.id},
+				  :confirm => I18n.t('layout.side.canx_res_conf') %>
+	  <% else %>
+	    <%= link_to   I18n.t('layout.side.canx_res'),
+				  { :action => :abandon,
+				    :controller => 'reservation',
+				    :reservation_id => @reservation.id},
+				  :confirm => I18n.t('layout.side.canx_res_conf') %>
+	  <% end %>
+	  </p>
+	<% end %>
+      </div>
+    <% end %>
+    <% if @option.tabs? %>
+      <div id="main-t">
+    <% else %>
+      <div id="main">
+    <% end %>
+      <div id="flash">
+	<% if flash[:error] -%>
+	  <div id="error">
+	    <%= flash[:error] %>
+	  </div>
+	  <%= javascript_tag("$('error').focus()") %>
+	<% end -%>
+	<% if flash[:warning] -%>
+	  <div id="warning">
+	    <%= flash[:warning] %>
+	  </div>
+	<% end -%>
+	<% if flash[:notice] -%>
+	  <div id="notice">
+	    <%= flash[:notice] %>
+	  </div>
+	<% end -%>
+      </div>
+      <%= @content_for_layout %>
+    </div>
+  </div>
+</body>
+</html>
+<% else %>
+  <%= ERB.new(@option.css).result(binding) %>
+<% end %>

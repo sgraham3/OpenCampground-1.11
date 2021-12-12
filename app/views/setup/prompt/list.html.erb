@@ -1,0 +1,20 @@
+<%= render :partial => 'setup/shared/buttons' %>
+<%= button_to 'New', :action => :new %>
+<table border>
+  <tr>
+    <th>Locale</th><th>Display</th><th>Explanation</th>
+  </tr>
+  <% @prompts.each do |p| %>
+    <tr>
+      <td> <%= p.locale %> </td>
+      <td> <%= p.display %> </td>
+      <td id="prompt_body"> <%= p.body %> </td>
+      <td> <%= button_to 'Edit', :action => :edit, :id => p %> </td>
+      <td><%= button_to 'Delete', { :action => :destroy, :id => p },
+				    :confirm => "Are you sure you want to delete explanation for #{p.display} locale #{p.locale}",
+				    :method => 'post' %></td>
+
+    </tr>
+  <% end %>
+</table>
+<%= button_to 'Finished', :controller => 'setup/index' %>

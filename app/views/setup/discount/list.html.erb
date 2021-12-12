@@ -1,0 +1,33 @@
+<%= render :partial => 'setup/shared/buttons' %>
+<%= error_messages_for 'discount' %>
+<p>
+<%= button_to 'New discount', :action => 'new' %>
+<p>
+<%= button_to 'Update Sort Order', :action => 'sort' %>
+
+<table border="1">
+  <tr>
+  <th>Name</th><th>Percent</th><th>Applies to Daily</th><th>Weekly</th><th>Monthly</th><th>Seasonal</th><th>Amount Once</th><th>Per Day</th><th>Per Week</th><th>Per Month</th><th>Active</th>
+  </tr>
+  <% for discount in @discounts %>
+  <tr>
+    <td><%= discount.name %></td>
+    <td><%= discount.discount_percent.to_s+"%" %></td>
+    <td><%= discount.disc_appl_daily %></td>
+    <td><%= discount.disc_appl_week %></td>
+    <td><%= discount.disc_appl_month %></td>
+    <td><%= discount.disc_appl_seasonal %></td>
+    <td><%= discount.amount %></td>
+    <td><%= discount.amount_daily %></td>
+    <td><%= discount.amount_weekly %></td>
+    <td><%= discount.amount_monthly %></td>
+    <td><%= discount.active %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => discount %></td>
+    <td><%= link_to 'Delete', { :action => 'destroy', :id => discount },
+			      :confirm => "Are you sure you want to delete #{discount.name}?",
+			      :method => 'post' %></td>
+  </tr>
+<% end %>
+</table>
+</p>
+<%= button_to 'Finished', :controller => 'setup/index' %>

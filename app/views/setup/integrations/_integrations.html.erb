@@ -1,0 +1,71 @@
+<div id="integration">
+<% unless @integration.name == 'None' %>
+  <% form_for :integration, :url =>{:action => :update, :method => 'post' } do |int| %> 
+    <% if @os == 'Linux' %>
+    <% if @integration.name == 'CardConnect' || @integration.name == 'CardConnect_o' || @integration.name == 'CardConnect_r' %>
+      <div id="CardConnect">
+    <% else %>
+      <div id="CardConnect" style="display: none">
+    <% end %>
+      <h2>
+	CardConnect Configuration:
+      </h2>
+      <table>
+	<tr> <td> Merchant ID: </td> <td> <b><%= int.text_field :cc_merchant_id %></b> </td> </tr>
+        <tr> <td> Gateway Endpoint: </td> <td> <b><%= int.text_field :cc_endpoint %>/cardconnect/rest/</b> </td> </tr>
+	<tr> <td> Username: </td> <td> <b><%= int.text_field :cc_api_username %></b> </td> </tr>
+	<tr> <td> Password: </td> <td> <b><%= int.text_field :cc_api_password %></b> </td> </tr>
+	<% if @integration.name == 'CardConnect' || @integration.name == 'CardConnect_o' %>
+	  <tr> <td> Bolt Endpoint: </td> <td> <b><%= int.text_field :cc_bolt_endpoint %>/api/..</b> </td> </tr>
+	  <tr> <td> API Key: </td> <td> <b><%= int.text_field :cc_bolt_api_key %></b> </td> </tr>
+	  <% if @integration.cc_bolt_endpoint %>
+	    <tr> <td> Terminal HSN: </td> <td> <b><%= int.select  :cc_hsn, get_hsn %></b> </td> </tr>
+	  <% else %>
+	    <tr> <td> Terminal HSN: </td> <td> <b><%= int.text_field  :cc_hsn %></b> </td> </tr>
+	  <% end %>
+	  <tr> <td> Display Amount: </td> <td> <b><%= int.check_box :cc_display_amount %> </td> </tr>
+	  <tr> <td> Require Signature: </td> <td> <b><%= int.check_box :cc_use_signature %> </td> </tr>
+	  <tr> <td> Require Mail Code: </td> <td> <b><%= int.check_box :cc_use_zip %> </td> </tr>
+	<% end %>
+	<tr> <td> Currency code: </td> <td> <b><%= int.text_field :cc_currency_code %></b> </td> </tr>
+	<tr> <td> Require Security Code: </td> <td> <b><%= int.check_box :cc_use_cvv %> </td> </tr>
+      </table>
+    </div>
+    <% end %>
+    <% if @integration.name == 'PayPal' %>
+      <div id="PayPal">
+    <% else %>
+      <div id="PayPal" style="display: none">
+    <% end %>
+      <h2>
+	PayPal Configuration:
+      </h2>
+      <table>
+	<tr> <td> PayPal business name: </td> <td> <b><%= int.text_field :pp_business %></b></td> </tr>
+	<tr> <td> PayPal certificate ID: </td> <td> <b><%= int.text_field :pp_cert_id %></b></td> </tr>
+	<tr> <td> PayPal URL: </td> <td> <b><%= int.text_field :pp_url %></b></td> </tr>
+	<tr> <td> PayPal currency code: </td> <td> <b><%= int.text_field :pp_currency_code %></b></td> </tr>
+	<tr> <td> PayPal country code: </td> <td> <b><%= int.text_field :pp_country %></b></td> </tr>
+      </table>
+    </div>
+    <% if @integration.name == 'FirstDataE4' %>
+      <div id="FirstDataE4">
+    <% else %>
+      <div id="FirstDataE4" style="display: none">
+    <% end %>
+      <h2>
+	First Data E4 Configuration:
+      </h2>
+      <table>
+	<tr> <td> FirstData login name: </td> <td> <b><%= int.text_field :fd_login %></b></td> </tr>
+	<tr> <td> FirstData transaction key: </td> <td> <b><%= int.text_field :fd_transaction_key %></b></td> </tr>
+	<tr> <td> FirstData response key: </td> <td> <b><%= int.text_field :fd_response_key %></b></td> </tr>
+	<tr> <td> FirstData URL: </td> <td> <b><%= int.text_field :fd_url %></b></td> </tr>
+	<tr> <td> FirstData currency code: </td> <td> <b><%= int.text_field :fd_currency_code %></b></td> </tr>
+	<tr> <td> FirstData country code: </td> <td> <b><%= int.text_field :fd_country %></b></td> </tr>
+      </table>
+    </div>
+  <%= submit_tag 'Save Changes' %>
+  <% end %>
+<% end %>
+</div>

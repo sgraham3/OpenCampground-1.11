@@ -1,0 +1,38 @@
+<% if @showall %>
+  <%= button_to I18n.t('group.ShowActiveGroups'), {:action => :list, :all => 'false'} %>
+<% else %>
+  <%= button_to I18n.t('group.ShowAllGroups'), {:action => :list, :all => 'true'} %>
+<% end %>
+<table cellpadding="5" cellspacing="0">
+  <tr>
+    <th><%= I18n.t('group.GroupName') %></th>
+    <th><%= I18n.t('group.Wagonmaster') %></th>
+    <th><%= I18n.t('group.CurrentReservations') %> </th>
+    <th><%= I18n.t('reservation.StartDate') %></th>
+    <th><%= I18n.t('reservation.EndDate') %></th>
+
+  </tr>
+  <% @group.each do |group| %>
+    <%  if controller.action_name == 'list' %>
+      <% res=Reservation.find_all_by_group_id_and_archived(group.id, false) %>
+    <% end %>
+    <tr>
+      <td><%=h group.name %></td>
+      <td><%=h group.camper.full_name if group.camper %></td>
+      <td align=center><%= res.size.to_s %></td>
+      <td><%= I18n.l group.startdate %></td>
+      <td><%= I18n.l group.enddate %></td>
+      <%  if controller.action_name == 'list' %>
+	<td><%= (link_to I18n.t('general.Show'), :action => 'show', :group_id => group) %></td>
+	<% if res.size > 0 %>
+	  <td><%= link_to I18n.t('group.ShowReservations'), :action => :show_reservations_in_group, :group_id => group %></td>
+	<% else %>
+	  <td> <%= link_to I18n.t('group.Destroy'), { :action => 'destroy', :group_id => group }, :confirm => I18n.t('admin.ConfirmDelete', :name => group.name), :method => 'post' %></td>
+	<% end %>
+	<td><%= link_to I18n.t('group.ShowCampers'), :action => :show_campers_in_group, :group_id => group %></td>
+	<td><%= link_to I18n.t('group.DownloadCampers'), {:action => :show_campers_in_group, :group_id => group, 'csv' => true} %></td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
+<% session[:edit_action] = 'list' %>

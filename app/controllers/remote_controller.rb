@@ -719,6 +719,7 @@ class RemoteController < ApplicationController
     flash[:error] = "The reservation has been canceled or it has timed out from inactivity.\nThe reservation process will Start Over."
     redirect_to :action => :index
   end
+  
 
   private
   ####################################################

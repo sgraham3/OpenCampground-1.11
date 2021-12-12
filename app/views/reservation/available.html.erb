@@ -1,20 +1,35 @@
 <%= button_to I18n.t('reservation.DownloadData'), :action => 'available_csv' %>
-<span class="occupied"><%= I18n.t('reservation.Occupied') %></span>
-<span class="reserved"><%= I18n.t('reservation.Reserved') %></span>
-<span class="late"><%= I18n.t('reservation.NotCheckedIn') %></span>
-<span class="unavailable"><%= I18n.t('reservation.Flash.SpaceUnavailable') %></span>
-<span class="today"><%= I18n.t('reservation.Today') %></span>
+<br>
+<% if session[:admin_status] %>
+  <span class="occupied"><%= I18n.t('reservation.Occupied') %></span>
+  <span class="reserved"><%= I18n.t('reservation.Reserved') %></span>
+  <span class="late"><%= I18n.t('reservation.NotCheckedIn') %></span>
+  <span class="unavailable"><%= I18n.t('reservation.Flash.SpaceUnavailable') %></span>
+  <span class="today"><%= I18n.t('reservation.Today') %></span>
+<% end %>
 <div id="container" >
-  <table id="available" class="available" cellspacing="0" >
+  <table id="available" class="available" cellspacing="0" admin-session="<%= session[:admin_status] %>">
     <thead>
       <%= header -%>
     </thead>
     <tbody>
-      <%= available(@res) -%>
+      <%= available(@res) %>
     </tbody>
   </table>
 </div>
 <script type="text/JavaScript">
   TableLock("available", "av_space", "av_date", "locked");
+  var cells = document.querySelectorAll(".available td");
+  var table = document.getElementsByTagName('table')[0];
+  for (var i = 0; i < cells.length; i++) {
+    if (cells[i].hasChildNodes()) {
+    }else{
+      cells[i].setAttribute('style', 'cursor: pointer');
+      cells[i].addEventListener("click", handler);
+    }
+  }
+  function handler() {
+    location.href = '/reservation/new?stage=new';
+  }
 </script>
 

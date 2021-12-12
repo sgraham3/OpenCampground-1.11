@@ -7,6 +7,7 @@ class LoginController < ApplicationController
       user = User.authenticate(params[:name], params[:password])
       if user
         session[:user_id] = user.id
+        session[:admin_status] = user.admin
 	User.current = user.id
 	if params[:remember_me] == "1"
 	  token = user.remember_me

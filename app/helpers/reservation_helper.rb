@@ -200,11 +200,11 @@ module ReservationHelper
 	end
       end
       if date == currentDate
-	ret_str << '<th class="av_date"  style="border:1px solid black;background:LightGreen">' + date.strftime("%d") + '</th>'
+	      ret_str << '<th class="av_date"  style="border:1px solid black;background:Lavender">' + date.strftime("%d") + '</th>'
       elsif date.wday == 0 || date.wday == 6
-	ret_str << '<th class="av_date"  style="border:1px solid black;background:lightGrey">' + date.strftime("%d") + '</th>'
+	      ret_str << '<th class="av_date"  style="border:1px solid black;background:Lavender">' + date.strftime("%d") + '</th>'
       else
-	ret_str << '<th class="av_date"  style="border:1px solid black;background:Lavender">' + date.strftime("%d") + '</th>'
+        ret_str << '<th class="av_date"  style="border:1px solid black;background:Lavender">' + date.strftime("%d") + '</th>'
       end   
       date = date.succ 
     end
@@ -225,9 +225,13 @@ module ReservationHelper
       ret_str << '<tr>'
       # start with the space name
       if space.unavailable?
-	ret_str << '<td class="av_space"  style="border:1px solid black;background:Crimson">' +  space.name + '</td>' 
+        if session[:admin_status]
+	        ret_str << '<td class="av_space"  style="border:1px solid black;background:Crimson">' +  space.name + '</td>' 
+        else
+	        ret_str << '<td class="av_space"  style="border:1px solid black;background:lavender">' +  space.name + '</td>' 
+        end  
       else
-	ret_str << '<td class="av_space"  style="border:1px solid black;background:Lavender">' +  space.name + '</td>'
+	      ret_str << '<td class="av_space"  style="border:1px solid black;background:Lavender">' +  space.name + '</td>'
       end
       if @option.use_closed?
 	@cs = @closedStart
@@ -259,17 +263,33 @@ module ReservationHelper
 	    name = trunc_name(cnt, r)
 	    ret_str << "<td colspan=\"#{cnt}\" align=\"center\" "
 	    if r.checked_in
-	      ret_str << 'style="border:1px solid black;background-color:LimeGreen">' # occupied
+        if session[:admin_status]
+	        ret_str << 'style="border:1px solid black;background-color:LimeGreen">' # occupied
+        else
+          ret_str << 'style="border:1px solid black;background-color:lightGrey">' # occupied 
+        end     
 	    else
 	      if currentDate > r.startdate
-		ret_str << 'style="border:1px solid black;background-color:Yellow">' # overdue
+          if session[:admin_status]
+		        ret_str << 'style="border:1px solid black;background-color:Yellow">' # overdue
+          else
+            ret_str << 'style="border:1px solid black;background-color:lightGrey">' # overdue
+          end
 	      else
-		ret_str << 'style="border:1px solid black;background-color:LightSteelBlue">' # reserved
+          if session[:admin_status]
+		        ret_str << 'style="border:1px solid black;background-color:LightSteelBlue">' # reserved
+          else
+            ret_str << 'style="border:1px solid black;background-color:lightGrey">' # reserved
+          end
 	      end
 	    end
 	    title = r.camper.full_name + ', '
 	    title << I18n.l(r.startdate, :format => :short) + I18n.t('reservation.To') + I18n.l(r.enddate, :format => :short)
-	    ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{name}</a>"
+	    if session[:admin_status]
+        ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{name}</a>"
+      else
+        ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{}</a>"
+      end
 	    if @option.use_closed && r.enddate > @cs && r.enddate < @ce
 	      ret_str << handle_cells(@cs, @ce)
 	      date = @ce
@@ -355,7 +375,7 @@ module ReservationHelper
 
 	if date == currentDate
 	  debug 'currentDate'
-	  ret_str << '<td style="border:1px solid black;background-color:LightGreen"></td>'
+	    ret_str << '<td style="border:1px solid black;background-color:LightGreen"></td>'
 	  date += 1
 	elsif date < @cs && ed < @cs
 	  # case 1 between closures
@@ -458,18 +478,18 @@ module ReservationHelper
       when 6 # saturday
 	# debug 'saturday'
 	if count > 6
-	  ret_str << '<td style="border:1px solid black;background-color:lightGrey"></td><td style="border:1px solid black;background-color:lightGrey"></td><td></td><td></td><td></td><td></td><td></td>'
+	  ret_str << '<td style="border:1px solid black;"></td><td style="border:1px solid black;"></td><td></td><td></td><td></td><td></td><td></td>'
 	  count -= 7
 	  sd += 7.days
 	else
-	  ret_str << '<td style="border:1px solid black;background-color:lightGrey"></td>'
+	  ret_str << '<td style="border:1px solid black;background-color:"></td>'
 	  count -= 1
 	  sd += 1.days
 	end
       when 0 # sunday
 	# debug 'sunday'
 	cnt = count < 6 ? count : 6
-	ret_str << '<td style="border:1px solid black;background-color:lightGrey"></td>' + '<td></td>' * (cnt - 1)
+	ret_str << '<td style="border:1px solid black;"></td>' + '<td></td>' * (cnt - 1)
 	count -= cnt
 	sd += cnt.days
       when 1 # monday

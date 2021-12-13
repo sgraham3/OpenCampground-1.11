@@ -270,13 +270,13 @@ class ReservationController < ApplicationController
     session[:reservation_id] = nil
     if (Space.first == nil)  # this is for startup with no spaces defined
       if @option.use_login? && session[:user_id] != nil
-	if @user_login.admin
-	  redirect_to :controller => 'setup/index', :action => 'index'
-	else
-	  redirect_to :controller => :admin, :action => :index
-	end
+        if @user_login.admin
+          redirect_to :controller => 'setup/index', :action => 'index'
+        else
+          redirect_to :controller => :admin, :action => :index
+        end
       else
-	redirect_to :controller => 'setup/index', :action => 'index'
+	      redirect_to :controller => 'setup/index', :action => 'index'
       end
     else
       session[:list] = 'list'

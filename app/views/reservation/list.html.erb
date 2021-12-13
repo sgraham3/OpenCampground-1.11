@@ -5,16 +5,22 @@ Open Campground comes with ABSOLUTELY NO WARRANTY; for details see the license b
 This is free software and you are welcome to redistribute it under the conditions in the license.
 </div>
 <% end -%>
-<% if controller.action_name == 'list' %>
-       <b class="today_checkin"><%= I18n.t('reservation.CheckingInToday') %></b>
-       &nbsp;
-       <b class="late_checkin"><%= I18n.t('reservation.OverdueforCheckIn') %></b>
-<% elsif controller.action_name == 'in_park' %>
-       <b><%= I18n.t('reservation.Count') %>: <%= @count %></b>
-       &nbsp;
-       <b class="today_checkout"><%= I18n.t('reservation.CheckingOutToday') %></b>
-       &nbsp;
-       <b class="overstay"><%= I18n.t('reservation.OverstayingReservation') %></b>
+<% if session[:admin_status] %>
+	<% if controller.action_name == 'list' %>
+			<b class="today_checkin"><%= I18n.t('reservation.CheckingInToday') %></b>
+			&nbsp;
+			<b class="late_checkin"><%= I18n.t('reservation.OverdueforCheckIn') %></b>
+	<% elsif controller.action_name == 'in_park' %>
+			<b><%= I18n.t('reservation.Count') %>: <%= @count %></b>
+			&nbsp;
+			<b class="today_checkout"><%= I18n.t('reservation.CheckingOutToday') %></b>
+			&nbsp;
+			<b class="overstay"><%= I18n.t('reservation.OverstayingReservation') %></b>
+	<% end %>
+	<%= render :partial => 'shared/reservations' %>
+	<%= will_paginate @reservations %>
+<% else %>
+	<div>
+		<img src="/images/OC_logo.2.png" width="400" height="120" alt="Logo" style="position: fixed; top:50%;left:50%;margin-left:-200px;margin-top:-60px"/>
+	</div>
 <% end %>
-<%= render :partial => 'shared/reservations' %>
-<%= will_paginate @reservations %>

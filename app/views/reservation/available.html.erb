@@ -1,4 +1,4 @@
-<%= button_to I18n.t('reservation.DownloadData'), :action => 'available_csv' %>
+<%= button_to I18n.t('reservation.DownloadData'), :action => 'available_csv', :id => 'btn_download' %>
 <br>
 <% if session[:admin_status] %>
   <span class="occupied"><%= I18n.t('reservation.Occupied') %></span>
@@ -6,6 +6,7 @@
   <span class="late"><%= I18n.t('reservation.NotCheckedIn') %></span>
   <span class="unavailable"><%= I18n.t('reservation.Flash.SpaceUnavailable') %></span>
   <span class="today"><%= I18n.t('reservation.Today') %></span>
+  <br><br>
 <% end %>
 <div id="container" >
   <table id="available" class="available" cellspacing="0" admin-session="<%= session[:admin_status] %>">

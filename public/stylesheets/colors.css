@@ -44,6 +44,8 @@ body {
 .reserved { 
   color: Black;
   background-color: LightSteelBlue;
+  padding: 5px;
+  border-radius: 5px;
 }
 a.reserved:link {
   color:Black;
@@ -58,6 +60,8 @@ a.reserved:hover {
 .occupied { 
   color: Black;
   background-color: LimeGreen;
+  padding: 5px;
+  border-radius: 5px;
 }
 a.occupied:link {
   color:Black;
@@ -86,6 +90,8 @@ a.overstay:hover {
 .late { 
   color: Black;
   background-color: Yellow;
+  padding: 5px;
+  border-radius: 5px;
 }
 a.late:link {
   color:Black;
@@ -100,10 +106,14 @@ a.late:hover {
 .today { 
   color: Black;
   background-color: lightGreen;
+  padding: 5px;
+  border-radius: 5px;
 }
 .unavailable {
   color: Black;
   background-color: Red;
+  padding: 5px;
+  border-radius: 5px;
 }
 .unconfirmed { 
   color: Blue;

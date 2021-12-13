@@ -250,7 +250,7 @@ module RemoteHelper
 
   def get_header_months
     hdr_init
-    ret_str = '<tr><th class="locked" style="border:1px solid black;background:Lavender">'
+    ret_str = '<tr><th class="locked" style="border:1px solid white;background:#666666;text-align:center;color:white">'
     if @option.max_spacename > 5
       spacer = ((@option.max_spacename - 4)/1.5).to_i
       ret_str << '&nbsp;' * spacer
@@ -277,16 +277,16 @@ module RemoteHelper
       debug "date is #{date}, next day to output is #{day} header count is #{hdr_count}"
       if hdr_count > 0
 	if hdr_count < 4
-	  ret_str << "<th class=\"av_date\" colspan=\"#{hdr_count}\" style=\"text-align:center;border:1px solid black;background:Lavender\"></th>"
+	  ret_str << "<th class=\"av_date\" colspan=\"#{hdr_count}\" style=\"text-align:center;background:#666666;border:1px solid white;color:white\"></th>"
 	else
-	  ret_str << "<th class=\"av_date\" colspan=\"#{hdr_count}\" style=\"text-align:center;border:1px solid black;background:Lavender\">#{I18n.l(date,:format => :month)}</th>"
+	  ret_str << "<th class=\"av_date\" colspan=\"#{hdr_count}\" style=\"text-align:center;background:#666666;border:1px solid white;color:white\">#{I18n.l(date,:format => :month)}</th>"
 	end
 	date = day
       else
         date = @ce
       end
       if @option.use_closed? && (@ce == date)
-	ret_str << '<th class="av_date" style="border:1px solid black;background-color:DarkGrey"></th>'
+	      ret_str << '<th class="av_date" style="border:1px solid black;background-color:DarkGrey;color:white;text-align:center"></th>'
       end
     end
     ret_str << "</tr>\n"
@@ -334,7 +334,7 @@ module RemoteHelper
     # print out the days
     date = @startDate 
     first_closed = true
-    ret_str = '<tr><th class="locked" style="border:1px solid black;background:Lavender"></th>'
+    ret_str = '<tr><th class="locked" style="border:1px solid white;background:#666666;"></th>'
     # debug "get_header_days enddate is #{@endDate}"
     while date < @endDate 
       if @option.use_closed? 
@@ -344,18 +344,18 @@ module RemoteHelper
 	  @ce = @ce.change(:year => @ce.year + 1)
 	end
 	if  (date+1) > @cs && (date+1) < @ce
-	  ret_str << '<th class="av_date" style="border:1px solid black;background:DarkGrey"></th>'
+	  ret_str << '<th class="av_date" style="border:1px solid white;background:#666666"></th>'
 	  # debug "closed #{date}"
 	  date = @ce
 	  next
 	end
       end
       if date == currentDate
-	      ret_str << '<th class="av_date"  style="border:1px solid black;background:Lavender">' + date.strftime("%d") + '</th>'
+	      ret_str << '<th class="av_date"  style="border:1px solid white;background:lightGreen;text-align:center;color:white;">' + date.strftime("%d") + '</th>'
       elsif date.wday == 0 || date.wday == 6
-	      ret_str << '<th class="av_date"  style="border:1px solid black;background:Lavender">' + date.strftime("%d") + '</th>'
+	      ret_str << '<th class="av_date"  style="border:1px solid white;background:#666666;color:white;text-align:center">' + date.strftime("%d") + '</th>'
       else
-        ret_str << '<th class="av_date"  style="border:1px solid black;background:Lavender">' + date.strftime("%d") + '</th>'
+        ret_str << '<th class="av_date"  style="border:1px solid white;background:#666666;color:white;text-align:center">' + date.strftime("%d") + '</th>'
       end   
       date = date.succ 
     end
@@ -396,12 +396,12 @@ module RemoteHelper
       # start with the space name
       if space.unavailable?
         if session[:admin_status]
-	        ret_str << '<td class="av_space"  style="border:1px solid black;background:Crimson">' +  space.name + '</td>' 
+	        ret_str << '<td class="av_space"  style="border:1px solid #D6D6D6;background:red;text-align:center;color:white">' +  space.name + '</td>' 
         else
-	        ret_str << '<td class="av_space"  style="border:1px solid black;background:lavender">' +  space.name + '</td>' 
+	        ret_str << '<td class="av_space"  style="border:1px solid #D6D6D6;background:#666666;text-align:center;color:white">' +  space.name + '</td>' 
         end  
       else
-	      ret_str << '<td class="av_space"  style="border:1px solid black;background:Lavender">' +  space.name + '</td>'
+	      ret_str << '<td class="av_space"  style="border:1px solid #D6D6D6;background:#666666;text-align:center;color:white">' +  space.name + '</td>'
       end
       if @option.use_closed?
 	@cs = @closedStart
@@ -434,22 +434,22 @@ module RemoteHelper
 	    ret_str << "<td colspan=\"#{cnt}\" align=\"center\" "
 	    if r.checked_in
         if session[:admin_status]
-	        ret_str << 'style="border:1px solid black;background-color:LimeGreen">' # occupied
+	        ret_str << 'style="background-color:LimeGreen">' # occupied
         else
-          ret_str << 'style="border:1px solid black;background-color:lightGrey">' # occupied 
+          ret_str << 'style="background-color:lightGrey">' # occupied 
         end     
 	    else
 	      if currentDate > r.startdate
           if session[:admin_status]
-		        ret_str << 'style="border:1px solid black;background-color:Yellow">' # overdue
+		        ret_str << 'style="background-color:Yellow">' # overdue
           else
-            ret_str << 'style="border:1px solid black;background-color:lightGrey">' # overdue
+            ret_str << 'style="background-color:lightGrey">' # overdue
           end
 	      else
           if session[:admin_status]
-		        ret_str << 'style="border:1px solid black;background-color:LightSteelBlue">' # reserved
+		        ret_str << 'style="background-color:LightSteelBlue">' # reserved
           else
-            ret_str << 'style="border:1px solid black;background-color:lightGrey">' # reserved
+            ret_str << 'style="background-color:lightGrey">' # reserved
           end
 	      end
 	    end
@@ -532,7 +532,7 @@ module RemoteHelper
 
 	if date == currentDate
 	  debug 'currentDate'
-	    ret_str << '<td style="border:1px solid black;background-color:LightGreen"></td>'
+	    ret_str << '<td style="border:1px solid #D6D6D6;"></td>'
 	  date += 1
 	elsif date < @cs && ed < @cs
 	  # case 1 between closures
@@ -612,7 +612,7 @@ module RemoteHelper
 	  date = ed
 	elsif date == currentDate # current date
 	  debug 'handle_cells: outside of closed: date == currentDate'
-	  ret_str << '<td style="border:1px solid black;background-color:LightGreen"></td>'
+	  ret_str << '<td style="border:1px solid #D6D6D6;"></td>'
 	  date = currentDate + 1
 	else # date < currentDate && ed >= currentDate # spans current
 	  debug "handle_cells: starts before and spans currentDate, output_empty(#{date}, #{(currentDate - date).to_i})"
@@ -635,18 +635,18 @@ module RemoteHelper
       when 6 # saturday
 	# debug 'saturday'
 	if count > 6
-	  ret_str << '<td style="border:1px solid black;"></td><td style="border:1px solid black;"></td><td></td><td></td><td></td><td></td><td></td>'
+	  ret_str << '<td style="border:1px solid #D6D6D6;"></td><td style="border:1px solid #D6D6D6;"></td><td></td><td></td><td></td><td></td><td></td>'
 	  count -= 7
 	  sd += 7.days
 	else
-	  ret_str << '<td style="border:1px solid black;background-color:"></td>'
+	  ret_str << '<td style="border:1px solid #D6D6D6;"></td>'
 	  count -= 1
 	  sd += 1.days
 	end
       when 0 # sunday
 	# debug 'sunday'
 	cnt = count < 6 ? count : 6
-	ret_str << '<td style="border:1px solid black;"></td>' + '<td></td>' * (cnt - 1)
+	ret_str << '<td style="border:1px solid #D6D6D6;"></td>' + '<td></td>' * (cnt - 1)
 	count -= cnt
 	sd += cnt.days
       when 1 # monday

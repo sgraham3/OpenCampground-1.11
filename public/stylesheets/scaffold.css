@@ -1,5 +1,5 @@
 body, p, ol, ul, td {
-  font-family: verdana, arial, helvetica, sans-serif;
+  font-family: sans-serif;
   font-size:   13px;
   line-height: 18px;
 }
@@ -10,11 +10,11 @@ pre {
 }
 
 a {
-  color: #000;
+  color: black;
 }
 
 a:visited {
-  color: #666;
+  color: rgb(92, 88, 88);
 }
 
 a:hover {

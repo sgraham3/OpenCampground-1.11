@@ -151,7 +151,7 @@
 
 #available {
         /* font-family: Sans Serif; */
-	    font-size: small;
+	    /* font-size: small; */
 	    }
 #available table {
 	    /* border-collapse: collapse;
@@ -163,24 +163,24 @@
         /* font-family: Sans Serif; */
 	    /* font-size: small; */
 		/* border-collapse: collapse; */
-	    border: 1px solid #D6D6D6;
+	    /* border: 1px solid #D6D6D6; */
 		/* display: table-cell; */
 		/* padding: 2px 30px; */
 		/* white-space: nowrap; */
 		/* text-overflow: ellipsis; */
 		/* overflow: hidden; */
-		width: auto;
-		max-width: 1px;
-		text-align: center;
+		/* width: auto; */
+		/* max-width: 1px; */
+		/* text-align: center; */
 	    }
 
 .available td {
         /* font-family: Sans Serif; */
-	    font-size: medium;
+	    /* font-size: medium; */
 		padding: 2px 30px;
-		border-collapse: collapse;
+		/* border-collapse: collapse; */
 	    border: 1px solid #D6D6D6;
-		text-align: center;
+		/* text-align: center; */
 	    }
 
 .extra {white-space: nowrap;}
@@ -257,6 +257,18 @@ input[type="button"] {
 	letter-spacing: .5px;
 	font-size: 16px;
 	cursor: pointer;
+}
+.sitemap {
+	background-color: #ffffff;
+	color: #000000;
+	padding: 5px 20px;
+	border: 1px solid #000000;
+	border-radius: 5px;
+	margin: 5px 5px 0px 0px;
+	letter-spacing: .5px;
+	font-size: 16px;
+	cursor: pointer;
+	text-decoration:none
 }
 
 .large_button  input{

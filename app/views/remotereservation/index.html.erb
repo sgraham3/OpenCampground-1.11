@@ -1,3 +1,5 @@
+<%= javascript_include_tag 'tablelock'%>
+<div style="margin-left:4em">
 <% form_tag :action => 'express_2' do %>
   <div id='dates'>
     <%= render :partial => 'shared/dates' %>
@@ -6,19 +8,39 @@
   <%= render :partial => 'shared/sitetype' %>
   </p>
   <p>
-  <%= render :partial => 'shared/count' %>
-  <span id="spaces">
-    <%= render :partial => 'space_pulldown' %>
-  </span>
+    <%= render :partial => 'shared/count' %>
+    
   </p>
   <span style="display: none">
     <%= collection_select(:reservation, :discount_id, Discount.active, :id, :name, {:prompt => true}) if @option.use_discount? && Discount.active.count > 0 %>
   </span>
   <p><%= submit_tag I18n.t('reservation.CompleteReservation') %></p>
 <% end %>
-<a href="../images/sitemap.jpg" onclick="goclicky(this); return false;" target="_blank" class="sitemap">Site Map</a>
+  <a href="../images/sitemap.jpg" onclick="goclicky(this); return false;" target="_blank" class="sitemap">Site Map</a>
 
+  <% if session[:admin_status] %>
+    <span class="occupied"><%= I18n.t('reservation.Occupied') %></span>
+    <span class="reserved"><%= I18n.t('reservation.Reserved') %></span>
+    <span class="late"><%= I18n.t('reservation.NotCheckedIn') %></span>
+    <span class="unavailable"><%= I18n.t('reservation.Flash.SpaceUnavailable') %></span>
+    <span class="today"><%= I18n.t('reservation.Today') %></span>
+    <br><br>
+  <% else %>
+    <br><br>
+  <% end %>
+  <table id="available" class="available" cellspacing="0" admin-session="<%= session[:admin_status] %>">
+    <thead>
+      <%= header -%>
+    </thead>
+    <tbody>
+      <%= available() %>
+    </tbody>
+  </table>
+</div>
+
+<%= set_focus_to_id 'find' %>
 <script type="text/javascript">
+  TableLock("available", "av_space", "av_date", "locked");
   function FindLeftWindowBoundry()
   {
     // In Internet Explorer window.screenLeft is the window's left boundry

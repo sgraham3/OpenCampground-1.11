@@ -68,4 +68,45 @@
 
   <p><%= submit_tag I18n.t('reservation.FindSpace'), :disable_with => "Processing..." %></p>
 <% end %>
+<a href="../images/sitemap.jpg" onclick="goclicky(this); return false;" target="_blank" class="sitemap">Site Map</a>
 <%= set_focus_to_id 'find' %>
+
+<script type="text/javascript">
+  function FindLeftWindowBoundry()
+  {
+    // In Internet Explorer window.screenLeft is the window's left boundry
+    if (window.screenLeft)
+    {
+      return window.screenLeft;
+    }
+    
+    // In Firefox window.screenX is the window's left boundry
+    if (window.screenX)
+      return window.screenX;
+      
+    return 0;
+  }
+  // Find Left Boundry of current Window
+  function FindTopWindowBoundry()
+  {
+    // In Internet Explorer window.screenLeft is the window's left boundry
+    if (window.screenTop)
+    {
+      return window.screenTop;
+    }
+    
+    // In Firefox window.screenY is the window's left boundry
+    if (window.screenY)
+      return window.screenY;
+      
+    return 0;
+  }
+      
+  function goclicky(meh)
+  {
+      console.log(FindLeftWindowBoundry(), FindTopWindowBoundry());
+      var x = screen.width/2 - 700/2 + FindLeftWindowBoundry();
+      var y = screen.height/2 - 450/2 + FindTopWindowBoundry();
+      window.open(meh.href, 'sharegplus','height=500,width=700,left='+x+',top='+y);
+  }
+</script>

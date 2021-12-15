@@ -24,6 +24,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :report, :only => :index
   map.resources :admin, :only => :index
   map.resources :maintenance, :only => :index
+  map.resources :remotereservation
 
   # Sample resource route with options:
   #   map.resources :products, :member => { :short => :get, :toggle => :post }, :collection => { :sold => :get }

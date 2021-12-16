@@ -519,10 +519,10 @@ private
 
   def is_remote?
     # is this a remote reservation
-    if params[:controller] == 'remote' and params[:controller] == 'remotereservation'
+    if params[:controller] == 'remote' or params[:controller] == 'remotereservation'
       debug 'is_remote?: true'
       return true
-    elsif session[:remote]
+    elsif session[:remote] or session[:remotereservation]
       debug 'is_remote?: true'
       return true
     else

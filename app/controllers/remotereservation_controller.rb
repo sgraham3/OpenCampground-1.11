@@ -21,7 +21,7 @@ class RemotereservationController < ApplicationController
   def index
     @page_title = I18n.t('titles.express')
     debug 'In remote index'
-    session[:remote] = true
+    session[:remotereservation] = true
     session[:controller] = :remotereservation
     session[:action] = :index
     ####################################################

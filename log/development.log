@@ -1,9 +1,1487 @@
-# Logfile created on Wed Dec 15 03:14:53 +0300 2021 by logger.rb/22285
+# Logfile created on Thu Dec 16 10:30:27 +0300 2021 by logger.rb/22285
   [4;36;1mSQL (1.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
   [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
   [4;36;1mOption Load (1.0ms)[0m   [0;1mSELECT * FROM `options` LIMIT 1[0m
   [4;35;1mIntegration Load (0.0ms)[0m   [0mSELECT * FROM `integrations` LIMIT 1[0m
-  [4;36;1mOption Load (0.0ms)[0m   [0;1mSELECT * FROM `options` LIMIT 1[0m
-  [4;35;1mOption Columns (15.6ms)[0m   [0mSHOW FIELDS FROM `options`[0m
-  [4;36;1mOption Load (0.0ms)[0m   [0;1mSELECT * FROM `options` LIMIT 1[0m
+  [4;36;1mOption Load (1.0ms)[0m   [0;1mSELECT * FROM `options` LIMIT 1[0m
+  [4;35;1mOption Columns (11.0ms)[0m   [0mSHOW FIELDS FROM `options`[0m
+  [4;36;1mOption Load (1.0ms)[0m   [0;1mSELECT * FROM `options` LIMIT 1[0m
   [4;35;1mOption Load (0.0ms)[0m   [0mSELECT * FROM `options` LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing RemotereservationController#index (for 127.0.0.1 at 2021-12-16 10:30:29) [GET]
+  Parameters: {"action"=>"index", "controller"=>"remotereservation"}
+Debug: remotereservation#index option:
+  [4;36;1mOption Load (1.0ms)[0m   [0;1mSELECT * FROM `options` LIMIT 1[0m
+Debug: remotereservation#index option: OS is Windows_NT
+Debug: remotereservation#index is_remote?: false
+Debug: remotereservation#index cookies_required:
+Debug: remotereservation#index set_locale:
+Debug: remotereservation#index set_locale: locale is en
+Debug: remotereservation#index startup:
+Debug: remotereservation#index display_control: user agent is Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36
+Debug: remotereservation#index display_control: browser is chrome
+Debug: remotereservation#index set_current_user:
+  [4;35;1mUser Columns (11.1ms)[0m   [0mSHOW FIELDS FROM `users`[0m
+  [4;36;1mUser Load (0.0ms)[0m   [0;1mSELECT * FROM `users` WHERE (`users`.`id` = 113326033) [0m
+Debug: remotereservation#index check_for remote:
+  [4;35;1mReservation Columns (3.9ms)[0m   [0mSHOW FIELDS FROM `reservations`[0m
+  [4;36;1mCACHE (0.0ms)[0m   [0;1mSELECT * FROM `options` LIMIT 1[0m
+  [4;35;1mSpace Load (1.0ms)[0m   [0mSELECT * FROM `spaces` WHERE (active = 1 AND unavailable = 0 AND id NOT IN (SELECT space_id FROM reservations WHERE archived = 0 AND enddate > '2021-12-16' AND startdate < '2021-12-17' )) ORDER BY position[0m
+  [4;36;1mSpace Columns (3.0ms)[0m   [0;1mSHOW FIELDS FROM `spaces`[0m
+  [4;35;1mSitetype Columns (3.0ms)[0m   [0mSHOW FIELDS FROM `sitetypes`[0m
+  [4;36;1mSitetype Load (0.0ms)[0m   [0;1mSELECT * FROM `sitetypes` WHERE (`sitetypes`.`id` IN (1,2,3)) [0m
+  [4;35;1mPrice Columns (3.5ms)[0m   [0mSHOW FIELDS FROM `prices`[0m
+  [4;36;1mPrice Load (1.0ms)[0m   [0;1mSELECT * FROM `prices` WHERE (`prices`.`id` IN (1,2,3,4,5)) [0m
+Rendering template within layouts/remotereservation
+Rendering remotereservation/index
+Rendered shared/_seasonal (2.0ms)
+Rendered shared/_dates (19.9ms)
+  [4;35;1mSitetype Load (0.0ms)[0m   [0mSELECT * FROM `sitetypes` WHERE (active = 1) ORDER BY position[0m
+Rendered shared/_sitetype (52.9ms)
+Rendered shared/_count (1.0ms)
+Rendered remotereservation/_space_pulldown (3.0ms)
+  [4;36;1mDiscount Columns (4.0ms)[0m   [0;1mSHOW FIELDS FROM `discounts`[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSELECT count(*) AS count_all FROM `discounts` WHERE (active = 1) [0m
+  [4;36;1mDiscount Load (0.0ms)[0m   [0;1mSELECT * FROM `discounts` WHERE (active = 1) ORDER BY position[0m
+Debug: remotereservation#index header
+Debug: remotereservation#index av_init
+Debug: remotereservation#index starting at 2021-12-09 and ending at 2022-04-15
+Debug: remotereservation#index get_header_months enddate is 2022-04-15
+Debug: remotereservation#index date is 2021-12-09, next day to output is 2022-01-01 header count is 23
+Debug: remotereservation#index date is 2022-01-01, next day to output is 2022-02-01 header count is 31
+Debug: remotereservation#index date is 2022-02-01, next day to output is 2022-03-01 header count is 28
+Debug: remotereservation#index date is 2022-03-01, next day to output is 2022-04-01 header count is 31
+Debug: remotereservation#index date is 2022-04-01, next day to output is 2022-05-01 header count is 30
+Debug: remotereservation#index available
+Debug: remotereservation#index av_init
+Debug: remotereservation#index starting at 2021-12-09 and ending at 2022-04-15
+  [4;35;1mReservation Load (1.0ms)[0m   [0mSELECT * FROM `reservations` WHERE ((enddate >= '2021-12-16' or checked_in = 1) and confirm = 1 and archived = 0) ORDER BY space_id,startdate ASC[0m
+  [4;36;1mCamper Columns (4.7ms)[0m   [0;1mSHOW FIELDS FROM `campers`[0m
+  [4;35;1mCamper Load (1.0ms)[0m   [0mSELECT * FROM `campers` WHERE (`campers`.`id` IN (11,6,7,13,8,9,1,2,3,10,4,5)) [0m
+  [4;36;1mReservation Load (0.0ms)[0m   [0;1mSELECT * FROM `reservations` WHERE (archived = 0 AND id != 1 AND space_id = 7 AND enddate > '2021-12-07' AND startdate < '2021-12-12') [0m
+  [4;35;1mReservation Load (1.0ms)[0m   [0mSELECT * FROM `reservations` WHERE (archived = 0 AND id != 3 AND space_id = 8 AND enddate > '2021-12-05' AND startdate < '2021-12-12') [0m
+  [4;36;1mReservation Load (0.0ms)[0m   [0;1mSELECT * FROM `reservations` WHERE (archived = 0 AND id != 2 AND space_id = 9 AND enddate > '2021-12-06' AND startdate < '2021-12-13') [0m
+  [4;35;1mReservation Load (1.0ms)[0m   [0mSELECT * FROM `reservations` WHERE (archived = 0 AND id != 18 AND space_id = 9 AND enddate > '2021-12-16' AND startdate < '2021-12-19') [0m
+  [4;36;1mReservation Load (0.0ms)[0m   [0;1mSELECT * FROM `reservations` WHERE (archived = 0 AND id != 4 AND space_id = 11 AND enddate > '2021-11-22' AND startdate < '2021-12-13') [0m
+  [4;35;1mReservation Load (1.0ms)[0m   [0mSELECT * FROM `reservations` WHERE (archived = 0 AND id != 5 AND space_id = 12 AND enddate > '2021-11-12' AND startdate < '2021-12-24') [0m
+  [4;36;1mReservation Load (0.0ms)[0m   [0;1mSELECT * FROM `reservations` WHERE (archived = 0 AND id != 20 AND space_id = 13 AND enddate > '2021-12-04' AND startdate < '2021-12-10') [0m
+  [4;35;1mReservation Load (1.0ms)[0m   [0mSELECT * FROM `reservations` WHERE (archived = 0 AND id != 8 AND space_id = 13 AND enddate > '2021-12-12' AND startdate < '2021-12-19') [0m
+  [4;36;1mReservation Load (0.0ms)[0m   [0;1mSELECT * FROM `reservations` WHERE (archived = 0 AND id != 10 AND space_id = 15 AND enddate > '2021-12-12' AND startdate < '2022-01-12') [0m
+  [4;35;1mReservation Load (1.0ms)[0m   [0mSELECT * FROM `reservations` WHERE (archived = 0 AND id != 12 AND space_id = 16 AND enddate > '2021-12-13' AND startdate < '2021-12-16') [0m
+  [4;36;1mReservation Load (1.0ms)[0m   [0;1mSELECT * FROM `reservations` WHERE (archived = 0 AND id != 13 AND space_id = 17 AND enddate > '2021-12-13' AND startdate < '2021-12-17') [0m
+  [4;35;1mReservation Load (0.0ms)[0m   [0mSELECT * FROM `reservations` WHERE (archived = 0 AND id != 14 AND space_id = 20 AND enddate > '2021-12-14' AND startdate < '2022-01-14') [0m
+  [4;36;1mReservation Load (0.0ms)[0m   [0;1mSELECT * FROM `reservations` WHERE (archived = 0 AND id != 15 AND space_id = 34 AND enddate > '2021-12-14' AND startdate < '2021-12-21') [0m
+  [4;35;1mReservation Load (1.0ms)[0m   [0mSELECT * FROM `reservations` WHERE (archived = 0 AND id != 6 AND space_id = 36 AND enddate > '2021-12-08' AND startdate < '2021-12-15') [0m
+  [4;36;1mReservation Load (0.0ms)[0m   [0;1mSELECT * FROM `reservations` WHERE (archived = 0 AND id != 16 AND space_id = 36 AND enddate > '2021-12-15' AND startdate < '2021-12-25') [0m
+  [4;35;1mReservation Load (1.0ms)[0m   [0mSELECT * FROM `reservations` WHERE (archived = 0 AND id != 17 AND space_id = 41 AND enddate > '2021-12-16' AND startdate < '2021-12-23') [0m
+  [4;36;1mReservation Load (0.0ms)[0m   [0;1mSELECT * FROM `reservations` WHERE (archived = 0 AND id != 23 AND space_id = 62 AND enddate > '2021-12-13' AND startdate < '2021-12-17') [0m
+  [4;35;1mReservation Load (1.0ms)[0m   [0mSELECT * FROM `reservations` WHERE (archived = 0 AND id != 19 AND space_id = 62 AND enddate > '2021-12-19' AND startdate < '2022-01-02') [0m
+  [4;36;1mReservation Load (0.0ms)[0m   [0;1mSELECT * FROM `reservations` WHERE (archived = 0 AND id != 24 AND space_id = 63 AND enddate > '2021-12-14' AND startdate < '2021-12-21') [0m
+  [4;35;1mReservation Load (1.0ms)[0m   [0mSELECT * FROM `reservations` WHERE (archived = 0 AND id != 21 AND space_id = 90 AND enddate > '2021-12-13' AND startdate < '2021-12-16') [0m
+  [4;36;1mReservation Load (0.0ms)[0m   [0;1mSELECT * FROM `reservations` WHERE (archived = 0 AND id != 22 AND space_id = 91 AND enddate > '2021-12-16' AND startdate < '2021-12-19') [0m
+  [4;35;1mReservation Load (0.0ms)[0m   [0mSELECT * FROM `reservations` WHERE (archived = 0 AND id != 25 AND space_id = 91 AND enddate > '2021-12-20' AND startdate < '2021-12-24') [0m
+  [4;36;1mSpace Load (1.0ms)[0m   [0;1mSELECT * FROM `spaces` WHERE (active = 1) ORDER BY position[0m
+Debug: remotereservation#index 
+space one no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space two no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space three no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 4 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 5 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 6 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 7 has reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index date is 2021-12-09
+Debug: remotereservation#index got new reservation
+Debug: remotereservation#index count for 1, Joe Peterson 2021-12-07 to 2021-12-12 is 3
+Debug: remotereservation#index startdate is 2021-12-09, enddate is 2021-12-12, this_date is 2021-12-09
+Debug: remotereservation#index date is 2021-12-12
+Debug: remotereservation#index open
+Debug: remotereservation#index no more reservations
+Debug: remotereservation#index handle_cells sd=2021-12-12, ed=2022-04-15
+Debug: remotereservation#index 2021-12-12
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-12, 4)
+Debug: remotereservation#index output_empty sd = 2021-12-12 count = 4
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index set date to 2022-04-15
+Debug: remotereservation#index 
+space 8 has reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index date is 2021-12-09
+Debug: remotereservation#index got new reservation
+Debug: remotereservation#index count for 3, Tony Jones 2021-12-05 to 2021-12-12 is 3
+Debug: remotereservation#index startdate is 2021-12-09, enddate is 2021-12-12, this_date is 2021-12-09
+Debug: remotereservation#index date is 2021-12-12
+Debug: remotereservation#index open
+Debug: remotereservation#index no more reservations
+Debug: remotereservation#index handle_cells sd=2021-12-12, ed=2022-04-15
+Debug: remotereservation#index 2021-12-12
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-12, 4)
+Debug: remotereservation#index output_empty sd = 2021-12-12 count = 4
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index set date to 2022-04-15
+Debug: remotereservation#index 
+space 9 has reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index date is 2021-12-09
+Debug: remotereservation#index got new reservation
+Debug: remotereservation#index count for 2, Jack Jasperson 2021-12-06 to 2021-12-13 is 4
+Debug: remotereservation#index startdate is 2021-12-09, enddate is 2021-12-13, this_date is 2021-12-09
+Debug: remotereservation#index date is 2021-12-13
+Debug: remotereservation#index open
+Debug: remotereservation#index handle_cells sd=2021-12-13, ed=2021-12-16
+Debug: remotereservation#index 2021-12-13
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-13, 3)
+Debug: remotereservation#index output_empty sd = 2021-12-13 count = 3
+Debug: remotereservation#index set date to 2021-12-16
+Debug: remotereservation#index date is 2021-12-16
+Debug: remotereservation#index got new reservation
+Debug: remotereservation#index count for 18, Muffin Smith 2021-12-16 to 2021-12-19 is 3
+Debug: remotereservation#index startdate is 2021-12-16, enddate is 2021-12-19, this_date is 2021-12-16
+Debug: remotereservation#index date is 2021-12-19
+Debug: remotereservation#index open
+Debug: remotereservation#index no more reservations
+Debug: remotereservation#index handle_cells sd=2021-12-19, ed=2022-04-15
+Debug: remotereservation#index 2021-12-19
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-19, 117)
+Debug: remotereservation#index output_empty sd = 2021-12-19 count = 117
+Debug: remotereservation#index set date to 2022-04-15
+Debug: remotereservation#index 
+space 10 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 11 has reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index date is 2021-12-09
+Debug: remotereservation#index got new reservation
+Debug: remotereservation#index count for 4, Thomas Peterson 2021-11-22 to 2021-12-13 is 4
+Debug: remotereservation#index startdate is 2021-12-09, enddate is 2021-12-13, this_date is 2021-12-09
+Debug: remotereservation#index date is 2021-12-13
+Debug: remotereservation#index open
+Debug: remotereservation#index no more reservations
+Debug: remotereservation#index handle_cells sd=2021-12-13, ed=2022-04-15
+Debug: remotereservation#index 2021-12-13
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-13, 3)
+Debug: remotereservation#index output_empty sd = 2021-12-13 count = 3
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index set date to 2022-04-15
+Debug: remotereservation#index 
+space 12 has reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index date is 2021-12-09
+Debug: remotereservation#index got new reservation
+Debug: remotereservation#index count for 5, Muffin Smith 2021-11-12 to 2021-12-24 is 15
+Debug: remotereservation#index startdate is 2021-12-09, enddate is 2021-12-24, this_date is 2021-12-09
+Debug: remotereservation#index date is 2021-12-24
+Debug: remotereservation#index open
+Debug: remotereservation#index no more reservations
+Debug: remotereservation#index handle_cells sd=2021-12-24, ed=2022-04-15
+Debug: remotereservation#index 2021-12-24
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-24, 112)
+Debug: remotereservation#index output_empty sd = 2021-12-24 count = 112
+Debug: remotereservation#index set date to 2022-04-15
+Debug: remotereservation#index 
+space 13 has reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index date is 2021-12-09
+Debug: remotereservation#index got new reservation
+Debug: remotereservation#index count for 20, Thomas Peterson 2021-12-04 to 2021-12-10 is 1
+Debug: remotereservation#index startdate is 2021-12-09, enddate is 2021-12-10, this_date is 2021-12-09
+Debug: remotereservation#index date is 2021-12-10
+Debug: remotereservation#index open
+Debug: remotereservation#index handle_cells sd=2021-12-10, ed=2021-12-12
+Debug: remotereservation#index 2021-12-10
+Debug: remotereservation#index handle_cells: before currentDate, output_empty(2021-12-10, 2)
+Debug: remotereservation#index output_empty sd = 2021-12-10 count = 2
+Debug: remotereservation#index set date to 2021-12-12
+Debug: remotereservation#index date is 2021-12-12
+Debug: remotereservation#index got new reservation
+Debug: remotereservation#index count for 8, Tony Jackson 2021-12-12 to 2021-12-19 is 7
+Debug: remotereservation#index startdate is 2021-12-12, enddate is 2021-12-19, this_date is 2021-12-12
+Debug: remotereservation#index date is 2021-12-19
+Debug: remotereservation#index open
+Debug: remotereservation#index no more reservations
+Debug: remotereservation#index handle_cells sd=2021-12-19, ed=2022-04-15
+Debug: remotereservation#index 2021-12-19
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-19, 117)
+Debug: remotereservation#index output_empty sd = 2021-12-19 count = 117
+Debug: remotereservation#index set date to 2022-04-15
+Debug: remotereservation#index 
+space 14 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 15 has reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index date is 2021-12-09
+Debug: remotereservation#index open
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2021-12-12
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: before currentDate, output_empty(2021-12-09, 3)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 3
+Debug: remotereservation#index set date to 2021-12-12
+Debug: remotereservation#index date is 2021-12-12
+Debug: remotereservation#index got new reservation
+Debug: remotereservation#index count for 10, Jim Pool 2021-12-12 to 2022-01-12 is 31
+Debug: remotereservation#index startdate is 2021-12-12, enddate is 2022-01-12, this_date is 2021-12-12
+Debug: remotereservation#index date is 2022-01-12
+Debug: remotereservation#index open
+Debug: remotereservation#index no more reservations
+Debug: remotereservation#index handle_cells sd=2022-01-12, ed=2022-04-15
+Debug: remotereservation#index 2022-01-12
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2022-01-12, 93)
+Debug: remotereservation#index output_empty sd = 2022-01-12 count = 93
+Debug: remotereservation#index set date to 2022-04-15
+Debug: remotereservation#index 
+space 16 has reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index date is 2021-12-09
+Debug: remotereservation#index open
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2021-12-13
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: before currentDate, output_empty(2021-12-09, 4)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 4
+Debug: remotereservation#index set date to 2021-12-13
+Debug: remotereservation#index date is 2021-12-13
+Debug: remotereservation#index got new reservation
+Debug: remotereservation#index count for 12, Test Camper 2021-12-13 to 2021-12-16 is 3
+Debug: remotereservation#index startdate is 2021-12-13, enddate is 2021-12-16, this_date is 2021-12-13
+Debug: remotereservation#index date is 2021-12-16
+Debug: remotereservation#index open
+Debug: remotereservation#index no more reservations
+Debug: remotereservation#index handle_cells sd=2021-12-16, ed=2022-04-15
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index set date to 2022-04-15
+Debug: remotereservation#index 
+space 17 has reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index date is 2021-12-09
+Debug: remotereservation#index open
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2021-12-13
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: before currentDate, output_empty(2021-12-09, 4)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 4
+Debug: remotereservation#index set date to 2021-12-13
+Debug: remotereservation#index date is 2021-12-13
+Debug: remotereservation#index got new reservation
+Debug: remotereservation#index count for 13, Jack Jasperson 2021-12-13 to 2021-12-17 is 4
+Debug: remotereservation#index startdate is 2021-12-13, enddate is 2021-12-17, this_date is 2021-12-13
+Debug: remotereservation#index date is 2021-12-17
+Debug: remotereservation#index open
+Debug: remotereservation#index no more reservations
+Debug: remotereservation#index handle_cells sd=2021-12-17, ed=2022-04-15
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index set date to 2022-04-15
+Debug: remotereservation#index 
+space 18 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 19 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 20 has reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index date is 2021-12-09
+Debug: remotereservation#index open
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2021-12-14
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: before currentDate, output_empty(2021-12-09, 5)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 5
+Debug: remotereservation#index set date to 2021-12-14
+Debug: remotereservation#index date is 2021-12-14
+Debug: remotereservation#index got new reservation
+Debug: remotereservation#index count for 14, Jack Preston 2021-12-14 to 2022-01-14 is 31
+Debug: remotereservation#index startdate is 2021-12-14, enddate is 2022-01-14, this_date is 2021-12-14
+Debug: remotereservation#index date is 2022-01-14
+Debug: remotereservation#index open
+Debug: remotereservation#index no more reservations
+Debug: remotereservation#index handle_cells sd=2022-01-14, ed=2022-04-15
+Debug: remotereservation#index 2022-01-14
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2022-01-14, 91)
+Debug: remotereservation#index output_empty sd = 2022-01-14 count = 91
+Debug: remotereservation#index set date to 2022-04-15
+Debug: remotereservation#index 
+space 21 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 22 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 23 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 24 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 25 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 26 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 27 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 28 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 29 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 30 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 31 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 32 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 33 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 34 has reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index date is 2021-12-09
+Debug: remotereservation#index open
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2021-12-14
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: before currentDate, output_empty(2021-12-09, 5)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 5
+Debug: remotereservation#index set date to 2021-12-14
+Debug: remotereservation#index date is 2021-12-14
+Debug: remotereservation#index got new reservation
+Debug: remotereservation#index count for 15, Clayton Pollock 2021-12-14 to 2021-12-21 is 7
+Debug: remotereservation#index startdate is 2021-12-14, enddate is 2021-12-21, this_date is 2021-12-14
+Debug: remotereservation#index date is 2021-12-21
+Debug: remotereservation#index open
+Debug: remotereservation#index no more reservations
+Debug: remotereservation#index handle_cells sd=2021-12-21, ed=2022-04-15
+Debug: remotereservation#index 2021-12-21
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-21, 115)
+Debug: remotereservation#index output_empty sd = 2021-12-21 count = 115
+Debug: remotereservation#index set date to 2022-04-15
+Debug: remotereservation#index 
+space 35 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 36 has reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index date is 2021-12-09
+Debug: remotereservation#index got new reservation
+Debug: remotereservation#index count for 6, Test Camper 2021-12-08 to 2021-12-15 is 6
+Debug: remotereservation#index startdate is 2021-12-09, enddate is 2021-12-15, this_date is 2021-12-09
+Debug: remotereservation#index date is 2021-12-15
+Debug: remotereservation#index got new reservation
+Debug: remotereservation#index count for 16, Jim Pool 2021-12-15 to 2021-12-25 is 10
+Debug: remotereservation#index startdate is 2021-12-15, enddate is 2021-12-25, this_date is 2021-12-15
+Debug: remotereservation#index date is 2021-12-25
+Debug: remotereservation#index open
+Debug: remotereservation#index no more reservations
+Debug: remotereservation#index handle_cells sd=2021-12-25, ed=2022-04-15
+Debug: remotereservation#index 2021-12-25
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-25, 111)
+Debug: remotereservation#index output_empty sd = 2021-12-25 count = 111
+Debug: remotereservation#index set date to 2022-04-15
+Debug: remotereservation#index 
+space 37 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 38 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 39 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 40 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 41 has reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index date is 2021-12-09
+Debug: remotereservation#index open
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2021-12-16
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index set date to 2021-12-16
+Debug: remotereservation#index date is 2021-12-16
+Debug: remotereservation#index got new reservation
+Debug: remotereservation#index count for 17, Randolph Allen 2021-12-16 to 2021-12-23 is 7
+Debug: remotereservation#index startdate is 2021-12-16, enddate is 2021-12-23, this_date is 2021-12-16
+Debug: remotereservation#index date is 2021-12-23
+Debug: remotereservation#index open
+Debug: remotereservation#index no more reservations
+Debug: remotereservation#index handle_cells sd=2021-12-23, ed=2022-04-15
+Debug: remotereservation#index 2021-12-23
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-23, 113)
+Debug: remotereservation#index output_empty sd = 2021-12-23 count = 113
+Debug: remotereservation#index set date to 2022-04-15
+Debug: remotereservation#index 
+space 42 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 43 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 44 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 45 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 46 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 47 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 48 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 49 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 50 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 51 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 52 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 53 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 54 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 55 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 56 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 57 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 58 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 59 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 60 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 61 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 62 has reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index date is 2021-12-09
+Debug: remotereservation#index open
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2021-12-13
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: before currentDate, output_empty(2021-12-09, 4)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 4
+Debug: remotereservation#index set date to 2021-12-13
+Debug: remotereservation#index date is 2021-12-13
+Debug: remotereservation#index got new reservation
+Debug: remotereservation#index count for 23, Jack Preston 2021-12-13 to 2021-12-17 is 4
+Debug: remotereservation#index startdate is 2021-12-13, enddate is 2021-12-17, this_date is 2021-12-13
+Debug: remotereservation#index date is 2021-12-17
+Debug: remotereservation#index open
+Debug: remotereservation#index handle_cells sd=2021-12-17, ed=2021-12-19
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 2)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 2
+Debug: remotereservation#index set date to 2021-12-19
+Debug: remotereservation#index date is 2021-12-19
+Debug: remotereservation#index got new reservation
+Debug: remotereservation#index count for 19, Tom Jones 2021-12-19 to 2022-01-02 is 14
+Debug: remotereservation#index startdate is 2021-12-19, enddate is 2022-01-02, this_date is 2021-12-19
+Debug: remotereservation#index date is 2022-01-02
+Debug: remotereservation#index open
+Debug: remotereservation#index no more reservations
+Debug: remotereservation#index handle_cells sd=2022-01-02, ed=2022-04-15
+Debug: remotereservation#index 2022-01-02
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2022-01-02, 103)
+Debug: remotereservation#index output_empty sd = 2022-01-02 count = 103
+Debug: remotereservation#index set date to 2022-04-15
+Debug: remotereservation#index 
+space 63 has reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index date is 2021-12-09
+Debug: remotereservation#index open
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2021-12-14
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: before currentDate, output_empty(2021-12-09, 5)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 5
+Debug: remotereservation#index set date to 2021-12-14
+Debug: remotereservation#index date is 2021-12-14
+Debug: remotereservation#index got new reservation
+Debug: remotereservation#index count for 24, Tony Jackson 2021-12-14 to 2021-12-21 is 7
+Debug: remotereservation#index startdate is 2021-12-14, enddate is 2021-12-21, this_date is 2021-12-14
+Debug: remotereservation#index date is 2021-12-21
+Debug: remotereservation#index open
+Debug: remotereservation#index no more reservations
+Debug: remotereservation#index handle_cells sd=2021-12-21, ed=2022-04-15
+Debug: remotereservation#index 2021-12-21
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-21, 115)
+Debug: remotereservation#index output_empty sd = 2021-12-21 count = 115
+Debug: remotereservation#index set date to 2022-04-15
+Debug: remotereservation#index 
+space 64 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 65 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 66 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 67 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 68 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 69 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 70 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 71 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 72 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 73 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 74 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 75 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 76 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 77 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 78 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 79 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 80 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 81 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 82 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 83 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 84 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 85 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 86 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 87 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 88 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 89 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 90 has reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index date is 2021-12-09
+Debug: remotereservation#index open
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2021-12-13
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: before currentDate, output_empty(2021-12-09, 4)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 4
+Debug: remotereservation#index set date to 2021-12-13
+Debug: remotereservation#index date is 2021-12-13
+Debug: remotereservation#index got new reservation
+Debug: remotereservation#index count for 21, Tom Jones 2021-12-13 to 2021-12-16 is 3
+Debug: remotereservation#index startdate is 2021-12-13, enddate is 2021-12-16, this_date is 2021-12-13
+Debug: remotereservation#index date is 2021-12-16
+Debug: remotereservation#index open
+Debug: remotereservation#index no more reservations
+Debug: remotereservation#index handle_cells sd=2021-12-16, ed=2022-04-15
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index set date to 2022-04-15
+Debug: remotereservation#index 
+space 91 has reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index date is 2021-12-09
+Debug: remotereservation#index open
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2021-12-16
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index set date to 2021-12-16
+Debug: remotereservation#index date is 2021-12-16
+Debug: remotereservation#index got new reservation
+Debug: remotereservation#index count for 22, Tony Jones 2021-12-16 to 2021-12-19 is 3
+Debug: remotereservation#index startdate is 2021-12-16, enddate is 2021-12-19, this_date is 2021-12-16
+Debug: remotereservation#index date is 2021-12-19
+Debug: remotereservation#index open
+Debug: remotereservation#index handle_cells sd=2021-12-19, ed=2021-12-20
+Debug: remotereservation#index 2021-12-19
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-19, 1)
+Debug: remotereservation#index output_empty sd = 2021-12-19 count = 1
+Debug: remotereservation#index set date to 2021-12-20
+Debug: remotereservation#index date is 2021-12-20
+Debug: remotereservation#index got new reservation
+Debug: remotereservation#index count for 25, Thomas Peterson 2021-12-20 to 2021-12-24 is 4
+Debug: remotereservation#index startdate is 2021-12-20, enddate is 2021-12-24, this_date is 2021-12-20
+Debug: remotereservation#index date is 2021-12-24
+Debug: remotereservation#index open
+Debug: remotereservation#index no more reservations
+Debug: remotereservation#index handle_cells sd=2021-12-24, ed=2022-04-15
+Debug: remotereservation#index 2021-12-24
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-24, 112)
+Debug: remotereservation#index output_empty sd = 2021-12-24 count = 112
+Debug: remotereservation#index set date to 2022-04-15
+Debug: remotereservation#index 
+space 92 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 93 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 94 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 95 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 96 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 97 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 98 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 99 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space 100 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Debug: remotereservation#index 
+space Dry-1 no reservations
+Debug: remotereservation#index available enddate is 2022-04-15
+Debug: remotereservation#index handle_cells sd=2021-12-09, ed=2022-04-15
+Debug: remotereservation#index 2021-12-09
+Debug: remotereservation#index handle_cells: starts before and spans currentDate, output_empty(2021-12-09, 7)
+Debug: remotereservation#index output_empty sd = 2021-12-09 count = 7
+Debug: remotereservation#index 2021-12-16
+Debug: remotereservation#index handle_cells: outside of closed: date == currentDate
+Debug: remotereservation#index 2021-12-17
+Debug: remotereservation#index handle_cells: after currentDate, output_empty(2021-12-17, 119)
+Debug: remotereservation#index output_empty sd = 2021-12-17 count = 119
+Completed in 1349ms (View: 1088, DB: 49) | 200 OK [http://localhost/remotereservation]

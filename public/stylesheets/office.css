@@ -175,13 +175,9 @@
 	    }
 
 .available td {
-        /* font-family: Sans Serif; */
-	    /* font-size: medium; */
-		padding: 2px 30px;
-		/* border-collapse: collapse; */
-	    border: 1px solid #D6D6D6;
-		/* text-align: center; */
-	    }
+	padding: 2px 30px;
+	border: 1px solid #D6D6D6;
+}
 
 .extra {white-space: nowrap;}
 

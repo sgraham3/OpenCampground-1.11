@@ -48,3 +48,769 @@ Processing Admin::AboutController#index (for 127.0.0.1 at 2019-04-03 13:52:33) [
 Rendering template within layouts/application
 Rendering admin/about/index
 Completed in 30ms (View: 16, DB: 3) | 200 OK [http://localhost/admin/about]
+/!\ FAILSAFE /!\  Thu Dec 16 04:22:23 +0300 2021
+  Status: 500 Internal Server Error
+  Can't connect to MySQL server on 'localhost' (10061)
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/rails_apps/OpenCampground-1.11/vendor/rails/activerecord/lib/active_record/connection_adapters/mysql_adapter.rb:620:in `real_connect'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/rails_apps/OpenCampground-1.11/vendor/rails/activerecord/lib/active_record/connection_adapters/mysql_adapter.rb:620:in `connect'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/rails_apps/OpenCampground-1.11/vendor/rails/activerecord/lib/active_record/connection_adapters/mysql_adapter.rb:203:in `initialize'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/rails_apps/OpenCampground-1.11/vendor/rails/activerecord/lib/active_record/connection_adapters/mysql_adapter.rb:75:in `new'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/rails_apps/OpenCampground-1.11/vendor/rails/activerecord/lib/active_record/connection_adapters/mysql_adapter.rb:75:in `mysql_connection'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/rails_apps/OpenCampground-1.11/vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/connection_pool.rb:223:in `send'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/rails_apps/OpenCampground-1.11/vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/connection_pool.rb:223:in `new_connection'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/rails_apps/OpenCampground-1.11/vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/connection_pool.rb:245:in `checkout_new_connection'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/rails_apps/OpenCampground-1.11/vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/connection_pool.rb:188:in `checkout'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/rails_apps/OpenCampground-1.11/vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/connection_pool.rb:184:in `loop'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/rails_apps/OpenCampground-1.11/vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/connection_pool.rb:184:in `checkout'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/ruby/lib/ruby/1.8/monitor.rb:242:in `synchronize'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/rails_apps/OpenCampground-1.11/vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/connection_pool.rb:183:in `checkout'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/rails_apps/OpenCampground-1.11/vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/connection_pool.rb:98:in `connection'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/rails_apps/OpenCampground-1.11/vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/connection_pool.rb:326:in `retrieve_connection'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/rails_apps/OpenCampground-1.11/vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/connection_specification.rb:123:in `retrieve_connection'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/rails_apps/OpenCampground-1.11/vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/connection_specification.rb:115:in `connection'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/rails_apps/OpenCampground-1.11/vendor/rails/activerecord/lib/active_record/query_cache.rb:9:in `cache'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/rails_apps/OpenCampground-1.11/vendor/rails/activerecord/lib/active_record/query_cache.rb:28:in `call'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/rails_apps/OpenCampground-1.11/vendor/rails/activerecord/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/rails_apps/OpenCampground-1.11/vendor/rails/actionpack/lib/action_controller/string_coercion.rb:25:in `call'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/ruby/lib/ruby/gems/1.8/gems/rack-1.1.2/lib/rack/head.rb:9:in `call'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/ruby/lib/ruby/gems/1.8/gems/rack-1.1.2/lib/rack/methodoverride.rb:24:in `call'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/rails_apps/OpenCampground-1.11/vendor/rails/actionpack/lib/action_controller/params_parser.rb:15:in `call'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/rails_apps/OpenCampground-1.11/vendor/rails/actionpack/lib/action_controller/session/cookie_store.rb:99:in `call'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/rails_apps/OpenCampground-1.11/vendor/rails/actionpack/lib/action_controller/failsafe.rb:26:in `call'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/ruby/lib/ruby/gems/1.8/gems/rack-1.1.2/lib/rack/lock.rb:11:in `call'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/ruby/lib/ruby/gems/1.8/gems/rack-1.1.2/lib/rack/lock.rb:11:in `synchronize'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/ruby/lib/ruby/gems/1.8/gems/rack-1.1.2/lib/rack/lock.rb:11:in `call'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/rails_apps/OpenCampground-1.11/vendor/rails/actionpack/lib/action_controller/dispatcher.rb:106:in `call'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/rails_apps/OpenCampground-1.11/config/initializers/mongrel.rb:62:in `dispatch_cgi'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/rails_apps/OpenCampground-1.11/vendor/rails/actionpack/lib/action_controller/dispatcher.rb:101:in `dispatch_cgi'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/rails_apps/OpenCampground-1.11/vendor/rails/actionpack/lib/action_controller/dispatcher.rb:27:in `dispatch'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.5-x86-mswin32-60/bin/../lib/mongrel/rails.rb:76:in `process'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.5-x86-mswin32-60/bin/../lib/mongrel/rails.rb:74:in `synchronize'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.5-x86-mswin32-60/bin/../lib/mongrel/rails.rb:74:in `process'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.5-x86-mswin32-60/bin/../lib/mongrel.rb:159:in `process_client'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.5-x86-mswin32-60/bin/../lib/mongrel.rb:158:in `each'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.5-x86-mswin32-60/bin/../lib/mongrel.rb:158:in `process_client'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.5-x86-mswin32-60/bin/../lib/mongrel.rb:285:in `run'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.5-x86-mswin32-60/bin/../lib/mongrel.rb:285:in `initialize'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.5-x86-mswin32-60/bin/../lib/mongrel.rb:285:in `new'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.5-x86-mswin32-60/bin/../lib/mongrel.rb:285:in `run'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.5-x86-mswin32-60/bin/../lib/mongrel.rb:268:in `initialize'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.5-x86-mswin32-60/bin/../lib/mongrel.rb:268:in `new'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.5-x86-mswin32-60/bin/../lib/mongrel.rb:268:in `run'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.5-x86-mswin32-60/bin/../lib/mongrel/configurator.rb:282:in `run'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.5-x86-mswin32-60/bin/../lib/mongrel/configurator.rb:281:in `each'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.5-x86-mswin32-60/bin/../lib/mongrel/configurator.rb:281:in `run'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.5-x86-mswin32-60/bin/mongrel_rails:128:in `run'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.5-x86-mswin32-60/bin/../lib/mongrel/command.rb:212:in `run'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/ruby/lib/ruby/gems/1.8/gems/mongrel-1.1.5-x86-mswin32-60/bin/mongrel_rails:281
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/ruby/bin/mongrel_rails:19:in `load'
+    E:/AAA/Projects/Freelancer/Ruby/InstantRails2/ruby/bin/mongrel_rails:19
+
+
+Processing ReservationController#list (for 127.0.0.1 at 2021-12-16 04:43:14) [GET]
+  Parameters: {"action"=>"list", "controller"=>"reservation"}
+Redirected to http://localhost:3000/reservation/cookies_test
+Filter chain halted as [:cookies_required] rendered_or_redirected.
+Completed in 11868ms (DB: 2) | 302 Found [http://localhost/]
+
+
+Processing ReservationController#cookies_test (for 127.0.0.1 at 2021-12-16 04:43:26) [GET]
+  Parameters: {"action"=>"cookies_test", "controller"=>"reservation"}
+Info 16-12-21 0443: reservation#cookies_test New session
+Info 16-12-21 0443: reservation#cookies_test Startup with release 1.11, version 1750
+Redirected to http://localhost:3000/login/login
+Filter chain halted as [:set_current_user] rendered_or_redirected.
+Completed in 361ms (DB: 340) | 302 Found [http://localhost/reservation/cookies_test]
+
+
+Processing LoginController#login (for 127.0.0.1 at 2021-12-16 04:43:26) [GET]
+  Parameters: {"action"=>"login", "controller"=>"login"}
+Rendering template within layouts/login
+Rendering login/login
+Completed in 14ms (View: 9, DB: 0) | 200 OK [http://localhost/login/login]
+
+
+Processing RemotereservationController#index (for 127.0.0.1 at 2021-12-16 04:43:36) [GET]
+  Parameters: {"action"=>"index", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/login/login
+Filter chain halted as [:set_current_user] rendered_or_redirected.
+Completed in 9ms (DB: 4) | 302 Found [http://localhost/remotereservation]
+
+
+Processing LoginController#login (for 127.0.0.1 at 2021-12-16 04:43:37) [GET]
+  Parameters: {"action"=>"login", "controller"=>"login"}
+Rendering template within layouts/login
+Rendering login/login
+Completed in 14ms (View: 8, DB: 2) | 200 OK [http://localhost/login/login]
+
+
+Processing RemotereservationController#index (for 127.0.0.1 at 2021-12-16 04:43:37) [GET]
+  Parameters: {"action"=>"index", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/login/login
+Filter chain halted as [:set_current_user] rendered_or_redirected.
+Completed in 12ms (DB: 2) | 302 Found [http://localhost/remotereservation]
+
+
+Processing LoginController#login (for 127.0.0.1 at 2021-12-16 04:43:37) [GET]
+  Parameters: {"action"=>"login", "controller"=>"login"}
+Rendering template within layouts/login
+Rendering login/login
+Completed in 8ms (View: 6, DB: 1) | 200 OK [http://localhost/login/login]
+
+
+Processing LoginController#login (for 127.0.0.1 at 2021-12-16 04:43:39) [POST]
+  Parameters: {"name"=>"manager", "commit"=>"Login", "action"=>"login", "controller"=>"login", "password"=>"secret"}
+Redirected to http://localhost:3000/
+Completed in 67ms (DB: 51) | 302 Found [http://localhost/login/login]
+
+
+Processing ReservationController#list (for 127.0.0.1 at 2021-12-16 04:43:39) [GET]
+  Parameters: {"action"=>"list", "controller"=>"reservation"}
+Rendering template within layouts/application
+Rendering reservation/list
+Completed in 473ms (View: 243, DB: 181) | 200 OK [http://localhost/]
+
+
+Processing RemotereservationController#index (for 127.0.0.1 at 2021-12-16 04:43:46) [GET]
+  Parameters: {"action"=>"index", "controller"=>"remotereservation"}
+Rendering template within layouts/remotereservation
+Rendering remotereservation/index
+Completed in 757ms (View: 447, DB: 287) | 200 OK [http://localhost/remotereservation]
+
+
+Processing Setup::IndexController#index (for 127.0.0.1 at 2021-12-16 05:03:01) [GET]
+  Parameters: {"action"=>"index", "controller"=>"setup/index"}
+Redirected to http://localhost:3000/login/login
+Filter chain halted as [:check_login] rendered_or_redirected.
+Completed in 6ms (DB: 2) | 302 Found [http://localhost/setup/index]
+
+
+Processing LoginController#login (for 127.0.0.1 at 2021-12-16 05:03:01) [GET]
+  Parameters: {"action"=>"login", "controller"=>"login"}
+Rendering template within layouts/login
+Rendering login/login
+Completed in 9ms (View: 7, DB: 1) | 200 OK [http://localhost/login/login]
+
+
+Processing LoginController#login (for 127.0.0.1 at 2021-12-16 05:03:03) [POST]
+  Parameters: {"name"=>"manager", "commit"=>"Login", "action"=>"login", "controller"=>"login", "password"=>"secret"}
+Redirected to http://localhost:3000/
+Completed in 3ms (DB: 1) | 302 Found [http://localhost/login/login]
+
+
+Processing ReservationController#list (for 127.0.0.1 at 2021-12-16 05:03:03) [GET]
+  Parameters: {"action"=>"list", "controller"=>"reservation"}
+Rendering template within layouts/application
+Rendering reservation/list
+Completed in 190ms (View: 159, DB: 16) | 200 OK [http://localhost/]
+
+
+Processing AdminController#index (for 127.0.0.1 at 2021-12-16 05:03:06) [GET]
+  Parameters: {"action"=>"index", "controller"=>"admin"}
+Rendering template within layouts/application
+Rendering admin/index
+Completed in 26ms (View: 16, DB: 2) | 200 OK [http://localhost/admin]
+
+
+Processing RemotereservationController#index (for 127.0.0.1 at 2021-12-16 05:09:07) [GET]
+  Parameters: {"action"=>"index", "controller"=>"remotereservation"}
+Rendering template within layouts/remotereservation
+Rendering remotereservation/index
+Completed in 524ms (View: 481, DB: 18) | 200 OK [http://localhost/remotereservation]
+
+
+Processing RemotereservationController#index (for 127.0.0.1 at 2021-12-16 05:09:07) [GET]
+  Parameters: {"action"=>"index", "controller"=>"remotereservation"}
+Rendering template within layouts/remotereservation
+Rendering remotereservation/index
+Completed in 661ms (View: 606, DB: 17) | 200 OK [http://localhost/remotereservation]
+
+
+Processing RemotereservationController#express_2 (for 127.0.0.1 at 2021-12-16 05:09:13) [POST]
+  Parameters: {"commit"=>"Complete Reservation", "reservation"=>{"enddate"=>"17 December 2021", "discount_id"=>"", "sitetype_id"=>"0", "startdate"=>"16 December 2021"}, "action"=>"express_2", "space"=>{"space_id"=>"1"}, "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=26&space_id=1
+Completed in 114ms (DB: 98) | 302 Found [http://localhost/remotereservation/express_2]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:09:13) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"26", "controller"=>"remotereservation", "space_id"=>"1"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=26
+Completed in 6ms (DB: 1) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=26&space_id=1]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:09:13) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"26", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=26
+Completed in 4ms (DB: 0) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=26]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:09:14) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"26", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=26
+Completed in 4ms (DB: 2) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=26]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:09:14) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"26", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=26
+Completed in 4ms (DB: 2) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=26]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:09:14) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"26", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=26
+Completed in 5ms (DB: 1) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=26]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:09:14) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"26", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=26
+Completed in 5ms (DB: 1) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=26]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:09:14) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"26", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=26
+Completed in 4ms (DB: 1) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=26]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:09:14) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"26", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=26
+Completed in 4ms (DB: 0) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=26]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:09:15) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"26", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=26
+Completed in 12ms (DB: 4) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=26]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:09:15) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"26", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=26
+Completed in 6ms (DB: 0) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=26]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:09:15) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"26", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=26
+Completed in 14ms (DB: 4) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=26]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:09:15) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"26", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=26
+Completed in 6ms (DB: 0) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=26]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:09:15) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"26", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=26
+Completed in 7ms (DB: 2) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=26]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:09:16) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"26", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=26
+Completed in 8ms (DB: 3) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=26]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:09:16) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"26", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=26
+Completed in 5ms (DB: 0) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=26]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:09:16) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"26", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=26
+Completed in 9ms (DB: 3) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=26]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:09:16) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"26", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=26
+Completed in 8ms (DB: 3) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=26]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:09:16) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"26", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=26
+Completed in 13ms (DB: 4) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=26]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:09:16) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"26", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=26
+Completed in 4ms (DB: 2) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=26]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:09:18) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"26", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=26
+Completed in 4ms (DB: 2) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=26]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:09:18) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"26", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=26
+Completed in 8ms (DB: 1) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=26]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:09:18) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"26", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=26
+Completed in 17ms (DB: 3) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=26]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:09:18) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"26", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=26
+Completed in 5ms (DB: 2) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=26]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:09:19) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"26", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=26
+Completed in 17ms (DB: 3) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=26]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:09:19) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"26", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=26
+Completed in 18ms (DB: 4) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=26]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:09:19) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"26", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=26
+Completed in 18ms (DB: 5) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=26]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:09:19) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"26", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=26
+Completed in 5ms (DB: 0) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=26]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:09:19) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"26", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=26
+Completed in 15ms (DB: 4) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=26]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:09:19) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"26", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=26
+Completed in 8ms (DB: 3) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=26]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:09:20) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"26", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=26
+Completed in 20ms (DB: 6) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=26]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:09:20) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"26", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=26
+Completed in 19ms (DB: 5) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=26]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:09:20) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"26", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=26
+Completed in 9ms (DB: 3) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=26]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:09:20) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"26", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=26
+Completed in 21ms (DB: 4) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=26]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:09:20) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"26", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=26
+Completed in 14ms (DB: 4) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=26]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:09:20) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"26", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=26
+Completed in 6ms (DB: 1) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=26]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:09:21) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"26", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=26
+Completed in 13ms (DB: 5) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=26]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:09:21) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"26", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=26
+Completed in 12ms (DB: 4) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=26]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:09:21) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"26", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=26
+Completed in 13ms (DB: 3) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=26]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:09:21) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"26", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=26
+Completed in 17ms (DB: 4) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=26]
+
+
+Processing ReservationController#express (for 127.0.0.1 at 2021-12-16 05:12:31) [GET]
+  Parameters: {"action"=>"express", "controller"=>"reservation"}
+Redirected to http://localhost:3000/login/login
+Filter chain halted as [:check_login] rendered_or_redirected.
+Completed in 22ms (DB: 19) | 302 Found [http://localhost/reservation/express]
+
+
+Processing LoginController#login (for 127.0.0.1 at 2021-12-16 05:12:31) [GET]
+  Parameters: {"action"=>"login", "controller"=>"login"}
+Rendering template within layouts/login
+Rendering login/login
+Completed in 7ms (View: 6, DB: 0) | 200 OK [http://localhost/login/login]
+
+
+Processing LoginController#login (for 127.0.0.1 at 2021-12-16 05:12:33) [POST]
+  Parameters: {"name"=>"manager", "commit"=>"Login", "action"=>"login", "controller"=>"login", "password"=>"secret"}
+Redirected to http://localhost:3000/
+Completed in 10ms (DB: 7) | 302 Found [http://localhost/login/login]
+
+
+Processing ReservationController#list (for 127.0.0.1 at 2021-12-16 05:12:33) [GET]
+  Parameters: {"action"=>"list", "controller"=>"reservation"}
+Rendering template within layouts/application
+Rendering reservation/list
+Completed in 234ms (View: 143, DB: 70) | 200 OK [http://localhost/]
+
+
+Processing ReservationController#express (for 127.0.0.1 at 2021-12-16 05:12:35) [GET]
+  Parameters: {"action"=>"express", "controller"=>"reservation"}
+Rendering template within layouts/application
+Rendering reservation/express
+Completed in 97ms (View: 37, DB: 43) | 200 OK [http://localhost/reservation/express]
+
+
+Processing RemotereservationController#index (for 127.0.0.1 at 2021-12-16 05:14:55) [GET]
+  Parameters: {"action"=>"index", "controller"=>"remotereservation"}
+Rendering template within layouts/remotereservation
+Rendering remotereservation/index
+Completed in 455ms (View: 431, DB: 11) | 200 OK [http://localhost/remotereservation]
+
+
+Processing RemotereservationController#express_2 (for 127.0.0.1 at 2021-12-16 05:15:13) [POST]
+  Parameters: {"commit"=>"Complete Reservation", "reservation"=>{"enddate"=>"17 December 2021", "discount_id"=>"", "sitetype_id"=>"0", "startdate"=>"16 December 2021"}, "action"=>"express_2", "space"=>{"space_id"=>"1"}, "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=27&space_id=1
+Completed in 68ms (DB: 63) | 302 Found [http://localhost/remotereservation/express_2]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:15:13) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"27", "controller"=>"remotereservation", "space_id"=>"1"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=27
+Completed in 8ms (DB: 2) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=27&space_id=1]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:15:13) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"27", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=27
+Completed in 6ms (DB: 2) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=27]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:15:14) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"27", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=27
+Completed in 10ms (DB: 1) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=27]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:15:14) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"27", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=27
+Completed in 6ms (DB: 1) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=27]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:15:14) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"27", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=27
+Completed in 4ms (DB: 1) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=27]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:15:14) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"27", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=27
+Completed in 5ms (DB: 1) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=27]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:15:14) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"27", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=27
+Completed in 5ms (DB: 2) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=27]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:15:14) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"27", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=27
+Completed in 5ms (DB: 2) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=27]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:15:15) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"27", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=27
+Completed in 6ms (DB: 1) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=27]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:15:15) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"27", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=27
+Completed in 4ms (DB: 2) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=27]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:15:15) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"27", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=27
+Completed in 10ms (DB: 3) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=27]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:15:15) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"27", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=27
+Completed in 6ms (DB: 1) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=27]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:15:15) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"27", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=27
+Completed in 16ms (DB: 4) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=27]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:15:15) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"27", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=27
+Completed in 14ms (DB: 3) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=27]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:15:16) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"27", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=27
+Completed in 7ms (DB: 1) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=27]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:15:16) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"27", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=27
+Completed in 6ms (DB: 1) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=27]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:15:16) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"27", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=27
+Completed in 15ms (DB: 6) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=27]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:15:16) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"27", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=27
+Completed in 6ms (DB: 1) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=27]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:15:16) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"27", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=27
+Completed in 16ms (DB: 3) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=27]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:15:17) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"27", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=27
+Completed in 6ms (DB: 2) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=27]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:15:18) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"27", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=27
+Completed in 15ms (DB: 5) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=27]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:15:18) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"27", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=27
+Completed in 12ms (DB: 3) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=27]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:15:18) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"27", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=27
+Completed in 10ms (DB: 3) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=27]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:15:18) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"27", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=27
+Completed in 4ms (DB: 2) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=27]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:15:19) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"27", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=27
+Completed in 9ms (DB: 3) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=27]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:15:19) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"27", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=27
+Completed in 4ms (DB: 2) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=27]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:15:19) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"27", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=27
+Completed in 13ms (DB: 3) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=27]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:15:19) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"27", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=27
+Completed in 5ms (DB: 2) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=27]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:15:19) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"27", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=27
+Completed in 8ms (DB: 1) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=27]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:15:20) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"27", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=27
+Completed in 8ms (DB: 3) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=27]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:15:20) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"27", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=27
+Completed in 6ms (DB: 1) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=27]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:15:20) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"27", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=27
+Completed in 4ms (DB: 1) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=27]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:15:20) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"27", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=27
+Completed in 6ms (DB: 1) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=27]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:15:20) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"27", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=27
+Completed in 17ms (DB: 6) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=27]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:15:20) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"27", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=27
+Completed in 6ms (DB: 2) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=27]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:15:21) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"27", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=27
+Completed in 7ms (DB: 1) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=27]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:15:21) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"27", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=27
+Completed in 15ms (DB: 4) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=27]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:15:21) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"27", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=27
+Completed in 6ms (DB: 1) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=27]
+
+
+Processing RemotereservationController#show (for 127.0.0.1 at 2021-12-16 05:15:21) [GET]
+  Parameters: {"action"=>"show", "id"=>"space_selected", "reservation_id"=>"27", "controller"=>"remotereservation"}
+Redirected to http://localhost:3000/remotereservation/space_selected?reservation_id=27
+Completed in 18ms (DB: 5) | 302 Found [http://localhost/remotereservation/space_selected?reservation_id=27]
+
+
+Processing RemotereservationController#index (for 127.0.0.1 at 2021-12-16 05:15:22) [GET]
+  Parameters: {"action"=>"index", "controller"=>"remotereservation"}
+Rendering template within layouts/remotereservation
+Rendering remotereservation/index
+Completed in 568ms (View: 494, DB: 60) | 200 OK [http://localhost/remotereservation]
+
+
+Processing ReservationController#express (for 127.0.0.1 at 2021-12-16 05:15:30) [GET]
+  Parameters: {"action"=>"express", "controller"=>"reservation"}
+Redirected to http://localhost:3000/login/login
+Filter chain halted as [:check_login] rendered_or_redirected.
+Completed in 3ms (DB: 1) | 302 Found [http://localhost/reservation/express]
+
+
+Processing LoginController#login (for 127.0.0.1 at 2021-12-16 05:15:30) [GET]
+  Parameters: {"action"=>"login", "controller"=>"login"}
+Rendering template within layouts/login
+Rendering login/login
+Completed in 15ms (View: 9, DB: 2) | 200 OK [http://localhost/login/login]
+
+
+Processing LoginController#login (for 127.0.0.1 at 2021-12-16 05:15:32) [POST]
+  Parameters: {"name"=>"manager", "commit"=>"Login", "action"=>"login", "controller"=>"login", "password"=>"secret"}
+Redirected to http://localhost:3000/
+Completed in 13ms (DB: 3) | 302 Found [http://localhost/login/login]
+
+
+Processing ReservationController#list (for 127.0.0.1 at 2021-12-16 05:15:32) [GET]
+  Parameters: {"action"=>"list", "controller"=>"reservation"}
+Rendering template within layouts/application
+Rendering reservation/list
+Completed in 97ms (View: 70, DB: 17) | 200 OK [http://localhost/]
+
+
+Processing ReservationController#express (for 127.0.0.1 at 2021-12-16 05:15:35) [GET]
+  Parameters: {"action"=>"express", "controller"=>"reservation"}
+Rendering template within layouts/application
+Rendering reservation/express
+Completed in 117ms (View: 97, DB: 8) | 200 OK [http://localhost/reservation/express]
+
+
+Processing RemoteController#index (for 127.0.0.1 at 2021-12-16 05:18:41) [GET]
+  Parameters: {"action"=>"index", "controller"=>"remote"}
+Rendering template within layouts/remote
+Rendering remote/index
+Completed in 533ms (View: 434, DB: 76) | 200 OK [http://localhost/remote]
+
+
+Processing RemotereservationController#index (for 127.0.0.1 at 2021-12-16 05:20:55) [GET]
+  Parameters: {"action"=>"index", "controller"=>"remotereservation"}
+Rendering template within layouts/remotereservation
+Rendering remotereservation/index
+Completed in 522ms (View: 477, DB: 23) | 200 OK [http://localhost/remotereservation]
+
+
+Processing RemoteController#index (for 127.0.0.1 at 2021-12-16 05:22:08) [GET]
+  Parameters: {"action"=>"index", "controller"=>"remote"}
+Rendering template within layouts/remote
+Rendering remote/index
+Completed in 454ms (View: 415, DB: 17) | 200 OK [http://localhost/remote]
+
+
+Processing RemotereservationController#index (for 127.0.0.1 at 2021-12-16 05:29:00) [GET]
+  Parameters: {"action"=>"index", "controller"=>"remotereservation"}
+Rendering template within layouts/remotereservation
+Rendering remotereservation/index
+Completed in 520ms (View: 476, DB: 21) | 200 OK [http://localhost/remotereservation]

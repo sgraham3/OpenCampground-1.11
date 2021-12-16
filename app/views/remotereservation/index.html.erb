@@ -9,7 +9,9 @@
   </p>
   <p>
     <%= render :partial => 'shared/count' %>
-    
+    <span id="spaces">
+      <%= render :partial => 'space_pulldown' %>
+    </span>
   </p>
   <span style="display: none">
     <%= collection_select(:reservation, :discount_id, Discount.active, :id, :name, {:prompt => true}) if @option.use_discount? && Discount.active.count > 0 %>
@@ -17,17 +19,7 @@
   <p><%= submit_tag I18n.t('reservation.CompleteReservation') %></p>
 <% end %>
   <a href="../images/sitemap.jpg" onclick="goclicky(this); return false;" target="_blank" class="sitemap">Site Map</a>
-
-  <% if session[:admin_status] %>
-    <span class="occupied"><%= I18n.t('reservation.Occupied') %></span>
-    <span class="reserved"><%= I18n.t('reservation.Reserved') %></span>
-    <span class="late"><%= I18n.t('reservation.NotCheckedIn') %></span>
-    <span class="unavailable"><%= I18n.t('reservation.Flash.SpaceUnavailable') %></span>
-    <span class="today"><%= I18n.t('reservation.Today') %></span>
-    <br><br>
-  <% else %>
-    <br><br>
-  <% end %>
+  <br><br>
   <table id="available" class="available" cellspacing="0" admin-session="<%= session[:admin_status] %>">
     <thead>
       <%= header -%>
@@ -76,6 +68,6 @@
       console.log(FindLeftWindowBoundry(), FindTopWindowBoundry());
       var x = screen.width/2 - 700/2 + FindLeftWindowBoundry();
       var y = screen.height/2 - 450/2 + FindTopWindowBoundry();
-      window.open(meh.href, 'sharegplus','height=500,width=700,left='+x+',top='+y);
+      window.open(meh.href, 'sharegplus','height=600,width=700,left='+x+',top='+y);
   }
 </script>

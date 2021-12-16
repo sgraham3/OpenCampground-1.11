@@ -112,7 +112,7 @@ class ReservationController < ApplicationController
       session[:number] = w
       session[:year] = y
     end
-    session[:startdate] = @reservation.startdate
+    session[:startdate] = @reservation.startdate  
     session[:enddate] = @reservation.enddate
     @seasonal_ok = false
     @storage_ok = false

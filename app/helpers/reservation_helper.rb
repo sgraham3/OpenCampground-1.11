@@ -5,6 +5,16 @@ module ReservationHelper
   @ce = Date.new
   @cs = Date.new
 
+  def blackout_dates
+    str = ''
+    Blackout.active.each {|b| str << "<div style=\"text-indent: 5em\">blacked out #{DateFmt.format_date(b.startdate)} to #{DateFmt.format_date(b.enddate)}</div>"}
+    if str.blank?
+      return str
+    else
+      return '<div><b>Remote reservations are not availailable in blackout dates. Please call:' + str + '</div>'
+    end
+  end
+  
   def spancount
     cnt = 2
     cnt += 1 if @option.use_rig_type?

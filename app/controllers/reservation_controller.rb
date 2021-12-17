@@ -2,7 +2,7 @@ class ReservationController < ApplicationController
   include MyLib
   include CalculationHelper
   before_filter :login_from_cookie
-  before_filter :check_login
+  # before_filter :check_login
   before_filter :check_dates, :only => [:find_space, :update_dates, :change_space, :express_2]
   before_filter :set_defaults
   before_filter :cleanup_abandoned, :only => [:new, :express, :select_change, :change_space]
@@ -84,7 +84,6 @@ class ReservationController < ApplicationController
     @extras = Extra.active
     session[:canx_action] = 'abandon'
     session[:change] = 'false'
-
   end
 
   def express
@@ -177,7 +176,7 @@ class ReservationController < ApplicationController
     session[:fini_action] = 'list'
     session[:change] = 'false'
     render :action => :show and return
-  rescue => err
+    rescue => err
     error 'Reservation could not be updated(1). ' + err.to_s
     session[:reservation_id] = nil
     flash[:error] = I18n.t('reservation.Flash.UpdateFail')
@@ -503,7 +502,7 @@ class ReservationController < ApplicationController
     @integration = Integration.first
     session[:canx_action] = 'abandon'
     render :action => :show
-  rescue => err
+    rescue => err
     error 'Reservation could not be updated(3) ' + err.to_s
     session[:reservation_id] = nil
     flash[:error] = I18n.t('reservation.Flash.UpdateFail')
@@ -778,11 +777,11 @@ class ReservationController < ApplicationController
       end
     else
       if @reservation.checked_in? && ((Date.today - @reservation.startdate  ) <= 2 ) 
-	if @option.use_login? && session[:user_id] != nil && @user_login.admin?
-	  @cancel_ci = true
-	elsif !@option.use_login?
-	  @cancel_ci = true
-	end
+        if @option.use_login? && session[:user_id] != nil && @user_login.admin?
+          @cancel_ci = true
+        elsif !@option.use_login?
+          @cancel_ci = true
+        end
       end
     end
     if @reservation.group_id
@@ -801,8 +800,8 @@ class ReservationController < ApplicationController
       @cash_id = Creditcard.find_or_create_by_name('Cash').id
       @check_id = Creditcard.find_or_create_by_name('Check').id
       if @integration.cc_hsn == 'None' 
-	# use 41em if 4 items
-	@spacing = '34em' # 3 items
+        # use 41em if 4 items
+        @spacing = '34em' # 3 items
       else
         @spacing = '50em' # 5 items
       end
@@ -2134,7 +2133,7 @@ class ReservationController < ApplicationController
       info 'got res from session'
     end
     reservation
-  rescue ActiveRecord::RecordNotFound => err
+    rescue ActiveRecord::RecordNotFound => err
     error 'Reservation not found ' + err.to_s
     flash[:error] = I18n.t('reservation.Flash.NotFound',
 			    :id => session[:reservation_id])
@@ -2157,7 +2156,7 @@ class ReservationController < ApplicationController
       info 'got res from session'
     end
     reservation
-  rescue ActiveRecord::RecordNotFound => err
+    rescue ActiveRecord::RecordNotFound => err
     error 'Reservation not found ' + err.to_s
     flash[:error] = I18n.t('reservation.Flash.NotFound',
 			    :id => session[:reservation_id])

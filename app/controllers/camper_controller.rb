@@ -1,6 +1,6 @@
 class CamperController < ApplicationController
   before_filter :login_from_cookie, :except => [:find_remote, :create_remote]
-  before_filter :check_login, :except => [:find_remote, :create_remote, :partial_update]
+  before_filter :except => [:find_remote, :create_remote, :partial_update]
 
   in_place_edit_for :camper, :first_name
   in_place_edit_for :camper, :address

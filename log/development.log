@@ -1,9 +1,11 @@
-# Logfile created on Thu Dec 16 14:15:00 +0300 2021 by logger.rb/22285
+# Logfile created on Fri Dec 17 16:23:33 +0300 2021 by logger.rb/22285
   [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
   [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
   [4;36;1mOption Load (1.0ms)[0m   [0;1mSELECT * FROM `options` LIMIT 1[0m
   [4;35;1mIntegration Load (0.0ms)[0m   [0mSELECT * FROM `integrations` LIMIT 1[0m
   [4;36;1mOption Load (1.0ms)[0m   [0;1mSELECT * FROM `options` LIMIT 1[0m
-  [4;35;1mOption Columns (11.0ms)[0m   [0mSHOW FIELDS FROM `options`[0m
+  [4;35;1mOption Columns (13.6ms)[0m   [0mSHOW FIELDS FROM `options`[0m
   [4;36;1mOption Load (1.0ms)[0m   [0;1mSELECT * FROM `options` LIMIT 1[0m
-  [4;35;1mOption Load (0.0ms)[0m   [0mSELECT * FROM `options` LIMIT 1[0m
+  [4;35;1mOption Load (1.0ms)[0m   [0mSELECT * FROM `options` LIMIT 1[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m

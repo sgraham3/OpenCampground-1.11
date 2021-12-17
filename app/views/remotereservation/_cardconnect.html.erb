@@ -1,20 +1,28 @@
-<img class="cardconnect" alt="CardConnect logo" src="/images/SecuredByCardConnect.png" />
-<div id="tokenize" class="cc-form">
-  <form name="tokenform" id="tokenform" autocomplete="off" method="post" action="<%= card_transactions_url %>" >
-    <%= I18n.t('reservation.CardNumber') %>:
-    <iframe id="tokenframe" name="tokenframe" src="<%=@integration.cc_gateway%>/itoke/ajax-tokenizer.html?css=%2Eerror{color:%20red;}" frameborder="0" scrolling="no" width="200" height="30"></iframe>
-    <div class="cc-form">
-      <%= I18n.t('reservation.Expires')%>:
-      <%= date_select :card_transaction, :expiry, :discard_day => true, :use_short_month => true, :start_year => currentDate.year, :start_month => currentDate.month %>
-      <% if @integration.cc_use_cvv? %>
-	Security Code:
-	<input type="text" name="card_transaction[cvv2]" autocomplete="off" size="4" />
-      <% end %>
-    </div>
-    <input type="hidden" name="card_transaction[account]" id="mytoken"/>
-    <input type="hidden" name="card_transaction[amount]" value="<%= @deposit['amount'] + @deposit['tax'] %>"/>
-    <input type="hidden" name="card_transaction[reservation_id]" value="<%= @reservation.id %>" />
-    <input type="hidden" name="card_transaction[process_mode]" value="<%= CardTransaction::TokenRemote %>" />
-    <%= submit_tag "Submit", :class => "payment_submit", :disable_with => "Processing..." %>
-  </form>
+<div class="noprint">
+  <span id="pmt"><%= I18n.t('reservation.PaymentType') %>:
+    <%= collection_select(:payment, :creditcard_id, Creditcard.active, :id, :name, {:class => "flex_item", :prompt => I18n.t('helpers.select.prompt')} ) %>
+    <% if @integration.cc_hsn != 'None' %>
+      <form method="post" action="<%= new_card_transaction_url %>" style="display:inline;"> 
+	<input type="hidden" name="card_transaction[process_mode]" value="<%= CardTransaction::TermCard %>" />
+	<input type="hidden" name="card_transaction[amount]" value="<%= @reservation.due.round(2) %>" />
+	<input type="hidden" name="card_transaction[reservation_id]" value="<%= @reservation.id %>" />
+	<input type="submit" value="<%= "Terminal Process Card"%>" />
+      </form>
+      <form method="post" action="<%= new_card_transaction_url %>" style="display:inline;"> 
+	<input type="hidden" name="card_transaction[process_mode]" value="<%= CardTransaction::TermManual %>" />
+	<input type="hidden" name="card_transaction[amount]" value="<%= @reservation.due.round(2) %>" />
+	<input type="hidden" name="card_transaction[reservation_id]" value="<%= @reservation.id %>" />
+	<input type="submit" value="<%= "Terminal Manual Card"%>" />
+      </form>
+    <% end %>
+    <form method="post" action="<%= new_card_transaction_url %>" style="display:inline;"> 
+      <input type="hidden" name="card_transaction[process_mode]" value="<%= CardTransaction::TokenLocal %>" />
+      <input type="hidden" name="card_transaction[amount]" value="<%= @reservation.due.round(2) %>" />
+      <input type="hidden" name="card_transaction[reservation_id]" value="<%= @reservation.id %>" />
+      <input type="submit" value="<%= "Tokinizer Process Card"%>" />
+    </form>
+  </span>
 </div>
+<%= observe_field :payment_creditcard_id,
+		  :url => {:action => 'update_cc', :only_path => false, :reservation_id => @reservation.id},
+		  :with => "'creditcard_id='+encodeURIComponent(value)" %>

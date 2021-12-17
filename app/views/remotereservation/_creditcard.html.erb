@@ -1,0 +1,16 @@
+<% if @reservation.camper_id? && @reservation.camper_id > 0 %>
+<% if @reservation.editable? %>
+  <% if @integration.name == 'CardConnect' || @integration.name == 'CardConnect_o' %>
+    <%= render :partial => 'cardconnect' %>
+  <% else %>
+    <div id="cc_error" style="color: red; background-image: none; background-color: transparent; font-weight: bold"></div>
+    <div class="noprint" id="pmt">
+      <%= I18n.t('reservation.PaymentType') %>:
+      <%= collection_select(:payment, :creditcard_id, Creditcard.active, :id, :name, {:prompt => I18n.t('helpers.select.prompt')} ) %>
+      <%= observe_field :payment_creditcard_id,
+			:url => {:action => 'update_cc', :only_path => false, :reservation_id => @reservation.id},
+			:with => "'creditcard_id='+encodeURIComponent(value)" %>
+    </div>
+  <% end %>
+<% end %>
+<% end %>

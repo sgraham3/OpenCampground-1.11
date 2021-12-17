@@ -1,7 +1,11 @@
 <% if @remote %>
+<% 
+=begin %>
   <div id="explain">
     <%= @prompt.body %>
   </div>
+  <% 
+=end %>
   <p>
    <% action = 'create_remote' %>
 <% else  %>

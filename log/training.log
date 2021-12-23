@@ -814,3 +814,161 @@ Processing RemotereservationController#index (for 127.0.0.1 at 2021-12-16 05:29:
 Rendering template within layouts/remotereservation
 Rendering remotereservation/index
 Completed in 520ms (View: 476, DB: 21) | 200 OK [http://localhost/remotereservation]
+
+
+Processing ReservationController#list (for 127.0.0.1 at 2021-12-22 10:46:07) [GET]
+  Parameters: {"action"=>"list", "controller"=>"reservation"}
+Redirected to http://localhost:3000/login/login
+Filter chain halted as [:set_current_user] rendered_or_redirected.
+Completed in 7ms (DB: 2) | 302 Found [http://localhost/]
+
+
+Processing LoginController#login (for 127.0.0.1 at 2021-12-22 10:46:07) [GET]
+  Parameters: {"action"=>"login", "controller"=>"login"}
+Rendering template within layouts/login
+Rendering login/login
+Completed in 13ms (View: 8, DB: 1) | 200 OK [http://localhost/login/login]
+
+
+Processing LoginController#login (for 127.0.0.1 at 2021-12-22 10:46:14) [POST]
+  Parameters: {"name"=>"manager", "commit"=>"Login", "action"=>"login", "controller"=>"login", "password"=>"secret"}
+Redirected to http://localhost:3000/
+Completed in 82ms (DB: 72) | 302 Found [http://localhost/login/login]
+
+
+Processing ReservationController#list (for 127.0.0.1 at 2021-12-22 10:46:15) [GET]
+  Parameters: {"action"=>"list", "controller"=>"reservation"}
+Rendering template within layouts/application
+Rendering reservation/list
+Completed in 559ms (View: 169, DB: 343) | 200 OK [http://localhost/]
+
+
+Processing RemotereservationController#index (for 127.0.0.1 at 2021-12-22 10:46:30) [GET]
+  Parameters: {"action"=>"index", "controller"=>"remotereservation"}
+Rendering template within layouts/remotereservation
+Rendering remotereservation/index
+Completed in 685ms (View: 413, DB: 242) | 200 OK [http://localhost/remotereservation]
+
+
+Processing ReservationController#express_2 (for 127.0.0.1 at 2021-12-22 10:46:39) [POST]
+  Parameters: {"commit"=>"Complete Reservation", "reservation"=>{"enddate"=>"23 December 2021", "discount_id"=>"", "sitetype_id"=>"0", "startdate"=>"22 December 2021"}, "action"=>"express_2", "space"=>{"space_id"=>"1"}, "controller"=>"reservation"}
+Redirected to http://localhost:3000/reservation/space_selected?reservation_id=74&space_id=1
+Completed in 70ms (DB: 60) | 302 Found [http://localhost/reservation/express_2]
+
+
+Processing ReservationController#space_selected (for 127.0.0.1 at 2021-12-22 10:46:39) [GET]
+  Parameters: {"action"=>"space_selected", "reservation_id"=>"74", "controller"=>"reservation", "space_id"=>"1"}
+Rendering template within layouts/application
+Rendering reservation/show
+Completed in 2537ms (View: 175, DB: 2219) | 200 OK [http://localhost/reservation/space_selected?reservation_id=74&space_id=1]
+
+
+Processing ReservationController#abandon (for 127.0.0.1 at 2021-12-22 10:46:47) [GET]
+  Parameters: {"action"=>"abandon", "reservation_id"=>"74", "controller"=>"reservation"}
+Redirected to http://localhost:3000/
+Completed in 385ms (DB: 327) | 302 Found [http://localhost/reservation/abandon?reservation_id=74]
+
+
+Processing ReservationController#list (for 127.0.0.1 at 2021-12-22 10:46:47) [GET]
+  Parameters: {"action"=>"list", "controller"=>"reservation"}
+Rendering template within layouts/application
+Rendering reservation/list
+
+ActionView::TemplateError (undefined method `admin' for nil:NilClass) on line #175 of app/views/layouts/application.html.erb:
+172: 				<% end %>
+173: 				<p><%= link_to I18n.t('titles.site_av'), {:controller => '/reservation', :action => 'available'} %> </p>				
+174: 				<% if session[:admin_status] %>
+175: 					<% if(authorized?(@option.all_checkin_rpt?) || authorized?(@option.all_leave_rpt?) || authorized?(@option.all_arrival_rpt?) || authorized?(@option.all_departure_rpt?) || authorized?(@option.all_in_park_rpt?) || authorized?(@option.all_space_sum_rpt?) || authorized?(@option.all_occupancy_rpt?) || authorized?(@option.all_campers_rpt?) || authorized?(@option.all_transactions_rpt?) || authorized?(@option.all_payments_rpt?) || authorized?(@option.all_measured_rpt?)) %>
+176: 						<p> <%= link_to 'Reports', report_index_path %> </p>
+177: 					<% end %>
+178: 					<% if(authorized?(@option.all_backup?) ) %>
+
+    app/helpers/application_helper.rb:79:in `authorized?'
+    app/views/layouts/application.html.erb:175
+    config/initializers/mongrel.rb:62:in `dispatch_cgi'
+
+
+Rendering E:/AAA/Projects/Freelancer/Ruby/InstantRails2/rails_apps/OpenCampground-1.11/public/500.html (500 Internal Server Error)
+
+
+Processing ReservationController#list (for 127.0.0.1 at 2021-12-23 04:46:28) [GET]
+  Parameters: {"action"=>"list", "controller"=>"reservation"}
+Redirected to http://localhost:3000/reservation/cookies_test
+Filter chain halted as [:cookies_required] rendered_or_redirected.
+Completed in 11090ms (DB: 4) | 302 Found [http://localhost/]
+
+
+Processing ReservationController#cookies_test (for 127.0.0.1 at 2021-12-23 04:46:39) [GET]
+  Parameters: {"action"=>"cookies_test", "controller"=>"reservation"}
+Info 23-12-21 0446: reservation#cookies_test New session
+Info 23-12-21 0446: reservation#cookies_test Startup with release 1.11, version 1750
+Redirected to http://localhost:3000/login/login
+Filter chain halted as [:set_current_user] rendered_or_redirected.
+Completed in 301ms (DB: 281) | 302 Found [http://localhost/reservation/cookies_test]
+
+
+Processing LoginController#login (for 127.0.0.1 at 2021-12-23 04:46:39) [GET]
+  Parameters: {"action"=>"login", "controller"=>"login"}
+Rendering template within layouts/login
+Rendering login/login
+Completed in 13ms (View: 8, DB: 1) | 200 OK [http://localhost/login/login]
+
+
+Processing RemotereservationController#index (for 127.0.0.1 at 2021-12-23 04:46:45) [GET]
+  Parameters: {"action"=>"index", "controller"=>"remotereservation"}
+Rendering template within layouts/remotereservation
+Rendering remotereservation/index
+Completed in 1323ms (View: 516, DB: 658) | 200 OK [http://localhost/remotereservation]
+
+
+Processing RemotereservationController#index (for 127.0.0.1 at 2021-12-23 04:46:47) [GET]
+  Parameters: {"action"=>"index", "controller"=>"remotereservation"}
+Rendering template within layouts/remotereservation
+Rendering remotereservation/index
+Completed in 562ms (View: 513, DB: 13) | 200 OK [http://localhost/remotereservation]
+
+
+Processing RemotereservationController#update_sitetype (for 127.0.0.1 at 2021-12-23 04:46:51) [POST]
+  Parameters: {"action"=>"update_sitetype", "sitetype_id"=>"1", "controller"=>"remotereservation", "_"=>""}
+Completed in 11ms (View: 2, DB: 2) | 200 OK [http://localhost/remotereservation/update_sitetype]
+
+
+Processing RemotereservationController#update_sitetype (for 127.0.0.1 at 2021-12-23 04:46:54) [POST]
+  Parameters: {"action"=>"update_sitetype", "sitetype_id"=>"2", "controller"=>"remotereservation", "_"=>""}
+Completed in 16ms (View: 5, DB: 2) | 200 OK [http://localhost/remotereservation/update_sitetype]
+
+
+Processing RemotereservationController#update_sitetype (for 127.0.0.1 at 2021-12-23 04:46:56) [POST]
+  Parameters: {"action"=>"update_sitetype", "sitetype_id"=>"3", "controller"=>"remotereservation", "_"=>""}
+Completed in 12ms (View: 3, DB: 2) | 200 OK [http://localhost/remotereservation/update_sitetype]
+
+
+Processing LoginController#login (for 127.0.0.1 at 2021-12-23 04:46:59) [GET]
+  Parameters: {"action"=>"login", "controller"=>"login"}
+Rendering template within layouts/login
+Rendering login/login
+Completed in 10ms (View: 7, DB: 1) | 200 OK [http://localhost/login/login]
+
+
+Processing LoginController#login (for 127.0.0.1 at 2021-12-23 04:47:00) [GET]
+  Parameters: {"action"=>"login", "controller"=>"login"}
+Rendering template within layouts/login
+Rendering login/login
+Completed in 6ms (View: 4, DB: 1) | 200 OK [http://localhost/login/login]
+
+
+Processing LoginController#login (for 127.0.0.1 at 2021-12-23 04:47:04) [POST]
+  Parameters: {"name"=>"guest", "commit"=>"Login", "action"=>"login", "controller"=>"login", "password"=>"guet"}
+Rendering template within layouts/login
+Rendering login/login
+Completed in 91ms (View: 4, DB: 81) | 200 OK [http://localhost/login/login]
+
+
+Processing LoginController#login (for 127.0.0.1 at 2021-12-23 04:47:10) [POST]
+  Parameters: {"name"=>"guest", "commit"=>"Login", "action"=>"login", "controller"=>"login", "password"=>"guest"}
+Redirected to http://localhost:3000/
+Completed in 4ms (DB: 0) | 302 Found [http://localhost/login/login]
+
+
+Processing ReservationController#list (for 127.0.0.1 at 2021-12-23 04:47:10) [GET]
+  Parameters: {"action"=>"list", "controller"=>"reservation"}

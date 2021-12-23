@@ -113,8 +113,8 @@ module ReservationHelper
       @ce = @option.closed_end.change(:year => currentDate.year)
       debug "start date is #{@startDate} and @ce is #{@ce}"
       if @startDate > @ce && @closedType == Winter
-	@ce = @ce.change(:year => currentDate.year + 1)
-	debug "winter: start date is #{@startDate} and @ce is #{@ce}"
+        @ce = @ce.change(:year => currentDate.year + 1)
+        debug "winter: start date is #{@startDate} and @ce is #{@ce}"
       end
     end
   end
@@ -136,7 +136,8 @@ module ReservationHelper
     first_closed = true
     day = Date.new
     debug "get_header_months enddate is #{@endDate}"
-    while date < @endDate 
+    temp = Date.parse("31-12-2021")
+    while date <= @endDate 
       # if @option.use_closed? && date > @cs && date > @ce
       if @option.use_closed? && date > @cs
         # we are past the original dates...up start and end by a year
@@ -147,17 +148,17 @@ module ReservationHelper
       # print out as month
       debug "date is #{date}, next day to output is #{day} header count is #{hdr_count}"
       if hdr_count > 0
-	if hdr_count < 4
-	  ret_str << "<th class=\"av_date\" colspan=\"#{hdr_count}\" style=\"text-align:center;border:1px solid white;background:#666666;color:white\"></th>"
-	else
-	  ret_str << "<th class=\"av_date\" colspan=\"#{hdr_count}\" style=\"text-align:center;border:1px solid white;background:#666666;color:white\">#{I18n.l(date,:format => :month)}</th>"
-	end
-	date = day
+        if hdr_count < 4
+          ret_str << "<th class=\"av_date\" colspan=\"#{hdr_count}\" style=\"text-align:center;border:1px solid white;background:#666666;color:white\"></th>"
+        else
+          ret_str << "<th class=\"av_date\" colspan=\"#{hdr_count}\" style=\"text-align:center;border:1px solid white;background:#666666;color:white\">#{I18n.l(date,:format => :month)}</th>"
+        end
+        date = day
       else
         date = @ce
       end
       if @option.use_closed? && (@ce == date)
-	ret_str << '<th class="av_date" style="border:1px solid #D6D6D6;background-color:DarkGrey;color:white;text-align:center"></th>'
+	      ret_str << '<th class="av_date" style="border:1px solid #D6D6D6;background-color:DarkGrey;color:white;text-align:center"></th>'
       end
     end
     ret_str << "</tr>\n"
@@ -195,19 +196,20 @@ module ReservationHelper
     first_closed = true
     ret_str = '<tr><th class="locked" style="border:1px solid white;background:#666666;"></th>'
     # debug "get_header_days enddate is #{@endDate}"
-    while date < @endDate 
+    temp = Date.parse("31-12-2021")
+    while date <= @endDate 
       if @option.use_closed? 
-	if date > @cs && date > @ce
-	  # we are past the original dates...up start and end by a year
-	  @cs = @cs.change(:year => @cs.year + 1)
-	  @ce = @ce.change(:year => @ce.year + 1)
-	end
-	if  (date+1) > @cs && (date+1) < @ce
-	  ret_str << '<th class="av_date" style="border:1px solid white;background:DarkGrey;text-align:center;color:white"></th>'
-	  # debug "closed #{date}"
-	  date = @ce
-	  next
-	end
+        if date > @cs && date > @ce
+          # we are past the original dates...up start and end by a year
+          @cs = @cs.change(:year => @cs.year + 1)
+          @ce = @ce.change(:year => @ce.year + 1)
+        end
+        if  (date+1) > @cs && (date+1) < @ce
+          ret_str << '<th class="av_date" style="border:1px solid white;background:DarkGrey;text-align:center;color:white"></th>'
+          # debug "closed #{date}"
+          date = @ce
+          next
+        end
       end
       if date == currentDate
 	      ret_str << '<th class="av_date"  style="border:1px solid white;background:LightGreen;text-align:center;color:white">' + date.strftime("%d") + '</th>'
@@ -244,103 +246,107 @@ module ReservationHelper
 	      ret_str << '<td class="av_space"  style="border:1px solid #D6D6D6;background:#666666;text-align:center;color:white">' +  space.name + '</td>'
       end
       if @option.use_closed?
-	@cs = @closedStart
-	@ce = @closedEnd
+        @cs = @closedStart
+        @ce = @closedEnd
       end
       if res_hash.has_key? space.id
-	debug "\nspace #{space.name} has reservations"
-	debug "@cs is #{@cs}, @ce is #{@ce}" if @option.use_closed?
-	debug "available enddate is #{@endDate}"
-	while date < @endDate 
-	  debug "date is #{date}"
-	  if @option.use_closed? && (date >= @cs && date < @ce)
-	    debug "in closed date = #{date}"
-	    ret_str << handle_cells(date, @ce)
-	    date = @ce
-	  end
-	  if res_hash[space.id][0] && (date >= res_hash[space.id][0].startdate) # && (date < res_hash[space.id][0].enddate)
-	    debug 'got new reservation'
-	    r = res_hash[space.id].shift # shift it out
-	    if r.enddate <= @startDate
-	      debug "enddate #{r.enddate} for #{r.id} before startdate #{@startdate}"
-	      next
-	    end
-	    cnt = day_count(r,date)
-	    if cnt == 0
-	      debug "skipping res #{r.id} with count 0"
-	      next
-	    end
-	    name = trunc_name(cnt, r)
-	    ret_str << "<td colspan=\"#{cnt}\" align=\"center\" "
-	    if r.checked_in
-        if session[:admin_status]
-	        ret_str << 'style="background-color:LimeGreen">' # occupied
-        else
-          ret_str << 'style="background-color:lightGrey">' # occupied 
-        end     
-	    else
-	      if currentDate > r.startdate
-          if session[:admin_status]
-		        ret_str << 'style="background-color:Yellow">' # overdue
-          else
-            ret_str << 'style="background-color:lightGrey">' # overdue
+        debug "\nspace #{space.name} has reservations"
+        debug "@cs is #{@cs}, @ce is #{@ce}" if @option.use_closed?
+        debug "available enddate is #{@endDate}"
+        temp = Date.parse("2021-12-31")
+        temploop = 0;
+        while date < @endDate
+          temploop += 1
+          puts temploop
+          debug "date is #{date}"
+          if @option.use_closed? && (date >= @cs && date < @ce)
+            debug "in closed date = #{date}"
+            ret_str << handle_cells(date, @ce)
+            date = @ce
           end
-	      else
-          if session[:admin_status]
-		        ret_str << 'style="background-color:LightSteelBlue">' # reserved
-          else
-            ret_str << 'style="background-color:lightGrey">' # reserved
-          end
-	      end
-	    end
-	    title = r.camper.full_name + ', '
-	    title << I18n.l(r.startdate, :format => :short) + I18n.t('reservation.To') + I18n.l(r.enddate, :format => :short)
-	    if session[:admin_status]
-        ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{name}</a>"
+          if res_hash[space.id][0] && (date >= res_hash[space.id][0].startdate) # && (date < res_hash[space.id][0].enddate)
+            debug 'got new reservation'
+            r = res_hash[space.id].shift # shift it out
+            if r.enddate <= @startDate
+              debug "enddate #{r.enddate} for #{r.id} before startdate #{@startdate}"
+              next
+            end
+            cnt = day_count(r,date)
+            if cnt == 0
+              debug "skipping res #{r.id} with count 0"
+              next
+            end
+            name = trunc_name(cnt, r)
+            ret_str << "<td colspan=\"#{cnt}\" align=\"center\" "
+            if r.checked_in
+              if session[:admin_status]
+                ret_str << 'style="background-color:LimeGreen">' # occupied
+              else
+                ret_str << 'style="background-color:lightGrey">' # occupied 
+              end     
+            else
+              if currentDate > r.startdate
+                if session[:admin_status]
+                  ret_str << 'style="background-color:Yellow">' # overdue
+                else
+                  ret_str << 'style="background-color:lightGrey">' # overdue
+                end
+              else
+                if session[:admin_status]
+                  ret_str << 'style="background-color:LightSteelBlue">' # reserved
+                else
+                  ret_str << 'style="background-color:lightGrey">' # reserved
+                end
+              end
+            end
+            title = r.camper.full_name + ', '
+            title << I18n.l(r.startdate, :format => :short) + I18n.t('reservation.To') + I18n.l(r.enddate, :format => :short)
+            if session[:admin_status]
+              ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{name}</a>"
+            else
+              ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{}</a>"
+            end
+            if @option.use_closed && r.enddate > @cs && r.enddate < @ce
+              ret_str << handle_cells(@cs, @ce)
+              date = @ce
+            else
+              date = r.enddate
+            end
+          else # open
+            debug 'open'
+            if res_hash[space.id].empty?
+              debug 'no more reservations'
+              ret_str << handle_cells(date, @endDate)
+              date = @endDate
+              debug "set date to #{date}"
+            else
+              rh = res_hash[space.id][0]
+              if @option.use_closed?
+                if rh.startdate >= @cs && rh.startdate < @ce 
+                  debug "skipping #{rh.id} with startdate #{rh.startdate} and enddate #{rh.enddate}"
+                  sd = @cs 
+                else
+                  sd = rh.startdate
+                end
+              else
+                sd = rh.startdate
+              end
+              ret_str << handle_cells(date, sd)
+              date = sd
+              debug "set date to #{date}"
+            end
+          end 
+        end
+        if @option.use_closed && date >= @ce
+          @cs = @cs.change(:year => @cs.year + 1)
+          @ce = @ce.change(:year => @ce.year + 1)
+          debug "changing cs year to #{@cs.year}"
+        end
       else
-        ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{}</a>"
-      end
-	    if @option.use_closed && r.enddate > @cs && r.enddate < @ce
-	      ret_str << handle_cells(@cs, @ce)
-	      date = @ce
-	    else
-	      date = r.enddate
-	    end
-	  else # open
-	    debug 'open'
-	    if res_hash[space.id].empty?
-	      debug 'no more reservations'
-	      ret_str << handle_cells(date, @endDate)
-	      date = @endDate
-	      debug "set date to #{date}"
-	    else
-	      rh = res_hash[space.id][0]
-	      if @option.use_closed?
-		if rh.startdate >= @cs && rh.startdate < @ce 
-		  debug "skipping #{rh.id} with startdate #{rh.startdate} and enddate #{rh.enddate}"
-		  sd = @cs 
-		else
-		  sd = rh.startdate
-	        end
-	      else
-		sd = rh.startdate
-	      end
-	      ret_str << handle_cells(date, sd)
-	      date = sd
-	      debug "set date to #{date}"
-	    end
-	  end 
-	end
-	if @option.use_closed && date >= @ce
-	  @cs = @cs.change(:year => @cs.year + 1)
-	  @ce = @ce.change(:year => @ce.year + 1)
-	  debug "changing cs year to #{@cs.year}"
-	end
-      else
-	debug "\nspace #{space.name} no reservations"
-        # no reservations on this space
-	debug "available enddate is #{@endDate}"
-	ret_str << handle_cells(@startDate, @endDate)
+        debug "\nspace #{space.name} no reservations"
+              # no reservations on this space
+        debug "available enddate is #{@endDate}"
+        ret_str << handle_cells(@startDate, @endDate)
       end
       ret_str << "</tr>\n"
     end
@@ -373,105 +379,104 @@ module ReservationHelper
     end
 
     date = sd
+    # temp = Date.parse("31-12-2021")
     while date < ed
       if @option.use_closed && date > @ce
-	@cs = @cs.change(:year => @cs.year + 1)
-	@ce = @ce.change(:year => @ce.year + 1)
-	debug "changing cs year to #{@cs.year}"
+        @cs = @cs.change(:year => @cs.year + 1)
+        @ce = @ce.change(:year => @ce.year + 1)
+        debug "changing cs year to #{@cs.year}"
       end
       debug date.to_s
       if @option.use_closed
-	debug 'using closed dates'
-
-	if date == currentDate
-	  debug 'currentDate'
-	    ret_str << '<td style="border:1px solid #D6D6D6"></td>'
-	  date += 1
-	elsif date < @cs && ed < @cs
-	  # case 1 between closures
-	  debug 'case 1'
-	  if date > currentDate || ed < currentDate
-	    ret_str << output_empty(date, (ed - date).to_i)
-	    date = ed
-	  else
-	    ret_str << output_empty(date, (currentDate - date).to_i)
-	    date = currentDate
-	  end
-	elsif date < @cs && ed >= @ce
-	  # case 5 spanning closure
-	  debug 'handle_cells: case 5 output grey'
-	  if date > currentDate || ed < currentDate
-	    ret_str << output_empty(date, (@cs - date).to_i)
-	    ret_str << '<td style="border:1px solid #D6D6D6;background-color:DarkGrey"></td>'
-	    date = @ce 
-	  else
-	    ret_str << output_empty(date, (currentDate - date).to_i)
-	    date = currentDate
-	  end
-	elsif date < @cs && ed >= @cs
-	  # case 3 start before, end in closure
-	  debug 'handle_cells: case 3 output grey'
-	  if date > currentDate || ed < currentDate || (currentDate > @cs && currentDate < @ce)
-	    ret_str << output_empty(date, (@cs - date).to_i)
-	    # ret_str << '<td style="border:1px solid #D6D6D6;background-color:DarkGrey"></td>'
-	    date = @ce
-	  else
-	    ret_str << output_empty(date, (currentDate - date).to_i)
-	    date = currentDate
-	  end
-	elsif date >= @ce 
-	  # case 2 between closures
-	  debug 'case 2'
-	  cs_ = @cs.change(:year => @cs.year + 1)
-	  if currentDate > date && currentDate <= ed  && currentDate < cs_
-	    out_date = currentDate > cs_ ? cs_ - 1 : currentDate
-	    ret_str << output_empty(date, (out_date - date).to_i)
-	    date = out_date
-	  else
-	    out_date = ed > cs_ ? cs_ - 1 : ed
-	    ret_str << output_empty(date, (out_date - date).to_i)
-	    date = out_date
-	  end
-	elsif date > @cs && ed >= @ce
-	  # case 4 start in closure
-	  debug 'handle_cells: case 4 output grey'
-	  if date > currentDate || ed < currentDate
-	    ret_str << '<td style="border:1px solid #D6D6D6;background-color:DarkGrey"></td>'
-	    date = @ce
-	  else
-	    ret_str << output_empty(date, (currentDate - date).to_i)
-	    date = currentDate
-	  end
-	elsif date >= @cs && date < @ce
-	  # case 6 within closure
-	  debug 'handle_cells: case 6 output grey'
-	  ret_str << '<td style="border:1px solid #D6D6D6;background-color:DarkGrey"></td>'
-	  date = @ce
-	else
-	  # we should never get here
-	  debug "@cs is #{@cs}, @ce = #{@ce}"
-	  raise 'error' 
-	end
-
+        debug 'using closed dates'
+        if date == currentDate
+          debug 'currentDate'
+            ret_str << '<td style="border:1px solid #D6D6D6"></td>'
+          date += 1
+        elsif date < @cs && ed < @cs
+          # case 1 between closures
+          debug 'case 1'
+          if date > currentDate || ed < currentDate
+            ret_str << output_empty(date, (ed - date).to_i)
+            date = ed
+          else
+            ret_str << output_empty(date, (currentDate - date).to_i)
+            date = currentDate
+          end
+        elsif date < @cs && ed >= @ce
+          # case 5 spanning closure
+          debug 'handle_cells: case 5 output grey'
+          if date > currentDate || ed < currentDate
+            ret_str << output_empty(date, (@cs - date).to_i)
+            ret_str << '<td style="border:1px solid #D6D6D6;background-color:DarkGrey"></td>'
+            date = @ce 
+          else
+            ret_str << output_empty(date, (currentDate - date).to_i)
+            date = currentDate
+          end
+        elsif date < @cs && ed >= @cs
+          # case 3 start before, end in closure
+          debug 'handle_cells: case 3 output grey'
+          if date > currentDate || ed < currentDate || (currentDate > @cs && currentDate < @ce)
+            ret_str << output_empty(date, (@cs - date).to_i)
+            # ret_str << '<td style="border:1px solid #D6D6D6;background-color:DarkGrey"></td>'
+            date = @ce
+          else
+            ret_str << output_empty(date, (currentDate - date).to_i)
+            date = currentDate
+          end
+        elsif date >= @ce 
+          # case 2 between closures
+          debug 'case 2'
+          cs_ = @cs.change(:year => @cs.year + 1)
+          if currentDate > date && currentDate <= ed  && currentDate < cs_
+            out_date = currentDate > cs_ ? cs_ - 1 : currentDate
+            ret_str << output_empty(date, (out_date - date).to_i)
+            date = out_date
+          else
+            out_date = ed > cs_ ? cs_ - 1 : ed
+            ret_str << output_empty(date, (out_date - date).to_i)
+            date = out_date
+          end
+        elsif date > @cs && ed >= @ce
+          # case 4 start in closure
+          debug 'handle_cells: case 4 output grey'
+          if date > currentDate || ed < currentDate
+            ret_str << '<td style="border:1px solid #D6D6D6;background-color:DarkGrey"></td>'
+            date = @ce
+          else
+            ret_str << output_empty(date, (currentDate - date).to_i)
+            date = currentDate
+          end
+        elsif date >= @cs && date < @ce
+          # case 6 within closure
+          debug 'handle_cells: case 6 output grey'
+          ret_str << '<td style="border:1px solid #D6D6D6;background-color:DarkGrey"></td>'
+          date = @ce
+        else
+          # we should never get here
+          debug "@cs is #{@cs}, @ce = #{@ce}"
+          raise 'error' 
+        end
         debug "using closed, next date is #{date}"
       else # no closed
-	if date > currentDate
-	  debug "handle_cells: after currentDate, output_empty(#{date}, #{(ed - date).to_i})"
-	  ret_str << output_empty(date, (ed - date).to_i)
-	  date = ed
-	elsif ed < currentDate
-	  debug "handle_cells: before currentDate, output_empty(#{date}, #{(ed - date).to_i})"
-	  ret_str << output_empty(date, (ed -date).to_i)
-	  date = ed
-	elsif date == currentDate # current date
-	  debug 'handle_cells: outside of closed: date == currentDate'
-	  ret_str << '<td style="border:1px solid #D6D6D6;"></td>'
-	  date = currentDate + 1
-	else # date < currentDate && ed >= currentDate # spans current
-	  debug "handle_cells: starts before and spans currentDate, output_empty(#{date}, #{(currentDate - date).to_i})"
-	  ret_str << output_empty(date, (currentDate - date).to_i)
-	  date = currentDate
-	end
+        if date > currentDate
+          debug "handle_cells: after currentDate, output_empty(#{date}, #{(ed - date).to_i})"
+          ret_str << output_empty(date, (ed - date).to_i)
+          date = ed
+        elsif ed < currentDate
+          debug "handle_cells: before currentDate, output_empty(#{date}, #{(ed - date).to_i})"
+          ret_str << output_empty(date, (ed -date).to_i)
+          date = ed
+        elsif date == currentDate # current date
+          debug 'handle_cells: outside of closed: date == currentDate'
+          ret_str << '<td style="border:1px solid #D6D6D6;"></td>'
+          date = currentDate + 1
+        else # date < currentDate && ed >= currentDate # spans current
+          debug "handle_cells: starts before and spans currentDate, output_empty(#{date}, #{(currentDate - date).to_i})"
+          ret_str << output_empty(date, (currentDate - date).to_i)
+          date = currentDate
+        end
       end
     end
     return ret_str
@@ -482,6 +487,7 @@ module ReservationHelper
     debug "output_empty sd = #{in_sd} count = #{count}"
     sd = in_sd
     ret_str = ''
+    temp = 0
     while count > 0
       # debug "sd is #{sd}, day = #{sd.wday} and count is #{count}"
       case sd.wday

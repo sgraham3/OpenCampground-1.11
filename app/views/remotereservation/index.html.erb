@@ -8,10 +8,10 @@
   <%= render :partial => 'shared/sitetype' %>
   </p>
   <p>
-    <%= render :partial => 'shared/count' %>
-    <span id="spaces">
-      <%= render :partial => 'space_pulldown' %>
-    </span>
+  <%= render :partial => 'shared/count' %>
+  <span id="spaces">
+    <%= render :partial => 'space_pulldown' %>
+  </span>
   </p>
   <span style="display: none">
     <%= collection_select(:reservation, :discount_id, Discount.active, :id, :name, {:prompt => true}) if @option.use_discount? && Discount.active.count > 0 %>

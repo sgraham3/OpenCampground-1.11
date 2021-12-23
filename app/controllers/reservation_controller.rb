@@ -1,6 +1,7 @@
 class ReservationController < ApplicationController
   include MyLib
   include CalculationHelper
+  include ReservationHelper
   before_filter :login_from_cookie
   # before_filter :check_login
   before_filter :check_dates, :only => [:find_space, :update_dates, :change_space, :express_2]
@@ -912,6 +913,9 @@ class ReservationController < ApplicationController
     end
 
     @spaces = Space.active
+    # getcurrentyear = currentDate.year
+    # getcurrentmonth = currentDate.mon
+    # getendofcurrentdate = Date.parse("2021-12-31")
     res = Reservation.all( :conditions => [ "(enddate >= ? or checked_in = ?) and confirm = ? and archived = ?",currentDate, true, true, false],
     :include => ['camper'],
 			   :order => "space_id,startdate ASC")

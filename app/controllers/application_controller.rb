@@ -431,7 +431,7 @@ protected
 	page[:flash].visual_effect :highlight
       end
       page[:count].replace_html :partial => 'shared/count' if display_count
-      page[:spaces].replace_html :partial => 'space_pulldown' if session[:express]
+      page[:spaces].replace_html :partial => 'space_pulldown'
       page[:dates].replace_html :partial => 'shared/dates' if display_dates
     end
   end

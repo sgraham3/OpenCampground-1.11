@@ -972,3 +972,145 @@ Completed in 4ms (DB: 0) | 302 Found [http://localhost/login/login]
 
 Processing ReservationController#list (for 127.0.0.1 at 2021-12-23 04:47:10) [GET]
   Parameters: {"action"=>"list", "controller"=>"reservation"}
+
+
+Processing ReservationController#list (for 127.0.0.1 at 2022-01-06 16:44:29) [GET]
+  Parameters: {"action"=>"list", "controller"=>"reservation"}
+Rendering template within layouts/application
+Rendering reservation/list
+
+ActionView::TemplateError (undefined method `admin' for nil:NilClass) on line #175 of app/views/layouts/application.html.erb:
+172: 				<% end %>
+173: 				<p><%= link_to I18n.t('titles.site_av'), {:controller => '/reservation', :action => 'available'} %> </p>				
+174: 				<% if session[:admin_status] %>
+175: 					<% if(authorized?(@option.all_checkin_rpt?) || authorized?(@option.all_leave_rpt?) || authorized?(@option.all_arrival_rpt?) || authorized?(@option.all_departure_rpt?) || authorized?(@option.all_in_park_rpt?) || authorized?(@option.all_space_sum_rpt?) || authorized?(@option.all_occupancy_rpt?) || authorized?(@option.all_campers_rpt?) || authorized?(@option.all_transactions_rpt?) || authorized?(@option.all_payments_rpt?) || authorized?(@option.all_measured_rpt?)) %>
+176: 						<p> <%= link_to 'Reports', report_index_path %> </p>
+177: 					<% end %>
+178: 					<% if(authorized?(@option.all_backup?) ) %>
+
+    app/helpers/application_helper.rb:79:in `authorized?'
+    app/views/layouts/application.html.erb:175
+    config/initializers/mongrel.rb:62:in `dispatch_cgi'
+
+
+Rendering E:/AAA/Projects/Freelancer/Ruby/InstantRails2/rails_apps/OpenCampground-1.11/public/500.html (500 Internal Server Error)
+
+
+Processing ReservationController#list (for 127.0.0.1 at 2022-01-06 16:45:18) [POST]
+  Parameters: {"action"=>"list", "controller"=>"reservation"}
+Rendering template within layouts/application
+Rendering reservation/list
+
+ActionView::TemplateError (undefined method `admin' for nil:NilClass) on line #175 of app/views/layouts/application.html.erb:
+172: 				<% end %>
+173: 				<p><%= link_to I18n.t('titles.site_av'), {:controller => '/reservation', :action => 'available'} %> </p>				
+174: 				<% if session[:admin_status] %>
+175: 					<% if(authorized?(@option.all_checkin_rpt?) || authorized?(@option.all_leave_rpt?) || authorized?(@option.all_arrival_rpt?) || authorized?(@option.all_departure_rpt?) || authorized?(@option.all_in_park_rpt?) || authorized?(@option.all_space_sum_rpt?) || authorized?(@option.all_occupancy_rpt?) || authorized?(@option.all_campers_rpt?) || authorized?(@option.all_transactions_rpt?) || authorized?(@option.all_payments_rpt?) || authorized?(@option.all_measured_rpt?)) %>
+176: 						<p> <%= link_to 'Reports', report_index_path %> </p>
+177: 					<% end %>
+178: 					<% if(authorized?(@option.all_backup?) ) %>
+
+    app/helpers/application_helper.rb:79:in `authorized?'
+    app/views/layouts/application.html.erb:175
+    config/initializers/mongrel.rb:62:in `dispatch_cgi'
+
+
+Rendering E:/AAA/Projects/Freelancer/Ruby/InstantRails2/rails_apps/OpenCampground-1.11/public/500.html (500 Internal Server Error)
+
+
+Processing ReservationController#list (for 127.0.0.1 at 2022-01-06 16:45:20) [POST]
+  Parameters: {"action"=>"list", "controller"=>"reservation"}
+Rendering template within layouts/application
+Rendering reservation/list
+
+ActionView::TemplateError (undefined method `admin' for nil:NilClass) on line #175 of app/views/layouts/application.html.erb:
+172: 				<% end %>
+173: 				<p><%= link_to I18n.t('titles.site_av'), {:controller => '/reservation', :action => 'available'} %> </p>				
+174: 				<% if session[:admin_status] %>
+175: 					<% if(authorized?(@option.all_checkin_rpt?) || authorized?(@option.all_leave_rpt?) || authorized?(@option.all_arrival_rpt?) || authorized?(@option.all_departure_rpt?) || authorized?(@option.all_in_park_rpt?) || authorized?(@option.all_space_sum_rpt?) || authorized?(@option.all_occupancy_rpt?) || authorized?(@option.all_campers_rpt?) || authorized?(@option.all_transactions_rpt?) || authorized?(@option.all_payments_rpt?) || authorized?(@option.all_measured_rpt?)) %>
+176: 						<p> <%= link_to 'Reports', report_index_path %> </p>
+177: 					<% end %>
+178: 					<% if(authorized?(@option.all_backup?) ) %>
+
+    app/helpers/application_helper.rb:79:in `authorized?'
+    app/views/layouts/application.html.erb:175
+    config/initializers/mongrel.rb:62:in `dispatch_cgi'
+
+
+Rendering E:/AAA/Projects/Freelancer/Ruby/InstantRails2/rails_apps/OpenCampground-1.11/public/500.html (500 Internal Server Error)
+
+
+Processing ReservationController#list (for 127.0.0.1 at 2022-01-06 16:45:20) [POST]
+  Parameters: {"action"=>"list", "controller"=>"reservation"}
+Rendering template within layouts/application
+Rendering reservation/list
+
+ActionView::TemplateError (undefined method `admin' for nil:NilClass) on line #175 of app/views/layouts/application.html.erb:
+172: 				<% end %>
+173: 				<p><%= link_to I18n.t('titles.site_av'), {:controller => '/reservation', :action => 'available'} %> </p>				
+174: 				<% if session[:admin_status] %>
+175: 					<% if(authorized?(@option.all_checkin_rpt?) || authorized?(@option.all_leave_rpt?) || authorized?(@option.all_arrival_rpt?) || authorized?(@option.all_departure_rpt?) || authorized?(@option.all_in_park_rpt?) || authorized?(@option.all_space_sum_rpt?) || authorized?(@option.all_occupancy_rpt?) || authorized?(@option.all_campers_rpt?) || authorized?(@option.all_transactions_rpt?) || authorized?(@option.all_payments_rpt?) || authorized?(@option.all_measured_rpt?)) %>
+176: 						<p> <%= link_to 'Reports', report_index_path %> </p>
+177: 					<% end %>
+178: 					<% if(authorized?(@option.all_backup?) ) %>
+
+    app/helpers/application_helper.rb:79:in `authorized?'
+    app/views/layouts/application.html.erb:175
+    config/initializers/mongrel.rb:62:in `dispatch_cgi'
+
+
+Rendering E:/AAA/Projects/Freelancer/Ruby/InstantRails2/rails_apps/OpenCampground-1.11/public/500.html (500 Internal Server Error)
+
+
+Processing ReservationController#list (for 127.0.0.1 at 2022-01-06 16:45:21) [POST]
+  Parameters: {"action"=>"list", "controller"=>"reservation"}
+Rendering template within layouts/application
+Rendering reservation/list
+
+ActionView::TemplateError (undefined method `admin' for nil:NilClass) on line #175 of app/views/layouts/application.html.erb:
+172: 				<% end %>
+173: 				<p><%= link_to I18n.t('titles.site_av'), {:controller => '/reservation', :action => 'available'} %> </p>				
+174: 				<% if session[:admin_status] %>
+175: 					<% if(authorized?(@option.all_checkin_rpt?) || authorized?(@option.all_leave_rpt?) || authorized?(@option.all_arrival_rpt?) || authorized?(@option.all_departure_rpt?) || authorized?(@option.all_in_park_rpt?) || authorized?(@option.all_space_sum_rpt?) || authorized?(@option.all_occupancy_rpt?) || authorized?(@option.all_campers_rpt?) || authorized?(@option.all_transactions_rpt?) || authorized?(@option.all_payments_rpt?) || authorized?(@option.all_measured_rpt?)) %>
+176: 						<p> <%= link_to 'Reports', report_index_path %> </p>
+177: 					<% end %>
+178: 					<% if(authorized?(@option.all_backup?) ) %>
+
+    app/helpers/application_helper.rb:79:in `authorized?'
+    app/views/layouts/application.html.erb:175
+    config/initializers/mongrel.rb:62:in `dispatch_cgi'
+
+
+Rendering E:/AAA/Projects/Freelancer/Ruby/InstantRails2/rails_apps/OpenCampground-1.11/public/500.html (500 Internal Server Error)
+
+
+Processing AdminController#troubleshoot (for 127.0.0.1 at 2022-01-06 16:45:23) [POST]
+  Parameters: {"action"=>"troubleshoot", "controller"=>"admin"}
+Redirected to http://localhost:3000/admin/maintenance
+Completed in 244ms (DB: 208) | 302 Found [http://localhost/admin/troubleshoot]
+
+
+Processing AdminController#maintenance (for 127.0.0.1 at 2022-01-06 16:45:24) [GET]
+  Parameters: {"action"=>"maintenance", "controller"=>"admin"}
+
+ActionView::MissingTemplate (Missing template admin/maintenance.erb in view path app/views):
+  config/initializers/mongrel.rb:62:in `dispatch_cgi'
+
+
+Rendering E:/AAA/Projects/Freelancer/Ruby/InstantRails2/rails_apps/OpenCampground-1.11/public/500.html (500 Internal Server Error)
+
+
+Processing AdminController#troubleshoot (for 127.0.0.1 at 2022-01-06 16:45:25) [POST]
+  Parameters: {"action"=>"troubleshoot", "controller"=>"admin"}
+Redirected to http://localhost:3000/admin/maintenance
+Completed in 29ms (DB: 14) | 302 Found [http://localhost/admin/troubleshoot]
+
+
+Processing AdminController#maintenance (for 127.0.0.1 at 2022-01-06 16:45:25) [GET]
+  Parameters: {"action"=>"maintenance", "controller"=>"admin"}
+
+ActionView::MissingTemplate (Missing template admin/maintenance.erb in view path app/views):
+  config/initializers/mongrel.rb:62:in `dispatch_cgi'
+
+
+Rendering E:/AAA/Projects/Freelancer/Ruby/InstantRails2/rails_apps/OpenCampground-1.11/public/500.html (500 Internal Server Error)

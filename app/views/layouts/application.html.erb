@@ -155,7 +155,7 @@
 			<% if @option.express? %>
 				<p><%= link_to I18n.t('titles.express'), {:controller => '/reservation', :action => 'express'}     %> </p>
 			<% end %>
-			<% if session[:user_id] %>
+			<% if @option.use_login? %>
 				<% if session[:admin_status] %>		
 					<p><%= link_to I18n.t('titles.res_list'), {:controller => '/reservation', :action => 'list', :page => 1}     %> </p>
 					<p><%= link_to I18n.t('titles.in_park'), {:controller => '/reservation', :action => 'in_park', :page => 1}     %> </p>
@@ -182,7 +182,7 @@
 				<% end %>
 			<% end %>
 				
-			<% if @option.use_login? %>
+			<% if session[:user_id] %>
 				<p><%= link_to I18n.t('layout.side.logout'), :controller => '/login', :action => 'logout'    %> </p>
 				<p><%= link_to I18n.t('layout.side.chg_pwd'), edit_user_path(session[:user_id]) %> </p>
 			<% end %>

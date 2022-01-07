@@ -1,4 +1,22 @@
-<%= button_to I18n.t('reservation.DownloadData'), :action => 'available_csv', :id => 'btn_download' %>
+<div style="display: flex">
+  <%= button_to I18n.t('reservation.DownloadData'), :action => 'available_csv', :id => 'btn_download' %>
+  <div>
+    <select id="comboMonth">
+      <option>January</option>
+      <option>February</option>
+      <option>March</option>
+      <option>April</option>
+      <option>May</option>
+      <option>June</option>
+      <option>July</option>
+      <option>August</option>
+      <option>September</option>
+      <option>October</option>
+      <option>November</option>
+      <option>December</option>
+    </select>
+  </div>
+</div>
 <br>
 <% if session[:admin_status] %>
   <span class="occupied"><%= I18n.t('reservation.Occupied') %></span>

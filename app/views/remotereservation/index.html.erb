@@ -33,6 +33,28 @@
 
 <script type="text/javascript">
   TableLock("available", "av_space", "av_date", "locked");
+
+  var current_url = window.location.href;
+  const url = new URL(
+    current_url
+  );
+  var glb_start_date = url.searchParams.get('start_date');
+  var glb_space = url.searchParams.get('space');
+  if(glb_start_date !== null && glb_space !== null) {
+    var spaceSelect = document.getElementsByName("space[space_id]")[0];
+    for (var i = 0; i < spaceSelect.options.length; ++i) {
+        if (spaceSelect.options[i].text === glb_space) {
+          spaceSelect.options[i].selected = true;
+        }  
+    }
+    var calendar = glbStartCalendarDateSelect;
+    var d = new Date();
+    calendar.date = new Date();
+    var o = $H({ day: glb_start_date, month: d.getMonth(), year: d.getFullYear(), hour: d.getHours(), minute: d.getMinutes() });
+    calendar.updateSelectedDate(o, true);
+    calendar.refresh();
+  }
+
   var cells = document.querySelectorAll(".available td");
   var table = document.getElementsByTagName('table')[0];
   for (var i = 0; i < cells.length; i++) {

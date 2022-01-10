@@ -1,0 +1,27 @@
+<span id="country">
+<% if @option.use_country? && Country.active.count > 0 %>
+  <td>
+  <% unless !defined?(@reservation) || @reservation.editable? %>
+	<b>
+	&nbsp;
+	<%= if @camper.country_id?
+	      @camper.country.name
+	    end %></b>
+  <% else %>
+      <span class="noprint">
+	<%= collection_select(:camper, :country_id, Country.active, :id, :name, {:prompt => true}) %>
+      </span>
+      <span class="nodisplay">
+	<b>
+	&nbsp;
+	<%= if @camper.country_id?
+	      @camper.country.name
+	    end %></b>
+      </span>
+      <%= observe_field :camper_country_id,
+			:url => {:action => 'update_country', :controller => 'camper', :only_path => false},
+			:with => "'id='+#{@camper.id}+'&country_id='+encodeURIComponent(value)" %>
+  <% end %>
+  </td>
+<% end %>
+</span>

@@ -1,14 +1,15 @@
 <%= javascript_include_tag 'tablelock'%>
+
 <div style="margin-left:4em">
 <form action="/reservation/express_2" method="post">
   <div id='dates'>
-    <%= render :partial => 'shared/dates' %>
+    <%= render :partial => 'dates' %>
   </div>
   <p>
-  <%= render :partial => 'shared/sitetype' %>
+  <%= render :partial => 'sitetype' %>
   </p>
   <p>
-  <%= render :partial => 'shared/count' %>
+  <%= render :partial => 'count' %>
   <span id="spaces">
     <%= render :partial => 'space_pulldown' %>
   </span>
@@ -30,9 +31,40 @@
   </table>
 </div>
 
-<%= set_focus_to_id 'find' %>
 <script type="text/javascript">
   TableLock("available", "av_space", "av_date", "locked");
+  var cells = document.querySelectorAll(".available td");
+  var table = document.getElementsByTagName('table')[0];
+  for (var i = 0; i < cells.length; i++) {
+    if (cells[i].hasChildNodes()) {
+    }else{
+      cells[i].setAttribute('style', 'cursor: pointer');
+      cells[i].addEventListener("click", function(){
+        handler(this);
+     });
+    } 
+  }
+  function handler(param) {
+    var spaceSelect = document.getElementsByName("space[space_id]")[0];
+    var parentTr = param.parentElement;
+    var obj = parentTr.getElementsByTagName("td")[0];
+    var cellindex = param.cellIndex;
+
+    var start_date = parentTr.parentElement.parentElement.children[0].children[1].children[cellindex].textContent;
+    var spaceTxt = obj.textContent;
+
+    for (var i = 0; i < spaceSelect.options.length; ++i) {
+        if (spaceSelect.options[i].text === spaceTxt) {
+          spaceSelect.options[i].selected = true;
+        }  
+    }
+    var calendar = glbStartCalendarDateSelect;
+    var d = new Date();
+    calendar.date = new Date();
+    var o = $H({ day: start_date, month: d.getMonth(), year: d.getFullYear(), hour: d.getHours(), minute: d.getMinutes() });
+    calendar.updateSelectedDate(o, true);
+    calendar.refresh();
+  }
   function FindLeftWindowBoundry()
   {
     // In Internet Explorer window.screenLeft is the window's left boundry

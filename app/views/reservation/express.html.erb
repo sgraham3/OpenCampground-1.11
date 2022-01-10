@@ -19,6 +19,26 @@
 <a href="../images/sitemap.jpg" onclick="goclicky(this); return false;" target="_blank" class="sitemap">Site Map</a>
 
 <script type="text/javascript">
+  var current_url = window.location.href;
+  const url = new URL(
+    current_url
+  );
+  var glb_start_date = url.searchParams.get('start_date');
+  var glb_space = url.searchParams.get('space');
+  if(glb_start_date !== null && glb_space !== null) {
+    var spaceSelect = document.getElementsByName("space[space_id]")[0];
+    for (var i = 0; i < spaceSelect.options.length; ++i) {
+        if (spaceSelect.options[i].text === glb_space) {
+          spaceSelect.options[i].selected = true;
+        }  
+    }
+    var calendar = glbStartCalendarDateSelect;
+    var d = new Date();
+    calendar.date = new Date();
+    var o = $H({ day: glb_start_date, month: d.getMonth(), year: d.getFullYear(), hour: d.getHours(), minute: d.getMinutes() });
+    calendar.updateSelectedDate(o, true);
+    calendar.refresh();
+  }
   function FindLeftWindowBoundry()
   {
     // In Internet Explorer window.screenLeft is the window's left boundry

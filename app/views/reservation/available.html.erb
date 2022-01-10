@@ -44,11 +44,19 @@
     if (cells[i].hasChildNodes()) {
     }else{
       cells[i].setAttribute('style', 'cursor: pointer');
-      cells[i].addEventListener("click", handler);
+      cells[i].addEventListener("click", function(){
+        handler(this);
+     });
     }
   }
-  function handler() {
-    location.href = '/reservation/new?stage=new';
+  function handler(param) {
+    var parentTr = param.parentElement;
+    var obj = parentTr.getElementsByTagName("td")[0];
+    var cellindex = param.cellIndex;
+
+    var start_date = parentTr.parentElement.parentElement.children[0].children[1].children[cellindex].textContent;
+    var spaceTxt = obj.textContent;
+    location.href = "/reservation/express?"+"start_date="+start_date+"&space="+spaceTxt;
   }
 </script>
 

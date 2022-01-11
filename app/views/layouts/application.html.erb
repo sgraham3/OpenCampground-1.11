@@ -172,12 +172,8 @@
 				<% end %>
 				<p><%= link_to I18n.t('titles.site_av'), {:controller => '/reservation', :action => 'available'} %> </p>				
 				<% if session[:admin_status] %>
-					<% if(authorized?(@option.all_checkin_rpt?) || authorized?(@option.all_leave_rpt?) || authorized?(@option.all_arrival_rpt?) || authorized?(@option.all_departure_rpt?) || authorized?(@option.all_in_park_rpt?) || authorized?(@option.all_space_sum_rpt?) || authorized?(@option.all_occupancy_rpt?) || authorized?(@option.all_campers_rpt?) || authorized?(@option.all_transactions_rpt?) || authorized?(@option.all_payments_rpt?) || authorized?(@option.all_measured_rpt?)) %>
-						<p> <%= link_to 'Reports', report_index_path %> </p>
-					<% end %>
-					<% if(authorized?(@option.all_backup?) ) %>
-						<p> <%= link_to 'Database Backup', maintenance_backup_index_path %> </p>
-					<% end %>
+					<p> <%= link_to 'Reports', report_index_path %> </p>
+					<p> <%= link_to 'Database Backup', maintenance_backup_index_path %> </p>
 					<p><%= link_to I18n.t('layout.side.admin'), admin_index_path %> </p>
 				<% end %>
 			<% end %>

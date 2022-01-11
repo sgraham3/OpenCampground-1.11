@@ -59,6 +59,9 @@
   var table = document.getElementsByTagName('table')[0];
   for (var i = 0; i < cells.length; i++) {
     if (cells[i].hasChildNodes()) {
+      if(cells[i].childNodes[0].tagName == "A") {
+        cells[i].parentElement.setAttribute("hasspace", "true");
+      }
     }else{
       cells[i].setAttribute('style', 'cursor: pointer');
       cells[i].addEventListener("click", function(){
@@ -69,23 +72,28 @@
   function handler(param) {
     var spaceSelect = document.getElementsByName("space[space_id]")[0];
     var parentTr = param.parentElement;
-    var obj = parentTr.getElementsByTagName("td")[0];
-    var cellindex = param.cellIndex;
+    if(parentTr.getAttribute("hasspace") != "true") {
+      var obj = parentTr.getElementsByTagName("td")[0];
+      var cellindex = param.cellIndex;
 
-    var start_date = parentTr.parentElement.parentElement.children[0].children[1].children[cellindex].textContent;
-    var spaceTxt = obj.textContent;
+      var start_date = parentTr.parentElement.parentElement.children[0].children[1].children[cellindex].textContent;
+      var spaceTxt = obj.textContent;
 
-    for (var i = 0; i < spaceSelect.options.length; ++i) {
-        if (spaceSelect.options[i].text === spaceTxt) {
-          spaceSelect.options[i].selected = true;
-        }  
+      for (var i = 0; i < spaceSelect.options.length; ++i) {
+          if (spaceSelect.options[i].text === spaceTxt) {
+            spaceSelect.options[i].selected = true;
+          }  
+      }
+      var calendar = glbStartCalendarDateSelect;
+      var d = new Date();
+      calendar.date = new Date();
+      var o = $H({ day: start_date, month: d.getMonth(), year: d.getFullYear(), hour: d.getHours(), minute: d.getMinutes() });
+      calendar.updateSelectedDate(o, true);
+      calendar.refresh();
+    }else{
+      alert("This space is already reserved. Try a different space.");
+      return;
     }
-    var calendar = glbStartCalendarDateSelect;
-    var d = new Date();
-    calendar.date = new Date();
-    var o = $H({ day: start_date, month: d.getMonth(), year: d.getFullYear(), hour: d.getHours(), minute: d.getMinutes() });
-    calendar.updateSelectedDate(o, true);
-    calendar.refresh();
   }
   function FindLeftWindowBoundry()
   {
@@ -119,7 +127,6 @@
       
   function goclicky(meh)
   {
-      console.log(FindLeftWindowBoundry(), FindTopWindowBoundry());
       var x = screen.width/2 - 700/2 + FindLeftWindowBoundry();
       var y = screen.height/2 - 450/2 + FindTopWindowBoundry();
       window.open(meh.href, 'sharegplus','height=600,width=700,left='+x+',top='+y);

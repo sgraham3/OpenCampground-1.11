@@ -42,6 +42,9 @@
   var table = document.getElementsByTagName('table')[0];
   for (var i = 0; i < cells.length; i++) {
     if (cells[i].hasChildNodes()) {
+      if(cells[i].childNodes[0].tagName == "A") {
+        cells[i].parentElement.setAttribute("hasspace", "true");
+      }
     }else{
       cells[i].setAttribute('style', 'cursor: pointer');
       cells[i].addEventListener("click", function(){
@@ -51,12 +54,17 @@
   }
   function handler(param) {
     var parentTr = param.parentElement;
-    var obj = parentTr.getElementsByTagName("td")[0];
-    var cellindex = param.cellIndex;
+    if(parentTr.getAttribute("hasspace") != "true") {
+      var obj = parentTr.getElementsByTagName("td")[0];
+      var cellindex = param.cellIndex;
 
-    var start_date = parentTr.parentElement.parentElement.children[0].children[1].children[cellindex].textContent;
-    var spaceTxt = obj.textContent;
-    location.href = "/reservation/express?"+"start_date="+start_date+"&space="+spaceTxt;
+      var start_date = parentTr.parentElement.parentElement.children[0].children[1].children[cellindex].textContent;
+      var spaceTxt = obj.textContent;
+      location.href = "/reservation/express?"+"start_date="+start_date+"&space="+spaceTxt;
+    }else{
+      alert("This space is already reserved. Try a different space.");
+      return;
+    }
   }
 </script>
 

@@ -256,8 +256,6 @@ module ReservationHelper
         temp = Date.parse("2021-12-31")
         temploop = 0;
         while date < @endDate
-          temploop += 1
-          puts temploop
           debug "date is #{date}"
           if @option.use_closed? && (date >= @cs && date < @ce)
             debug "in closed date = #{date}"

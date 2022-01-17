@@ -80,6 +80,7 @@ SelectBox.prototype = {
 }
 
 var glbStartCalendarDateSelect;
+var glbEndCalendarDateSelect;
 
 CalendarDateSelect = Class.create();
 CalendarDateSelect.prototype = {
@@ -130,6 +131,8 @@ CalendarDateSelect.prototype = {
         this.callback("after_show");
         if (this.target_element.id == "reservation_startdate") {
             glbStartCalendarDateSelect = this;
+        } else {
+            glbEndCalendarDateSelect = this;
         }
     },
     positionCalendarDiv: function() {

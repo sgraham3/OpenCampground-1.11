@@ -4,7 +4,6 @@
     border-bottom: 2px solid;
     font: small-caps 40px/40px "Times New Roman", serif;
     text-align: center;
-    float left;
 }
 
 #user {
@@ -157,36 +156,11 @@
     top: 5px;
 }
 
-#available {
-    /* font-family: Sans Serif; */
-    /* font-size: small; */
-}
-
-#available table {
-    /* border-collapse: collapse;
-		table-layout: fixed;
-		text-align: center; */
-}
-
-.available th {
-    /* font-family: Sans Serif; */
-    /* font-size: small; */
-    /* border-collapse: collapse; */
-    /* border: 1px solid #D6D6D6; */
-    /* display: table-cell; */
-    /* padding: 2px 30px; */
-    /* white-space: nowrap; */
-    /* text-overflow: ellipsis; */
-    /* overflow: hidden; */
-    /* width: auto; */
-    /* max-width: 1px; */
-    /* text-align: center; */
-}
-
 .available td {
     padding: 2px 30px;
     border: 1px solid #D6D6D6;
 }
+
 
 .extra {
     white-space: nowrap;
@@ -252,6 +226,18 @@ input[type="submit"] {
 }
 
 input[type="button"] {
+    background-color: #ffffff;
+    color: #000000;
+    padding: 5px 20px;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    margin: 5px 5px 0px 0px;
+    letter-spacing: .5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#month {
     background-color: #ffffff;
     color: #000000;
     padding: 5px 20px;

@@ -1,22 +1,19 @@
 <div style="display: flex">
   <%= button_to I18n.t('reservation.DownloadData'), :action => 'available_csv', :id => 'btn_download' %>
-  <div>
-    <select id="comboMonth">
-      <option>January</option>
-      <option>February</option>
-      <option>March</option>
-      <option>April</option>
-      <option>May</option>
-      <option>June</option>
-      <option>July</option>
-      <option>August</option>
-      <option>September</option>
-      <option>October</option>
-      <option>November</option>
-      <option>December</option>
-    </select>
-  </div>
-</div>
+  <%= select_tag(:month,
+          '<option>January</option>
+          <option>February</option>
+          <option>March</option>
+          <option>April</option>
+          <option>May</option>
+          <option>June</option>
+          <option>July</option>
+          <option>August</option>
+          <option>September</option>
+          <option>October</option>
+          <option>November</option>
+          <option>December</option>', :onchange => 'getMonthlyData()') %>
+</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
 <br>
 <% if session[:admin_status] %>
   <span class="occupied"><%= I18n.t('reservation.Occupied') %></span>
@@ -38,6 +35,18 @@
 </div>
 <script type="text/JavaScript">
   TableLock("available", "av_space", "av_date", "locked");
+
+  var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  var current_url = window.location.href;
+  const url = new URL(
+    current_url
+  );
+  var monthNum = url.searchParams.get('month');
+  if(monthNum !== null) {
+    var strMonth = months[monthNum-1];
+    document.getElementById("month").value = strMonth;
+  }
+
   var cells = document.querySelectorAll(".available td");
   var table = document.getElementsByTagName('table')[0];
   for (var i = 0; i < cells.length; i++) {
@@ -65,6 +74,14 @@
       alert("This space is already reserved. Try a different space.");
       return;
     }
+  }
+  function getMonthlyData() {
+    var strMonth = document.getElementById("month").value;
+    var month = getMonthFromString(strMonth);
+    location.href = "/reservation/available?month=" + month;
+  }
+  function getMonthFromString(month){
+    return new Date(Date.parse(month +" 1, 2012")).getMonth()+1;
   }
 </script>
 

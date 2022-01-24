@@ -1,4 +1,5 @@
 module ReservationHelper
+  require 'uri'
   include MyLib
   Winter = 1
   Summer = 2
@@ -105,6 +106,56 @@ module ReservationHelper
     av_init
     ret_str = get_header_months
     ret_str << get_header_days
+  end
+
+  def av_init
+    @strmonth = request.query_parameters
+    debug 'av_init'
+    @closedDays = 0
+    if @strmonth.length == 0
+      @startDate = currentDate - @option.lookback
+    else
+      month = @strmonth['month']
+      @startDate = Date.new(currentDate.year.to_i, month.to_i, 1)
+    end
+    
+    days = @option.sa_columns + @option.lookback
+    if @option.use_closed?
+      @closedType = Summer
+      @closedStart = @option.closed_start.change(:year => currentDate.year) 
+      @closedEnd = @option.closed_end.change(:year => currentDate.year)
+      if @closedStart > @closedEnd
+        debug "closed start is #{@closedStart} and closed end is #{@closedEnd} giving type Winter"
+        @closedType = Winter
+          if @startDate < @closedEnd
+            @startDate = @closedEnd
+          end
+            @closedEnd = @closedEnd.change(:year => currentDate.year + 1)
+          else
+        debug "closed start is #{@closedStart} and closed end is #{@closedEnd} giving type Summer"
+      end
+      date = @startDate
+      cs = @closedStart
+      ce = @closedEnd
+      day_cnt = 0
+      while day_cnt < days
+        if date < cs
+	  day_cnt += 1
+    elsif date == ce
+      ce = ce.change(:year => ce.year + 1)
+      cs = cs.change(:year => cs.year + 1)
+    else
+      @closedDays += 1
+    end
+    date = date.succ
+      end
+      @endDate = date
+      debug "closed from #{@closedStart} to #{@closedEnd} for #{@closedDays} days type #{@closedType}"
+    else
+      @endDate = @startDate + days
+      # @endDate = Date.new(2022,1,14)
+    end
+    debug "starting at #{@startDate} and ending at #{@endDate}"
   end
 
   def hdr_init
@@ -594,47 +645,4 @@ module ReservationHelper
     debug "startdate is #{startdate}, enddate is #{enddate}, this_date is #{this_date}"
     return cnt
   end
-
-  def av_init
-    debug 'av_init'
-    @closedDays = 0
-    @startDate = currentDate - @option.lookback
-    days = @option.sa_columns + @option.lookback
-    if @option.use_closed?
-      @closedType = Summer
-      @closedStart = @option.closed_start.change(:year => currentDate.year) 
-      @closedEnd = @option.closed_end.change(:year => currentDate.year)
-      if @closedStart > @closedEnd
-        debug "closed start is #{@closedStart} and closed end is #{@closedEnd} giving type Winter"
-        @closedType = Winter
-	if @startDate < @closedEnd
-	  @startDate = @closedEnd
-	end
-        @closedEnd = @closedEnd.change(:year => currentDate.year + 1)
-      else
-        debug "closed start is #{@closedStart} and closed end is #{@closedEnd} giving type Summer"
-      end
-      date = @startDate
-      cs = @closedStart
-      ce = @closedEnd
-      day_cnt = 0
-      while day_cnt < days
-        if date < cs
-	  day_cnt += 1
-	elsif date == ce
-	  ce = ce.change(:year => ce.year + 1)
-	  cs = cs.change(:year => cs.year + 1)
-	else
-	  @closedDays += 1
-	end
-	date = date.succ
-      end
-      @endDate = date
-      debug "closed from #{@closedStart} to #{@closedEnd} for #{@closedDays} days type #{@closedType}"
-    else
-      @endDate = @startDate + days
-    end
-    debug "starting at #{@startDate} and ending at #{@endDate}"
-  end
-
 end

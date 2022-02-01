@@ -25,10 +25,10 @@
 <% end %>
 <div id="container" >
   <table id="available" class="available" cellspacing="0" admin-session="<%= session[:admin_status] %>">
-    <thead>
+    <thead id="available_head">
       <%= header -%>
     </thead>
-    <tbody>
+    <tbody id="available_body">
       <%= available(@res) %>
     </tbody>
   </table>
@@ -75,10 +75,15 @@
       return;
     }
   }
-  function getMonthlyData() {
-    var strMonth = document.getElementById("month").value;
-    var month = getMonthFromString(strMonth);
-    location.href = "/reservation/available?month=" + month;
+  function getMonthlyData(param) {
+    let currentMonth = document.getElementById("month").value;
+    new Ajax.Request('getMonthlyData', {
+      parameters: {"month": getMonthFromString(currentMonth)},
+      onSuccess: function(res) {
+        console.log(res.responseText);
+        // document.body.innerHTML = res.responseText;
+      }
+    });
   }
   function getMonthFromString(month){
     return new Date(Date.parse(month +" 1, 2012")).getMonth()+1;

@@ -6,6 +6,7 @@ module ReservationHelper
   @ce = Date.new
   @cs = Date.new
 
+
   def blackout_dates
     str = ''
     Blackout.active.each {|b| str << "<div style=\"text-indent: 5em\">blacked out #{DateFmt.format_date(b.startdate)} to #{DateFmt.format_date(b.enddate)}</div>"}
@@ -103,36 +104,37 @@ module ReservationHelper
   def header
     debug 'header'
 
-    av_init
+    av_init(currentDate.month, @option)
     ret_str = get_header_months
     ret_str << get_header_days
   end
 
-  def av_init
-    @strmonth = request.query_parameters
-    debug 'av_init'
+  def av_init(month, data)
     @closedDays = 0
-    if @strmonth.length == 0
-      @startDate = currentDate - @option.lookback
+
+    my_string = month.to_s
+    if my_string.include? "monthly"
+      @tmpMonth = my_string.split('&').first
+      @startDate = Date.new(currentDate.year.to_i, @tmpMonth.to_i, 1)
+      @option = data
     else
-      month = @strmonth['month']
-      @startDate = Date.new(currentDate.year.to_i, month.to_i, 1)
+      @startDate = currentDate - @option.lookback
     end
-    
+
+    puts @startDate
+
     days = @option.sa_columns + @option.lookback
     if @option.use_closed?
       @closedType = Summer
       @closedStart = @option.closed_start.change(:year => currentDate.year) 
       @closedEnd = @option.closed_end.change(:year => currentDate.year)
       if @closedStart > @closedEnd
-        debug "closed start is #{@closedStart} and closed end is #{@closedEnd} giving type Winter"
         @closedType = Winter
-          if @startDate < @closedEnd
-            @startDate = @closedEnd
-          end
-            @closedEnd = @closedEnd.change(:year => currentDate.year + 1)
-          else
-        debug "closed start is #{@closedStart} and closed end is #{@closedEnd} giving type Summer"
+        if @startDate < @closedEnd
+          @startDate = @closedEnd
+        end
+        @closedEnd = @closedEnd.change(:year => currentDate.year + 1)
+      else
       end
       date = @startDate
       cs = @closedStart
@@ -140,22 +142,20 @@ module ReservationHelper
       day_cnt = 0
       while day_cnt < days
         if date < cs
-	  day_cnt += 1
-    elsif date == ce
-      ce = ce.change(:year => ce.year + 1)
-      cs = cs.change(:year => cs.year + 1)
-    else
-      @closedDays += 1
-    end
-    date = date.succ
+          day_cnt += 1
+        elsif date == ce
+          ce = ce.change(:year => ce.year + 1)
+          cs = cs.change(:year => cs.year + 1)
+        else
+          @closedDays += 1
+        end
+        date = date.succ
       end
       @endDate = date
-      debug "closed from #{@closedStart} to #{@closedEnd} for #{@closedDays} days type #{@closedType}"
     else
       @endDate = @startDate + days
       # @endDate = Date.new(2022,1,14)
     end
-    debug "starting at #{@startDate} and ending at #{@endDate}"
   end
 
   def hdr_init
@@ -187,7 +187,6 @@ module ReservationHelper
     first_closed = true
     day = Date.new
     debug "get_header_months enddate is #{@endDate}"
-    temp = Date.parse("31-12-2021")
     while date <= @endDate 
       # if @option.use_closed? && date > @cs && date > @ce
       if @option.use_closed? && date > @cs
@@ -247,7 +246,6 @@ module ReservationHelper
     first_closed = true
     ret_str = '<tr><th class="locked" style="border:1px solid white;background:#666666;"></th>'
     # debug "get_header_days enddate is #{@endDate}"
-    temp = Date.parse("31-12-2021")
     while date <= @endDate 
       if @option.use_closed? 
         if date > @cs && date > @ce
@@ -280,11 +278,12 @@ module ReservationHelper
     # with the key being the space_id.  Each
     # array of reservations is sorted by startdate
     #############################################
-    debug 'available'
+    # puts res_hash
     ret_str = ''
-    av_init
+    av_init(currentDate.month, @option)
     Space.active(:order => 'position').each do |space|
       date = @startDate
+      # puts @startDate
       ret_str << '<tr>'
       # start with the space name
       if space.unavailable?
@@ -301,28 +300,19 @@ module ReservationHelper
         @ce = @closedEnd
       end
       if res_hash.has_key? space.id
-        debug "\nspace #{space.name} has reservations"
-        debug "@cs is #{@cs}, @ce is #{@ce}" if @option.use_closed?
-        debug "available enddate is #{@endDate}"
-        temp = Date.parse("2021-12-31")
-        temploop = 0;
+
         while date < @endDate
-          debug "date is #{date}"
           if @option.use_closed? && (date >= @cs && date < @ce)
-            debug "in closed date = #{date}"
             ret_str << handle_cells(date, @ce)
             date = @ce
           end
           if res_hash[space.id][0] && (date >= res_hash[space.id][0].startdate) # && (date < res_hash[space.id][0].enddate)
-            debug 'got new reservation'
             r = res_hash[space.id].shift # shift it out
             if r.enddate <= @startDate
-              debug "enddate #{r.enddate} for #{r.id} before startdate #{@startdate}"
               next
             end
             cnt = day_count(r,date)
             if cnt == 0
-              debug "skipping res #{r.id} with count 0"
               next
             end
             name = trunc_name(cnt, r)
@@ -362,17 +352,13 @@ module ReservationHelper
               date = r.enddate
             end
           else # open
-            debug 'open'
             if res_hash[space.id].empty?
-              debug 'no more reservations'
               ret_str << handle_cells(date, @endDate)
               date = @endDate
-              debug "set date to #{date}"
             else
               rh = res_hash[space.id][0]
               if @option.use_closed?
                 if rh.startdate >= @cs && rh.startdate < @ce 
-                  debug "skipping #{rh.id} with startdate #{rh.startdate} and enddate #{rh.enddate}"
                   sd = @cs 
                 else
                   sd = rh.startdate
@@ -382,19 +368,15 @@ module ReservationHelper
               end
               ret_str << handle_cells(date, sd)
               date = sd
-              debug "set date to #{date}"
             end
           end 
         end
         if @option.use_closed && date >= @ce
           @cs = @cs.change(:year => @cs.year + 1)
           @ce = @ce.change(:year => @ce.year + 1)
-          debug "changing cs year to #{@cs.year}"
         end
       else
-        debug "\nspace #{space.name} no reservations"
               # no reservations on this space
-        debug "available enddate is #{@endDate}"
         ret_str << handle_cells(@startDate, @endDate)
       end
       ret_str << "</tr>\n"

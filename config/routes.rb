@@ -12,6 +12,7 @@ ActionController::Routing::Routes.draw do |map|
   #
   # named route for loading css files and images
   map.dynamic 'dynamic/*name', :controller => 'setup/dynamic_strings'
+  map.purchase 'reservation/getMonthlyData', :controller => 'reservation', :action => 'getMonthlyData'
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   map.resources :products

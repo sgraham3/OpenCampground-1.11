@@ -516,4 +516,8 @@ class Reservation < ActiveRecord::Base
       end
     end
   end
+
+  def self.getMonthlyData(month, option)
+    ReservationController.helpers.av_init(month+"&monthly", option)
+  end
 end

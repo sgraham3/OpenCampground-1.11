@@ -1,5 +1,6 @@
 class ReservationController < ApplicationController
 	include MyLib
+	include ActionController
 	include CalculationHelper
 	include ReservationHelper
 	before_filter :login_from_cookie
@@ -895,23 +896,23 @@ class ReservationController < ApplicationController
 			@closedStart = @option.closed_start.change(:year => currentDate.year)
 			@closedEnd = @option.closed_end.change(:year => currentDate.year)
 			if @closedEnd > @closedStart
-	# start and end are in the same year
-	if currentDate > @closedEnd
-		@closedStart = @option.closed_start.change(:year => (currentDate.year + 1))
-		@closedEnd = @option.closed_end.change(:year => (currentDate.year + 1))
-	end
-	debug "Closed summer"
+				# start and end are in the same year
+				if currentDate > @closedEnd
+					@closedStart = @option.closed_start.change(:year => (currentDate.year + 1))
+					@closedEnd = @option.closed_end.change(:year => (currentDate.year + 1))
+				end
+				debug "Closed summer"
 				@closedSummer = true
 			else
-	# start is in one year and end is in the next year
-	@closedEnd = @option.closed_end.change(:year => (currentDate.year + 1))
-	if currentDate > @closedEnd
-		@closedStart = @option.closed_start.change(:year => (currentDate.year + 1))
-		@closedEnd = @option.closed_end.change(:year => (currentDate.year + 2))
-	else
-		@closedEnd = @option.closed_end.change(:year => (currentDate.year + 1))
-	end
-	debug "Closed winter"
+				# start is in one year and end is in the next year
+				@closedEnd = @option.closed_end.change(:year => (currentDate.year + 1))
+				if currentDate > @closedEnd
+					@closedStart = @option.closed_start.change(:year => (currentDate.year + 1))
+					@closedEnd = @option.closed_end.change(:year => (currentDate.year + 2))
+				else
+					@closedEnd = @option.closed_end.change(:year => (currentDate.year + 1))
+				end
+				debug "Closed winter"
 				@closedSummer = false
 			end
 		end
@@ -937,6 +938,11 @@ class ReservationController < ApplicationController
 			end
 		end
 		@res = res.group_by{|sp|sp.space_id}
+	end
+
+	def getMonthlyData
+		available
+		Reservation.getMonthlyData(request["month"], @option)
 	end
 
 	def available_csv

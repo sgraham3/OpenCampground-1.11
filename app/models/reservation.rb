@@ -517,7 +517,7 @@ class Reservation < ActiveRecord::Base
     end
   end
 
-  def self.getMonthlyData(month, option)
-    ReservationController.helpers.av_init(month+"&monthly", option)
+  def self.getMonthlyData(res_hash, month, option, admin_status)
+    return ReservationController.helpers.custom_available(res_hash, month+"&monthly", option, admin_status)
   end
 end

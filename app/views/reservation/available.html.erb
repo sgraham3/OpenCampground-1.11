@@ -34,17 +34,12 @@
   </table>
 </div>
 <script type="text/JavaScript">
-  TableLock("available", "av_space", "av_date", "locked");
+  var tableHeaderTop = document.querySelector('#available_head').getBoundingClientRect().top;
+  var ths = document.querySelectorAll('#available_head th')
 
-  var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-  var current_url = window.location.href;
-  const url = new URL(
-    current_url
-  );
-  var monthNum = url.searchParams.get('month');
-  if(monthNum !== null) {
-    var strMonth = months[monthNum-1];
-    document.getElementById("month").value = strMonth;
+  for(var i = 0; i < ths.length; i++) {
+    var th = ths[i];
+    th.style.top = th.getBoundingClientRect().top - tableHeaderTop + "px";
   }
 
   var cells = document.querySelectorAll(".available td");
@@ -54,7 +49,7 @@
       if(cells[i].childNodes[0].tagName == "A") {
         cells[i].parentElement.setAttribute("hasspace", "true");
       }
-    }else{
+    }else{  
       cells[i].setAttribute('style', 'cursor: pointer');
       cells[i].addEventListener("click", function(){
         handler(this);
@@ -75,13 +70,12 @@
       return;
     }
   }
-  function getMonthlyData(param) {
+  function getMonthlyData() {
     let currentMonth = document.getElementById("month").value;
     new Ajax.Request('getMonthlyData', {
       parameters: {"month": getMonthFromString(currentMonth)},
       onSuccess: function(res) {
-        console.log(res.responseText);
-        // document.body.innerHTML = res.responseText;
+        document.getElementById("available").innerHTML = res.responseText;
       }
     });
   }

@@ -156,6 +156,26 @@
     top: 5px;
 }
 
+th {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+}
+
+
+th:not([scope=row]):first-child {
+    top: 0;
+    left: 0;
+    z-index: 3 !important;
+    background: linear-gradient(90deg, #666 0%, #666 calc(100% - .05em), #ccc calc(100% - .05em), #ccc 100%);
+}
+
+td:nth-child(1) {  
+    position: -webkit-sticky;
+    position: sticky;
+    left: 0;
+}
+
 .available td {
     padding: 2px 30px;
     border: 1px solid #D6D6D6;

@@ -211,6 +211,53 @@ module ReservationHelper
     ret_str << "</tr>\n"
   end
 
+  def custom_get_header_months(month)
+    hdr_init
+    ret_str = '<tr id="lockedHeadMonth"><th class="locked" style="background:#666666;color:white;text-align:center;border-right:1px solid white;border-left:1px solid white">'
+    if @option.max_spacename > 5
+      spacer = ((@option.max_spacename - 4)/1.5).to_i
+      ret_str << '&nbsp;' * spacer
+      ret_str << I18n.t('reservation.Space')
+      ret_str << '&nbsp;' * spacer
+    else 
+      ret_str << 'Space'
+    end
+    ret_str << '</th>'
+    # print out the months
+    my_string = month.to_s
+    @tmpMonth = my_string.split('&').first
+    @startDate = Date.new(currentDate.year.to_i, @tmpMonth.to_i, 1)
+
+    date = @startDate 
+    first_closed = true
+    day = Date.new
+    while date <= @endDate 
+      # if @option.use_closed? && date > @cs && date > @ce
+      if @option.use_closed? && date > @cs
+        # we are past the original dates...up start and end by a year
+        @cs = @cs.change(:year => @cs.year + 1)
+        @ce = @ce.change(:year => @ce.year + 1)
+      end
+      hdr_count,day = hdr_day_count(date)
+      # print out as month
+      if hdr_count > 0
+        if hdr_count < 4
+          ret_str << "<th class=\"av_date\" colspan=\"#{hdr_count}\" style=\"text-align:center;background:#666666;color:white\"></th>"
+        else
+          ret_str << "<th class=\"av_date\" colspan=\"#{hdr_count}\" style=\"text-align:center;background:#666666;color:white\">#{I18n.l(date,:format => :month)}</th>"
+        end
+        date = day
+      else
+        date = @ce
+      end
+      if @option.use_closed? && (@ce == date)
+	      ret_str << '<th class="av_date" style="border:1px solid #D6D6D6;background-color:DarkGrey;color:white;text-align:center"></th>'
+      end
+    end
+    ret_str << "</tr>\n"
+    return ret_str
+  end
+
   def hdr_day_count(this_date)
     if @option.use_closed? 
       debug "hdr_day_count #{this_date}, @cs = #{@cs}, @ce = #{@ce}"
@@ -267,6 +314,44 @@ module ReservationHelper
       date = date.succ 
     end
     ret_str << "</tr>\n"
+  end
+
+  def custom_get_header_days(month)
+    hdr_init
+    # print out the days
+    my_string = month.to_s
+    @tmpMonth = my_string.split('&').first
+    @startDate = Date.new(currentDate.year.to_i, @tmpMonth.to_i, 1)
+
+    date = @startDate 
+    first_closed = true
+    ret_str = '<tr id="lockedHeadDay"><th class="locked" style="border-top:1px solid white;border-left:1px solid white;border-right:1px solid white;background:#666666;"></th>'
+    # debug "get_header_days enddate is #{@endDate}"
+    while date <= @endDate 
+      if @option.use_closed? 
+        if date > @cs && date > @ce
+          # we are past the original dates...up start and end by a year
+          @cs = @cs.change(:year => @cs.year + 1)
+          @ce = @ce.change(:year => @ce.year + 1)
+        end
+        if  (date+1) > @cs && (date+1) < @ce
+          ret_str << '<th class="av_date" style="border-top:1px solid white;border-right:1px solid white;border-bottom:1px solid white;background:DarkGrey;text-align:center;color:white"></th>'
+          # debug "closed #{date}"
+          date = @ce
+          next
+        end
+      end
+      if date == currentDate
+	      ret_str << '<th class="av_date"  style="border-top:1px solid white;border-right:1px solid white;background:LightGreen;text-align:center;color:white">' + date.strftime("%d") + '</th>'
+      elsif date.wday == 0 || date.wday == 6
+	      ret_str << '<th class="av_date"  style="border-top:1px solid white;border-right:1px solid white;background:#666666;text-align:center;color:white">' + date.strftime("%d") + '</th>'
+      else
+        ret_str << '<th class="av_date"  style="border-top:1px solid white;border-right:1px solid white;background:#666666;text-align:center;color:white">' + date.strftime("%d") + '</th>'
+      end   
+      date = date.succ 
+    end
+    ret_str << "</tr>\n"
+    return ret_str
   end
 
   def available(res_hash)
@@ -388,8 +473,11 @@ module ReservationHelper
     ret_str = ''
 
     @option = data
-    
+
     av_init(month, data)
+    
+    ret_str = custom_get_header_months(month)
+    ret_str << custom_get_header_days(month)
     
     Space.active(:order => 'position').each do |space|
       date = @startDate

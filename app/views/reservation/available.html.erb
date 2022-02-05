@@ -34,6 +34,7 @@
   </table>
 </div>
 <script type="text/JavaScript">
+  // table header and first column lock
   var tableHeaderTop = document.querySelector('#available_head').getBoundingClientRect().top;
   var ths = document.querySelectorAll('#available_head th')
 
@@ -42,6 +43,15 @@
     th.style.top = th.getBoundingClientRect().top - tableHeaderTop + "px";
   }
 
+  //set current month to month combo
+  const monthNames = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+
+  const d = new Date();
+  document.getElementById("month").value = monthNames[d.getMonth()];
+
+  // Add click function to td that has no link
   var cells = document.querySelectorAll(".available td");
   var table = document.getElementsByTagName('table')[0];
   for (var i = 0; i < cells.length; i++) {
@@ -76,6 +86,7 @@
       parameters: {"month": getMonthFromString(currentMonth)},
       onSuccess: function(res) {
         document.getElementById("available").innerHTML = res.responseText;
+        console.log(res.responseText);
       }
     });
   }

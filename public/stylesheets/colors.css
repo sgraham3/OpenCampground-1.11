@@ -46,6 +46,7 @@ body {
   background-color: LightSteelBlue;
   padding: 5px;
   border-radius: 5px;
+  margin-right: 5px;
 }
 a.reserved:link {
   color:Black;
@@ -62,6 +63,7 @@ a.reserved:hover {
   background-color: LimeGreen;
   padding: 5px;
   border-radius: 5px;
+  margin-right: 5px;
 }
 a.occupied:link {
   color:Black;
@@ -92,6 +94,7 @@ a.overstay:hover {
   background-color: Yellow;
   padding: 5px;
   border-radius: 5px;
+  margin-right: 5px;
 }
 a.late:link {
   color:Black;
@@ -114,6 +117,7 @@ a.late:hover {
   background-color: Red;
   padding: 5px;
   border-radius: 5px;
+  margin-right: 5px;
 }
 .unconfirmed { 
   color: Blue;

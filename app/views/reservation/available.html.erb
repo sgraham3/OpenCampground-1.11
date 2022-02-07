@@ -13,15 +13,25 @@
           <option>October</option>
           <option>November</option>
           <option>December</option>', :onchange => 'getMonthlyData()') %>
+  <div style="margin-left:40px;margin-top:5px">
+    <span class="c-button c-button--arrow-left" tabindex="0" onclick="PrevRes()">
+      <span class="c-button__text">Previous</span>
+    </span>
+    <span class="c-button c-button--arrow-right" tabindex="0" onclick="NextRes()">
+      <span class="c-button__text">Next</span>
+    </span>
+  </div>
 </div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
 <br>
 <% if session[:admin_status] %>
-  <span class="occupied"><%= I18n.t('reservation.Occupied') %></span>
-  <span class="reserved"><%= I18n.t('reservation.Reserved') %></span>
-  <span class="late"><%= I18n.t('reservation.NotCheckedIn') %></span>
-  <span class="unavailable"><%= I18n.t('reservation.Flash.SpaceUnavailable') %></span>
-  <span class="today"><%= I18n.t('reservation.Today') %></span>
-  <br><br>
+  <div style="display:flex">
+    <span class="occupied"><%= I18n.t('reservation.Occupied') %></span>
+    <span class="reserved"><%= I18n.t('reservation.Reserved') %></span>
+    <span class="late"><%= I18n.t('reservation.NotCheckedIn') %></span>
+    <span class="unavailable"><%= I18n.t('reservation.Flash.SpaceUnavailable') %></span>
+    <span class="today"><%= I18n.t('reservation.Today') %></span>
+  </div>
+  <br>
 <% end %>
 <div id="container" >
   <table id="available" class="available" cellspacing="0" admin-session="<%= session[:admin_status] %>">
@@ -86,12 +96,57 @@
       parameters: {"month": getMonthFromString(currentMonth)},
       onSuccess: function(res) {
         document.getElementById("available").innerHTML = res.responseText;
-        console.log(res.responseText);
       }
     });
   }
   function getMonthFromString(month){
     return new Date(Date.parse(month +" 1, 2012")).getMonth()+1;
+  }
+
+  function NextRes() {
+    let resTableHeadMonth = document.querySelectorAll('#lockedHeadMonth');
+    let resTableHeadDay = document.querySelectorAll('#lockedHeadDay');
+    let nextStartMonth = resTableHeadMonth[0].lastChild.innerText;
+    let nextStartDate = resTableHeadDay[0].lastChild.innerText;
+    new Ajax.Request('getNextData', {
+      parameters: {"startMonth": getMonthFromString(nextStartMonth), "startDate": nextStartDate},
+      onSuccess: function(res) {
+        document.getElementById("available").innerHTML = res.responseText;
+      }
+    });
+  }
+
+  function PrevRes() {
+    let resTableHeadMonth = document.querySelectorAll('#lockedHeadMonth');
+    let resTableHeadDay = document.querySelectorAll('#lockedHeadDay');
+    let strCurrentStartMonth = resTableHeadMonth[0].childNodes[1].innerText;
+    let strCurrentStartDate = resTableHeadDay[0].childNodes[1].innerText;
+    let count = resTableHeadDay[0].childElementCount - 2;
+
+    let startMonth = 0;
+    let startDate = 0;
+    let d = new Date();
+    let currentStartYear = d.getFullYear();
+    let currentStartMonth = getMonthFromString(strCurrentStartMonth);
+    let currentStartDate = Number(strCurrentStartDate);
+    let tempDate = new Date(currentStartYear, currentStartMonth-1, currentStartDate);
+    tempDate.setDate(currentStartDate - count);
+
+    if(tempDate.getFullYear() != currentStartYear) {
+      startMonth = 1;
+      startDate = 1;
+    }else{
+      startMonth = tempDate.getMonth() + 1;
+      startDate = tempDate.getDate();
+    }
+    console.log(startMonth+"@"+startDate);
+    // return;
+    new Ajax.Request('getPreviousData', {
+      parameters: {"startMonth": startMonth, "startDate": startDate},
+      onSuccess: function(res) {
+        document.getElementById("available").innerHTML = res.responseText;
+      }
+    });
   }
 </script>
 

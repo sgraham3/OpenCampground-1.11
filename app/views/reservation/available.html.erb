@@ -44,6 +44,7 @@
   </table>
 </div>
 <script type="text/JavaScript">
+  window.scrollTo(0, 0);
   // table header and first column lock
   var tableHeaderTop = document.querySelector('#available_head').getBoundingClientRect().top;
   var ths = document.querySelectorAll('#available_head th')
@@ -63,7 +64,6 @@
 
   // Add click function to td that has no link
   var cells = document.querySelectorAll(".available td");
-  var table = document.getElementsByTagName('table')[0];
   for (var i = 0; i < cells.length; i++) {
     if (cells[i].hasChildNodes()) {
       if(cells[i].childNodes[0].tagName == "A") {
@@ -96,6 +96,7 @@
       parameters: {"month": getMonthFromString(currentMonth)},
       onSuccess: function(res) {
         document.getElementById("available").innerHTML = res.responseText;
+        addLinkToTd();
       }
     });
   }
@@ -112,6 +113,7 @@
       parameters: {"startMonth": getMonthFromString(nextStartMonth), "startDate": nextStartDate},
       onSuccess: function(res) {
         document.getElementById("available").innerHTML = res.responseText;
+        addLinkToTd();
       }
     });
   }
@@ -145,8 +147,24 @@
       parameters: {"startMonth": startMonth, "startDate": startDate},
       onSuccess: function(res) {
         document.getElementById("available").innerHTML = res.responseText;
+        addLinkToTd();
       }
     });
+  }
+  function addLinkToTd() {
+    let cells = document.querySelectorAll(".available td");
+    for (var i = 0; i < cells.length; i++) {
+      if (cells[i].hasChildNodes()) {
+        if(cells[i].childNodes[0].tagName == "A") {
+          cells[i].parentElement.setAttribute("hasspace", "true");
+        }
+      }else{  
+        cells[i].setAttribute('style', 'cursor: pointer');
+        cells[i].addEventListener("click", function(){
+          handler(this);
+        });
+      }
+    }
   }
 </script>
 

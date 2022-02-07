@@ -87,16 +87,25 @@
   <a href="../images/sitemap.jpg" onclick="goclicky(this); return false;" target="_blank" class="sitemap">Site Map</a>
   <br><br>
   <table id="available" class="available" cellspacing="0" admin-session="<%= session[:admin_status] %>">
-    <thead>
+    <thead id="available_head">
       <%= header -%>
     </thead>
-    <tbody>
+    <tbody id="available_body">
       <%= available() %>
     </tbody>
   </table>
 </div>
 <script type="text/javascript">
-  TableLock("available", "av_space", "av_date", "locked");
+  window.scrollTo(0, 0);
+  // table header and first column lock
+  var tableHeaderTop = document.querySelector('#available_head').getBoundingClientRect().top;
+  var ths = document.querySelectorAll('#available_head th')
+
+  for(var i = 0; i < ths.length; i++) {
+    var th = ths[i];
+    th.style.top = th.getBoundingClientRect().top - tableHeaderTop + "px";
+  }
+
   var cells = document.querySelectorAll(".available td");
   var table = document.getElementsByTagName('table')[0];
   for (var i = 0; i < cells.length; i++) {

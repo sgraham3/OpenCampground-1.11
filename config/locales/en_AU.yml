@@ -18,7 +18,7 @@ en_AU:
       canx_res:  "Cancel Reservation"
       canx_res_conf: "Cancel this reservation?" 
   titles:
-    express: "Express"
+    express: "Express Booking"
     res_list: "Reservation List"
     in_park:  "In Park List"
     new_res:  "New Reservation"

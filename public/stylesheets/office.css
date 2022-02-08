@@ -1,38 +1,41 @@
 #banner {
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid;
-    font: small-caps 40px/40px "Times New Roman", serif;
-    text-align: center;
+	padding-top: 15px;
+	padding-bottom: 50px;
+	border-bottom: 8px solid grey;
+	font: small-caps 70px/70px "Calibri", serif;
+	color: white;
+	text-align: center;
+	height: 100px
+	float left;
 }
-
-#user {
-    width: 12em;
-    float: right;
-    font: small-caps 10px/12px "Arial", sans-serif;
+#user   {
+	width: 12em;
+	float: right;
+	font: small-caps 18px/18px "Calibri", sans-serif;
 }
 
 #banner img {
-    padding-left: 5px;
-    float: left;
+	padding-left: 85px;
+	float: left;
+	height: 105px 
 }
 
 #locale {
-    margin-right: 1em;
-    font: small-caps 10px/10px "Arial", sans-serif;
-    float: right;
+	margin-right: 1em;
+	font: small-caps 15px/15px "Calibri", sans-serif;
+	float: right;
 }
 
 #usernamex {
-    font: small-caps 10px/12px "Arial", sans-serif;
+	font: small-caps 15px/15px "Calibri", sans-serif;
 }
 
 #columns {
-    position: absolute;
-    left: 0;
-    right: 0;
-    margin-left: .5em;
-    margin-right: .5em;
+          position: absolute;
+	  left: .1em;
+	  right: 0;
+	  margin-left: .5em;
+	  margin-right: .5em;
 }
 
 #find_space {

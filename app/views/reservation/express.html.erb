@@ -38,11 +38,17 @@
     var o = $H({ day: glb_start_date, month: d.getMonth(), year: d.getFullYear(), hour: d.getHours(), minute: d.getMinutes() });
     startCalendar.updateSelectedDate(o, true);
     startCalendar.refresh();
-    
+
+    document.getElementsByClassName("cds_body")[0].onclick = function() {myFunction1()};
+    document.getElementsByClassName("cds_body")[1].onclick = function() {myFunction1()};
+
+    myFunction();
+  }else{
+    document.getElementsByClassName("cds_body")[0].onclick = function() {myFunction()};
+    document.getElementsByClassName("cds_body")[1].onclick = function() {myFunction()};
+
     myFunction();
   }
-  document.getElementsByClassName("cds_body")[0].onclick = function() {myFunction()};
-  document.getElementsByClassName("cds_body")[1].onclick = function() {myFunction()};
 
   function myFunction() {
     var startDate = glbStartCalendarDateSelect.selected_date;
@@ -55,6 +61,16 @@
       startDate.setDate(startDate.getDate() - 1);
     }
   };
+  function myFunction1() {
+    var startDate = glbStartCalendarDateSelect.selected_date;
+    var endDate = glbEndCalendarDateSelect.selected_date;
+
+    startDate.setDate(startDate.getDate() + 1);
+    var o = $H({ day: startDate.getDate(), month: startDate.getMonth(), year: startDate.getFullYear(), hour: startDate.getHours(), minute: startDate.getMinutes() });
+    glbEndCalendarDateSelect.updateSelectedDate(o, true);
+    glbEndCalendarDateSelect.refresh();
+    startDate.setDate(startDate.getDate() - 1);
+  }
   function FindLeftWindowBoundry()
   {
     // In Internet Explorer window.screenLeft is the window's left boundry

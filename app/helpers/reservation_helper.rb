@@ -601,7 +601,7 @@ module ReservationHelper
     return ret_str
   end
 
-  def getNextData(res_hash, month, date, data, admin_status)
+  def getNextData(res_hash, month, date, data, admin_status, controllerName)
     #############################################
     # res_array is a hash of arrays of reservations
     # with the key being the space_id.  Each
@@ -622,7 +622,11 @@ module ReservationHelper
       # start with the space name
       if space.unavailable?
         if admin_status
-	        ret_str << '<td class="av_space"  style="border:1px solid #D6D6D6;background:red;text-align:center;color:white">' +  space.name + '</td>' 
+          if controllerName == "reservation"
+            ret_str << '<td class="av_space"  style="border:1px solid #D6D6D6;background:red;text-align:center;color:white">' +  space.name + '</td>' 
+          else
+	          ret_str << '<td class="av_space"  style="border:1px solid #D6D6D6;background:#666666;text-align:center;color:white">' +  space.name + '</td>' 
+          end
         else
 	        ret_str << '<td class="av_space"  style="border:1px solid #D6D6D6;background:#666666;text-align:center;color:white">' +  space.name + '</td>' 
         end  
@@ -653,20 +657,32 @@ module ReservationHelper
             ret_str << "<td colspan=\"#{cnt}\" align=\"center\" "
             if r.checked_in
               if admin_status
-                ret_str << 'style="background-color:LimeGreen">' # occupied
+                if controllerName == "reservation"
+                  ret_str << 'style="background-color:LimeGreen">' # occupied
+                else
+                  ret_str << 'style="background-color:lightGrey">' # occupied 
+                end
               else
                 ret_str << 'style="background-color:lightGrey">' # occupied 
               end     
             else
               if currentDate > r.startdate
                 if admin_status
-                  ret_str << 'style="background-color:Yellow">' # overdue
+                  if controllerName == "reservation"
+                    ret_str << 'style="background-color:Yellow">' # overdue
+                  else
+                    ret_str << 'style="background-color:lightGrey">' # overdue
+                  end
                 else
                   ret_str << 'style="background-color:lightGrey">' # overdue
                 end
               else
                 if admin_status
-                  ret_str << 'style="background-color:LightSteelBlue">' # reserved
+                  if controllerName == "reservation"
+                    ret_str << 'style="background-color:LightSteelBlue">' # reserved
+                  else
+                    ret_str << 'style="background-color:lightGrey">' # reserved
+                  end
                 else
                   ret_str << 'style="background-color:lightGrey">' # reserved
                 end
@@ -675,7 +691,11 @@ module ReservationHelper
             title = r.camper.full_name + ', '
             title << I18n.l(r.startdate, :format => :short) + I18n.t('reservation.To') + I18n.l(r.enddate, :format => :short)
             if admin_status
-              ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{name}</a>"
+              if controllerName == "reservation"
+                ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{name}</a>"
+              else
+                ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{}</a>"
+              end
             else
               ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{}</a>"
             end
@@ -718,7 +738,7 @@ module ReservationHelper
     return ret_str
   end
 
-  def getPreviousData(res_hash, month, date, data, admin_status)
+  def getPreviousData(res_hash, month, date, data, admin_status, controllerName)
     #############################################
     # res_array is a hash of arrays of reservations
     # with the key being the space_id.  Each
@@ -739,7 +759,11 @@ module ReservationHelper
       # start with the space name
       if space.unavailable?
         if admin_status
-	        ret_str << '<td class="av_space"  style="border:1px solid #D6D6D6;background:red;text-align:center;color:white">' +  space.name + '</td>' 
+          if controllerName == "reservation"
+            ret_str << '<td class="av_space"  style="border:1px solid #D6D6D6;background:red;text-align:center;color:white">' +  space.name + '</td>' 
+          else
+	          ret_str << '<td class="av_space"  style="border:1px solid #D6D6D6;background:#666666;text-align:center;color:white">' +  space.name + '</td>' 
+          end
         else
 	        ret_str << '<td class="av_space"  style="border:1px solid #D6D6D6;background:#666666;text-align:center;color:white">' +  space.name + '</td>' 
         end  
@@ -770,20 +794,32 @@ module ReservationHelper
             ret_str << "<td colspan=\"#{cnt}\" align=\"center\" "
             if r.checked_in
               if admin_status
-                ret_str << 'style="background-color:LimeGreen">' # occupied
+                if controllerName == "reservation"
+                  ret_str << 'style="background-color:LimeGreen">' # occupied
+                else
+                  ret_str << 'style="background-color:lightGrey">' # occupied 
+                end
               else
                 ret_str << 'style="background-color:lightGrey">' # occupied 
               end     
             else
               if currentDate > r.startdate
                 if admin_status
-                  ret_str << 'style="background-color:Yellow">' # overdue
+                  if controllerName == "reservation"
+                    ret_str << 'style="background-color:Yellow">' # overdue
+                  else
+                    ret_str << 'style="background-color:lightGrey">' # overdue
+                  end
                 else
                   ret_str << 'style="background-color:lightGrey">' # overdue
                 end
               else
                 if admin_status
-                  ret_str << 'style="background-color:LightSteelBlue">' # reserved
+                  if controllerName == "reservation"
+                    ret_str << 'style="background-color:LightSteelBlue">' # reserved
+                  else
+                    ret_str << 'style="background-color:lightGrey">' # reserved
+                  end
                 else
                   ret_str << 'style="background-color:lightGrey">' # reserved
                 end
@@ -792,7 +828,11 @@ module ReservationHelper
             title = r.camper.full_name + ', '
             title << I18n.l(r.startdate, :format => :short) + I18n.t('reservation.To') + I18n.l(r.enddate, :format => :short)
             if admin_status
-              ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{name}</a>"
+              if controllerName == "reservation"
+                ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{name}</a>"
+              else
+                ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{}</a>"
+              end
             else
               ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{}</a>"
             end

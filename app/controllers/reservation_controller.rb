@@ -1041,7 +1041,7 @@ class ReservationController < ApplicationController
 			end
 		end
 		@res = res.group_by{|sp|sp.space_id}
-		render :json => Reservation.getNextData(@res, request["startMonth"], request["startDate"], @option, session[:admin_status])
+		render :json => Reservation.getNextData(@res, request["startMonth"], request["startDate"], @option, session[:admin_status], request["controllerName"])
 	end
 
 	def getPreviousData
@@ -1093,7 +1093,7 @@ class ReservationController < ApplicationController
 			end
 		end
 		@res = res.group_by{|sp|sp.space_id}
-		render :json => Reservation.getPreviousData(@res, request["startMonth"], request["startDate"], @option, session[:admin_status])
+		render :json => Reservation.getPreviousData(@res, request["startMonth"], request["startDate"], @option, session[:admin_status], request["controllerName"])
 	end
 
 	def available_csv

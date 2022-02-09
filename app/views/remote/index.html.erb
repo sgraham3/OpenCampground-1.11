@@ -185,8 +185,53 @@
   function getMonthFromString(month){
     return new Date(Date.parse(month +" 1, 2012")).getMonth()+1;
   }
+  function NextRes() {
+    let resTableHeadMonth = document.querySelectorAll('#lockedHeadMonth');
+    let resTableHeadDay = document.querySelectorAll('#lockedHeadDay');
+    let nextStartMonth = resTableHeadMonth[0].lastChild.innerText;
+    let nextStartDate = resTableHeadDay[0].lastChild.innerText;
+    new Ajax.Request('getNextData', {
+      parameters: {"startMonth": getMonthFromString(nextStartMonth), "startDate": nextStartDate, "controllerName": "remote"},
+      onSuccess: function(res) {
+        document.getElementById("available").innerHTML = res.responseText;
+        addLinkToTd();
+      }
+    });
+  }
+
+  function PrevRes() {
+    let resTableHeadMonth = document.querySelectorAll('#lockedHeadMonth');
+    let resTableHeadDay = document.querySelectorAll('#lockedHeadDay');
+    let strCurrentStartMonth = resTableHeadMonth[0].childNodes[1].innerText;
+    let strCurrentStartDate = resTableHeadDay[0].childNodes[1].innerText;
+    let count = resTableHeadDay[0].childElementCount - 2;
+
+    let startMonth = 0;
+    let startDate = 0;
+    let d = new Date();
+    let currentStartYear = d.getFullYear();
+    let currentStartMonth = getMonthFromString(strCurrentStartMonth);
+    let currentStartDate = Number(strCurrentStartDate);
+    let tempDate = new Date(currentStartYear, currentStartMonth-1, currentStartDate);
+    tempDate.setDate(currentStartDate - count);
+
+    if(tempDate.getFullYear() != currentStartYear) {
+      startMonth = 1;
+      startDate = 1;
+    }else{
+      startMonth = tempDate.getMonth() + 1;
+      startDate = tempDate.getDate();
+    }
+
+    new Ajax.Request('getPreviousData', {
+      parameters: {"startMonth": startMonth, "startDate": startDate, "controllerName": "remote"},
+      onSuccess: function(res) {
+        document.getElementById("available").innerHTML = res.responseText;
+        addLinkToTd();
+      }
+    });
+  }
   function addLinkToTd() {
-    alert();
     let cells = document.querySelectorAll(".available td");
     for (var i = 0; i < cells.length; i++) {
       if (cells[i].hasChildNodes()) {

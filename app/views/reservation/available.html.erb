@@ -110,7 +110,7 @@
     let nextStartMonth = resTableHeadMonth[0].lastChild.innerText;
     let nextStartDate = resTableHeadDay[0].lastChild.innerText;
     new Ajax.Request('getNextData', {
-      parameters: {"startMonth": getMonthFromString(nextStartMonth), "startDate": nextStartDate},
+      parameters: {"startMonth": getMonthFromString(nextStartMonth), "startDate": nextStartDate, "controllerName": "reservation"},
       onSuccess: function(res) {
         document.getElementById("available").innerHTML = res.responseText;
         addLinkToTd();
@@ -141,10 +141,8 @@
       startMonth = tempDate.getMonth() + 1;
       startDate = tempDate.getDate();
     }
-    console.log(startMonth+"@"+startDate);
-    // return;
     new Ajax.Request('getPreviousData', {
-      parameters: {"startMonth": startMonth, "startDate": startDate},
+      parameters: {"startMonth": startMonth, "startDate": startDate, "controllerName": "reservation"},
       onSuccess: function(res) {
         document.getElementById("available").innerHTML = res.responseText;
         addLinkToTd();

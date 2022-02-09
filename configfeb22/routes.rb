@@ -101,5 +101,5 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
   # catch all of the stuff that is left and handle and report it
-  map.connect '*anything', :controller => :bogus
+  # map.connect '*anything', :controller => :bogus
 end

@@ -989,7 +989,7 @@ class ReservationController < ApplicationController
 			end
 		end
 		@res = res.group_by{|sp|sp.space_id}
-		render :json => Reservation.getMonthlyData(@res, request["month"], @option, session[:admin_status])
+		render :json => Reservation.getMonthlyData(@res, request["month"], @option, session[:admin_status], request["controllerName"])
 	end
 
 	def getNextData

@@ -12,6 +12,7 @@ ActionController::Routing::Routes.draw do |map|
   #
   # named route for loading css files and images
   map.dynamic 'dynamic/*name', :controller => 'setup/dynamic_strings'
+  map.purchase 'getMonthlyData', :controller => 'reservation', :action => 'getMonthlyData'
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   map.resources :products
@@ -98,5 +99,5 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
   # catch all of the stuff that is left and handle and report it
-  map.connect '*anything', :controller => :bogus
+  # map.connect '*anything', :controller => :bogus
 end

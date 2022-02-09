@@ -93,7 +93,7 @@
   function getMonthlyData() {
     let currentMonth = document.getElementById("month").value;
     new Ajax.Request('getMonthlyData', {
-      parameters: {"month": getMonthFromString(currentMonth)},
+      parameters: {"month": getMonthFromString(currentMonth), "controllerName": "reservation"},
       onSuccess: function(res) {
         document.getElementById("available").innerHTML = res.responseText;
         addLinkToTd();

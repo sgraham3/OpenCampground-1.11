@@ -85,6 +85,27 @@
   <% end %>
   <br>
   <a href="../images/sitemap.jpg" onclick="goclicky(this); return false;" target="_blank" class="sitemap">Site Map</a>
+  <%= select_tag(:month,
+          '<option>January</option>
+          <option>February</option>
+          <option>March</option>
+          <option>April</option>
+          <option>May</option>
+          <option>June</option>
+          <option>July</option>
+          <option>August</option>
+          <option>September</option>
+          <option>October</option>
+          <option>November</option>
+          <option>December</option>', :onchange => 'getMonthlyData()') %>
+  <%# <div style="margin-left:40px;margin-top:5px"> %>
+    <span class="c-button c-button--arrow-left" tabindex="0" onclick="PrevRes()" style="margin-left:40px">
+      <span class="c-button__text">Back</span>
+    </span>
+    <span class="c-button c-button--arrow-right" tabindex="0" onclick="NextRes()">
+      <span class="c-button__text">Forward</span>
+    </span>
+  <%# </div> %>
   <br><br>
   <table id="available" class="available" cellspacing="0" admin-session="<%= session[:admin_status] %>">
     <thead id="available_head">
@@ -149,6 +170,37 @@
       startDate.setDate(startDate.getDate() - 1);
     }
   };
+
+  function getMonthlyData() {
+    let currentMonth = document.getElementById("month").value;
+    new Ajax.Request('getMonthlyData', {
+      parameters: {"month": getMonthFromString(currentMonth), "controllerName": "remote"},
+      onSuccess: function(res) {
+        console.log(res);
+        document.getElementById("available").innerHTML = res.responseText;
+        // addLinkToTd();
+      }
+    });
+  }
+  function getMonthFromString(month){
+    return new Date(Date.parse(month +" 1, 2012")).getMonth()+1;
+  }
+  function addLinkToTd() {
+    alert();
+    let cells = document.querySelectorAll(".available td");
+    for (var i = 0; i < cells.length; i++) {
+      if (cells[i].hasChildNodes()) {
+        if(cells[i].childNodes[0].tagName == "A") {
+          cells[i].parentElement.setAttribute("hasspace", "true");
+        }
+      }else{  
+        cells[i].setAttribute('style', 'cursor: pointer');
+        cells[i].addEventListener("click", function(){
+          handler(this);
+        });
+      }
+    }
+  }
   
   function FindLeftWindowBoundry()
   {

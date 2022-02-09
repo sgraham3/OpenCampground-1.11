@@ -20,6 +20,27 @@
   <p><%= submit_tag I18n.t('reservation.CompleteReservation') %></p>
 </form>
   <a href="../images/sitemap.jpg" onclick="goclicky(this); return false;" target="_blank" class="sitemap">Site Map</a>
+  <%= select_tag(:month,
+          '<option>January</option>
+          <option>February</option>
+          <option>March</option>
+          <option>April</option>
+          <option>May</option>
+          <option>June</option>
+          <option>July</option>
+          <option>August</option>
+          <option>September</option>
+          <option>October</option>
+          <option>November</option>
+          <option>December</option>', :onchange => 'getMonthlyData()') %>
+  <%# <div style="margin-left:40px;margin-top:5px"> %>
+    <span class="c-button c-button--arrow-left" tabindex="0" onclick="PrevRes()" style="margin-left:40px">
+      <span class="c-button__text">Back</span>
+    </span>
+    <span class="c-button c-button--arrow-right" tabindex="0" onclick="NextRes()">
+      <span class="c-button__text">Forward</span>
+    </span>
+  <%# </div> %>
   <br><br>
   <table id="available" class="available" cellspacing="0" admin-session="<%= session[:admin_status] %>">
     <thead id="available_head">
@@ -135,6 +156,82 @@
     glbEndCalendarDateSelect.updateSelectedDate(o, true);
     glbEndCalendarDateSelect.refresh();
     startDate.setDate(startDate.getDate() - 1);
+  }
+
+  function getMonthlyData() {
+    let currentMonth = document.getElementById("month").value;
+    new Ajax.Request('getMonthlyData', {
+      parameters: {"month": getMonthFromString(currentMonth), "controllerName": "remote"},
+      onSuccess: function(res) {
+        console.log(res);
+        document.getElementById("available").innerHTML = res.responseText;
+        addLinkToTd();
+      }
+    });
+  }
+  function getMonthFromString(month){
+    return new Date(Date.parse(month +" 1, 2012")).getMonth()+1;
+  }
+  function NextRes() {
+    let resTableHeadMonth = document.querySelectorAll('#lockedHeadMonth');
+    let resTableHeadDay = document.querySelectorAll('#lockedHeadDay');
+    let nextStartMonth = resTableHeadMonth[0].lastChild.innerText;
+    let nextStartDate = resTableHeadDay[0].lastChild.innerText;
+    new Ajax.Request('getNextData', {
+      parameters: {"startMonth": getMonthFromString(nextStartMonth), "startDate": nextStartDate, "controllerName": "remote"},
+      onSuccess: function(res) {
+        document.getElementById("available").innerHTML = res.responseText;
+        addLinkToTd();
+      }
+    });
+  }
+
+  function PrevRes() {
+    let resTableHeadMonth = document.querySelectorAll('#lockedHeadMonth');
+    let resTableHeadDay = document.querySelectorAll('#lockedHeadDay');
+    let strCurrentStartMonth = resTableHeadMonth[0].childNodes[1].innerText;
+    let strCurrentStartDate = resTableHeadDay[0].childNodes[1].innerText;
+    let count = resTableHeadDay[0].childElementCount - 2;
+
+    let startMonth = 0;
+    let startDate = 0;
+    let d = new Date();
+    let currentStartYear = d.getFullYear();
+    let currentStartMonth = getMonthFromString(strCurrentStartMonth);
+    let currentStartDate = Number(strCurrentStartDate);
+    let tempDate = new Date(currentStartYear, currentStartMonth-1, currentStartDate);
+    tempDate.setDate(currentStartDate - count);
+
+    if(tempDate.getFullYear() != currentStartYear) {
+      startMonth = 1;
+      startDate = 1;
+    }else{
+      startMonth = tempDate.getMonth() + 1;
+      startDate = tempDate.getDate();
+    }
+
+    new Ajax.Request('getPreviousData', {
+      parameters: {"startMonth": startMonth, "startDate": startDate, "controllerName": "remote"},
+      onSuccess: function(res) {
+        document.getElementById("available").innerHTML = res.responseText;
+        addLinkToTd();
+      }
+    });
+  }
+  function addLinkToTd() {
+    let cells = document.querySelectorAll(".available td");
+    for (var i = 0; i < cells.length; i++) {
+      if (cells[i].hasChildNodes()) {
+        if(cells[i].childNodes[0].tagName == "A") {
+          cells[i].parentElement.setAttribute("hasspace", "true");
+        }
+      }else{  
+        cells[i].setAttribute('style', 'cursor: pointer');
+        cells[i].addEventListener("click", function(){
+          handler(this);
+        });
+      }
+    }
   }
 
   function FindLeftWindowBoundry()

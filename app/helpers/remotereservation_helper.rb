@@ -250,7 +250,7 @@ module RemotereservationHelper
 
   def get_header_months
     hdr_init
-    ret_str = '<tr><th class="locked" style="border:1px solid white;background:#666666;text-align:center;color:white">'
+    ret_str = '<tr id="lockedHeadMonth"><th class="locked" style="border:1px solid white;background:#666666;text-align:center;color:white">'
     if @option.max_spacename > 5
       spacer = ((@option.max_spacename - 4)/1.5).to_i
       ret_str << '&nbsp;' * spacer
@@ -334,7 +334,7 @@ module RemotereservationHelper
     # print out the days
     date = @startDate 
     first_closed = true
-    ret_str = '<tr><th class="locked" style="border:1px solid white;background:#666666;"></th>'
+    ret_str = '<tr id="lockedHeadDay"><th class="locked" style="border:1px solid white;background:#666666;"></th>'
     # debug "get_header_days enddate is #{@endDate}"
     while date < @endDate 
       if @option.use_closed? 

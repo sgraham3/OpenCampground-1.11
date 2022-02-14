@@ -290,7 +290,7 @@ module ReservationHelper
     first_closed = true
     ret_str = '<tr id="lockedHeadDay"><th style="border-top:1px solid white;border-left:1px solid white;border-right:1px solid white;background:#666666;"></th>'
     # debug "get_header_days enddate is #{@endDate}"
-    while date <= @endDate 
+    while date < @endDate 
       if @option.use_closed? 
         if date > @cs && date > @ce
           # we are past the original dates...up start and end by a year

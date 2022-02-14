@@ -159,23 +159,24 @@
     top: 5px;
 }
 
-th {
+#available thead th {
     position: -webkit-sticky;
     position: sticky;
     top: 0;
+    padding: 5px 50px;
 }
 
 
-th:not([scope=row]):first-child {
+#available thead th:not([scope=row]):first-child {
     top: 0;
     left: 0;
     z-index: 3 !important;
 }
 
-td:nth-child(1) {  
+#available tbody td:nth-child(1) {  
     position: -webkit-sticky;
-    position: sticky;
-    left: 0;
+    position: sticky !important;
+    left: 0 !important;
 }
 
 .c-button {

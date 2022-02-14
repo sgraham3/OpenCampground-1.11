@@ -202,8 +202,8 @@ module RemotereservationHelper
     debug 'header'
 
     av_init
-    ret_str = get_header_months
-    ret_str << get_header_days
+    # ret_str = get_header_months
+    ret_str = get_header_days
   end
 
   def av_init
@@ -338,24 +338,25 @@ module RemotereservationHelper
     # debug "get_header_days enddate is #{@endDate}"
     while date < @endDate 
       if @option.use_closed? 
-	if date > @cs && date > @ce
-	  # we are past the original dates...up start and end by a year
-	  @cs = @cs.change(:year => @cs.year + 1)
-	  @ce = @ce.change(:year => @ce.year + 1)
-	end
-	if  (date+1) > @cs && (date+1) < @ce
-	  ret_str << '<th class="av_date" style="border:1px solid white;background:#666666"></th>'
-	  # debug "closed #{date}"
-	  date = @ce
-	  next
-	end
+        if date > @cs && date > @ce
+          # we are past the original dates...up start and end by a year
+          @cs = @cs.change(:year => @cs.year + 1)
+          @ce = @ce.change(:year => @ce.year + 1)
+        end
+        if  (date+1) > @cs && (date+1) < @ce
+          ret_str << '<th class="av_date" style="border:1px solid white;background:#666666"></th>'
+          # debug "closed #{date}"
+          date = @ce
+          next
+        end
       end
+      strmonth = Date::MONTHNAMES[date.month];
       if date == currentDate
-	      ret_str << '<th class="av_date"  style="border:1px solid white;background:lightGreen;text-align:center;color:white;">' + date.strftime("%d") + '</th>'
+	      ret_str << '<th class="av_date"  style="border:1px solid white;background:lightGreen;text-align:center;color:white;"><span year=' + date.year.to_s + '></span><div>' + date.strftime("%a") + '</div><div>' + date.strftime("%d") + '</div><div>' + strmonth[0..2] + '</div></th>'
       elsif date.wday == 0 || date.wday == 6
-	      ret_str << '<th class="av_date"  style="border:1px solid white;background:#666666;color:white;text-align:center">' + date.strftime("%d") + '</th>'
+	      ret_str << '<th class="av_date"  style="border:1px solid white;background:#666666;color:white;text-align:center"><span year=' + date.year.to_s + '></span><div>' + date.strftime("%a") + '</div><div>' + date.strftime("%d") + '</div><div>' + strmonth[0..2] + '</div></th>'
       else
-        ret_str << '<th class="av_date"  style="border:1px solid white;background:#666666;color:white;text-align:center">' + date.strftime("%d") + '</th>'
+        ret_str << '<th class="av_date"  style="border:1px solid white;background:#666666;color:white;text-align:center"><span year=' + date.year.to_s + '></span><div>' + date.strftime("%a") + '</div><div>' + date.strftime("%d") + '</div><div>' + strmonth[0..2] + '</div></th>'
       end   
       date = date.succ 
     end

@@ -82,15 +82,15 @@
     glbStartCalendarDateSelect.updateSelectedDate(o, true);
     glbStartCalendarDateSelect.refresh();
 
-    document.getElementsByClassName("cds_body")[0].onclick = function() {myFunction1()};
-    document.getElementsByClassName("cds_body")[1].onclick = function() {myFunction1()};
+    document.getElementsByClassName("cds_body")[0].onclick = function() {myFunction()};
+    document.getElementsByClassName("cds_body")[1].onclick = function() {myFunction()};
 
     myFunction();
   }else{
-    document.getElementsByClassName("cds_body")[0].onclick = function() {myFunction1()};
-    document.getElementsByClassName("cds_body")[1].onclick = function() {myFunction1()};
+    document.getElementsByClassName("cds_body")[0].onclick = function() {myFunction()};
+    document.getElementsByClassName("cds_body")[1].onclick = function() {myFunction()};
 
-    myFunction1();
+    myFunction();
   }
 
   var cells = document.querySelectorAll(".available td");
@@ -113,8 +113,12 @@
     if(parentTr.getAttribute("hasspace") != "true") {
       var obj = parentTr.getElementsByTagName("td")[0];
       var cellindex = param.cellIndex;
+      var currentTh = parentTr.parentElement.parentElement.children[0].children[0].children[cellindex];
+      
+      var start_year = currentTh.childNodes[0].getAttribute("year");
+      var start_month = currentTh.childNodes[3].textContent;
+      var start_date = currentTh.childNodes[2].textContent;
 
-      var start_date = parentTr.parentElement.parentElement.children[0].children[1].children[cellindex].textContent;
       var spaceTxt = obj.textContent;
 
       for (var i = 0; i < spaceSelect.options.length; ++i) {
@@ -124,11 +128,13 @@
       }
       var d = new Date();
       glbStartCalendarDateSelect.date = new Date();
-      var o1 = $H({ day: start_date, month: d.getMonth(), year: d.getFullYear(), hour: d.getHours(), minute: d.getMinutes() });
+      var o1 = $H({ day: Number(start_date), month: getMonthFromString(start_month)-1, year: Number(start_year) });
       glbStartCalendarDateSelect.updateSelectedDate(o1, true);
       glbStartCalendarDateSelect.refresh();
 
-      myFunction1();
+      myFunction();
+      glbStartCalendarDateSelect.navYear(Number(start_year));
+      glbStartCalendarDateSelect.navMonth(getMonthFromString(start_month)-1);
     }else{
       alert("This space is already reserved. Try a different space.");
       return;
@@ -137,24 +143,13 @@
 
   function myFunction() {
     var startDate = glbStartCalendarDateSelect.selected_date;
-    var endDate = glbEndCalendarDateSelect.selected_date;
-    if(endDate <= startDate) {
-      startDate.setDate(startDate.getDate() + 1);
-      var o = $H({ day: startDate.getDate(), month: startDate.getMonth(), year: startDate.getFullYear(), hour: startDate.getHours(), minute: startDate.getMinutes() });
-      glbEndCalendarDateSelect.updateSelectedDate(o, true);
-      glbEndCalendarDateSelect.refresh();
-      startDate.setDate(startDate.getDate() - 1);
-    }
-  };
-
-  function myFunction1() {
-    var startDate = glbStartCalendarDateSelect.selected_date;
-    var endDate = glbEndCalendarDateSelect.selected_date;
 
     startDate.setDate(startDate.getDate() + 1);
     var o = $H({ day: startDate.getDate(), month: startDate.getMonth(), year: startDate.getFullYear(), hour: startDate.getHours(), minute: startDate.getMinutes() });
     glbEndCalendarDateSelect.updateSelectedDate(o, true);
     glbEndCalendarDateSelect.refresh();
+    glbEndCalendarDateSelect.navYear(startDate.getFullYear());
+    glbEndCalendarDateSelect.navMonth(startDate.getMonth());
     startDate.setDate(startDate.getDate() - 1);
   }
 

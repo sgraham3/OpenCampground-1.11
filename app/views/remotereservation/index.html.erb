@@ -87,10 +87,10 @@
 
     myFunction();
   }else{
-    document.getElementsByClassName("cds_body")[0].onclick = function() {myFunction()};
-    document.getElementsByClassName("cds_body")[1].onclick = function() {myFunction()};
+    document.getElementsByClassName("cds_body")[0].onclick = function() {myFunction1()};
+    document.getElementsByClassName("cds_body")[1].onclick = function() {myFunction1()};
 
-    myFunction();
+    myFunction1();
   }
 
   var cells = document.querySelectorAll(".available td");
@@ -128,7 +128,7 @@
       glbStartCalendarDateSelect.updateSelectedDate(o1, true);
       glbStartCalendarDateSelect.refresh();
 
-      myFunction();
+      myFunction1();
     }else{
       alert("This space is already reserved. Try a different space.");
       return;

@@ -104,18 +104,18 @@ module ReservationHelper
   def header
     debug 'header'
 
-    av_init(currentDate.month, currentDate.day, @option)
-    ret_str = get_header_months
-    ret_str << get_header_days
+    av_init(currentDate.year, currentDate.month, currentDate.day, @option)
+    # ret_str = get_header_months
+    ret_str = get_header_days
   end
 
-  def av_init(month, custom_start_date, data)
+  def av_init(year, month, custom_start_date, data)
     @closedDays = 0
 
     my_string = month.to_s
     if my_string.include? "monthly"
       @tmpMonth = my_string.split('&').first
-      @startDate = Date.new(currentDate.year.to_i, @tmpMonth.to_i, custom_start_date.to_i)
+      @startDate = Date.new(year.to_i, @tmpMonth.to_i, custom_start_date.to_i)
       @option = data
     else
       @startDate = currentDate - @option.lookback
@@ -288,7 +288,7 @@ module ReservationHelper
     # print out the days
     date = @startDate 
     first_closed = true
-    ret_str = '<tr id="lockedHeadDay"><th style="border-top:1px solid white;border-left:1px solid white;border-right:1px solid white;background:#666666;"></th>'
+    ret_str = '<tr id="lockedHeadDay"><th class="locked" style="border:1px solid white;background:#666666;"></th>'
     # debug "get_header_days enddate is #{@endDate}"
     while date < @endDate 
       if @option.use_closed? 
@@ -298,36 +298,37 @@ module ReservationHelper
           @ce = @ce.change(:year => @ce.year + 1)
         end
         if  (date+1) > @cs && (date+1) < @ce
-          ret_str << '<th class="av_date" style="border-top:1px solid white;border-right:1px solid white;border-bottom:1px solid white;background:DarkGrey;text-align:center;color:white"></th>'
+          ret_str << '<th class="av_date" style="border:1px solid white;background:#666666"></th>'
           # debug "closed #{date}"
           date = @ce
           next
         end
       end
+      strmonth = Date::MONTHNAMES[date.month];
       if date == currentDate
-	      ret_str << '<th class="av_date"  style="border-top:1px solid white;border-right:1px solid white;background:LightGreen;text-align:center;color:white">' + date.strftime("%d") + '</th>'
+	      ret_str << '<th class="av_date"  style="border:1px solid white;background:lightGreen;text-align:center;color:white;"><span year=' + date.year.to_s + '></span><div>' + date.strftime("%a") + '</div><div>' + date.strftime("%d") + '</div><div>' + strmonth[0..2] + '</div></th>'
       elsif date.wday == 0 || date.wday == 6
-	      ret_str << '<th class="av_date"  style="border-top:1px solid white;border-right:1px solid white;background:#666666;text-align:center;color:white">' + date.strftime("%d") + '</th>'
+	      ret_str << '<th class="av_date"  style="border:1px solid white;background:#666666;color:white;text-align:center"><span year=' + date.year.to_s + '></span><div>' + date.strftime("%a") + '</div><div>' + date.strftime("%d") + '</div><div>' + strmonth[0..2] + '</div></th>'
       else
-        ret_str << '<th class="av_date"  style="border-top:1px solid white;border-right:1px solid white;background:#666666;text-align:center;color:white">' + date.strftime("%d") + '</th>'
+        ret_str << '<th class="av_date"  style="border:1px solid white;background:#666666;color:white;text-align:center"><span year=' + date.year.to_s + '></span><div>' + date.strftime("%a") + '</div><div>' + date.strftime("%d") + '</div><div>' + strmonth[0..2] + '</div></th>'
       end   
       date = date.succ 
     end
     ret_str << "</tr>\n"
   end
 
-  def custom_get_header_days(month, custom_start_date)
+  def custom_get_header_days(year, month, custom_start_date)
     hdr_init
     # print out the days
     my_string = month.to_s
     @tmpMonth = my_string.split('&').first
-    @startDate = Date.new(currentDate.year.to_i, @tmpMonth.to_i, custom_start_date.to_i)
+    @startDate = Date.new(year.to_i, @tmpMonth.to_i, custom_start_date.to_i)
 
     date = @startDate 
     first_closed = true
-    ret_str = '<tr id="lockedHeadDay"><th style="border-top:1px solid white;border-left:1px solid white;border-right:1px solid white;background:#666666;"></th>'
+    ret_str = '<tr id="lockedHeadDay"><th class="locked" style="border:1px solid white;background:#666666;"></th>'
     # debug "get_header_days enddate is #{@endDate}"
-    while date <= @endDate 
+    while date < @endDate 
       if @option.use_closed? 
         if date > @cs && date > @ce
           # we are past the original dates...up start and end by a year
@@ -335,23 +336,23 @@ module ReservationHelper
           @ce = @ce.change(:year => @ce.year + 1)
         end
         if  (date+1) > @cs && (date+1) < @ce
-          ret_str << '<th class="av_date" style="border-top:1px solid white;border-right:1px solid white;border-bottom:1px solid white;background:DarkGrey;text-align:center;color:white"></th>'
+          ret_str << '<th class="av_date" style="border:1px solid white;background:#666666"></th>'
           # debug "closed #{date}"
           date = @ce
           next
         end
       end
+      strmonth = Date::MONTHNAMES[date.month];
       if date == currentDate
-	      ret_str << '<th class="av_date"  style="border-top:1px solid white;border-right:1px solid white;background:LightGreen;text-align:center;color:white">' + date.strftime("%d") + '</th>'
+	      ret_str << '<th class="av_date"  style="border:1px solid white;background:lightGreen;text-align:center;color:white;"><span year=' + date.year.to_s + '></span><div>' + date.strftime("%a") + '</div><div>' + date.strftime("%d") + '</div><div>' + strmonth[0..2] + '</div></th>'
       elsif date.wday == 0 || date.wday == 6
-	      ret_str << '<th class="av_date"  style="border-top:1px solid white;border-right:1px solid white;background:#666666;text-align:center;color:white">' + date.strftime("%d") + '</th>'
+	      ret_str << '<th class="av_date"  style="border:1px solid white;background:#666666;color:white;text-align:center"><span year=' + date.year.to_s + '></span><div>' + date.strftime("%a") + '</div><div>' + date.strftime("%d") + '</div><div>' + strmonth[0..2] + '</div></th>'
       else
-        ret_str << '<th class="av_date"  style="border-top:1px solid white;border-right:1px solid white;background:#666666;text-align:center;color:white">' + date.strftime("%d") + '</th>'
+        ret_str << '<th class="av_date"  style="border:1px solid white;background:#666666;color:white;text-align:center"><span year=' + date.year.to_s + '></span><div>' + date.strftime("%a") + '</div><div>' + date.strftime("%d") + '</div><div>' + strmonth[0..2] + '</div></th>'
       end   
       date = date.succ 
     end
     ret_str << "</tr>\n"
-    return ret_str
   end
 
   def available(res_hash)
@@ -476,8 +477,8 @@ module ReservationHelper
 
     av_init(month, 1, data)
     
-    ret_str = custom_get_header_months(month, 1)
-    ret_str << custom_get_header_days(month, 1)
+    # ret_str = custom_get_header_months(month, 1)
+    ret_str = custom_get_header_days(month, 1)
     
     Space.active(:order => 'position').each do |space|
       date = @startDate
@@ -601,7 +602,7 @@ module ReservationHelper
     return ret_str
   end
 
-  def getNextData(res_hash, month, date, data, admin_status, controllerName)
+  def getNextData(res_hash, year, month, date, data, admin_status, controllerName)
     #############################################
     # res_array is a hash of arrays of reservations
     # with the key being the space_id.  Each
@@ -611,10 +612,10 @@ module ReservationHelper
 
     @option = data
 
-    av_init(month, date, data)
+    av_init(year, month, date, data)
     
-    ret_str = custom_get_header_months(month, date)
-    ret_str << custom_get_header_days(month, date)
+    # ret_str = custom_get_header_months(year, month, date)
+    ret_str = custom_get_header_days(year, month, date)
     
     Space.active(:order => 'position').each do |space|
       date = @startDate
@@ -738,7 +739,7 @@ module ReservationHelper
     return ret_str
   end
 
-  def getPreviousData(res_hash, month, date, data, admin_status, controllerName)
+  def getPreviousData(res_hash, year, month, date, data, admin_status, controllerName)
     #############################################
     # res_array is a hash of arrays of reservations
     # with the key being the space_id.  Each
@@ -748,10 +749,10 @@ module ReservationHelper
 
     @option = data
 
-    av_init(month, date, data)
+    av_init(year, month, date, data)
     
-    ret_str = custom_get_header_months(month, date)
-    ret_str << custom_get_header_days(month, date)
+    # ret_str = custom_get_header_months(year, month, date)
+    ret_str = custom_get_header_days(year, month, date)
     
     Space.active(:order => 'position').each do |space|
       date = @startDate

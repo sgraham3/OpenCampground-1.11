@@ -159,7 +159,7 @@
     top: 5px;
 }
 
-#available thead th {
+#available th {
     position: -webkit-sticky;
     position: sticky;
     top: 0;
@@ -167,7 +167,7 @@
 }
 
 
-#available thead th:not([scope=row]):first-child {
+#available th:not([scope=row]):first-child {
     top: 0;
     left: 0;
     z-index: 3 !important;

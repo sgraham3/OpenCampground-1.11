@@ -521,11 +521,11 @@ class Reservation < ActiveRecord::Base
     return ReservationController.helpers.custom_available(res_hash, month+"&monthly", option, admin_status, controllerName)
   end
 
-  def self.getNextData(res_hash, month, date, option, admin_status, controllerName)
-    return ReservationController.helpers.getNextData(res_hash, month+"&monthly", date, option, admin_status, controllerName)
+  def self.getNextData(res_hash, year, month, date, option, admin_status, controllerName)
+    return ReservationController.helpers.getNextData(res_hash, year, month+"&monthly", date, option, admin_status, controllerName)
   end
 
-  def self.getPreviousData(res_hash, month, date, option, admin_status, controllerName)
-    return ReservationController.helpers.getPreviousData(res_hash, month+"&monthly", date, option, admin_status, controllerName)
+  def self.getPreviousData(res_hash, year, month, date, option, admin_status, controllerName)
+    return ReservationController.helpers.getPreviousData(res_hash, year, month+"&monthly", date, option, admin_status, controllerName)
   end
 end

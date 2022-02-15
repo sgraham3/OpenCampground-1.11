@@ -352,11 +352,11 @@ module RemoteHelper
       end
       strmonth = Date::MONTHNAMES[date.month];
       if date == currentDate
-	      ret_str << '<th class="av_date"  style="border:1px solid white;background:lightGreen;text-align:center;color:white;"><div>' + date.strftime("%a") + '</div><div>' + date.strftime("%d") + '</div><div>' + strmonth[0..2] + '</div></th>'
+	      ret_str << '<th class="av_date"  style="border:1px solid white;background:lightGreen;text-align:center;color:white;"><span year=' + date.year.to_s + '></span><div>' + date.strftime("%a") + '</div><div>' + date.strftime("%d") + '</div><div>' + strmonth[0..2] + '</div></th>'
       elsif date.wday == 0 || date.wday == 6
-	      ret_str << '<th class="av_date"  style="border:1px solid white;background:#666666;color:white;text-align:center"><div>' + date.strftime("%a") + '</div><div>' + date.strftime("%d") + '</div><div>' + strmonth[0..2] + '</div></th>'
+	      ret_str << '<th class="av_date"  style="border:1px solid white;background:#666666;color:white;text-align:center"><span year=' + date.year.to_s + '></span><div>' + date.strftime("%a") + '</div><div>' + date.strftime("%d") + '</div><div>' + strmonth[0..2] + '</div></th>'
       else
-        ret_str << '<th class="av_date"  style="border:1px solid white;background:#666666;color:white;text-align:center"><div>' + date.strftime("%a") + '</div><div>' + date.strftime("%d") + '</div><div>' + strmonth[0..2] + '</div></th>'
+        ret_str << '<th class="av_date"  style="border:1px solid white;background:#666666;color:white;text-align:center"><span year=' + date.year.to_s + '></span><div>' + date.strftime("%a") + '</div><div>' + date.strftime("%d") + '</div><div>' + strmonth[0..2] + '</div></th>'
       end   
       date = date.succ 
     end

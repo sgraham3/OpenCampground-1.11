@@ -62,11 +62,13 @@
     var th = ths[i];
     th.style.top = th.getBoundingClientRect().top - tableHeaderTop + "px";
   }
-
+  //url parse
   var current_url = window.location.href;
   const url = new URL(
     current_url
   );
+  var glb_start_year = url.searchParams.get('start_year');
+  var glb_start_month = url.searchParams.get('start_month');
   var glb_start_date = url.searchParams.get('start_date');
   var glb_space = url.searchParams.get('space');
   if(glb_start_date !== null && glb_space !== null) {
@@ -76,15 +78,16 @@
           spaceSelect.options[i].selected = true;
         }  
     }
-    var d = new Date();
     glbStartCalendarDateSelect.date = new Date();
-    var o = $H({ day: glb_start_date, month: d.getMonth(), year: d.getFullYear(), hour: d.getHours(), minute: d.getMinutes() });
+    var o = $H({ day: Number(glb_start_date), month: Number(glb_start_month)-1, year: Number(glb_start_year) });
     glbStartCalendarDateSelect.updateSelectedDate(o, true);
     glbStartCalendarDateSelect.refresh();
+    glbStartCalendarDateSelect.navYear(Number(glb_start_year));
+    glbStartCalendarDateSelect.navMonth(Number(glb_start_month)-1);
 
     document.getElementsByClassName("cds_body")[0].onclick = function() {myFunction()};
     document.getElementsByClassName("cds_body")[1].onclick = function() {myFunction()};
-
+    
     myFunction();
   }else{
     document.getElementsByClassName("cds_body")[0].onclick = function() {myFunction()};
@@ -93,6 +96,7 @@
     myFunction();
   }
 
+  //add link to available td
   var cells = document.querySelectorAll(".available td");
   var table = document.getElementsByTagName('table')[0];
   for (var i = 0; i < cells.length; i++) {
@@ -141,6 +145,7 @@
     }
   }
 
+  //Always update the end date 1 day after the start date when click the calendar
   function myFunction() {
     var startDate = glbStartCalendarDateSelect.selected_date;
 
@@ -156,9 +161,8 @@
   function getMonthlyData() {
     let currentMonth = document.getElementById("month").value;
     new Ajax.Request('getMonthlyData', {
-      parameters: {"month": getMonthFromString(currentMonth), "controllerName": "remote"},
+      parameters: {"month": getMonthFromString(currentMonth), "controllerName": "remotereservation"},
       onSuccess: function(res) {
-        console.log(res);
         document.getElementById("available").innerHTML = res.responseText;
         addLinkToTd();
       }
@@ -168,12 +172,14 @@
     return new Date(Date.parse(month +" 1, 2012")).getMonth()+1;
   }
   function NextRes() {
-    let resTableHeadMonth = document.querySelectorAll('#lockedHeadMonth');
-    let resTableHeadDay = document.querySelectorAll('#lockedHeadDay');
-    let nextStartMonth = resTableHeadMonth[0].lastChild.innerText;
-    let nextStartDate = resTableHeadDay[0].lastChild.innerText;
+    let resTableHeadDay = document.querySelectorAll('#lockedHeadDay')[0];
+    let nextStartYear = resTableHeadDay.lastChild.childNodes[0].getAttribute("year");
+    let nextStartMonth = resTableHeadDay.lastChild.childNodes[3].innerText;
+    let nextStartDate = resTableHeadDay.lastChild.childNodes[2].innerText;
+    const currentLastDate = new Date(Number(nextStartYear), getMonthFromString(nextStartMonth)-1, Number(nextStartDate));
+    currentLastDate.setDate(currentLastDate.getDate() + 1);
     new Ajax.Request('getNextData', {
-      parameters: {"startMonth": getMonthFromString(nextStartMonth), "startDate": nextStartDate, "controllerName": "remote"},
+      parameters: {"startYear": currentLastDate.getFullYear(), "startMonth": currentLastDate.getMonth()+1, "startDate": currentLastDate.getDate(), "controllerName": "remotereservation"},
       onSuccess: function(res) {
         document.getElementById("available").innerHTML = res.responseText;
         addLinkToTd();
@@ -182,31 +188,15 @@
   }
 
   function PrevRes() {
-    let resTableHeadMonth = document.querySelectorAll('#lockedHeadMonth');
-    let resTableHeadDay = document.querySelectorAll('#lockedHeadDay');
-    let strCurrentStartMonth = resTableHeadMonth[0].childNodes[1].innerText;
-    let strCurrentStartDate = resTableHeadDay[0].childNodes[1].innerText;
-    let count = resTableHeadDay[0].childElementCount - 2;
-
-    let startMonth = 0;
-    let startDate = 0;
-    let d = new Date();
-    let currentStartYear = d.getFullYear();
-    let currentStartMonth = getMonthFromString(strCurrentStartMonth);
-    let currentStartDate = Number(strCurrentStartDate);
-    let tempDate = new Date(currentStartYear, currentStartMonth-1, currentStartDate);
-    tempDate.setDate(currentStartDate - count);
-
-    if(tempDate.getFullYear() != currentStartYear) {
-      startMonth = 1;
-      startDate = 1;
-    }else{
-      startMonth = tempDate.getMonth() + 1;
-      startDate = tempDate.getDate();
-    }
-
+    let resTableHeadDay = document.querySelectorAll('#lockedHeadDay')[0];
+    let prevStartYear = resTableHeadDay.childNodes[1].childNodes[0].getAttribute("year");
+    let prevStartMonth = resTableHeadDay.childNodes[1].childNodes[3].innerText;
+    let prevStartDate = resTableHeadDay.childNodes[1].childNodes[2].innerText;
+    let count = resTableHeadDay.childElementCount-1;
+    const currentFirstDate = new Date(Number(prevStartYear), getMonthFromString(prevStartMonth)-1, Number(prevStartDate));
+    currentFirstDate.setDate(currentFirstDate.getDate() - count);
     new Ajax.Request('getPreviousData', {
-      parameters: {"startMonth": startMonth, "startDate": startDate, "controllerName": "remote"},
+      parameters: {"startYear": currentFirstDate.getFullYear(), "startMonth": currentFirstDate.getMonth()+1, "startDate": currentFirstDate.getDate(), "controllerName": "remotereservation"},
       onSuccess: function(res) {
         document.getElementById("available").innerHTML = res.responseText;
         addLinkToTd();
@@ -229,6 +219,7 @@
     }
   }
 
+  //Open a pop-up window in the center of the screen
   function FindLeftWindowBoundry()
   {
     // In Internet Explorer window.screenLeft is the window's left boundry

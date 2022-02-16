@@ -362,7 +362,7 @@ module ReservationHelper
     # array of reservations is sorted by startdate
     #############################################
     ret_str = ''
-    av_init(currentDate.month, currentDate.day, @option)
+    av_init(currentDate.year, currentDate.month, currentDate.day, @option)
     Space.active(:order => 'position').each do |space|
       date = @startDate
       ret_str << '<tr>'

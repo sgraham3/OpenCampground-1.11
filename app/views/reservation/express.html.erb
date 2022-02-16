@@ -19,28 +19,31 @@
 <a href="../images/sitemap.jpg" onclick="goclicky(this); return false;" target="_blank" class="sitemap">Site Map</a>
 
 <script type="text/javascript">
+  //url parse
   var current_url = window.location.href;
   const url = new URL(
     current_url
   );
+  var glb_start_year = url.searchParams.get('start_year');
+  var glb_start_month = url.searchParams.get('start_month');
   var glb_start_date = url.searchParams.get('start_date');
   var glb_space = url.searchParams.get('space');
   if(glb_start_date !== null && glb_space !== null) {
     var spaceSelect = document.getElementsByName("space[space_id]")[0];
     for (var i = 0; i < spaceSelect.options.length; ++i) {
-        if (spaceSelect.options[i].text == glb_space) {
+        if (spaceSelect.options[i].text === glb_space) {
           spaceSelect.options[i].selected = true;
         }  
     }
-    var startCalendar = glbStartCalendarDateSelect;
-    var d = new Date();
-    startCalendar.date = new Date();
-    var o = $H({ day: glb_start_date, month: d.getMonth(), year: d.getFullYear(), hour: d.getHours(), minute: d.getMinutes() });
-    startCalendar.updateSelectedDate(o, true);
-    startCalendar.refresh();
+    glbStartCalendarDateSelect.date = new Date();
+    var o = $H({ day: Number(glb_start_date), month: Number(glb_start_month)-1, year: Number(glb_start_year) });
+    glbStartCalendarDateSelect.updateSelectedDate(o, true);
+    glbStartCalendarDateSelect.refresh();
+    glbStartCalendarDateSelect.navYear(Number(glb_start_year));
+    glbStartCalendarDateSelect.navMonth(Number(glb_start_month)-1);
 
-    document.getElementsByClassName("cds_body")[0].onclick = function() {myFunction1()};
-    document.getElementsByClassName("cds_body")[1].onclick = function() {myFunction1()};
+    document.getElementsByClassName("cds_body")[0].onclick = function() {myFunction()};
+    document.getElementsByClassName("cds_body")[1].onclick = function() {myFunction()};
 
     myFunction();
   }else{
@@ -52,25 +55,16 @@
 
   function myFunction() {
     var startDate = glbStartCalendarDateSelect.selected_date;
-    var endDate = glbEndCalendarDateSelect.selected_date;
-    if(endDate <= startDate) {
-      startDate.setDate(startDate.getDate() + 1);
-      var o = $H({ day: startDate.getDate(), month: startDate.getMonth(), year: startDate.getFullYear(), hour: startDate.getHours(), minute: startDate.getMinutes() });
-      glbEndCalendarDateSelect.updateSelectedDate(o, true);
-      glbEndCalendarDateSelect.refresh();
-      startDate.setDate(startDate.getDate() - 1);
-    }
-  };
-  function myFunction1() {
-    var startDate = glbStartCalendarDateSelect.selected_date;
-    var endDate = glbEndCalendarDateSelect.selected_date;
 
     startDate.setDate(startDate.getDate() + 1);
     var o = $H({ day: startDate.getDate(), month: startDate.getMonth(), year: startDate.getFullYear(), hour: startDate.getHours(), minute: startDate.getMinutes() });
     glbEndCalendarDateSelect.updateSelectedDate(o, true);
     glbEndCalendarDateSelect.refresh();
+    glbEndCalendarDateSelect.navYear(startDate.getFullYear());
+    glbEndCalendarDateSelect.navMonth(startDate.getMonth());
     startDate.setDate(startDate.getDate() - 1);
-  }
+  };
+  //Open a pop-up window in the center of the screen
   function FindLeftWindowBoundry()
   {
     // In Internet Explorer window.screenLeft is the window's left boundry
@@ -85,7 +79,6 @@
       
     return 0;
   }
-  // Find Left Boundry of current Window
   function FindTopWindowBoundry()
   {
     // In Internet Explorer window.screenLeft is the window's left boundry
@@ -99,8 +92,7 @@
       return window.screenY;
       
     return 0;
-  }
-      
+  } 
   function goclicky(meh)
   {
       console.log(FindLeftWindowBoundry(), FindTopWindowBoundry());

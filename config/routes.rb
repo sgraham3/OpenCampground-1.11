@@ -12,7 +12,7 @@ ActionController::Routing::Routes.draw do |map|
   #
   # named route for loading css files and images
   map.dynamic 'dynamic/*name', :controller => 'setup/dynamic_strings'
-  map.purchase 'getMonthlyData', :controller => 'reservation', :action => 'getMonthlyData'
+  map.purchase 'refreshTable', :controller => 'reservation', :action => 'refreshTable'
   map.purchase 'getNextData', :controller => 'reservation', :action => 'getNextData'
   map.purchase 'getPreviousData', :controller => 'reservation', :action => 'getPreviousData'
 

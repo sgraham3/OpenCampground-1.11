@@ -465,7 +465,7 @@ module ReservationHelper
     return ret_str
   end
 
-  def custom_available(res_hash, month, data, admin_status, controllerName)
+  def custom_available(res_hash, year, month, date, data, admin_status, controllerName)
     #############################################
     # res_array is a hash of arrays of reservations
     # with the key being the space_id.  Each
@@ -475,10 +475,10 @@ module ReservationHelper
 
     @option = data
 
-    av_init(month, 1, data)
+    av_init(year, month, date, data)
     
     # ret_str = custom_get_header_months(month, 1)
-    ret_str = custom_get_header_days(month, 1)
+    ret_str = custom_get_header_days(year, month, date)
     
     Space.active(:order => 'position').each do |space|
       date = @startDate

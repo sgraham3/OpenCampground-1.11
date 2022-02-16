@@ -940,7 +940,7 @@ class ReservationController < ApplicationController
 		@res = res.group_by{|sp|sp.space_id}
 	end
 
-	def getMonthlyData
+	def refreshTable
 		session[:reservation_id] = nil
 
 		if @option.use_closed?
@@ -989,7 +989,7 @@ class ReservationController < ApplicationController
 			end
 		end
 		@res = res.group_by{|sp|sp.space_id}
-		render :json => Reservation.getMonthlyData(@res, request["month"], @option, session[:admin_status], request["controllerName"])
+		render :json => Reservation.refreshTable(@res, request["startYear"], request["startMonth"], request["startDate"], @option, session[:admin_status], request["controllerName"])
 	end
 
 	def getNextData

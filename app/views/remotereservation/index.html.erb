@@ -20,19 +20,7 @@
   <p><%= submit_tag I18n.t('reservation.CompleteReservation') %></p>
 </form>
   <a href="../images/sitemap.jpg" onclick="goclicky(this); return false;" target="_blank" class="sitemap">Site Map</a>
-  <%= select_tag(:month,
-          '<option>January</option>
-          <option>February</option>
-          <option>March</option>
-          <option>April</option>
-          <option>May</option>
-          <option>June</option>
-          <option>July</option>
-          <option>August</option>
-          <option>September</option>
-          <option>October</option>
-          <option>November</option>
-          <option>December</option>', :onchange => 'getMonthlyData()') %>
+  <input type="date" id="custom_date" class="custom_date" onchange="refreshTable()">
   <%# <div style="margin-left:40px;margin-top:5px"> %>
     <span class="c-button c-button--arrow-left" tabindex="0" onclick="PrevRes()" style="margin-left:40px">
       <span class="c-button__text">Back</span>
@@ -53,6 +41,7 @@
 </div>
 
 <script type="text/javascript">
+  document.getElementById('custom_date').valueAsDate = new Date();
   window.scrollTo(0, 0);
   // table header and first column lock
   var tableHeaderTop = document.querySelector('#available_head').getBoundingClientRect().top;
@@ -158,10 +147,11 @@
     startDate.setDate(startDate.getDate() - 1);
   }
 
-  function getMonthlyData() {
-    let currentMonth = document.getElementById("month").value;
-    new Ajax.Request('getMonthlyData', {
-      parameters: {"month": getMonthFromString(currentMonth), "controllerName": "remotereservation"},
+  function refreshTable() {
+    let start_date = document.getElementById("custom_date").value;
+    let arr = start_date.split("-");
+    new Ajax.Request('refreshTable', {
+      parameters: {"startYear": arr[0], "startMonth": arr[1], "startDate": arr[2], "controllerName": "remotereservation"},
       onSuccess: function(res) {
         document.getElementById("available").innerHTML = res.responseText;
         addLinkToTd();

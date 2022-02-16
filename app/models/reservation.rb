@@ -517,8 +517,8 @@ class Reservation < ActiveRecord::Base
     end
   end
 
-  def self.getMonthlyData(res_hash, month, option, admin_status, controllerName)
-    return ReservationController.helpers.custom_available(res_hash, month+"&monthly", option, admin_status, controllerName)
+  def self.refreshTable(res_hash, year, month, date, option, admin_status, controllerName)
+    return ReservationController.helpers.custom_available(res_hash, year, month+"&monthly", date, option, admin_status, controllerName)
   end
 
   def self.getNextData(res_hash, year, month, date, option, admin_status, controllerName)

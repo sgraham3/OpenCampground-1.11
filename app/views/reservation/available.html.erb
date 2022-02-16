@@ -1,18 +1,6 @@
 <div style="display: flex">
   <%= button_to I18n.t('reservation.DownloadData'), :action => 'available_csv', :id => 'btn_download' %>
-  <%= select_tag(:month,
-          '<option>January</option>
-          <option>February</option>
-          <option>March</option>
-          <option>April</option>
-          <option>May</option>
-          <option>June</option>
-          <option>July</option>
-          <option>August</option>
-          <option>September</option>
-          <option>October</option>
-          <option>November</option>
-          <option>December</option>', :onchange => 'getMonthlyData()') %>
+  <input type="date" id="custom_date" class="custom_date" onchange="refreshTable()">
   <div style="margin-left:40px;margin-top:5px">
     <span class="c-button c-button--arrow-left" tabindex="0" onclick="PrevRes()">
       <span class="c-button__text">Back</span>
@@ -44,6 +32,7 @@
   </table>
 </div>
 <script type="text/JavaScript">
+  document.getElementById('custom_date').valueAsDate = new Date();
   window.scrollTo(0, 0);
 
   // table header and first column lock
@@ -84,10 +73,11 @@
       return;
     }
   }
-  function getMonthlyData() {
-    let currentMonth = document.getElementById("month").value;
-    new Ajax.Request('getMonthlyData', {
-      parameters: {"month": getMonthFromString(currentMonth), "controllerName": "reservation"},
+  function refreshTable() {
+    let start_date = document.getElementById("custom_date").value;
+    let arr = start_date.split("-");
+    new Ajax.Request('refreshTable', {
+      parameters: {"startYear": arr[0], "startMonth": arr[1], "startDate": arr[2], "controllerName": "reservation"},
       onSuccess: function(res) {
         document.getElementById("available").innerHTML = res.responseText;
         addLinkToTd();

@@ -33,6 +33,10 @@
 </div>
 <script type="text/JavaScript">
   document.getElementById('custom_date').valueAsDate = new Date();
+  // disable scroll position
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
   window.scrollTo(0, 0);
 
   // table header and first column lock

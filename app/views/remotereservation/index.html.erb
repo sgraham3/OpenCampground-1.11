@@ -82,6 +82,7 @@
     document.getElementsByClassName("cds_body")[1].onclick = function() {myFunction()};
     
     myFunction();
+    refreshTable1(glb_start_year, glb_start_month, glb_start_date);
   }else{
     document.getElementsByClassName("cds_body")[0].onclick = function() {myFunction()};
     document.getElementsByClassName("cds_body")[1].onclick = function() {myFunction()};
@@ -156,6 +157,15 @@
     let arr = start_date.split("-");
     new Ajax.Request('refreshTable', {
       parameters: {"startYear": arr[0], "startMonth": arr[1], "startDate": arr[2], "controllerName": "remotereservation"},
+      onSuccess: function(res) {
+        document.getElementById("available").innerHTML = res.responseText;
+        addLinkToTd();
+      }
+    });
+  }
+  function refreshTable1(startYear, startMonth, startDate) {
+    new Ajax.Request('refreshTable', {
+      parameters: {"startYear": startYear, "startMonth": startMonth, "startDate": startDate, "controllerName": "remotereservation"},
       onSuccess: function(res) {
         document.getElementById("available").innerHTML = res.responseText;
         addLinkToTd();

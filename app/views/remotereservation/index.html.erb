@@ -41,6 +41,19 @@
 </div>
 
 <script type="text/javascript">
+  //calc real width of cells.
+  var thElement = document.querySelectorAll('#lockedHeadDay')[0].childNodes[0];
+  var cellsCount = document.querySelectorAll('#lockedHeadDay')[0].childElementCount;
+  var strwidth = getComputedStyle(thElement)["min-width"];
+  var minWidth = Number(strwidth.substr(0, strwidth.length-2));
+  var expectedWidth = Math.round((screen.width)/cellsCount);
+  var realWidth = 0;
+  if(expectedWidth <= minWidth) {
+    realWidth = minWidth
+  }else{
+    realWidth = expectedWidth;
+  }
+
   document.getElementById('custom_date').valueAsDate = new Date();
   // disable scroll position
   if ('scrollRestoration' in history) {
@@ -54,6 +67,7 @@
   for(var i = 0; i < ths.length; i++) {
     var th = ths[i];
     th.style.top = th.getBoundingClientRect().top - tableHeaderTop + "px";
+    th.style.cssText += "min-width: " + realWidth + "px";
   }
   //url parse
   var current_url = window.location.href;

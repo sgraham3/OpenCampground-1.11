@@ -163,7 +163,14 @@
     position: -webkit-sticky;
     position: sticky;
     top: 0;
-    padding: 5px 50px;
+    min-width: 120px;
+    max-width: 400px;
+}
+
+#available td {
+    min-width: 120px;
+    max-width: 400px;
+    border: 1px solid #D6D6D6;
 }
 
 
@@ -245,12 +252,6 @@
 .c-button--arrow-right:hover {
     opacity: 0.9 !important; 
 }
-
-.available td {
-    padding: 2px 30px;
-    border: 1px solid #D6D6D6;
-}
-
 
 .extra {
     white-space: nowrap;

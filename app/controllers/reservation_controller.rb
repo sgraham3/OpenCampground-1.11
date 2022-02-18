@@ -1,6 +1,5 @@
 class ReservationController < ApplicationController
 	include MyLib
-	include ActionController
 	include CalculationHelper
 	include ReservationHelper
 	before_filter :login_from_cookie
@@ -168,7 +167,7 @@ class ReservationController < ApplicationController
 		@skip_render = true
 		recalculate_charges
 		@use_navigation = false
-		# @integration = Integration.first
+		@integration = Integration.first
 		@variable_charge = VariableCharge.new if @option.use_variable_charge
 		session[:current_action] = 'confirm_res'
 		session[:canx_action] = 'abandon'
@@ -505,7 +504,7 @@ class ReservationController < ApplicationController
 		@reservation.save!
 		# session[:reservation_id] = @reservation.id
 		@use_navigation = false
-		# @integration = Integration.first
+		@integration = Integration.first
 		session[:canx_action] = 'abandon'
 		render :action => :show
 		rescue => err
@@ -800,7 +799,7 @@ class ReservationController < ApplicationController
 			@skip_notice = true
 			recalculate_charges
 		end
-		# @integration = Integration.first
+		@integration = Integration.first
 		debug "integration name is #{@integration.name}"
 		if @integration.name == 'CardConnect' || @integration.name == 'CardConnect_o'
 			@cash_id = Creditcard.find_or_create_by_name('Cash').id
@@ -1194,7 +1193,7 @@ class ReservationController < ApplicationController
 			redirect_to  :action => :list and return
 		end
 		charges_for_display @reservation
-		# @integration = Integration.first
+		@integration = Integration.first
 		session[:canx_action] = 'abandon'  
 		debug 'Cancel action = ' + session[:canx_action]
 		session[:canx_controller] = 'reservation'
@@ -1536,7 +1535,7 @@ class ReservationController < ApplicationController
 		end
 		@payments = Payment.find_all_by_reservation_id @reservation.id
 		@payment = Payment.new
-		# @integration = Integration.first
+		@integration = Integration.first
 		charges_for_display @reservation
 		session[:early_date] = 0
 		session[:late_date] = 0
@@ -1773,7 +1772,7 @@ class ReservationController < ApplicationController
 	end
 
 	def update_cc_expire
-		# @integration = Integration.first
+		@integration = Integration.first
 		@reservation = get_reservation
 		if params[:payment]
 			if session[:payment_id]
@@ -1841,7 +1840,7 @@ class ReservationController < ApplicationController
 	end
 
 	def update_cc
-		# @integration = Integration.first
+		@integration = Integration.first
 		@reservation = get_reservation
 		if params[:creditcard_id]
 			debug 'we have an id!'

@@ -165,8 +165,8 @@
     }
   }
   //Always update the end date 1 day after the start date when click the calendar
-  document.getElementsByClassName("cds_body")[0].onclick = function() {myFunction()};
-  document.getElementsByClassName("cds_body")[1].onclick = function() {myFunction()};
+  document.getElementsByClassName("cds_body")[0].onclick = function() {myFunction1()};
+  document.getElementsByClassName("cds_body")[1].onclick = function() {myFunction1()};
 
   function myFunction() {
     var startDate = glbStartCalendarDateSelect.selected_date;
@@ -178,6 +178,17 @@
     glbEndCalendarDateSelect.navYear(startDate.getFullYear());
     glbEndCalendarDateSelect.navMonth(startDate.getMonth());
     startDate.setDate(startDate.getDate() - 1);
+  };
+  function myFunction1() {
+    var startDate = glbStartCalendarDateSelect.selected_date;
+    var endDate = glbEndCalendarDateSelect.selected_date;
+    if(endDate <= startDate) {
+      startDate.setDate(startDate.getDate() + 1);
+      var o = $H({ day: startDate.getDate(), month: startDate.getMonth(), year: startDate.getFullYear(), hour: startDate.getHours(), minute: startDate.getMinutes() });
+      glbEndCalendarDateSelect.updateSelectedDate(o, true);
+      glbEndCalendarDateSelect.refresh();
+      startDate.setDate(startDate.getDate() - 1);
+    }
   };
 
   function refreshTable() {

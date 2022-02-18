@@ -92,14 +92,14 @@
     glbStartCalendarDateSelect.navYear(Number(glb_start_year));
     glbStartCalendarDateSelect.navMonth(Number(glb_start_month)-1);
 
-    document.getElementsByClassName("cds_body")[0].onclick = function() {myFunction()};
-    document.getElementsByClassName("cds_body")[1].onclick = function() {myFunction()};
+    document.getElementsByClassName("cds_body")[0].onclick = function() {myFunction1()};
+    document.getElementsByClassName("cds_body")[1].onclick = function() {myFunction1()};
     
     myFunction();
     refreshTable1(glb_start_year, glb_start_month, glb_start_date);
   }else{
-    document.getElementsByClassName("cds_body")[0].onclick = function() {myFunction()};
-    document.getElementsByClassName("cds_body")[1].onclick = function() {myFunction()};
+    document.getElementsByClassName("cds_body")[0].onclick = function() {myFunction1()};
+    document.getElementsByClassName("cds_body")[1].onclick = function() {myFunction1()};
 
     myFunction();
   }
@@ -165,6 +165,17 @@
     glbEndCalendarDateSelect.navMonth(startDate.getMonth());
     startDate.setDate(startDate.getDate() - 1);
   }
+  function myFunction1() {
+    var startDate = glbStartCalendarDateSelect.selected_date;
+    var endDate = glbEndCalendarDateSelect.selected_date;
+    if(endDate <= startDate) {
+      startDate.setDate(startDate.getDate() + 1);
+      var o = $H({ day: startDate.getDate(), month: startDate.getMonth(), year: startDate.getFullYear(), hour: startDate.getHours(), minute: startDate.getMinutes() });
+      glbEndCalendarDateSelect.updateSelectedDate(o, true);
+      glbEndCalendarDateSelect.refresh();
+      startDate.setDate(startDate.getDate() - 1);
+    }
+  };
 
   function refreshTable() {
     let start_date = document.getElementById("custom_date").value;

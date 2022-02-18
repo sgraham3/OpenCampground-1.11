@@ -163,12 +163,12 @@
     position: -webkit-sticky;
     position: sticky;
     top: 0;
-    min-width: 120px;
+    min-width: 60px;
     max-width: 400px;
 }
 
 #available td {
-    min-width: 120px;
+    min-width: 60px;
     max-width: 400px;
     border: 1px solid #D6D6D6;
 }

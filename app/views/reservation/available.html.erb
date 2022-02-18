@@ -99,6 +99,11 @@
       onSuccess: function(res) {
         document.getElementById("available").innerHTML = res.responseText;
         addLinkToTd();
+        let ths = document.querySelectorAll('#available th');
+        for(var i = 0; i < ths.length; i++) {
+          var th = ths[i];
+          th.style.cssText += "min-width: " + realWidth + "px";
+        }
       }
     });
   }
@@ -118,6 +123,11 @@
       onSuccess: function(res) {
         document.getElementById("available").innerHTML = res.responseText;
         addLinkToTd();
+        let ths = document.querySelectorAll('#available th');
+        for(var i = 0; i < ths.length; i++) {
+          var th = ths[i];
+          th.style.cssText += "min-width: " + realWidth + "px";
+        }
       }
     });
   }
@@ -134,11 +144,17 @@
       onSuccess: function(res) {
         document.getElementById("available").innerHTML = res.responseText;
         addLinkToTd();
+        let ths = document.querySelectorAll('#available th');
+        for(var i = 0; i < ths.length; i++) {
+          var th = ths[i];
+          th.style.cssText += "min-width: " + realWidth + "px";
+        }
       }
     });
   }
   function addLinkToTd() {
     let cells = document.querySelectorAll(".available td");
+
     for (var i = 0; i < cells.length; i++) {
       if (cells[i].hasChildNodes()) {
         if(cells[i].childNodes[0].tagName == "A") {

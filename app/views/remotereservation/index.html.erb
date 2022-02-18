@@ -185,6 +185,11 @@
       onSuccess: function(res) {
         document.getElementById("available").innerHTML = res.responseText;
         addLinkToTd();
+        let ths = document.querySelectorAll('#available th');
+        for(var i = 0; i < ths.length; i++) {
+          var th = ths[i];
+          th.style.cssText += "min-width: " + realWidth + "px";
+        }
       }
     });
   }
@@ -212,6 +217,11 @@
       onSuccess: function(res) {
         document.getElementById("available").innerHTML = res.responseText;
         addLinkToTd();
+        let ths = document.querySelectorAll('#available th');
+        for(var i = 0; i < ths.length; i++) {
+          var th = ths[i];
+          th.style.cssText += "min-width: " + realWidth + "px";
+        }
       }
     });
   }
@@ -229,6 +239,11 @@
       onSuccess: function(res) {
         document.getElementById("available").innerHTML = res.responseText;
         addLinkToTd();
+        let ths = document.querySelectorAll('#available th');
+        for(var i = 0; i < ths.length; i++) {
+          var th = ths[i];
+          th.style.cssText += "min-width: " + realWidth + "px";
+        }
       }
     });
   }

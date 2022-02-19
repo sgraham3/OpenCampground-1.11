@@ -591,6 +591,8 @@
     <%= f.select(:rates_decimal, [ 2, 3, 4, 5 ]) %>
 </p>
 <p>
+    <label for="option_sa_columns">Custom Space Avail Days to Show:</label>
+    <%= f.text_field 'custom_sa_columns', :size => '3' %>
     <label for="option_sa_columns">Space Avail Days to Show:</label>
     <%= f.text_field 'sa_columns', :size => '3' %>
     <label for="option_lookback">Space Avail Past Days to Show:</label>

@@ -3,6 +3,7 @@ options_001:
   home: 
   use_confirm_email: false
   sa_columns: "120"
+  custom_sa_columns: "120"
   separator: .
   allow_gateway: true
   season_end: <%= Date.today.end_of_year %>

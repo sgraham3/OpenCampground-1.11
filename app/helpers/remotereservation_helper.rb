@@ -210,7 +210,8 @@ module RemotereservationHelper
     debug 'av_init'
     @closedDays = 0
     @startDate = currentDate - @option.lookback
-    days = @option.sa_columns + @option.lookback
+    # days = @option.sa_columns + @option.lookback
+    days = @option.custom_sa_columns + @option.lookback
     if @option.use_closed?
       @closedType = Summer
       @closedStart = @option.closed_start.change(:year => currentDate.year) 

@@ -121,7 +121,8 @@ module ReservationHelper
       @startDate = currentDate - @option.lookback
     end
 
-    days = @option.sa_columns + @option.lookback
+    # days = @option.sa_columns + @option.lookback
+    days = @option.custom_sa_columns + @option.lookback
     if @option.use_closed?
       @closedType = Summer
       @closedStart = @option.closed_start.change(:year => currentDate.year) 

@@ -2364,7 +2364,8 @@ class ReservationController < ApplicationController
 
 	def header_av_csv
 		start_date = currentDate - @option.lookback.to_i
-		days = @option.sa_columns
+		# days = @option.sa_columns
+		days = @option.custom_sa_columns
 		ret_str = 'Space'
 		enddate = start_date + days
 		date = start_date
@@ -2387,7 +2388,8 @@ class ReservationController < ApplicationController
 		# ordered by space_id and startdate
 		#############################################
 		start_date = currentDate - @option.lookback
-		days = @option.sa_columns
+		# days = @option.sa_columns
+		days = @option.custom_sa_columns
 		enddate = start_date + days
 		date = start_date
 		res = Reservation.all( :conditions => [ "space_id = ? AND enddate >= ? AND confirm = ? AND archived = ?",space.id, start_date, true, false],

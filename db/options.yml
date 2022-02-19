@@ -12,6 +12,7 @@ options_001:
   max_spacename: "5"
   keep_reservations: "13"
   sa_columns: "120"
+  custom_sa_columns: "14"
   lookback: "7"
   locale: en
   delimiter: ","

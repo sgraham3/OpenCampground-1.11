@@ -24,6 +24,7 @@ class UpdateDb < ActiveRecord::Migration
     add_column "archives", "log", :text
     # enhance handling of displays
     add_column "options", "sa_columns", :integer, :default => 120
+    add_column "options", "custom_sa_columns", :integer, :default => 14
     add_column "options", "max_spacename", :integer, :default => 3
     add_column "options", "disp_rows", :integer, :default => 12
     add_column "options", "disp_log", :boolean, :default => false
@@ -64,6 +65,7 @@ class UpdateDb < ActiveRecord::Migration
     remove_column "reservations", "log"
     remove_column "archives", "log"
     remove_column "options", "sa_columns"
+    remove_column "options", "custom_sa_columns"
     remove_column "options", "max_spacename"
     remove_column "options", "disp_rows"
     remove_column "options", "disp_log"

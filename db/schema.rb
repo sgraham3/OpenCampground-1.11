@@ -317,6 +317,7 @@ ActiveRecord::Schema.define(:version => 87) do
     t.text    "trailer"
     t.boolean "use_login",                                                               :default => false
     t.integer "sa_columns",                                                              :default => 120
+    t.integer "custom_sa_columns",                                                       :default => 14
     t.integer "max_spacename",                                                           :default => 3
     t.integer "disp_rows",                                                               :default => 12
     t.boolean "find_by_id",                                                              :default => false

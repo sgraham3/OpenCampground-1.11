@@ -103,7 +103,6 @@
 
     myFunction();
   }
-
   //add link to available td
   var cells = document.querySelectorAll(".available td");
   var table = document.getElementsByTagName('table')[0];
@@ -168,12 +167,17 @@
   function myFunction1() {
     var startDate = glbStartCalendarDateSelect.selected_date;
     var endDate = glbEndCalendarDateSelect.selected_date;
+
     if(endDate <= startDate) {
       startDate.setDate(startDate.getDate() + 1);
       var o = $H({ day: startDate.getDate(), month: startDate.getMonth(), year: startDate.getFullYear(), hour: startDate.getHours(), minute: startDate.getMinutes() });
+      glbEndCalendarDateSelect.navYear(startDate.getFullYear());
+      glbEndCalendarDateSelect.navMonth(startDate.getMonth());
       glbEndCalendarDateSelect.updateSelectedDate(o, true);
       glbEndCalendarDateSelect.refresh();
       startDate.setDate(startDate.getDate() - 1);
+    }else{
+      glbEndCalendarDateSelect.refresh();
     }
   };
 
@@ -199,12 +203,18 @@
       onSuccess: function(res) {
         document.getElementById("available").innerHTML = res.responseText;
         addLinkToTd();
+        let ths = document.querySelectorAll('#available th');
+        for(var i = 0; i < ths.length; i++) {
+          var th = ths[i];
+          th.style.cssText += "min-width: " + realWidth + "px";
+        }
       }
     });
   }
   function getMonthFromString(month){
     return new Date(Date.parse(month +" 1, 2012")).getMonth()+1;
   }
+  
   function NextRes() {
     let resTableHeadDay = document.querySelectorAll('#lockedHeadDay')[0];
     let nextStartYear = resTableHeadDay.lastChild.childNodes[0].getAttribute("year");

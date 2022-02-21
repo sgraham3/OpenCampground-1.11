@@ -123,8 +123,8 @@
     var parentTr = param.parentElement;
     if(parentTr.getAttribute("hasspace") != "true") {
       var obj = parentTr.getElementsByTagName("td")[0];
-      var cellindex = param.cellIndex;
-      var currentTh = parentTr.parentElement.parentElement.children[0].children[0].children[cellindex];
+      var cellIndex = param.cellIndex;
+      var currentTh = parentTr.parentElement.parentElement.children[0].children[0].children[cellIndex];
       
       var start_year = currentTh.childNodes[0].getAttribute("year");
       var start_month = currentTh.childNodes[3].textContent;
@@ -147,8 +147,41 @@
       glbStartCalendarDateSelect.navYear(Number(start_year));
       glbStartCalendarDateSelect.navMonth(getMonthFromString(start_month)-1);
     }else{
-      alert("This space is already reserved. Try a different space.");
-      return;
+      var spaceTxt = parentTr.getElementsByTagName("td")[0].textContent;
+      var tempCount = 0;
+      var isColspan = 0;
+      for (let i = 0; i <= param.cellIndex; i++) {
+        if (parentTr.childNodes[i].hasAttribute("colspan")) {
+          var tempIndex = parentTr.childNodes[i].getAttribute("colspan");
+          tempCount += Number(tempIndex);
+          isColspan = 1;
+        }
+      }
+      if(isColspan == 0) {
+        var cellIndex = Number(param.cellIndex);
+      }else{
+        var cellIndex = Number(param.cellIndex)+tempCount-1;
+      }
+      var currentTh = parentTr.parentElement.parentElement.children[0].children[0].children[cellIndex];
+      
+      var start_year = currentTh.childNodes[0].getAttribute("year");
+      var start_month = currentTh.childNodes[3].textContent;
+      var start_date = currentTh.childNodes[2].textContent;
+
+      for (var i = 0; i < spaceSelect.options.length; ++i) {
+          if (spaceSelect.options[i].text === spaceTxt) {
+            spaceSelect.options[i].selected = true;
+          }  
+      }
+      var d = new Date();
+      glbStartCalendarDateSelect.date = new Date();
+      var o1 = $H({ day: Number(start_date), month: getMonthFromString(start_month)-1, year: Number(start_year) });
+      glbStartCalendarDateSelect.updateSelectedDate(o1, true);
+      glbStartCalendarDateSelect.refresh();
+
+      myFunction();
+      glbStartCalendarDateSelect.navYear(Number(start_year));
+      glbStartCalendarDateSelect.navMonth(getMonthFromString(start_month)-1);
     }
   }
 

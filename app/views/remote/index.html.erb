@@ -160,8 +160,25 @@
       var start_date = HeadDay.childNodes[cellIndex].childNodes[2].textContent;
       location.href = "/remotereservation?" + "start_year=" + start_year + "&start_month=" + getMonthFromString(start_month) + "&start_date=" + start_date + "&space=" + spaceTxt;
     }else{
-      alert("This space is already reserved. Try a different space.");
-      return;
+      var spaceTxt = parentTr.getElementsByTagName("td")[0].textContent;
+      var tempCount = 0;
+      var isColspan = 0;
+      for (let i = 0; i <= param.cellIndex; i++) {
+        if (parentTr.childNodes[i].hasAttribute("colspan")) {
+          var tempIndex = parentTr.childNodes[i].getAttribute("colspan");
+          tempCount += Number(tempIndex);
+          isColspan = 1;
+        }
+      }
+      if(isColspan == 0) {
+        var cellIndex = Number(param.cellIndex);
+      }else{
+        var cellIndex = Number(param.cellIndex)+tempCount-1;
+      }
+      var start_year = HeadDay.childNodes[cellIndex].childNodes[0].getAttribute("year");
+      var start_month = HeadDay.childNodes[cellIndex].childNodes[3].textContent;
+      var start_date = HeadDay.childNodes[cellIndex].childNodes[2].textContent;
+      location.href = "/remotereservation?" + "start_year=" + start_year + "&start_month=" + getMonthFromString(start_month) + "&start_date=" + start_date + "&space=" + spaceTxt;
     }
   }
   //Always update the end date 1 day after the start date when click the calendar

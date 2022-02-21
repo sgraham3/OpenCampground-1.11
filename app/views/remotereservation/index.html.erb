@@ -85,17 +85,15 @@
           spaceSelect.options[i].selected = true;
         }  
     }
-    glbStartCalendarDateSelect.date = new Date();
-    var o = $H({ day: Number(glb_start_date), month: Number(glb_start_month)-1, year: Number(glb_start_year) });
-    glbStartCalendarDateSelect.updateSelectedDate(o, true);
-    glbStartCalendarDateSelect.refresh();
+    var objDate = $H({ day: Number(glb_start_date), month: Number(glb_start_month)-1, year: Number(glb_start_year) });
     glbStartCalendarDateSelect.navYear(Number(glb_start_year));
     glbStartCalendarDateSelect.navMonth(Number(glb_start_month)-1);
+    glbStartCalendarDateSelect.updateSelectedDate(objDate, true);
+    myFunction();
 
     document.getElementsByClassName("cds_body")[0].onclick = function() {myFunction1()};
     document.getElementsByClassName("cds_body")[1].onclick = function() {myFunction1()};
-    
-    myFunction();
+
     refreshTable1(glb_start_year, glb_start_month, glb_start_date);
   }else{
     document.getElementsByClassName("cds_body")[0].onclick = function() {myFunction1()};
@@ -137,15 +135,12 @@
             spaceSelect.options[i].selected = true;
           }  
       }
-      var d = new Date();
-      glbStartCalendarDateSelect.date = new Date();
-      var o1 = $H({ day: Number(start_date), month: getMonthFromString(start_month)-1, year: Number(start_year) });
-      glbStartCalendarDateSelect.updateSelectedDate(o1, true);
-      glbStartCalendarDateSelect.refresh();
-
-      myFunction();
+      var objDate1 = $H({ day: Number(start_date), month: getMonthFromString(start_month)-1, year: Number(start_year) });
       glbStartCalendarDateSelect.navYear(Number(start_year));
       glbStartCalendarDateSelect.navMonth(getMonthFromString(start_month)-1);
+      glbStartCalendarDateSelect.updateSelectedDate(objDate1, true);
+
+      myFunction();
     }else{
       var spaceTxt = parentTr.getElementsByTagName("td")[0].textContent;
       var tempCount = 0;
@@ -173,15 +168,14 @@
             spaceSelect.options[i].selected = true;
           }  
       }
-      var d = new Date();
-      glbStartCalendarDateSelect.date = new Date();
-      var o1 = $H({ day: Number(start_date), month: getMonthFromString(start_month)-1, year: Number(start_year) });
-      glbStartCalendarDateSelect.updateSelectedDate(o1, true);
+      var objDate1 = $H({ day: Number(start_date), month: getMonthFromString(start_month)-1, year: Number(start_year) });
+      
+      glbStartCalendarDateSelect.navYear(Number(start_year));
+      glbStartCalendarDateSelect.navMonth(getMonthFromString(start_month)-1);
+      glbStartCalendarDateSelect.updateSelectedDate(objDate1, true);
       glbStartCalendarDateSelect.refresh();
 
       myFunction();
-      glbStartCalendarDateSelect.navYear(Number(start_year));
-      glbStartCalendarDateSelect.navMonth(getMonthFromString(start_month)-1);
     }
   }
 
@@ -190,11 +184,11 @@
     var startDate = glbStartCalendarDateSelect.selected_date;
 
     startDate.setDate(startDate.getDate() + 1);
-    var o = $H({ day: startDate.getDate(), month: startDate.getMonth(), year: startDate.getFullYear(), hour: startDate.getHours(), minute: startDate.getMinutes() });
-    glbEndCalendarDateSelect.updateSelectedDate(o, true);
-    glbEndCalendarDateSelect.refresh();
+    var objDate1 = $H({ day: startDate.getDate(), month: startDate.getMonth(), year: startDate.getFullYear(), hour: startDate.getHours(), minute: startDate.getMinutes() });
     glbEndCalendarDateSelect.navYear(startDate.getFullYear());
     glbEndCalendarDateSelect.navMonth(startDate.getMonth());
+    glbEndCalendarDateSelect.updateSelectedDate(objDate1, true);
+    glbEndCalendarDateSelect.refresh();
     startDate.setDate(startDate.getDate() - 1);
   }
   function myFunction1() {
@@ -203,10 +197,10 @@
 
     if(endDate <= startDate) {
       startDate.setDate(startDate.getDate() + 1);
-      var o = $H({ day: startDate.getDate(), month: startDate.getMonth(), year: startDate.getFullYear(), hour: startDate.getHours(), minute: startDate.getMinutes() });
+      var objDate1 = $H({ day: startDate.getDate(), month: startDate.getMonth(), year: startDate.getFullYear(), hour: startDate.getHours(), minute: startDate.getMinutes() });
       glbEndCalendarDateSelect.navYear(startDate.getFullYear());
       glbEndCalendarDateSelect.navMonth(startDate.getMonth());
-      glbEndCalendarDateSelect.updateSelectedDate(o, true);
+      glbEndCalendarDateSelect.updateSelectedDate(objDate1, true);
       glbEndCalendarDateSelect.refresh();
       startDate.setDate(startDate.getDate() - 1);
     }else{

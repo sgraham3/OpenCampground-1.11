@@ -190,10 +190,10 @@
 
     startDate.setDate(startDate.getDate() + 1);
     var o = $H({ day: startDate.getDate(), month: startDate.getMonth(), year: startDate.getFullYear(), hour: startDate.getHours(), minute: startDate.getMinutes() });
-    glbEndCalendarDateSelect.updateSelectedDate(o, true);
-    glbEndCalendarDateSelect.refresh();
     glbEndCalendarDateSelect.navYear(startDate.getFullYear());
     glbEndCalendarDateSelect.navMonth(startDate.getMonth());
+    glbEndCalendarDateSelect.updateSelectedDate(o, true);
+    glbEndCalendarDateSelect.refresh();
     startDate.setDate(startDate.getDate() - 1);
   };
   function myFunction1() {

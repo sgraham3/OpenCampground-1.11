@@ -367,14 +367,12 @@ module ApplicationHelper
                   :embedded => :true, 
 		  :valid_date_check => "#{blackout} else #{closed offset}",
 		  :year_range => 1.years.ago.year..3.years.from_now.year,
-		  :onchange => "new Ajax.Request(\'/remote/#{update}?date=\' + $F(this), {asynchronous:true, evalScripts:true});",
 		  :size => 15)
     else
       str << calendar_date_select(obj, atrib,
 		  :embedded => :true, 
 		  :valid_date_check => closed(offset),
 		  :year_range => 1.years.ago.year..3.years.from_now.year,
-		  :onchange => "new Ajax.Request(\'/reservation/#{update}?date=\' + $F(this), {asynchronous:true, evalScripts:true});",
 		  :size => 15)
     end
   end

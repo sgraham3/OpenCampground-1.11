@@ -7,6 +7,7 @@ class ReservationController < ApplicationController
 	before_filter :check_dates, :only => [:find_space, :update_dates, :change_space, :express_2]
 	before_filter :set_defaults
 	before_filter :cleanup_abandoned, :only => [:new, :express, :select_change, :change_space]
+	before_filter :set_current_user, :except => [:getNextData, :getPreviousData]
 	in_place_edit_for :reservation, :adults
 	in_place_edit_for :reservation, :pets
 	in_place_edit_for :reservation, :kids

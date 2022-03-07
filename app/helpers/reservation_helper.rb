@@ -422,8 +422,9 @@ module ReservationHelper
             end
             title = r.camper.full_name + ', '
             title << I18n.l(r.startdate, :format => :short) + I18n.t('reservation.To') + I18n.l(r.enddate, :format => :short)
+            amountDue = r.total + r.tax_amount - getReservedPayments(r.id)
             if session[:admin_status]
-              if r.total > 0 && r.startdate < Date.today
+              if amountDue > 0 && r.startdate <= Date.today
                 ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{name}</a> ($)"
               else
                 ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{name}</a>"
@@ -468,6 +469,15 @@ module ReservationHelper
       ret_str << "</tr>\n"
     end
     return ret_str
+  end
+
+  def getReservedPayments(id)
+    paymentAmount = 0;
+    paymentQuery = Payment.find_all_by_reservation_id( id )
+    paymentQuery.each do |e|
+      paymentAmount += e.amount
+    end
+    return paymentAmount
   end
 
   def custom_available(res_hash, year, month, date, data, admin_status, controllerName)
@@ -561,7 +571,8 @@ module ReservationHelper
             title << I18n.l(r.startdate, :format => :short) + I18n.t('reservation.To') + I18n.l(r.enddate, :format => :short)
             if admin_status
               if controllerName == "reservation"
-                if r.total > 0 && r.startdate < Date.today
+                amountDue = r.total + r.tax_amount - getReservedPayments(r.id)
+                if amountDue > 0 && r.startdate <= Date.today
                   ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{name}</a> ($)"
                 else
                   ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{name}</a>"
@@ -702,7 +713,8 @@ module ReservationHelper
             title << I18n.l(r.startdate, :format => :short) + I18n.t('reservation.To') + I18n.l(r.enddate, :format => :short)
             if admin_status
               if controllerName == "reservation"
-                if r.total > 0 && r.startdate < Date.today
+                amountDue = r.total + r.tax_amount - getReservedPayments(r.id)
+                if amountDue > 0 && r.startdate <= Date.today
                   ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{name}</a> ($)"
                 else
                   ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{name}</a>"                  
@@ -843,7 +855,8 @@ module ReservationHelper
             title << I18n.l(r.startdate, :format => :short) + I18n.t('reservation.To') + I18n.l(r.enddate, :format => :short)
             if admin_status
               if controllerName == "reservation"
-                if r.total > 0 && r.startdate < Date.today
+                amountDue = r.total + r.tax_amount - getReservedPayments(r.id)
+                if amountDue > 0 && r.startdate <= Date.today
                   ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{name}</a> ($)"
                 else
                   ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{name}</a>"

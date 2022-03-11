@@ -1,4 +1,6 @@
 <div id="smart-button-container">
+  <input type="hidden" name="id" value="<%= @reservation.id.to_s %>" id="resID" />
+  <input type="hidden" value="<%=@deposit['amount'] + @deposit['tax']%>" id="amount">
   <div style="text-align: center;">
     <div id="paypal-button-container"></div>
   </div>
@@ -22,6 +24,15 @@
       },
 
       onApprove: function(data, actions) {
+        let resID = document.getElementById("resID").value;
+        let amount = document.getElementById("amount").value;
+        new Ajax.Request('completeRes', {
+          parameters: {"reservation_id": resID, "amount": amount},
+          method: "post",
+          onSuccess: function(res) {
+            
+          }
+        });
         return actions.order.capture().then(function(orderData) {
           
           // Full available details
@@ -34,7 +45,6 @@
 
           document.getElementById("rescanx").style.display = "none";
           // Or go to another URL:  actions.redirect('thank_you.html');
-          
         });
       },
 

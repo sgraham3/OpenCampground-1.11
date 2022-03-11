@@ -394,6 +394,48 @@ class RemoteController < ApplicationController
     redirect_to :action => :index and return
   end
 
+  def customCompleteRes
+    @reservation = get_reservation
+    @reservation.confirm = true
+    @reservation.deposit = request["amount"]
+
+    if @reservation.save
+			flash[:notice] = I18n.t('reservation.Flash.UpdateSuccess',
+															:reservation_id => @reservation.id,
+						:camper_name => @reservation.camper.full_name)
+			if @option.use_confirm_email? && (skip_email == false)
+	if validEmail(@reservation.camper.email)
+		@email = Email.first
+		begin
+			email = ResMailer.deliver_reservation_confirmation(@reservation, @email, @option)
+			flash[:notice] += "\r" + I18n.t('reservation.Flash.ConfSent')
+		rescue => err
+			flash[:error] = I18n.t('reservation.Flash.ConfErr')
+			error err.to_s
+		end
+	else
+		flash[:notice] += "\r" + I18n.t('reservation.Flash.ConfNotSent')
+	end
+			end
+		else
+			raise
+		end
+		session[:group_id] = nil
+
+    # create row in payment table
+    @integration = Integration.first
+		debug "creating new payment"
+    new_payment = true
+    @payment = Payment.create! :reservation_id => request["reservation_id"].to_i
+    @payment.reload
+    session[:payment_id] = @payment.id
+    debug "session payment created and defined as #{session[:payment_id]}"
+
+    # update payment amount
+    @payment.amount = request["amount"]
+    @payment.save
+	end
+
   def change_dates
     @page_title = I18n.t('titles.ChangeDates')
     @reservation = get_reservation

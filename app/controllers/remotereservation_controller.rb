@@ -4,6 +4,7 @@ class RemotereservationController < ApplicationController
   before_filter :check_for_remote
   before_filter :check_dates, :only => [:find_space, :update_dates, :change_space, :express_2]
   # before_filter :set_defaults
+  before_filter :cookies_required, :except => [:index]
   before_filter :cleanup_abandoned, :only => [:new, :express, :select_change, :change_space]
   in_place_edit_for :reservation, :adults
   in_place_edit_for :reservation, :pets

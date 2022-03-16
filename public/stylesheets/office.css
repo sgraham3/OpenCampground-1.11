@@ -236,6 +236,10 @@
   transform: rotate(45deg);
 }
 
+.c-button--arrow-left {
+    margin-left: 40px;
+}
+
 .c-button--arrow-left::after {
   content: ' ';
   position: absolute;
@@ -255,6 +259,27 @@
 }
 .c-button--arrow-right:hover {
     opacity: 0.9 !important; 
+}
+
+#content_layout {
+    margin-left: 4em;
+}
+
+@media (max-width: 550px) {
+    .c-button--arrow-left {
+        margin-left: 20px !important;
+        margin-top: 25px !important;
+    }
+    #content_layout {
+        margin-left: 20px !important;
+    }
+    .lblRes {
+        display: none !important;
+    }
+    .mobileLblRes {
+        display: block !important;
+        margin-bottom: 10px !important;
+    }
 }
 
 .extra {

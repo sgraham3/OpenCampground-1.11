@@ -1,6 +1,6 @@
 <%= javascript_include_tag 'tablelock'%>
 
-<div style="margin-left:4em">
+<div id="content_layout">
 <form action="/reservation/express_2" method="post">
   <div id='dates'>
     <%= render :partial => 'dates' %>
@@ -21,8 +21,8 @@
 </form>
   <a href="../images/sitemap.jpg" onclick="goclicky(this); return false;" target="_blank" class="sitemap">Site Map</a>
   <input type="date" id="custom_date" class="custom_date" onchange="refreshTable()">
-  <%# <div style="margin-left:40px;margin-top:5px"> %>
-    <span class="c-button c-button--arrow-left" tabindex="0" onclick="PrevRes()" style="margin-left:40px">
+  <%# <div> %>
+    <span class="c-button c-button--arrow-left" tabindex="0" onclick="PrevRes()">
       <span class="c-button__text">Back</span>
     </span>
     <span class="c-button c-button--arrow-right" tabindex="0" onclick="NextRes()">

@@ -15,7 +15,7 @@
       <%= date_select 'reservation', 'enddate', :start_year => 1.years.ago.year  %>
     </span>
   <% else %>
-    <table>
+    <table id="tblCalendar">
       <tr>
         <td class="lblRes">
           <b><%= I18n.t('reservation.Arrival') %>:</b>

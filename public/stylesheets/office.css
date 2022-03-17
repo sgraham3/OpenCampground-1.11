@@ -288,6 +288,9 @@
     #explain {
         margin-right: 20px !important;
     }
+    body {
+        margin: 0px !important;
+    }
 }
 
 .extra {

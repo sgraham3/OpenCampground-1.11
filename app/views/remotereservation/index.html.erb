@@ -1,6 +1,6 @@
 <%= javascript_include_tag 'tablelock'%>
 
-<div id="content_layout">
+<div class="content_layout">
 <form action="/reservation/express_2" method="post">
   <div id='dates'>
     <%= render :partial => 'dates' %>
@@ -61,14 +61,14 @@
   }
   window.scrollTo(0, 0);
   // table header and first column lock
-  var tableHeaderTop = document.querySelector('#available_head').getBoundingClientRect().top;
-  var ths = document.querySelectorAll('#available_head th')
+  // var tableHeaderTop = document.querySelector('#available_head').getBoundingClientRect().top;
+  // var ths = document.querySelectorAll('#available_head th')
 
-  for(var i = 0; i < ths.length; i++) {
-    var th = ths[i];
-    th.style.top = th.getBoundingClientRect().top - tableHeaderTop + "px";
-    th.style.cssText += "min-width: " + realWidth + "px";
-  }
+  // for(var i = 0; i < ths.length; i++) {
+  //   var th = ths[i];
+  //   th.style.top = th.getBoundingClientRect().top - tableHeaderTop + "px";
+  //   th.style.cssText += "min-width: " + realWidth + "px";
+  // }
   //url parse
   var current_url = window.location.href;
   const url = new URL(

@@ -9,14 +9,16 @@
   <%= date_select 'reservation', 'enddate', :start_year => 1.years.ago.year  %>
   </span>
 <% else %>
-      <table><tr>
-	<td>
+      <table id="tblCalendar"><tr>
+	<td class="lblRes">
 	  <b><%= I18n.t('reservation.Arrival') %>:</b>
 	</td><td>
+    <span class="mobileLblRes" style="display:none"><b><%= I18n.t('reservation.Arrival') %>:</b></span>
 	  <%= cds_start('reservation', 'startdate', 'calendar_update', @remote) %>
-	</td><td>
+	</td><td class="lblRes">
 	  <b><%= I18n.t('reservation.Departure') %>:</b>
 	</td><td>
+    <span class="mobileLblRes" style="display:none"><b><%= I18n.t('reservation.Departure') %>:</b></span>
 	  <%= cds_end('reservation', 'enddate', 'calendar_end_update', @remote) %>
 	</td>
       </tr> </table>

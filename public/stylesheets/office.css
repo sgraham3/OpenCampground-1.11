@@ -2,6 +2,9 @@
     font-family: "Calibri";
     src: url("font/Calibri.ttf");
 }
+body {
+    margin: 0px;
+}
 #banner {
 	padding-top: 15px;
 	padding-bottom: 50px;
@@ -288,9 +291,22 @@
     #explain {
         margin-right: 20px !important;
     }
-    body {
-        margin: 0px !important;
+    #banner img {
+        padding-left: 0px;
+        float: none;
+        height: 46px; 
     }
+    #locale {
+        margin-top: 10px;
+    }
+    #space_space_id {
+        width: 88px;
+    }
+}
+
+#reservation_sitetype_id, #space_space_id {
+    padding: 10px !important;
+    font-size: 17px;
 }
 
 .extra {

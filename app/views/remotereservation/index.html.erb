@@ -1,35 +1,27 @@
 <%= javascript_include_tag 'tablelock'%>
 
 <div class="content_layout">
-<form action="/reservation/express_2" method="post">
-  <div id='dates'>
-    <%= render :partial => 'dates' %>
+  <span id="lblStatus" class="d-none">startdate</span>
+  <span id="startDateCellIndex" class="d-none"></span>
+  <div class="row" style="margin-bottom: 25px;">
+    <div class="col-md-4">
+      <input type="button" value="Back" onclick="PrevRes()" class="customArrow">
+      <a href="../images/sitemap.jpg" onclick="goclicky(this); return false;" target="_blank" class="sitemap">Site Map</a>
+      <input type="date" id="custom_date" class="custom_date" onchange="refreshTable()">
+    </div>
+    <div class="col-md-6" id="explanation">
+      <span id="txtExplanation"><%= I18n.t('reservation.SelectStartDate') %></span>
+      <form action="/reservation/express_2" method="post" id="completeResForm" class="d-none">
+        <input type="text" id="selectedStartDate" name="reservation[startdate]" class="d-none">
+        <input type="text" id="selectedEndDate" name="reservation[enddate]" class="d-none">
+        <input type="text" id="selectedSpace" name="space[space_id]" class="d-none">
+        <%= submit_tag I18n.t('reservation.CompleteReservation'), :id => "btnCompleteRes" %>
+      </form>
+    </div>
+    <div class="col-md-2 text-center">
+      <input type="button" value="Forward" onclick="NextRes()" class="customArrow">
+    </div>
   </div>
-  <p>
-  <%= render :partial => 'sitetype' %>
-  </p>
-  <p>
-  <%= render :partial => 'count' %>
-  <span id="spaces">
-    <%= render :partial => 'space_pulldown' %>
-  </span>
-  </p>
-  <span style="display: none">
-    <%= collection_select(:reservation, :discount_id, Discount.active, :id, :name, {:prompt => true}) if @option.use_discount? && Discount.active.count > 0 %>
-  </span>
-  <p><%= submit_tag I18n.t('reservation.CompleteReservation') %></p>
-</form>
-  <a href="../images/sitemap.jpg" onclick="goclicky(this); return false;" target="_blank" class="sitemap">Site Map</a>
-  <input type="date" id="custom_date" class="custom_date" onchange="refreshTable()">
-  <%# <div> %>
-    <span class="c-button c-button--arrow-left" tabindex="0" onclick="PrevRes()">
-      <span class="c-button__text">Back</span>
-    </span>
-    <span class="c-button c-button--arrow-right" tabindex="0" onclick="NextRes()">
-      <span class="c-button__text">Forward</span>
-    </span>
-  <%# </div> %>
-  <br><br>
   <table id="available" class="available" cellspacing="0" admin-session="<%= session[:admin_status] %>">
     <thead id="available_head">
       <%= header -%>
@@ -46,10 +38,10 @@
   var cellsCount = document.querySelectorAll('#lockedHeadDay')[0].childElementCount;
   var strwidth = getComputedStyle(thElement)["min-width"];
   var minWidth = Number(strwidth.substr(0, strwidth.length-2));
-  var expectedWidth = Math.round((screen.width)/cellsCount);
+  var expectedWidth = Math.round((screen.width-128)/(cellsCount));
   var realWidth = 0;
   if(expectedWidth <= minWidth) {
-    realWidth = minWidth
+    realWidth = minWidth;
   }else{
     realWidth = expectedWidth;
   }
@@ -85,21 +77,8 @@
           spaceSelect.options[i].selected = true;
         }  
     }
-    var objDate = $H({ day: Number(glb_start_date), month: Number(glb_start_month)-1, year: Number(glb_start_year) });
-    glbStartCalendarDateSelect.navYear(Number(glb_start_year));
-    glbStartCalendarDateSelect.navMonth(Number(glb_start_month)-1);
-    glbStartCalendarDateSelect.updateSelectedDate(objDate, true);
-    myFunction();
-
-    document.getElementsByClassName("cds_body")[0].onclick = function() {myFunction1()};
-    document.getElementsByClassName("cds_body")[1].onclick = function() {myFunction1()};
 
     refreshTable1(glb_start_year, glb_start_month, glb_start_date);
-  }else{
-    document.getElementsByClassName("cds_body")[0].onclick = function() {myFunction1()};
-    document.getElementsByClassName("cds_body")[1].onclick = function() {myFunction1()};
-
-    myFunction();
   }
   //add link to available td
   var cells = document.querySelectorAll(".available td");
@@ -119,6 +98,8 @@
   function handler(param) {
     var spaceSelect = document.getElementsByName("space[space_id]")[0];
     var parentTr = param.parentElement;
+    var lblStatus = document.getElementById("lblStatus").innerText;
+    var startSpace = "";
     if(parentTr.getAttribute("hasspace") != "true") {
       var obj = parentTr.getElementsByTagName("td")[0];
       var cellIndex = param.cellIndex;
@@ -129,19 +110,6 @@
       var start_date = currentTh.childNodes[2].textContent;
 
       var spaceTxt = obj.textContent;
-
-      for (var i = 0; i < spaceSelect.options.length; ++i) {
-          if (spaceSelect.options[i].text === spaceTxt) {
-            spaceSelect.options[i].selected = true;
-          }  
-      }
-      var objDate1 = $H({ day: Number(start_date), month: getMonthFromString(start_month)-1, year: Number(start_year) });
-      glbStartCalendarDateSelect.navYear(Number(start_year));
-      glbStartCalendarDateSelect.navMonth(getMonthFromString(start_month)-1);
-      glbStartCalendarDateSelect.updateSelectedDate(objDate1, true);
-      glbStartCalendarDateSelect.refresh();
-
-      myFunction();
     }else{
       var spaceTxt = parentTr.getElementsByTagName("td")[0].textContent;
       var tempCount = 0;
@@ -163,52 +131,41 @@
       var start_year = currentTh.childNodes[0].getAttribute("year");
       var start_month = currentTh.childNodes[3].textContent;
       var start_date = currentTh.childNodes[2].textContent;
-
-      for (var i = 0; i < spaceSelect.options.length; ++i) {
-          if (spaceSelect.options[i].text === spaceTxt) {
-            spaceSelect.options[i].selected = true;
-          }  
+    }
+    if(lblStatus == "startdate") {
+      document.getElementById("txtExplanation").innerHTML = "<%= I18n.t('reservation.SelectEndDate') %>";
+      document.getElementById("explanation").classList.add("main", "slide-right");
+      document.getElementById("lblStatus").innerText = "enddate";
+      console.log(document.getElementById("selectedSpace"));
+      document.getElementById("selectedSpace").value = spaceTxt;
+      document.getElementById("startDateCellIndex").textContent = cellIndex;
+      document.getElementById("selectedStartDate").value = start_date+"+"+start_month+"+"+start_year;
+      param.style.background = "darkGray";
+    }else if(lblStatus == "enddate"){
+      var selectedSpace = document.getElementById("selectedSpace").value;
+      if(param.parentElement.getElementsByTagName("td")[0].textContent != selectedSpace) {
+        alert("You can only select end date from the same space");
+        return;
       }
-      var objDate1 = $H({ day: Number(start_date), month: getMonthFromString(start_month)-1, year: Number(start_year) });
-      
-      glbStartCalendarDateSelect.navYear(Number(start_year));
-      glbStartCalendarDateSelect.navMonth(getMonthFromString(start_month)-1);
-      glbStartCalendarDateSelect.updateSelectedDate(objDate1, true);
-      glbStartCalendarDateSelect.refresh();
-
-      myFunction();
+      if(Number(param.cellIndex) <= Number(document.getElementById("startDateCellIndex").textContent)) {
+        alert("The end date must be later than the start date");
+        return;
+      }
+      const spanElement = document.getElementById("txtExplanation");
+      const buttonElement = document.getElementById("completeResForm");
+      buttonElement.classList.remove("d-none");
+      buttonElement.style.marginTop = "-8px";
+      spanElement.parentNode.replaceChild(buttonElement, spanElement);
+      document.getElementById("lblStatus").innerText = "complete";
+      document.getElementById("selectedEndDate").value = start_date+"+"+start_month+"+"+start_year;
+      param.style.background = "darkGray";
+      let startIndex = document.getElementById("startDateCellIndex").textContent;
+      for (let index = startIndex; index <= param.cellIndex; index++) {
+        parentTr.children[index].style.backgroundColor = "darkGray";
+      }
     }
     window.scrollTo({top: 0, left:0, behavior: 'smooth'});
   }
-
-  //Always update the end date 1 day after the start date when click the calendar
-  function myFunction() {
-    var startDate = glbStartCalendarDateSelect.selected_date;
-
-    startDate.setDate(startDate.getDate() + 1);
-    var objDate1 = $H({ day: startDate.getDate(), month: startDate.getMonth(), year: startDate.getFullYear(), hour: startDate.getHours(), minute: startDate.getMinutes() });
-    glbEndCalendarDateSelect.navYear(startDate.getFullYear());
-    glbEndCalendarDateSelect.navMonth(startDate.getMonth());
-    glbEndCalendarDateSelect.updateSelectedDate(objDate1, true);
-    glbEndCalendarDateSelect.refresh();
-    startDate.setDate(startDate.getDate() - 1);
-  }
-  function myFunction1() {
-    var startDate = glbStartCalendarDateSelect.selected_date;
-    var endDate = glbEndCalendarDateSelect.selected_date;
-
-    if(endDate <= startDate) {
-      startDate.setDate(startDate.getDate() + 1);
-      var objDate1 = $H({ day: startDate.getDate(), month: startDate.getMonth(), year: startDate.getFullYear(), hour: startDate.getHours(), minute: startDate.getMinutes() });
-      glbEndCalendarDateSelect.navYear(startDate.getFullYear());
-      glbEndCalendarDateSelect.navMonth(startDate.getMonth());
-      glbEndCalendarDateSelect.updateSelectedDate(objDate1, true);
-      glbEndCalendarDateSelect.refresh();
-      startDate.setDate(startDate.getDate() - 1);
-    }else{
-      glbEndCalendarDateSelect.refresh();
-    }
-  };
 
   function refreshTable() {
     let start_date = document.getElementById("custom_date").value;

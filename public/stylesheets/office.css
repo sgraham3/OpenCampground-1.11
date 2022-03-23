@@ -2,47 +2,49 @@
     font-family: "Calibri";
     src: url("font/Calibri.ttf");
 }
+
 body {
     margin: 0px;
 }
+
 #banner {
-	padding-top: 15px;
-	padding-bottom: 50px;
-	border-bottom: 8px solid grey;
-	font: small-caps 70px/70px "Calibri", serif;
-	color: white;
-	text-align: center;
-	height: 100px
-	float left;
+    padding-top: 15px;
+    padding-bottom: 50px;
+    border-bottom: 8px solid grey;
+    font: small-caps 70px/70px "Calibri", serif;
+    color: white;
+    text-align: center;
+    height: 100px float left;
 }
-#user   {
-	width: 12em;
-	float: right;
-	font: small-caps 18px/18px "Calibri", sans-serif;
+
+#user {
+    width: 12em;
+    float: right;
+    font: small-caps 18px/18px "Calibri", sans-serif;
 }
 
 #banner img {
-	padding-left: 85px;
-	float: left;
-	height: 105px 
+    padding-left: 85px;
+    float: left;
+    height: 105px
 }
 
 #locale {
-	margin-right: 1em;
-	font: small-caps 15px/15px "Calibri", sans-serif;
-	float: right;
+    margin-right: 1em;
+    font: small-caps 15px/15px "Calibri", sans-serif;
+    float: right;
 }
 
 #usernamex {
-	font: small-caps 15px/15px "Calibri", sans-serif;
+    font: small-caps 15px/15px "Calibri", sans-serif;
 }
 
 #columns {
-          position: absolute;
-	  left: .1em;
-	  right: 0;
-	  margin-left: .5em;
-	  margin-right: .5em;
+    position: absolute;
+    left: .1em;
+    right: 0;
+    margin-left: .5em;
+    margin-right: .5em;
 }
 
 #find_space {
@@ -187,85 +189,38 @@ body {
     z-index: 3 !important;
 }
 
-#available tbody td:nth-child(1) {  
+#available tbody td:nth-child(1) {
     position: -webkit-sticky;
     position: sticky !important;
     left: 0 !important;
 }
 
+::-webkit-calendar-picker-indicator {
+    margin-left: -10px !important;
+}
+
 .custom_date {
     color: #000000;
-    padding: 5px 20px;
+    padding: 4px 10px;
     border: 1px solid #000000;
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
 }
 
-.c-button {
-    cursor: pointer;
-    background: #043263;
-    color: #FFF;
-    border: none;
-    border-radius: 1px;
-    box-sizing: border-box;
-    position: relative;
-
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-
-    font-size: 17px;
-    font-family: inherit;
-    height: 30px;
-    min-width: 110px;
-    max-width: 110px;
-    text-align: center;
-    text-decoration: none;
+.customArrow {
+    background-color: rgb(102, 102, 102) !important;
+    color: white !important;
+    border: none !important;
 }
 
-.c-button--arrow-right::after {
-  content: ' ';
-  position: absolute;
-  left: 100%;
-  top: 50%;
-  width: 28px; 
-  height: 28px;
-  margin: -14px -14px;
-  background: #043263;
-  border-top: inherit; 
-  border-right: inherit;
-  border-radius: 0 .1em 0 0;
-  transform: rotate(45deg);
-}
-
-.c-button--arrow-left {
-    margin-left: 40px;
-}
-
-.c-button--arrow-left::after {
-  content: ' ';
-  position: absolute;
-  right: 100%;
-  top: 50%;
-  width: 28px; 
-  height: 28px;
-  margin: -14px -14px;
-  background: #043263;
-  border-left: inherit; 
-  border-bottom: inherit;
-  border-radius: 0 0 0 .1em;
-  transform: rotate(45deg);
-}
-.c-button--arrow-left:hover {
-    opacity: 0.9 !important; 
-}
-.c-button--arrow-right:hover {
-    opacity: 0.9 !important; 
+#btnCompleteRes {
+    padding-top: 3px;
 }
 
 .content_layout {
-    margin-left: 4em;
+    margin-left: 2em;
+    margin-right: 2em;
 }
 
 @media (max-width: 500px) {
@@ -273,41 +228,153 @@ body {
         margin-left: 20px !important;
         margin-top: 25px !important;
     }
-    .content_layout, #explain, #action {
+
+    .content_layout,
+    #explain,
+    #action {
         margin-left: 20px !important;
+        margin-right: 20px !important;
     }
+
     .lblRes {
         display: none !important;
     }
+
     .mobileLblRes {
         display: block !important;
         margin-bottom: 10px !important;
     }
-    #tblCalendar, #available {
+
+    #tblCalendar,
+    #available {
         display: block !important;
         overflow-x: auto !important;
         white-space: nowrap !important;
     }
+
     #explain {
         margin-right: 20px !important;
     }
+
     #banner img {
         padding-left: 0px;
         float: none;
-        height: 46px; 
+        height: 46px;
     }
+
     #locale {
         margin-top: 10px;
     }
+
     #space_space_id {
         width: 88px;
     }
+
+    #completeRes {
+        margin: 0px;
+    }
+
+    #txtExplanation {
+        white-space: normal !important;
+    }
+    #explanation {
+        width: 100%;
+    }
 }
 
-#reservation_sitetype_id, #space_space_id {
+#reservation_sitetype_id,
+#space_space_id {
     padding: 10px !important;
     font-size: 17px;
 }
+
+#explanation {
+    padding-top: 9px;
+    padding-left: 0px;
+    padding-right: 0px;
+    text-align: center;
+}
+
+#txtExplanation {
+    font-size: 19px;
+    color: red;
+    white-space: nowrap;
+}
+
+div.main {
+    width: 50%;
+    /* overflow: hidden; */
+}
+
+div.slide-right span {
+    -moz-animation: 0.7s slide-right;
+    -webkit-animation: 0.7s slide-right;
+    -o-animation: 0.7s slide-right;
+    animation: 0.7s slide-right;
+}
+
+div.slide-right form {
+    -moz-animation: 0.5s slide-right;
+    -webkit-animation: 0.5s slide-right;
+    -o-animation: 0.5s slide-right;
+    animation: 0.5s slide-left;
+}
+
+@keyframes slide-right {
+    from {
+        margin-left: 100%;
+    }
+
+    to {
+        margin-left: 0px;
+    }
+}
+
+@keyframes slide-left {
+    from {
+        margin-left: 100%;
+    }
+
+    to {
+        margin-left: 0px;
+    }
+}
+
+/* @-webkit-keyframes slide-right {
+    from {
+        margin-left: 100%;
+        width: 100%;
+    }
+
+    to {
+        margin-left: 35px;
+        width: 100%;
+    }
+}
+
+@-moz-keyframes slide-right {
+    from {
+        margin-left: 100%;
+        width: 100%;
+    }
+
+    to {
+        margin-left: 35px;
+        width: 100%;
+    }
+}
+
+@-o-keyframes slide-right {
+    from {
+        margin-left: 100%;
+        width: 100%;
+    }
+
+    to {
+        margin-left: 35px;
+        width: 100%;
+    }
+} */
 
 .extra {
     white-space: nowrap;
@@ -375,7 +442,7 @@ input[type="submit"] {
 input[type="button"] {
     background-color: #ffffff;
     color: #000000;
-    padding: 5px 20px;
+    padding: 6px 20px;
     border: 1px solid #000000;
     border-radius: 5px;
     margin: 5px 5px 0px 0px;
@@ -411,14 +478,15 @@ input[type="button"] {
 .sitemap {
     background-color: #ffffff;
     color: #000000;
-    padding: 5px 20px;
+    padding: 7px 12px;
     border: 1px solid #000000;
     border-radius: 5px;
     margin: 5px 5px 0px 0px;
     letter-spacing: .5px;
     font-size: 16px;
     cursor: pointer;
-    text-decoration: none
+    text-decoration: none;
+    margin-left: 10px;
 }
 
 .large_button input {

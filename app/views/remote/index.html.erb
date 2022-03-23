@@ -87,12 +87,8 @@
   <a href="../images/sitemap.jpg" onclick="goclicky(this); return false;" target="_blank" class="sitemap">Site Map</a>
   <input type="date" id="custom_date" class="custom_date" onchange="refreshTable()">
   <%# <div style="margin-left:40px;margin-top:5px"> %>
-    <span class="c-button c-button--arrow-left" tabindex="0" onclick="PrevRes()" style="margin-left:40px">
-      <span class="c-button__text">Back</span>
-    </span>
-    <span class="c-button c-button--arrow-right" tabindex="0" onclick="NextRes()">
-      <span class="c-button__text">Forward</span>
-    </span>
+    <input type="button" value="Back" onclick="PrevRes()" class="customArrow">
+    <input type="button" value="Forward" onclick="NextRes()" class="customArrow">
   <%# </div> %>
   <br><br>
   <table id="available" class="available" cellspacing="0" admin-session="<%= session[:admin_status] %>">

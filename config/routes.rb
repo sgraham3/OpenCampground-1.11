@@ -16,6 +16,7 @@ ActionController::Routing::Routes.draw do |map|
   map.purchase 'getNextData', :controller => 'reservation', :action => 'getNextData'
   map.purchase 'getPreviousData', :controller => 'reservation', :action => 'getPreviousData'
   map.purchase 'remote/completeRes', :controller => 'remote', :action => 'customCompleteRes'
+  map.purchase 'completeRemoteReservation', :controller => 'reservation', :action => 'express_2'
 
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   map.resources :products

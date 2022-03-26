@@ -2,7 +2,9 @@
 
 <div class="content_layout">
   <span id="lblStatus" class="d-none">startdate</span>
-  <span id="startDateCellIndex" class="d-none"></span>
+  <span id="startDateColumnIndex" class="d-none"></span>
+  <span id="endDateColumnIndex" class="d-none"></span>
+  <span id="startDateRowIndex" class="d-none"></span>
   <div class="row" style="margin-bottom: 25px;">
     <div class="col-md-4">
       <input type="button" value="Back" onclick="PrevRes()" class="customArrow">
@@ -18,7 +20,8 @@
         <%= submit_tag I18n.t('reservation.CompleteReservation'), :id => "btnCompleteRes" %>
       </form>
     </div>
-    <div class="col-md-2 text-center">
+    <div class="col-md-2 text-center d-flex">
+      <input type="button" value="Clear" onclick="clearSelect()">
       <input type="button" value="Forward" onclick="NextRes()" class="customArrow">
     </div>
   </div>
@@ -98,7 +101,7 @@
   function handler(param) {
     var spaceSelect = document.getElementsByName("space[space_id]")[0];
     var parentTr = param.parentElement;
-    var lblStatus = document.getElementById("lblStatus").innerText;
+    var lblStatus = document.getElementById("lblStatus").textContent;
     var startSpace = "";
     if(parentTr.getAttribute("hasspace") != "true") {
       var obj = parentTr.getElementsByTagName("td")[0];
@@ -136,35 +139,63 @@
       document.getElementById("txtExplanation").innerHTML = "<%= I18n.t('reservation.SelectEndDate') %>";
       document.getElementById("explanation").classList.add("main", "slide-right");
       document.getElementById("lblStatus").innerText = "enddate";
-      console.log(document.getElementById("selectedSpace"));
       document.getElementById("selectedSpace").value = spaceTxt;
-      document.getElementById("startDateCellIndex").textContent = cellIndex;
+      document.getElementById("startDateColumnIndex").textContent = cellIndex;
+      document.getElementById("startDateRowIndex").textContent = parentTr.rowIndex;
       document.getElementById("selectedStartDate").value = start_date+"+"+start_month+"+"+start_year;
       param.style.background = "darkGray";
+      param.style.cursor = "auto";
     }else if(lblStatus == "enddate"){
       var selectedSpace = document.getElementById("selectedSpace").value;
       if(param.parentElement.getElementsByTagName("td")[0].textContent != selectedSpace) {
         alert("You can only select end date from the same space");
         return;
       }
-      if(Number(param.cellIndex) <= Number(document.getElementById("startDateCellIndex").textContent)) {
+      if(Number(param.cellIndex) <= Number(document.getElementById("startDateColumnIndex").textContent)) {
         alert("The end date must be later than the start date");
         return;
       }
       const spanElement = document.getElementById("txtExplanation");
-      const buttonElement = document.getElementById("completeResForm");
-      buttonElement.classList.remove("d-none");
-      buttonElement.style.marginTop = "-8px";
-      spanElement.parentNode.replaceChild(buttonElement, spanElement);
+      const form = document.getElementById("completeResForm");
+      form.classList.remove("d-none");
+      form.style.marginTop = "-8px";
+      spanElement.style.display = "none";
+      form.style.display = "block";
+      // spanElement.parentNode.replaceChild(form, spanElement);
       document.getElementById("lblStatus").innerText = "complete";
+      document.getElementById("endDateColumnIndex").textContent = cellIndex;
       document.getElementById("selectedEndDate").value = start_date+"+"+start_month+"+"+start_year;
       param.style.background = "darkGray";
-      let startIndex = document.getElementById("startDateCellIndex").textContent;
+      let startIndex = document.getElementById("startDateColumnIndex").textContent;
       for (let index = startIndex; index <= param.cellIndex; index++) {
         parentTr.children[index].style.backgroundColor = "darkGray";
+        parentTr.children[index].style.cursor = "auto";
       }
     }
-    window.scrollTo({top: 0, left:0, behavior: 'smooth'});
+  }
+
+  function clearSelect() {
+    document.getElementById("selectedSpace").value = "";
+    document.getElementById("selectedStartDate").value = "";
+    document.getElementById("selectedEndDate").value = "";
+    document.getElementById("lblStatus").textContent = "startdate";
+    document.getElementById("startDateColumnIndex").textContent = "";
+    document.getElementById("endDateColumnIndex").textContent = "";
+    document.getElementById("startDateRowIndex").textContent = "";
+    document.getElementById("completeResForm").classList.add("d-none");
+    document.getElementById("txtExplanation").style.display = "block";
+    document.getElementById("txtExplanation").innerHTML = "<%= I18n.t('reservation.SelectStartDate') %>";
+    document.getElementById("explanation").classList.remove("main", "slide-right");
+    let cells = document.querySelectorAll(".available td");
+    for (var i = 0; i < cells.length; i++) {
+      if (cells[i].hasChildNodes()) {
+        if(cells[i].childNodes[0].tagName == "A") {
+          cells[i].parentElement.setAttribute("hasspace", "true");
+        }
+      }else{  
+        cells[i].style.backgroundColor = "white";
+      }
+    }
   }
 
   function refreshTable() {

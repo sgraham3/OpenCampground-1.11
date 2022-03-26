@@ -249,6 +249,7 @@
           var th = ths[i];
           th.style.cssText += "min-width: " + realWidth + "px";
         }
+        setCellHighlighted();
       }
     });
   }
@@ -271,9 +272,40 @@
           var th = ths[i];
           th.style.cssText += "min-width: " + realWidth + "px";
         }
+        setCellHighlighted();
       }
     });
   }
+
+  function setCellHighlighted() {
+    var selectedStartDate = document.getElementById("selectedStartDate").value;
+    var selectedEndDate = document.getElementById("selectedEndDate").value;
+    var selectedSpace = document.getElementById("selectedSpace").value;
+    var arrStart = selectedStartDate.split("+");
+    var arrEnd = selectedEndDate.split("+");
+    var strStart = arrStart[1] + " " + arrStart[0] + ", " + arrStart[2];
+    var strEnd = arrEnd[1] + " " + arrEnd[0] + ", " + arrEnd[2];
+    var startDate = Date.parse(strStart);
+    var endDate = Date.parse(strEnd);
+    let cells = document.querySelectorAll(".available td");
+    for (var i = 0; i < cells.length; i++) {
+      var tempIndex = cells[i].cellIndex;
+      if(tempIndex != 0) {
+        var tempTh = cells[i].parentElement.parentElement.children[0].children[tempIndex];
+        var temp_year = tempTh.childNodes[0].getAttribute("year");
+        var temp_month = tempTh.childNodes[3].textContent;
+        var temp_date = tempTh.childNodes[2].textContent;
+        var tempDate = Date.parse(temp_month + " " + temp_date + ", " + temp_year);
+        var temp_space = cells[i].parentElement.getElementsByTagName("td")[0].textContent;
+        if (selectedSpace == temp_space) {
+          if(tempDate <=endDate && tempDate >= startDate) {
+            cells[i].style.cssText = "cursor:auto;background-color:darkgray";
+          }
+        }
+      }
+    }
+  }
+  
   function addLinkToTd() {
     let cells = document.querySelectorAll(".available td");
     for (var i = 0; i < cells.length; i++) {

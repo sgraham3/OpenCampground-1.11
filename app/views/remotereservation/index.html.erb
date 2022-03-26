@@ -174,12 +174,13 @@
       document.getElementById("lblStatus").innerText = "complete";
       document.getElementById("endDateColumnIndex").textContent = cellIndex;
       document.getElementById("selectedEndDate").value = start_date+"+"+start_month+"+"+start_year;
-      param.style.background = "darkGray";
-      let startIndex = document.getElementById("startDateColumnIndex").textContent;
-      for (let index = startIndex; index <= param.cellIndex; index++) {
-        parentTr.children[index].style.backgroundColor = "darkGray";
-        parentTr.children[index].style.cursor = "auto";
-      }
+      // param.style.background = "darkGray";
+      // let startIndex = document.getElementById("startDateColumnIndex").textContent;
+      // for (let index = startIndex; index <= param.cellIndex; index++) {
+      //   parentTr.children[index].style.backgroundColor = "darkGray";
+      //   parentTr.children[index].style.cursor = "auto";
+      // }
+      setCellHighlighted();
     }
   }
 

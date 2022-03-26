@@ -280,6 +280,22 @@ body {
     #explanation {
         width: 100%;
     }
+    .mobile-forward {
+        display: block !important;
+        float: right !important;
+    }
+    .desktop-forward {
+        display: none !important;
+    }
+    #custom_date {
+        margin-left: 5px;
+    }
+    #btnClear {
+        float: left !important;
+    }
+    #tempDiv {
+        display: block !important;
+    }
 }
 
 #reservation_sitetype_id,

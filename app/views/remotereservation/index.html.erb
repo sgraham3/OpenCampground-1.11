@@ -8,8 +8,9 @@
   <div class="row" style="margin-bottom: 25px;">
     <div class="col-md-4">
       <input type="button" value="Back" onclick="PrevRes()" class="customArrow">
-      <a href="../images/sitemap.jpg" onclick="goclicky(this); return false;" target="_blank" class="sitemap">Site Map</a>
+      <a href="../images/sitemap.jpg" onclick="goclicky(this); return false;" target="_blank" class="sitemap desktop-forward">Site Map</a>
       <input type="date" id="custom_date" class="custom_date" onchange="refreshTable()">
+      <input type="button" value="Forward" onclick="NextRes()" class="customArrow mobile-forward d-none">
     </div>
     <div class="col-md-6" id="explanation">
       <span id="txtExplanation"><%= I18n.t('reservation.SelectStartDate') %></span>
@@ -20,9 +21,10 @@
         <%= submit_tag I18n.t('reservation.CompleteReservation'), :id => "btnCompleteRes" %>
       </form>
     </div>
-    <div class="col-md-2 text-center d-flex">
-      <input type="button" value="Clear" onclick="clearSelect()">
-      <input type="button" value="Forward" onclick="NextRes()" class="customArrow">
+    <div class="col-md-2 text-center d-flex" id="tempDiv">
+      <input type="button" value="Clear" id="btnClear" onclick="clearSelect()">
+      <input type="button" value="Forward" onclick="NextRes()" class="customArrow desktop-forward">
+      <a href="../images/sitemap.jpg" onclick="goclicky(this); return false;" target="_blank" class="sitemap mobile-forward d-none">Site Map</a>
     </div>
   </div>
   <table id="available" class="available" cellspacing="0" admin-session="<%= session[:admin_status] %>">
@@ -174,7 +176,7 @@
       document.getElementById("lblStatus").innerText = "complete";
       document.getElementById("endDateColumnIndex").textContent = cellIndex;
       document.getElementById("selectedEndDate").value = start_date+"+"+start_month+"+"+start_year;
-      // param.style.background = "darkGray";
+      param.style.background = "darkGray";
       // let startIndex = document.getElementById("startDateColumnIndex").textContent;
       // for (let index = startIndex; index <= param.cellIndex; index++) {
       //   parentTr.children[index].style.backgroundColor = "darkGray";
@@ -301,7 +303,7 @@
     for (var i = 0; i < cells.length; i++) {
       var tempIndex = cells[i].cellIndex;
       if(tempIndex != 0) {
-        var tempTh = cells[i].parentElement.parentElement.children[0].children[tempIndex];
+        var tempTh = cells[i].parentElement.parentElement.parentElement.children[0].children[0].children[tempIndex];
         var temp_year = tempTh.childNodes[0].getAttribute("year");
         var temp_month = tempTh.childNodes[3].textContent;
         var temp_date = tempTh.childNodes[2].textContent;

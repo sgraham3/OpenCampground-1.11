@@ -290,11 +290,12 @@ body {
     #custom_date {
         margin-left: 5px;
     }
-    #btnClear {
+    .btnClear {
         float: left !important;
     }
-    #tempDiv {
-        display: block !important;
+    @keyframes dissolveInLeft {
+        0%{opacity: 0; transform:translate3d(-200px,0,0)}
+	    100%{opacity: 1; transform:translate3d(0,0,0)}
     }
 }
 
@@ -336,26 +337,39 @@ div.slide-right form {
     animation: 0.5s slide-left;
 }
 
-@keyframes slide-right {
-    from {
-        margin-left: 100%;
+
+@media (min-width: 500px) {
+    @keyframes slide-right {
+        from {
+            margin-left: 100%;
+        }
+
+        to {
+            margin-left: 0px;
+        }
     }
 
-    to {
-        margin-left: 0px;
+    @keyframes slide-left {
+        from {
+            margin-left: 100%;
+        }
+
+        to {
+            margin-left: 0px;
+        }
     }
 }
-
-@keyframes slide-left {
-    from {
-        margin-left: 100%;
+@media (max-width: 500px) {
+    @keyframes slide-right {
+        0%{opacity: 0; transform:translate3d(-200px,0,0)}
+	    100%{opacity: 1; transform:translate3d(0,0,0)}
     }
 
-    to {
-        margin-left: 0px;
+    @keyframes slide-left {
+        0%{opacity: 0; transform:translate3d(-200px,-50px,0)}
+	    100%{opacity: 1; transform:translate3d(0,0,0)}
     }
 }
-
 /* @-webkit-keyframes slide-right {
     from {
         margin-left: 100%;

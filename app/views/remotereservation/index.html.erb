@@ -6,11 +6,12 @@
   <span id="endDateColumnIndex" class="d-none"></span>
   <span id="startDateRowIndex" class="d-none"></span>
   <div class="row" style="margin-bottom: 25px;">
-    <div class="col-md-4">
+    <div class="col-md-5">
       <input type="button" value="Back" onclick="PrevRes()" class="customArrow">
       <a href="../images/sitemap.jpg" onclick="goclicky(this); return false;" target="_blank" class="sitemap desktop-forward">Site Map</a>
       <input type="date" id="custom_date" class="custom_date" onchange="refreshTable()">
       <input type="button" value="Forward" onclick="NextRes()" class="customArrow mobile-forward d-none">
+      <input type="button" value="Clear" class="btnClear desktop-forward" onclick="clearSelect()">
     </div>
     <div class="col-md-6" id="explanation">
       <span id="txtExplanation"><%= I18n.t('reservation.SelectStartDate') %></span>
@@ -21,8 +22,8 @@
         <%= submit_tag I18n.t('reservation.CompleteReservation'), :id => "btnCompleteRes" %>
       </form>
     </div>
-    <div class="col-md-2 text-center d-flex" id="tempDiv">
-      <input type="button" value="Clear" id="btnClear" onclick="clearSelect()">
+    <div class="col-md-1 text-center tempDiv">
+      <input type="button" value="Clear" class="btnClear mobile-forward d-none" onclick="clearSelect()">
       <input type="button" value="Forward" onclick="NextRes()" class="customArrow desktop-forward">
       <a href="../images/sitemap.jpg" onclick="goclicky(this); return false;" target="_blank" class="sitemap mobile-forward d-none">Site Map</a>
     </div>
@@ -169,7 +170,11 @@
       const spanElement = document.getElementById("txtExplanation");
       const form = document.getElementById("completeResForm");
       form.classList.remove("d-none");
-      form.style.marginTop = "-8px";
+      if(screen.width >= 500) {
+        form.style.marginTop = "-8px";
+      }else{
+        form.style.marginBottom = "12px";
+      }
       spanElement.style.display = "none";
       form.style.display = "block";
       // spanElement.parentNode.replaceChild(form, spanElement);

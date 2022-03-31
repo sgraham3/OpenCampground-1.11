@@ -5,7 +5,7 @@
   <span id="startDateColumnIndex" class="d-none"></span>
   <span id="endDateColumnIndex" class="d-none"></span>
   <span id="startDateRowIndex" class="d-none"></span>
-  <div class="row" style="margin-bottom: 25px;">
+  <div class="row elements" style="padding-bottom: 25px;">
     <div class="col-md-5">
       <input type="button" value="Back" onclick="PrevRes()" class="customArrow">
       <a href="../images/sitemap.jpg" onclick="goclicky(this); return false;" target="_blank" class="sitemap desktop-forward">Site Map</a>
@@ -28,14 +28,16 @@
       <a href="../images/sitemap.jpg" onclick="goclicky(this); return false;" target="_blank" class="sitemap mobile-forward d-none">Site Map</a>
     </div>
   </div>
-  <table id="available" class="available" cellspacing="0" admin-session="<%= session[:admin_status] %>">
-    <thead id="available_head">
-      <%= header -%>
-    </thead>
-    <tbody id="available_body">
-      <%= available() %>
-    </tbody>
-  </table>
+  <div>
+    <table id="available" class="available" cellspacing="0" admin-session="<%= session[:admin_status] %>">
+      <thead id="available_head">
+        <%= header -%>
+      </thead>
+      <tbody id="available_body">
+        <%= available() %>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <script type="text/javascript">
@@ -64,9 +66,18 @@
 
   for(var i = 0; i < ths.length; i++) {
     var th = ths[i];
-    th.style.top = th.getBoundingClientRect().top - tableHeaderTop + "px";
+    th.style.top = th.getBoundingClientRect().top - tableHeaderTop + "200px";
     th.style.cssText += "min-width: " + realWidth + "px";
   }
+  if (screen.width <= 500) {
+    document.addEventListener('scroll', function(e) {
+      if(window.pageYOffset >= 165) {
+        document.querySelector('#available_head').style.position = "fixed";
+        document.querySelector('#available_head').style.top = window.pageYOffset - 165 + "px";
+      }
+    });
+  }
+  
   //url parse
   var current_url = window.location.href;
   const url = new URL(

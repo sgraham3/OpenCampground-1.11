@@ -335,7 +335,7 @@ module RemotereservationHelper
     # print out the days
     date = @startDate 
     first_closed = true
-    ret_str = '<tr id="lockedHeadDay"><th class="av_date" style="border:1px solid white;background:#666666;"></th>'
+    ret_str = '<div id="lockedHeadDay" class="overflow-hidden"><div id="flexDiv" class="d-flex overflow-auto"><div class="av_date header-th" id="stickyTh" style="border:1px solid white;background:#666666;"></div>'
     # debug "get_header_days enddate is #{@endDate}"
     while date < @endDate 
       if @option.use_closed? 
@@ -345,7 +345,7 @@ module RemotereservationHelper
           @ce = @ce.change(:year => @ce.year + 1)
         end
         if  (date+1) > @cs && (date+1) < @ce
-          ret_str << '<th class="av_date" style="border:1px solid white;background:#666666"></th>'
+          ret_str << '<div class="av_date header-th" style="border:1px solid white;background:#666666"></div>'
           # debug "closed #{date}"
           date = @ce
           next
@@ -353,15 +353,15 @@ module RemotereservationHelper
       end
       strmonth = Date::MONTHNAMES[date.month];
       if date == currentDate
-	      ret_str << '<th class="av_date"  style="border:1px solid white;background:lightGreen;text-align:center;color:white;"><span year=' + date.year.to_s + '></span><div>' + date.strftime("%a") + '</div><div>' + date.strftime("%d") + '</div><div>' + strmonth[0..2] + '</div></th>'
+	      ret_str << '<div class="av_date header-th"  style="border:1px solid white;background:lightGreen;text-align:center;color:white;"><span year=' + date.year.to_s + '></span><div>' + date.strftime("%a") + '</div><div>' + date.strftime("%d") + '</div><div>' + strmonth[0..2] + '</div></div>'
       elsif date.wday == 0 || date.wday == 6
-	      ret_str << '<th class="av_date"  style="border:1px solid white;background:#666666;color:white;text-align:center"><span year=' + date.year.to_s + '></span><div>' + date.strftime("%a") + '</div><div>' + date.strftime("%d") + '</div><div>' + strmonth[0..2] + '</div></th>'
+	      ret_str << '<div class="av_date header-th"  style="border:1px solid white;background:#666666;color:white;text-align:center"><span year=' + date.year.to_s + '></span><div>' + date.strftime("%a") + '</div><div>' + date.strftime("%d") + '</div><div>' + strmonth[0..2] + '</div></div>'
       else
-        ret_str << '<th class="av_date"  style="border:1px solid white;background:#666666;color:white;text-align:center"><span year=' + date.year.to_s + '></span><div>' + date.strftime("%a") + '</div><div>' + date.strftime("%d") + '</div><div>' + strmonth[0..2] + '</div></th>'
+        ret_str << '<div class="av_date header-th"  style="border:1px solid white;background:#666666;color:white;text-align:center"><span year=' + date.year.to_s + '></span><div>' + date.strftime("%a") + '</div><div>' + date.strftime("%d") + '</div><div>' + strmonth[0..2] + '</div></div>'
       end   
       date = date.succ 
     end
-    ret_str << "</tr>\n"
+    ret_str << "</div></div>\n"
   end
 
   def available()

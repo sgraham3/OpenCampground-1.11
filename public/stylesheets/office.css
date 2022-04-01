@@ -171,13 +171,14 @@ body {
 .elements {
     top: 0px !important;
     position: sticky !important;
-    z-index: 2 !important;
+    z-index: 1 !important;
     background: white;
     padding-top: 12px;
 }
 
 #available td {
     min-width: 60px;
+    width: auto;
     max-width: 400px;
     border: 1px solid #D6D6D6;
 }
@@ -188,6 +189,15 @@ body {
     top: 80px !important;
     min-width: 60px;
     max-width: 400px;
+}
+
+.header-th {
+    min-width: 60px;
+    width: auto;
+    background:#666666;
+    border-right: 1px solid white;
+    text-align: center;
+    color: white;
 }
 
 #available th:not([scope=row]):first-child {
@@ -262,24 +272,6 @@ body {
         overflow-x: scroll;
         white-space: nowrap !important;
         position: relative;
-    }
-    #available th {
-        top: 184px !important;
-        min-width: 60px;
-        max-width: 400px;
-    }
-
-    #available thead {
-        position: sticky !important;
-    }
-
-    #available tbody td:nth-child(1) {
-        z-index: -1;
-        position: sticky;
-    }
-    
-    #available th:not([scope=row]):first-child {
-        position: sticky !important;
     }
 
     #explain {

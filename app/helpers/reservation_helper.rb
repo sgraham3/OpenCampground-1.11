@@ -289,7 +289,7 @@ module ReservationHelper
     # print out the days
     date = @startDate 
     first_closed = true
-    ret_str = '<tr id="lockedHeadDay"><th class="locked" style="border:1px solid white;background:#666666;"></th>'
+    ret_str = '<div id="available_head" style="z-index:1;top:80px" class="position-sticky"><div id="lockedHeadDay" class="overflow-hidden"><div id="flexDiv" class="d-flex overflow-auto"><div class="av_date header-th" id="stickyTh" style="border:1px solid white;background:#666666;"></div>'
     # debug "get_header_days enddate is #{@endDate}"
     while date < @endDate 
       if @option.use_closed? 
@@ -299,7 +299,7 @@ module ReservationHelper
           @ce = @ce.change(:year => @ce.year + 1)
         end
         if  (date+1) > @cs && (date+1) < @ce
-          ret_str << '<th class="av_date" style="border:1px solid white;background:#666666"></th>'
+          ret_str << '<div class="av_date header-th" style="border:1px solid white;background:#666666"></div>'
           # debug "closed #{date}"
           date = @ce
           next
@@ -307,15 +307,15 @@ module ReservationHelper
       end
       strmonth = Date::MONTHNAMES[date.month];
       if date == currentDate
-	      ret_str << '<th class="av_date"  style="border:1px solid white;background:lightGreen;text-align:center;color:white;"><span year=' + date.year.to_s + '></span><div>' + date.strftime("%a") + '</div><div>' + date.strftime("%d") + '</div><div>' + strmonth[0..2] + '</div></th>'
+	      ret_str << '<div class="av_date header-th"  style="border:1px solid white;background:lightGreen;text-align:center;color:white;"><span year=' + date.year.to_s + '></span><div>' + date.strftime("%a") + '</div><div>' + date.strftime("%d") + '</div><div>' + strmonth[0..2] + '</div></div>'
       elsif date.wday == 0 || date.wday == 6
-	      ret_str << '<th class="av_date"  style="border:1px solid white;background:#666666;color:white;text-align:center"><span year=' + date.year.to_s + '></span><div>' + date.strftime("%a") + '</div><div>' + date.strftime("%d") + '</div><div>' + strmonth[0..2] + '</div></th>'
+	      ret_str << '<div class="av_date header-th"  style="border:1px solid white;background:#666666;color:white;text-align:center"><span year=' + date.year.to_s + '></span><div>' + date.strftime("%a") + '</div><div>' + date.strftime("%d") + '</div><div>' + strmonth[0..2] + '</div></div>'
       else
-        ret_str << '<th class="av_date"  style="border:1px solid white;background:#666666;color:white;text-align:center"><span year=' + date.year.to_s + '></span><div>' + date.strftime("%a") + '</div><div>' + date.strftime("%d") + '</div><div>' + strmonth[0..2] + '</div></th>'
+        ret_str << '<div class="av_date header-th"  style="border:1px solid white;background:#666666;color:white;text-align:center"><span year=' + date.year.to_s + '></span><div>' + date.strftime("%a") + '</div><div>' + date.strftime("%d") + '</div><div>' + strmonth[0..2] + '</div></div>'
       end   
       date = date.succ 
     end
-    ret_str << "</tr>\n"
+    ret_str << "</div></div></div>\n"
   end
 
   def custom_get_header_days(year, month, custom_start_date)
@@ -327,7 +327,7 @@ module ReservationHelper
 
     date = @startDate 
     first_closed = true
-    ret_str = '<tr id="lockedHeadDay"><th class="locked" style="border:1px solid white;background:#666666;"></th>'
+    ret_str = '<div id="available_head" style="z-index:1;top:80px" class="position-sticky"><div id="lockedHeadDay" class="overflow-hidden"><div id="flexDiv" class="d-flex overflow-auto"><div class="av_date header-th" id="stickyTh" style="border:1px solid white;background:#666666;"></div>'
     # debug "get_header_days enddate is #{@endDate}"
     while date < @endDate 
       if @option.use_closed? 
@@ -337,7 +337,7 @@ module ReservationHelper
           @ce = @ce.change(:year => @ce.year + 1)
         end
         if  (date+1) > @cs && (date+1) < @ce
-          ret_str << '<th class="av_date" style="border:1px solid white;background:#666666"></th>'
+          ret_str << '<div class="av_date header-th" style="border:1px solid white;background:#666666"></div>'
           # debug "closed #{date}"
           date = @ce
           next
@@ -345,15 +345,15 @@ module ReservationHelper
       end
       strmonth = Date::MONTHNAMES[date.month];
       if date == currentDate
-	      ret_str << '<th class="av_date"  style="border:1px solid white;background:lightGreen;text-align:center;color:white;"><span year=' + date.year.to_s + '></span><div>' + date.strftime("%a") + '</div><div>' + date.strftime("%d") + '</div><div>' + strmonth[0..2] + '</div></th>'
+	      ret_str << '<div class="av_date header-th"  style="border:1px solid white;background:lightGreen;text-align:center;color:white;"><span year=' + date.year.to_s + '></span><div>' + date.strftime("%a") + '</div><div>' + date.strftime("%d") + '</div><div>' + strmonth[0..2] + '</div></div>'
       elsif date.wday == 0 || date.wday == 6
-	      ret_str << '<th class="av_date"  style="border:1px solid white;background:#666666;color:white;text-align:center"><span year=' + date.year.to_s + '></span><div>' + date.strftime("%a") + '</div><div>' + date.strftime("%d") + '</div><div>' + strmonth[0..2] + '</div></th>'
+	      ret_str << '<div class="av_date header-th"  style="border:1px solid white;background:#666666;color:white;text-align:center"><span year=' + date.year.to_s + '></span><div>' + date.strftime("%a") + '</div><div>' + date.strftime("%d") + '</div><div>' + strmonth[0..2] + '</div></div>'
       else
-        ret_str << '<th class="av_date"  style="border:1px solid white;background:#666666;color:white;text-align:center"><span year=' + date.year.to_s + '></span><div>' + date.strftime("%a") + '</div><div>' + date.strftime("%d") + '</div><div>' + strmonth[0..2] + '</div></th>'
+        ret_str << '<div class="av_date header-th"  style="border:1px solid white;background:#666666;color:white;text-align:center"><span year=' + date.year.to_s + '></span><div>' + date.strftime("%a") + '</div><div>' + date.strftime("%d") + '</div><div>' + strmonth[0..2] + '</div></div>'
       end   
       date = date.succ 
     end
-    ret_str << "</tr>\n"
+    ret_str << "</div></div></div>\n"
   end
 
   def available(res_hash)
@@ -494,7 +494,8 @@ module ReservationHelper
     
     # ret_str = custom_get_header_months(month, 1)
     ret_str = custom_get_header_days(year, month, date)
-    
+    ret_str << '<table id="available" style="z-index:0" class="available" cellspacing="0" admin-session="<%= session[:admin_status] %>"><tbody id="available_body">'
+
     Space.active(:order => 'position').each do |space|
       date = @startDate
       ret_str << '<tr>'
@@ -619,6 +620,7 @@ module ReservationHelper
       end
       ret_str << "</tr>\n"
     end
+    ret_str << '</tbody></table>'
     return ret_str
   end
 
@@ -636,7 +638,7 @@ module ReservationHelper
     
     # ret_str = custom_get_header_months(year, month, date)
     ret_str = custom_get_header_days(year, month, date)
-    
+    ret_str << '<table id="available" style="z-index:0" class="available" cellspacing="0" admin-session="<%= session[:admin_status] %>"><tbody id="available_body">'
     Space.active(:order => 'position').each do |space|
       date = @startDate
       ret_str << '<tr>'
@@ -761,6 +763,7 @@ module ReservationHelper
       end
       ret_str << "</tr>\n"
     end
+    ret_str << '</tbody></table>'
     return ret_str
   end
 
@@ -778,7 +781,7 @@ module ReservationHelper
     
     # ret_str = custom_get_header_months(year, month, date)
     ret_str = custom_get_header_days(year, month, date)
-    
+    ret_str << '<table id="available" style="z-index:0" class="available" cellspacing="0" admin-session="<%= session[:admin_status] %>"><tbody id="available_body">'
     Space.active(:order => 'position').each do |space|
       date = @startDate
       ret_str << '<tr>'
@@ -903,6 +906,7 @@ module ReservationHelper
       end
       ret_str << "</tr>\n"
     end
+    ret_str << '</tbody></table>'
     return ret_str
   end
 

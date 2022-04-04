@@ -289,7 +289,7 @@ module ReservationHelper
     # print out the days
     date = @startDate 
     first_closed = true
-    ret_str = '<div id="available_head" style="z-index:1;top:80px" class="position-sticky"><div id="lockedHeadDay" class="overflow-hidden"><div id="flexDiv" class="d-flex overflow-auto"><div class="av_date header-th" id="stickyTh" style="border:1px solid white;background:#666666;"></div>'
+    ret_str = '<div id="available_head" style="z-index:1;top:0px" class="position-sticky"><div id="lockedHeadDay" class="overflow-hidden"><div id="flexDiv" class="d-flex overflow-auto"><div class="av_date header-th" id="stickyTh" style="border:1px solid white;background:#666666;"></div>'
     # debug "get_header_days enddate is #{@endDate}"
     while date < @endDate 
       if @option.use_closed? 

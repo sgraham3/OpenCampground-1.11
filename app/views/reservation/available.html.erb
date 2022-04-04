@@ -1,14 +1,8 @@
-<div style="display: flex">
+<div class="d-flex">
   <%= button_to I18n.t('reservation.DownloadData'), :action => 'available_csv', :id => 'btn_download' %>
-  <input type="date" id="custom_date" class="custom_date" onchange="refreshTable()">
-  <div style="margin-left:40px;margin-top:5px">
-    <span class="c-button c-button--arrow-left" tabindex="0" onclick="PrevRes()">
-      <span class="c-button__text">Back</span>
-    </span>
-    <span class="c-button c-button--arrow-right" tabindex="0" onclick="NextRes()">
-      <span class="c-button__text">Forward</span>
-    </span>
-  </div>
+  <input type="date" id="custom_date" class="custom_date" onchange="refreshTable()" style="margin-top:5px">
+  <input type="button" value="Back" onclick="PrevRes()" class="customArrow" style="margin-left:40px">
+  <input type="button" value="Forward" onclick="NextRes()" class="customArrow">
 </div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
 <br>
 <% if session[:admin_status] %>
@@ -21,73 +15,67 @@
   </div>
   <br>
 <% end %>
-<div id="container" >
-  <table id="available" class="available" cellspacing="0" admin-session="<%= session[:admin_status] %>">
-    <thead id="available_head">
-      <%= header -%>
-    </thead>
+<div id="available_div">
+  <div id="available_head" style="z-index:1;top:0px" class="position-sticky">
+    <%= header -%>
+  </div>
+  <table id="available" style="z-index:0" class="available" cellspacing="0" admin-session="<%= session[:admin_status] %>">
     <tbody id="available_body">
       <%= available(@res) %>
     </tbody>
   </table>
 </div>
 <script type="text/JavaScript">
-  //calc real width of cells.
-  var thElement = document.querySelectorAll('#lockedHeadDay')[0].childNodes[0];
-  var cellsCount = document.querySelectorAll('#lockedHeadDay')[0].childElementCount;
+  document.getElementById('custom_date').valueAsDate = new Date();
+
+  //calc real width of cells and set width.
+  var thElement = document.querySelectorAll('#lockedHeadDay')[0].childNodes[0].childNodes[0];
+  var cellsCount = document.querySelectorAll('#lockedHeadDay')[0].childNodes[0].childElementCount;
   var strwidth = getComputedStyle(thElement)["min-width"];
   var minWidth = Number(strwidth.substr(0, strwidth.length-2));
-  var expectedWidth = Math.round((screen.width)/cellsCount);
+  var expectedWidth = Math.round((screen.width-250)/(cellsCount));
   var realWidth = 0;
   if(expectedWidth <= minWidth) {
-    realWidth = minWidth
+    realWidth = minWidth;
   }else{
     realWidth = expectedWidth;
   }
-
-  document.getElementById('custom_date').valueAsDate = new Date();
-  // disable scroll position
-  if ('scrollRestoration' in history) {
-    history.scrollRestoration = 'manual';
+  for(var i = 0; i < cellsCount; i++) {
+    var ths = document.querySelectorAll('.header-th');
+    ths[i].style.cssText += "min-width: " + realWidth + "px";
   }
-  window.scrollTo(0, 0);
 
-  // table header and first column lock
-  var tableHeaderTop = document.querySelector('#available_head').getBoundingClientRect().top;
-  var ths = document.querySelectorAll('#available_head th');
-  for(var i = 0; i < ths.length; i++) {
-    var th = ths[i];
-    th.style.top = th.getBoundingClientRect().top - tableHeaderTop + "px";
-    th.style.cssText += "min-width: " + realWidth + "px";
-  }
+  document.addEventListener('scroll', function(e) {
+    document.querySelector("#available_head").style.cssText += "top: 0px !important";
+  });
 
   //add link to available td
   var cells = document.querySelectorAll(".available td");
   for (var i = 0; i < cells.length; i++) {
+    cells[i].style.minWidth = realWidth + "px";
     if (cells[i].hasChildNodes()) {
       if(cells[i].childNodes[0].tagName == "A") {
         cells[i].parentElement.setAttribute("hasspace", "true");
       }
-    }else{  
-      cells[i].setAttribute('style', 'cursor: pointer');
+    }else{
+      cells[i].style.cssText += "cursor:pointer;";
       cells[i].addEventListener("click", function(){
         handler(this);
       });
-    }
+    } 
   }
+
   function handler(param) {
     var parentTr = param.parentElement;
-    var HeadDay = document.getElementById("lockedHeadDay");
+    var spaceTxt = parentTr.getElementsByTagName("td")[0].textContent;
+    var startSpace = "";
     if(parentTr.getAttribute("hasspace") != "true") {
-      var spaceTxt = parentTr.getElementsByTagName("td")[0].textContent;
-
       var cellIndex = param.cellIndex;
-      var start_year = HeadDay.childNodes[cellIndex].childNodes[0].getAttribute("year");
-      var start_month = HeadDay.childNodes[cellIndex].childNodes[3].textContent;
-      var start_date = HeadDay.childNodes[cellIndex].childNodes[2].textContent;
-      location.href = "/reservation/express?" + "start_year=" + start_year + "&start_month=" + getMonthFromString(start_month) + "&start_date=" + start_date + "&space=" + spaceTxt;
+      var currentTh = document.querySelectorAll('#flexDiv')[0].childNodes[cellIndex];
+      var start_year = currentTh.childNodes[0].getAttribute("year");
+      var start_month = currentTh.childNodes[3].textContent;
+      var start_date = currentTh.childNodes[2].textContent;
     }else{
-      var spaceTxt = parentTr.getElementsByTagName("td")[0].textContent;
       var tempCount = 0;
       var isColspan = 0;
       for (let i = 0; i <= param.cellIndex; i++) {
@@ -102,11 +90,14 @@
       }else{
         var cellIndex = Number(param.cellIndex)+tempCount-1;
       }
-      var start_year = HeadDay.childNodes[cellIndex].childNodes[0].getAttribute("year");
-      var start_month = HeadDay.childNodes[cellIndex].childNodes[3].textContent;
-      var start_date = HeadDay.childNodes[cellIndex].childNodes[2].textContent;
-      location.href = "/reservation/express?" + "start_year=" + start_year + "&start_month=" + getMonthFromString(start_month) + "&start_date=" + start_date + "&space=" + spaceTxt;
+      var currentTh = document.querySelectorAll('#flexDiv')[0].childNodes[cellIndex];
+      
+      var start_year = currentTh.childNodes[0].getAttribute("year");
+      var start_month = currentTh.childNodes[3].textContent;
+      var start_date = currentTh.childNodes[2].textContent;
     }
+    console.log(spaceTxt+"@"+start_year+"@"+start_month+"@"+start_date);
+    location.href = "/reservation/express?" + "start_year=" + start_year + "&start_month=" + getMonthFromString(start_month) + "&start_date=" + start_date + "&space=" + spaceTxt;
   }
   function refreshTable() {
     let start_date = document.getElementById("custom_date").value;
@@ -114,13 +105,13 @@
     new Ajax.Request('refreshTable', {
       parameters: {"startYear": arr[0], "startMonth": arr[1], "startDate": arr[2], "controllerName": "reservation"},
       onSuccess: function(res) {
-        document.getElementById("available").innerHTML = res.responseText;
-        addLinkToTd();
-        let ths = document.querySelectorAll('#available th');
-        for(var i = 0; i < ths.length; i++) {
-          var th = ths[i];
-          th.style.cssText += "min-width: " + realWidth + "px";
+        document.getElementById("available_div").innerHTML = res.responseText;
+        for(var i = 0; i < cellsCount; i++) {
+          var ths = document.querySelectorAll('.header-th');
+          ths[i].style.cssText += "min-width: " + realWidth + "px";
         }
+
+        addLinkToTd();
       }
     });
   }
@@ -129,56 +120,59 @@
   }
 
   function NextRes() {
-    let resTableHeadDay = document.querySelectorAll('#lockedHeadDay')[0];
+    let resTableHeadDay = document.querySelectorAll('#lockedHeadDay')[0].childNodes[0];
     let nextStartYear = resTableHeadDay.lastChild.childNodes[0].getAttribute("year");
     let nextStartMonth = resTableHeadDay.lastChild.childNodes[3].innerText;
     let nextStartDate = resTableHeadDay.lastChild.childNodes[2].innerText;
     const currentLastDate = new Date(Number(nextStartYear), getMonthFromString(nextStartMonth)-1, Number(nextStartDate));
     currentLastDate.setDate(currentLastDate.getDate() + 1);
+
     new Ajax.Request('getNextData', {
       parameters: {"startYear": currentLastDate.getFullYear(), "startMonth": currentLastDate.getMonth()+1, "startDate": currentLastDate.getDate(), "controllerName": "reservation"},
       onSuccess: function(res) {
-        document.getElementById("available").innerHTML = res.responseText;
-        addLinkToTd();
-        let ths = document.querySelectorAll('#available th');
-        for(var i = 0; i < ths.length; i++) {
-          var th = ths[i];
-          th.style.cssText += "min-width: " + realWidth + "px";
+        document.getElementById("available_div").innerHTML = res.responseText;
+        for(var i = 0; i < cellsCount; i++) {
+          var ths = document.querySelectorAll('.header-th');
+          ths[i].style.cssText += "min-width: " + realWidth + "px";
         }
+
+        addLinkToTd();
       }
     });
   }
+
   function PrevRes() {
-    let resTableHeadDay = document.querySelectorAll('#lockedHeadDay')[0];
+    let resTableHeadDay = document.querySelectorAll('#lockedHeadDay')[0].childNodes[0];
     let prevStartYear = resTableHeadDay.childNodes[1].childNodes[0].getAttribute("year");
     let prevStartMonth = resTableHeadDay.childNodes[1].childNodes[3].innerText;
     let prevStartDate = resTableHeadDay.childNodes[1].childNodes[2].innerText;
     let count = resTableHeadDay.childElementCount-1;
     const currentFirstDate = new Date(Number(prevStartYear), getMonthFromString(prevStartMonth)-1, Number(prevStartDate));
     currentFirstDate.setDate(currentFirstDate.getDate() - count);
+    
     new Ajax.Request('getPreviousData', {
       parameters: {"startYear": currentFirstDate.getFullYear(), "startMonth": currentFirstDate.getMonth()+1, "startDate": currentFirstDate.getDate(), "controllerName": "reservation"},
       onSuccess: function(res) {
-        document.getElementById("available").innerHTML = res.responseText;
-        addLinkToTd();
-        let ths = document.querySelectorAll('#available th');
-        for(var i = 0; i < ths.length; i++) {
-          var th = ths[i];
-          th.style.cssText += "min-width: " + realWidth + "px";
+        document.getElementById("available_div").innerHTML = res.responseText;
+        for(var i = 0; i < cellsCount; i++) {
+          var ths = document.querySelectorAll('.header-th');
+          ths[i].style.cssText += "min-width: " + realWidth + "px";
         }
+
+        addLinkToTd();
       }
     });
   }
   function addLinkToTd() {
     let cells = document.querySelectorAll(".available td");
-
     for (var i = 0; i < cells.length; i++) {
+      cells[i].style.minWidth = realWidth + "px";
       if (cells[i].hasChildNodes()) {
         if(cells[i].childNodes[0].tagName == "A") {
           cells[i].parentElement.setAttribute("hasspace", "true");
         }
       }else{  
-        cells[i].setAttribute('style', 'cursor: pointer');
+        cells[i].style.cssText += "cursor:pointer;";
         cells[i].addEventListener("click", function(){
           handler(this);
         });

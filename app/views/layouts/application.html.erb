@@ -30,6 +30,7 @@
   <%= javascript_include_tag :defaults %>
   <% if controller.action_name == 'available' %>
     <%= javascript_include_tag 'tablelock'%>
+	<%= stylesheet_link_tag "bootstrap.min" %>
   <% end %>
   <% if controller.action_name == 'remote' %>
     <%= javascript_include_tag 'tablelock'%>

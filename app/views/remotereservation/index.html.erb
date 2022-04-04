@@ -18,7 +18,9 @@
       <form action="/reservation/express_2" method="post" id="completeResForm" class="d-none">
         <input type="text" id="selectedStartDate" name="reservation[startdate]" class="d-none">
         <input type="text" id="selectedEndDate" name="reservation[enddate]" class="d-none">
-        <input type="text" id="selectedSpace" name="space[space_id]" class="d-none">
+        <span id="spaces" class="d-none">
+          <%= render :partial => 'space_pulldown' %>
+        </span>
         <%= submit_tag I18n.t('reservation.CompleteReservation'), :id => "btnCompleteRes" %>
       </form>
     </div>
@@ -111,7 +113,6 @@
     var parentTr = param.parentElement;
     var spaceTxt = parentTr.getElementsByTagName("td")[0].textContent;
     var lblStatus = document.getElementById("lblStatus").textContent;
-    var startSpace = "";
     if(parentTr.getAttribute("hasspace") != "true") {
       var cellIndex = param.cellIndex;
       var currentTh = document.querySelectorAll('#flexDiv')[0].childNodes[cellIndex];
@@ -143,15 +144,25 @@
       document.getElementById("txtExplanation").innerHTML = "<%= I18n.t('reservation.SelectEndDate') %>";
       document.getElementById("explanation").classList.add("main", "slide-right");
       document.getElementById("lblStatus").innerText = "enddate";
-      document.getElementById("selectedSpace").value = spaceTxt;
+
+      var spaceSelect = document.getElementsByName("space[space_id]")[0];
+      for (var i = 0; i < spaceSelect.options.length; ++i) {
+          if (spaceSelect.options[i].text === spaceTxt) {
+            spaceSelect.options[i].selected = true;
+          }  
+      }
+
       document.getElementById("startDateColumnIndex").textContent = cellIndex;
       document.getElementById("startDateRowIndex").textContent = parentTr.rowIndex;
       document.getElementById("selectedStartDate").value = start_date+"+"+start_month+"+"+start_year;
       param.style.background = "darkGray";
       param.style.cursor = "auto";
     }else if(lblStatus == "enddate"){
-      var selectedSpace = document.getElementById("selectedSpace").value;
-      if(param.parentElement.getElementsByTagName("td")[0].textContent != selectedSpace) {
+      var selectSpace = document.getElementById("space_space_id");
+      var space_space_id = selectSpace.options[selectSpace.selectedIndex].text;
+      console.log(space_space_id);
+
+      if(param.parentElement.getElementsByTagName("td")[0].textContent != space_space_id) {
         alert("You can only select end date from the same space");
         return;
       }
@@ -187,7 +198,7 @@
   }
 
   function clearSelect() {
-    document.getElementById("selectedSpace").value = "";
+    document.getElementById("space_space_id").value = "";
     document.getElementById("selectedStartDate").value = "";
     document.getElementById("selectedEndDate").value = "";
     document.getElementById("lblStatus").textContent = "startdate";
@@ -351,7 +362,8 @@
   function setCellHighlighted() {
     var selectedStartDate = document.getElementById("selectedStartDate").value;
     var selectedEndDate = document.getElementById("selectedEndDate").value;
-    var selectedSpace = document.getElementById("selectedSpace").value;
+    var selectSpace = document.getElementById("space_space_id");
+    var space_space_id = selectSpace.options[selectSpace.selectedIndex].text;
     var arrStart = selectedStartDate.split("+");
     var arrEnd = selectedEndDate.split("+");
     var strStart = arrStart[1] + " " + arrStart[0] + ", " + arrStart[2];
@@ -368,7 +380,7 @@
         var temp_date = tempTh.childNodes[2].textContent;
         var tempDate = Date.parse(temp_month + " " + temp_date + ", " + temp_year);
         var temp_space = cells[i].parentElement.getElementsByTagName("td")[0].textContent;
-        if (selectedSpace == temp_space) {
+        if (space_space_id == temp_space) {
           if(!endDate && startDate == tempDate) {
             cells[i].style.cssText += "cursor:auto;background-color:darkgray";
           }

@@ -245,11 +245,6 @@ body {
 }
 
 @media (max-width: 500px) {
-    .c-button--arrow-left {
-        margin-left: 20px !important;
-        margin-top: 25px !important;
-    }
-
     .content_layout,
     #explain,
     #action {
@@ -318,6 +313,24 @@ body {
     @keyframes dissolveInLeft {
         0%{opacity: 0; transform:translate3d(-200px,0,0)}
 	    100%{opacity: 1; transform:translate3d(0,0,0)}
+    }
+    .remoteBtnForward {
+        float: right !important;
+        margin-top: 10px;
+    }
+    .remoteBtnBack {
+        margin-left: 0px !important;
+        margin-top: 10px;
+    }
+    .remoteBtnForwardDesktop {
+        display: none !important;
+    }
+    .remoteBtnBackDesktop {
+        display: none !important;
+    }
+    .remoteBtnDiv {
+        display: block !important;
+        padding-top: 10px;
     }
 }
 

@@ -210,6 +210,8 @@ body {
     position: -webkit-sticky;
     position: sticky;
     left: 0 !important;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 /* #available tbody {

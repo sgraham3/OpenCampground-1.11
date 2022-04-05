@@ -59,7 +59,12 @@
   }
   for(var i = 0; i < cellsCount; i++) {
     var ths = document.querySelectorAll('.header-th');
-    ths[i].style.cssText += "min-width: " + realWidth + "px";
+    if(i == 0) {
+      var firstColumnWidth = getComputedStyle(document.getElementsByClassName("av_space")[0])["width"];
+      ths[i].style.cssText += "min-width: " + firstColumnWidth + "!important";
+    }else{
+      ths[i].style.cssText += "min-width: " + realWidth + "px";
+    }
   }
 
   //set fixed position from top in only mobile
@@ -160,7 +165,6 @@
     }else if(lblStatus == "enddate"){
       var selectSpace = document.getElementById("space_space_id");
       var space_space_id = selectSpace.options[selectSpace.selectedIndex].text;
-      console.log(space_space_id);
 
       if(param.parentElement.getElementsByTagName("td")[0].textContent != space_space_id) {
         alert("You can only select end date from the same space");

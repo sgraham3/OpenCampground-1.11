@@ -57,10 +57,13 @@
   }else{
     realWidth = expectedWidth;
   }
+
+  var firstColumnWidth = getComputedStyle(document.getElementsByClassName("av_space")[0])["width"];
+  var numFirstColumnWidth = Number(firstColumnWidth.substr(0, firstColumnWidth.length-2));
+
   for(var i = 0; i < cellsCount; i++) {
     var ths = document.querySelectorAll('.header-th');
-    if(i == 0) {
-      var firstColumnWidth = getComputedStyle(document.getElementsByClassName("av_space")[0])["width"];
+    if(i == 0 && numFirstColumnWidth > realWidth) {
       ths[i].style.cssText += "min-width: " + firstColumnWidth + "!important";
     }else{
       ths[i].style.cssText += "min-width: " + realWidth + "px";
@@ -302,7 +305,11 @@
         document.getElementById("available_div").innerHTML = res.responseText;
         for(var i = 0; i < cellsCount; i++) {
           var ths = document.querySelectorAll('.header-th');
-          ths[i].style.cssText += "min-width: " + realWidth + "px";
+          if(i == 0 && numFirstColumnWidth > realWidth){
+            ths[0].style.cssText += "min-width: " + firstColumnWidth + "!important";
+          }else{
+            ths[i].style.cssText += "min-width: " + realWidth + "px";
+          }
         }
 
         if(screen.width <= 500) {
@@ -340,7 +347,11 @@
         document.getElementById("available_div").innerHTML = res.responseText;
         for(var i = 0; i < cellsCount; i++) {
           var ths = document.querySelectorAll('.header-th');
-          ths[i].style.cssText += "min-width: " + realWidth + "px";
+          if(i == 0 && numFirstColumnWidth > realWidth){
+            ths[0].style.cssText += "min-width: " + firstColumnWidth + "!important";
+          }else{
+            ths[i].style.cssText += "min-width: " + realWidth + "px";
+          }
         }
 
         if(screen.width <= 500) {

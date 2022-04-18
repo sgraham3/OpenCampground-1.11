@@ -1,6 +1,6 @@
 <div id="payment" class="cc-form">
   <div class="cc-form">
-  Amount to be charged: <%= "#{number_2_currency(@deposit['amount'] + @deposit['tax'])} for #{@deposit['custom']}" %>
+  Amount to be charged: <%= "#{number_2_currency(@deposit['amount'])} for #{@deposit['custom']}" %>
   </div>
   <%  case @gateway
       when 'PayPal' %>

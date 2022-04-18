@@ -16,7 +16,7 @@
         <% end %>
         <th align="center"><%= I18n.t('reservation.Discount') %> </th>
       <% end -%>
-      <th align="center"><%= I18n.t('reservation.SubTotal') %> </th>
+      <th align="center"><%= I18n.t('reservation.Amount') %> </th>
     </tr>
     <% if @reservation.seasonal? -%>
       <tr>
@@ -109,7 +109,7 @@
     <% end %>
     <td></td>
         <% end %>
-      #  <td align="right"><%=number_2_currency(t.amount) %></td>
+        <td align="right"><%=number_2_currency(t.amount) %></td>
       </tr>
     <% end %>
     <% if @option.use_override? && @reservation.override_total > 0.0 %>
@@ -122,7 +122,7 @@
       <tr>
         <td><%= I18n.t('reservation.Total') %></td>
         <%= spacing_for_charges -%>
-        <td align="right"><%=number_2_currency(@reservation.total ) %></td>
+        <td align="right"><%=number_2_currency(@reservation.total + @reservation.tax_amount) %></td>
       </tr>
     <% end %>
     <% if @payments %>
@@ -145,7 +145,7 @@
         <% if @option.use_override? && @reservation.override_total > 0.0 %>
           <td align="right"><%=number_2_currency(@reservation.override_total - payments) %></td>
         <% else %>
-          <td align="right"><%=number_2_currency(@reservation.total - payments) %></td>
+          <td align="right"><%=number_2_currency(@reservation.total + @reservation.tax_amount - payments) %></td>
         <% end %>
       </tr>
     <% end %>

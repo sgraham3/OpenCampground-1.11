@@ -1,6 +1,6 @@
 <div id="smart-button-container">
   <input type="hidden" name="id" value="<%= @reservation.id.to_s %>" id="resID" />
-  <input type="hidden" value="<%=@deposit['amount']%>" id="amount">
+  <input type="hidden" value="<%=@deposit['amount'] + @deposit['tax']%>" id="amount">
   <div style="text-align: center;">
     <div id="paypal-button-container"></div>
   </div>
@@ -19,7 +19,7 @@
 
       createOrder: function(data, actions) {
         return actions.order.create({
-          purchase_units: [{"amount":{"currency_code":"AUD","value":"<%=@deposit['amount']%>"}}]
+          purchase_units: [{"amount":{"currency_code":"AUD","value":"<%=@deposit['amount'] + @deposit['tax']%>"}}]
         });
       },
 

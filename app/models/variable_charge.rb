@@ -19,12 +19,12 @@ class VariableCharge < ActiveRecord::Base
     ActiveRecord::Base.logger.debug "initial value = #{self.amount_was}, new value = #{self.amount}"
     res = Reservation.find reservation_id
     tax = 0.0
-    Taxrate.active.each do |t|
+    ##Taxrate.active.each do |t|
       # compute tax
-      tax += (self.amount - self.amount_was) * t.percent/100.0 if t.is_percent && self.taxrates.exists?(t)
-    end
-    res.update_attributes :total => res.total + self.amount - self.amount_was + tax
-    Taxrate.calculate_tax(res.id, Option.first)
+     ## tax += (self.amount - self.amount_was) * t.percent/100.0 if t.is_percent && self.taxrates.exists?(t)
+    ##end
+    res.update_attributes :total => res.total + self.amount - self.amount_was #+ #tax
+    ##Taxrate.calculate_tax(res.id, Option.first)
   end
 
   def destroy_var
@@ -33,11 +33,11 @@ class VariableCharge < ActiveRecord::Base
     ActiveRecord::Base.logger.debug "initial value = #{self.amount_was}"
     res = Reservation.find reservation_id
     tax = 0.0
-    Taxrate.active.each do |t|
+    ##Taxrate.active.each do |t|
       # compute tax
-      tax += self.amount * t.percent/100.0 if t.is_percent && self.taxrates.exists?(t)
-    end
-    res.update_attributes :total => res.total - self.amount + tax
+      ##tax += self.amount * t.percent/100.0 if t.is_percent && self.taxrates.exists?(t)
+    ##end
+    res.update_attributes :total => res.total - self.amount #+# #tax
   end
 
 end

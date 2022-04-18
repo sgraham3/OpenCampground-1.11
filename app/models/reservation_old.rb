@@ -108,7 +108,7 @@ class Reservation < ActiveRecord::Base
 
   def deposit_amount
     option = Option.first
-    total = self.total 
+    total = self.total + self.tax_amount
     dep = Hash.new
     case option.deposit_type
     when Remote::Percentage
@@ -310,7 +310,7 @@ class Reservation < ActiveRecord::Base
     if option.use_override && (self.override_total > 0.0)
       self.override_total - pmt
     else
-      self.total - pmt 
+      self.total + self.tax_amount - pmt
     end
   end
 

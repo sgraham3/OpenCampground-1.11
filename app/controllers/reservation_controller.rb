@@ -136,6 +136,12 @@ class ReservationController < ApplicationController
 		@reservation = Reservation.new(params[:reservation])
 		@reservation.startdate = @date_start
 		@reservation.enddate = @date_end
+		if params[:is_remote] == "false"
+			@reservation.is_remote = 0
+		else
+			@reservation.is_remote = 1
+		end
+
 		unless Campground.open?(@reservation.startdate, @reservation.enddate)
 			flash[:error] = I18n.t('reservation.Flash.SpaceUnavailable') +
 					"<br />" +
@@ -147,7 +153,7 @@ class ReservationController < ApplicationController
 		session[:reservation_id] = @reservation.id
 		session[:startdate] = @reservation.startdate
 		session[:enddate] = @reservation.enddate
-		redirect_to :action => :space_selected, :space_id => params[:space][:space_id].to_i, :reservation_id => @reservation.id
+		redirect_to :action => :space_selected, :space_id => params[:space][:space_id].to_i, :reservation_id => @reservation.id, :is_remote => params[:is_remote]
 	end
 
 	def confirm_res

@@ -661,6 +661,7 @@ ActiveRecord::Schema.define(:version => 106) do
     t.boolean  "checked_out",                                                      :default => false
     t.boolean  "long_term_monthly",                                                :default => false
     t.decimal  "cancel_charge",                     :precision => 10, :scale => 5, :default => 0.0,   :null => false
+    t.integer  "is_remote"                                                         :default => 0
   end
 
   add_index "reservations", ["enddate"], :name => "index_reservations_on_enddate"

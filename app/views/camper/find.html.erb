@@ -1,15 +1,11 @@
-<% if @remote %>
-<% 
-=begin %>
-  <div id="explain">
-    <%= @prompt.body %>
-  </div>
-  <% 
-=end %>
-  <p>
-   <% action = 'create_remote' %>
-<% else  %>
-   <% action = 'create' %>
+<% if @reservation.is_remote %>
+  <% if @remote %>
+    <% action = 'create_remote' %>
+  <% else  %>
+    <% action = 'create' %>
+  <% end %>  
+<% else %>
+  <% action = 'create' %>
 <% end %>
 <% form_tag :action =>  action do %>
   <%= error_messages_for :camper %>
@@ -94,12 +90,16 @@
   <%= manditory_label %>
   <input type="hidden" name="reservation_id" value="<%= @reservation.id -%>" />
   <% if @remote %>
-    <% if @option.require_gateway? %>
-      <%= submit_tag 'Continue to payment', :class => "payment_submit" %>
-    <% elsif @option.allow_gateway?%>
-      <%= submit_tag  I18n.t('general.Continue'), :class => "payment_submit" %>
+    <% if @reservation.is_remote %>
+      <% if @option.require_gateway? %>
+        <%= submit_tag 'Continue to payment', :class => "payment_submit" %>
+      <% elsif @option.allow_gateway?%>
+        <%= submit_tag  I18n.t('general.Continue'), :class => "payment_submit" %>
+      <% else %>
+        <%= submit_tag  'Continue without payment', :class => "payment_submit" %>
+      <% end %>
     <% else %>
-      <%= submit_tag  'Continue without payment', :class => "payment_submit" %>
+      <%= submit_tag  I18n.t('general.Continue'), :class => "payment_submit" %>
     <% end %>
   <% else %>
     <%= submit_tag I18n.t('camper.Create') %>

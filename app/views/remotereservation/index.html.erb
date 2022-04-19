@@ -18,6 +18,7 @@
       <form action="/reservation/express_2" method="post" id="completeResForm" class="d-none">
         <input type="text" id="selectedStartDate" name="reservation[startdate]" class="d-none">
         <input type="text" id="selectedEndDate" name="reservation[enddate]" class="d-none">
+        <input type="hidden" name="is_remote" value="true">
         <span id="spaces" class="d-none">
           <%= render :partial => 'space_pulldown' %>
         </span>

@@ -138,8 +138,10 @@ class ReservationController < ApplicationController
 		@reservation.enddate = @date_end
 		if params[:is_remote] == "false"
 			@reservation.is_remote = 0
+			@reservation.unconfirmed_remote = 0
 		else
 			@reservation.is_remote = 1
+			@reservation.unconfirmed_remote = 1
 		end
 
 		unless Campground.open?(@reservation.startdate, @reservation.enddate)

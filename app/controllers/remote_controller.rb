@@ -398,6 +398,7 @@ class RemoteController < ApplicationController
     @reservation = get_reservation
     @reservation.confirm = true
     @reservation.deposit = request["amount"]
+    @reservation.unconfirmed_remote = 0
 
     if @reservation.save
 			flash[:notice] = I18n.t('reservation.Flash.UpdateSuccess',

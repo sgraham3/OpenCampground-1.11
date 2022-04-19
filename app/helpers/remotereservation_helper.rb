@@ -374,7 +374,7 @@ module RemotereservationHelper
     ret_str = ''
     av_init
 
-    res = Reservation.all( :conditions => [ "(enddate >= ? or checked_in = ?) and confirm = ? and archived = ?",currentDate, true, true, false],
+    res = Reservation.all( :conditions => [ "(enddate >= ? or checked_in = ?) and confirm = ? and archived = ? or unconfirmed_remote = ?",currentDate, true, true, false, true],
     :include => ['camper'],
 			   :order => "space_id,startdate ASC")
     # check for conflicts aka double booking
@@ -402,87 +402,87 @@ module RemotereservationHelper
 	      ret_str << '<td class="av_space"  style="border:1px solid #D6D6D6;background:#666666;text-align:center;color:white">' +  space.name + '</td>'
       end
       if @option.use_closed?
-	@cs = @closedStart
-	@ce = @closedEnd
+        @cs = @closedStart
+        @ce = @closedEnd
       end
       if res_hash.has_key? space.id
-	debug "\nspace #{space.name} has reservations"
-	debug "@cs is #{@cs}, @ce is #{@ce}" if @option.use_closed?
-	debug "available enddate is #{@endDate}"
-	while date < @endDate 
-	  debug "date is #{date}"
-	  if @option.use_closed? && (date >= @cs && date < @ce)
-	    debug "in closed date = #{date}"
-	    ret_str << handle_cells(date, @ce)
-	    date = @ce
-	  end
-	  if res_hash[space.id][0] && (date >= res_hash[space.id][0].startdate) # && (date < res_hash[space.id][0].enddate)
-	    debug 'got new reservation'
-	    r = res_hash[space.id].shift # shift it out
-	    if r.enddate <= @startDate
-	      debug "enddate #{r.enddate} for #{r.id} before startdate #{@startdate}"
-	      next
-	    end
-	    cnt = day_count(r,date)
-	    if cnt == 0
-	      debug "skipping res #{r.id} with count 0"
-	      next
-	    end
-	    name = trunc_name(cnt, r)
-	    ret_str << "<td colspan=\"#{cnt}\" align=\"center\" "
-	    if r.checked_in
-          ret_str << 'style="background-color:lightGrey">' # occupied    
-	    else
-	      if currentDate > r.startdate
-            ret_str << 'style="background-color:lightGrey">' # overdue
-	      else
-            ret_str << 'style="background-color:lightGrey">' # reserved
-	      end
-	    end
-	    title = r.camper.full_name + ', '
-	    title << I18n.l(r.startdate, :format => :short) + I18n.t('reservation.To') + I18n.l(r.enddate, :format => :short)
-      ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{}</a>"
-	    if @option.use_closed && r.enddate > @cs && r.enddate < @ce
-	      ret_str << handle_cells(@cs, @ce)
-	      date = @ce
-	    else
-	      date = r.enddate
-	    end
-	  else # open
-	    debug 'open'
-	    if res_hash[space.id].empty?
-	      debug 'no more reservations'
-	      ret_str << handle_cells(date, @endDate)
-	      date = @endDate
-	      debug "set date to #{date}"
-	    else
-	      rh = res_hash[space.id][0]
-	      if @option.use_closed?
-		if rh.startdate >= @cs && rh.startdate < @ce 
-		  debug "skipping #{rh.id} with startdate #{rh.startdate} and enddate #{rh.enddate}"
-		  sd = @cs 
-		else
-		  sd = rh.startdate
-	        end
-	      else
-		sd = rh.startdate
-	      end
-	      ret_str << handle_cells(date, sd)
-	      date = sd
-	      debug "set date to #{date}"
-	    end
-	  end 
-	end
-	if @option.use_closed && date >= @ce
-	  @cs = @cs.change(:year => @cs.year + 1)
-	  @ce = @ce.change(:year => @ce.year + 1)
-	  debug "changing cs year to #{@cs.year}"
-	end
+        debug "\nspace #{space.name} has reservations"
+        debug "@cs is #{@cs}, @ce is #{@ce}" if @option.use_closed?
+        debug "available enddate is #{@endDate}"
+        while date < @endDate 
+          debug "date is #{date}"
+          if @option.use_closed? && (date >= @cs && date < @ce)
+            debug "in closed date = #{date}"
+            ret_str << handle_cells(date, @ce)
+            date = @ce
+          end
+          if res_hash[space.id][0] && (date >= res_hash[space.id][0].startdate) # && (date < res_hash[space.id][0].enddate)
+            debug 'got new reservation'
+            r = res_hash[space.id].shift # shift it out
+            if r.enddate <= @startDate
+              debug "enddate #{r.enddate} for #{r.id} before startdate #{@startdate}"
+              next
+            end
+            cnt = day_count(r,date)
+            if cnt == 0
+              debug "skipping res #{r.id} with count 0"
+              next
+            end
+            name = trunc_name(cnt, r)
+            ret_str << "<td colspan=\"#{cnt}\" align=\"center\" "
+            if r.checked_in
+                ret_str << 'style="background-color:lightGrey">' # occupied    
+            else
+              if currentDate > r.startdate
+                  ret_str << 'style="background-color:lightGrey">' # overdue
+              else
+                  ret_str << 'style="background-color:lightGrey">' # reserved
+              end
+            end
+            # title = r.camper.full_name + ', '
+            # title << I18n.l(r.startdate, :format => :short) + I18n.t('reservation.To') + I18n.l(r.enddate, :format => :short)
+            ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{}\">#{}</a>"
+            if @option.use_closed && r.enddate > @cs && r.enddate < @ce
+              ret_str << handle_cells(@cs, @ce)
+              date = @ce
+            else
+              date = r.enddate
+            end
+          else # open
+            debug 'open'
+            if res_hash[space.id].empty?
+              debug 'no more reservations'
+              ret_str << handle_cells(date, @endDate)
+              date = @endDate
+              debug "set date to #{date}"
+            else
+              rh = res_hash[space.id][0]
+              if @option.use_closed?
+                if rh.startdate >= @cs && rh.startdate < @ce 
+                  debug "skipping #{rh.id} with startdate #{rh.startdate} and enddate #{rh.enddate}"
+                  sd = @cs 
+                else
+                  sd = rh.startdate
+                end
+              else
+                sd = rh.startdate
+              end
+              ret_str << handle_cells(date, sd)
+              date = sd
+              debug "set date to #{date}"
+            end
+          end 
+        end
+        if @option.use_closed && date >= @ce
+          @cs = @cs.change(:year => @cs.year + 1)
+          @ce = @ce.change(:year => @ce.year + 1)
+          debug "changing cs year to #{@cs.year}"
+        end
       else
-	debug "\nspace #{space.name} no reservations"
-        # no reservations on this space
-	debug "available enddate is #{@endDate}"
-	ret_str << handle_cells(@startDate, @endDate)
+        debug "\nspace #{space.name} no reservations"
+              # no reservations on this space
+        debug "available enddate is #{@endDate}"
+        ret_str << handle_cells(@startDate, @endDate)
       end
       ret_str << "</tr>\n"
     end
@@ -715,21 +715,11 @@ module RemotereservationHelper
       cnt = enddate - startdate
       cnt = cnt > 1 ? cnt : 1
     end
-    debug "count for #{res.id}, #{res.camper.full_name} #{res.startdate} to #{res.enddate} is #{cnt}"
     debug "startdate is #{startdate}, enddate is #{enddate}, this_date is #{this_date}"
     return cnt
   end
 
   def trunc_name(cnt, res)
-    name_cnt = (cnt * 2).to_i
-    if res.camper.full_name.size > name_cnt
-      if res.camper.last_name.size > name_cnt
-	res.camper.last_name[0,name_cnt]
-      else
-        res.camper.last_name
-      end
-    else
-      res.camper.full_name
-    end
+    
   end
 end

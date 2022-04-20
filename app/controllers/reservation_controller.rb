@@ -791,7 +791,7 @@ class ReservationController < ApplicationController
 			end
 		else
 			if @reservation.checked_in? && ((Date.today - @reservation.startdate  ) <= 2 ) 
-				if @option.use_login? && session[:user_id] != nil && @user_login.admin?
+				if @option.use_login? && session[:user_id] != nil
 					@cancel_ci = true
 				elsif !@option.use_login?
 					@cancel_ci = true
@@ -929,7 +929,7 @@ class ReservationController < ApplicationController
 		# getcurrentyear = currentDate.year
 		# getcurrentmonth = currentDate.mon
 		# getendofcurrentdate = Date.parse("2021-12-31")
-		res = Reservation.all( :conditions => [ "(enddate >= ? or checked_in = ?) and confirm = ? and archived = ?",currentDate, true, true, false],
+		res = Reservation.all( :conditions => [ "(enddate >= ? or checked_in = ?) and confirm = ? and archived = ? or unconfirmed_remote = ? or unconfirmed_remote = ?",currentDate, true, true, false, true, false],
 		:include => ['camper'],
 				 :order => "space_id,startdate ASC")
 		# check for conflicts aka double booking
@@ -980,7 +980,7 @@ class ReservationController < ApplicationController
 		# getcurrentyear = currentDate.year
 		# getcurrentmonth = currentDate.mon
 		# getendofcurrentdate = Date.parse("2021-12-31")
-		res = Reservation.all( :conditions => [ "(enddate >= ? or checked_in = ?) and confirm = ? and archived = ?",currentDate, true, true, false],
+		res = Reservation.all( :conditions => [ "(enddate >= ? or checked_in = ?) and confirm = ? and archived = ? or unconfirmed_remote = ? or unconfirmed_remote = ?",currentDate, true, true, false, true, false],
 		:include => ['camper'],
 				 :order => "space_id,startdate ASC")
 		# check for conflicts aka double booking
@@ -1032,7 +1032,7 @@ class ReservationController < ApplicationController
 		# getcurrentyear = currentDate.year
 		# getcurrentmonth = currentDate.mon
 		# getendofcurrentdate = Date.parse("2021-12-31")
-		res = Reservation.all( :conditions => [ "(enddate >= ? or checked_in = ?) and confirm = ? and archived = ?",currentDate, true, true, false],
+		res = Reservation.all( :conditions => [ "(enddate >= ? or checked_in = ?) and confirm = ? and archived = ? or unconfirmed_remote = ? or unconfirmed_remote = ?",currentDate, true, true, false, true, false],
 		:include => ['camper'],
 				 :order => "space_id,startdate ASC")
 		# check for conflicts aka double booking
@@ -1084,7 +1084,7 @@ class ReservationController < ApplicationController
 		# getcurrentyear = currentDate.year
 		# getcurrentmonth = currentDate.mon
 		# getendofcurrentdate = Date.parse("2021-12-31")
-		res = Reservation.all( :conditions => [ "(enddate >= ? or checked_in = ?) and confirm = ? and archived = ?",currentDate, true, true, false],
+		res = Reservation.all( :conditions => [ "(enddate >= ? or checked_in = ?) and confirm = ? and archived = ? or unconfirmed_remote = ? or unconfirmed_remote = ?",currentDate, true, true, false, true, false],
 		:include => ['camper'],
 				 :order => "space_id,startdate ASC")
 		# check for conflicts aka double booking

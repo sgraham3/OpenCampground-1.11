@@ -420,7 +420,11 @@ module ReservationHelper
                 end
               end
             end
-            title = r.camper.full_name + ', '
+            if r.camper
+              title = r.camper.full_name + ', '
+            else
+              title = ''
+            end
             title << I18n.l(r.startdate, :format => :short) + I18n.t('reservation.To') + I18n.l(r.enddate, :format => :short)
             amountDue = r.total + r.tax_amount - getReservedPayments(r.id)
             if session[:admin_status]
@@ -711,7 +715,11 @@ module ReservationHelper
                 end
               end
             end
-            title = r.camper.full_name + ', '
+            if r.camper
+              title = r.camper.full_name + ', '
+            else
+              title = ''
+            end
             title << I18n.l(r.startdate, :format => :short) + I18n.t('reservation.To') + I18n.l(r.enddate, :format => :short)
             if admin_status
               if controllerName == "reservation"
@@ -854,7 +862,11 @@ module ReservationHelper
                 end
               end
             end
-            title = r.camper.full_name + ', '
+            if r.camper
+              title = r.camper.full_name + ', '
+            else
+              title = ''
+            end
             title << I18n.l(r.startdate, :format => :short) + I18n.t('reservation.To') + I18n.l(r.enddate, :format => :short)
             if admin_status
               if controllerName == "reservation"
@@ -912,14 +924,18 @@ module ReservationHelper
 
   def trunc_name(cnt, res)
     name_cnt = (cnt * 2).to_i
-    if res.camper.full_name.size > name_cnt
-      if res.camper.last_name.size > name_cnt
-	res.camper.last_name[0,name_cnt]
+    if res.camper
+      if res.camper.full_name.size > name_cnt
+        if res.camper.last_name.size > name_cnt
+          res.camper.last_name[0,name_cnt]
+        else
+          res.camper.last_name
+        end
       else
-        res.camper.last_name
+        res.camper.full_name
       end
     else
-      res.camper.full_name
+      return ""
     end
   end
 

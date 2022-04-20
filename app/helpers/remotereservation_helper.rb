@@ -374,9 +374,9 @@ module RemotereservationHelper
     ret_str = ''
     av_init
 
-    res = Reservation.all( :conditions => [ "(enddate >= ? or checked_in = ?) and confirm = ? and archived = ? or unconfirmed_remote = ?",currentDate, true, true, false, true],
-    :include => ['camper'],
-			   :order => "space_id,startdate ASC")
+    res = Reservation.all( :conditions => [ "(enddate >= ? or checked_in = ?) and confirm = ? and archived = ? or unconfirmed_remote = ? or unconfirmed_remote = ?",currentDate, true, true, false, true, false],
+		:include => ['camper'],
+				 :order => "space_id,startdate ASC")
     # check for conflicts aka double booking
     res.each do |r|
       sp = Space.confirm_available r.id, r.space_id, r.startdate, r.enddate

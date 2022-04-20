@@ -9,13 +9,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 106) do
+ActiveRecord::Schema.define(:version => 87) do
 
   create_table "archives", :force => true do |t|
     t.string  "name",              :limit => 66,                                :default => "",    :null => false
     t.string  "address",           :limit => 32
     t.string  "city",              :limit => 32
-    t.string  "state",             :limit => 16
+    t.string  "state",             :limit => 4
     t.string  "mail_code",         :limit => 12
     t.integer "adults",            :limit => 2,                                 :default => 2
     t.integer "pets",              :limit => 2,                                 :default => 0
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(:version => 106) do
     t.date    "enddate"
     t.decimal "deposit",                          :precision => 8, :scale => 2, :default => 0.0
     t.decimal "total_charge",                     :precision => 8, :scale => 2, :default => 0.0
-    t.text    "special_request"
+    t.string  "special_request"
     t.integer "slides",            :limit => 1,                                 :default => 0
     t.integer "length",            :limit => 3
     t.integer "rig_age",           :limit => 3
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(:version => 106) do
     t.string  "email",             :limit => 128
     t.string  "country",           :limit => 32
     t.date    "canceled"
-    t.text    "extras"
+    t.string  "extras"
     t.text    "tax_str"
     t.string  "idnumber",          :limit => 24
     t.text    "log"
@@ -87,8 +87,8 @@ ActiveRecord::Schema.define(:version => 106) do
   create_table "card_transactions", :force => true do |t|
     t.string   "account"
     t.string   "expiry"
-    t.decimal  "amount",                       :precision => 12, :scale => 2, :default => 0.0
-    t.string   "currency",                                                    :default => "USD"
+    t.decimal  "amount",         :precision => 12, :scale => 2, :default => 0.0
+    t.string   "currency",                                      :default => "USD"
     t.string   "retref"
     t.integer  "reservation_id"
     t.string   "authcode"
@@ -118,14 +118,7 @@ ActiveRecord::Schema.define(:version => 106) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "process_mode"
-    t.string   "cvv2",                                                        :default => ""
-    t.string   "orderid",        :limit => 20
-    t.string   "bintype",        :limit => 20
-    t.string   "entrymode",      :limit => 25
-    t.string   "commcard",       :limit => 2
-    t.text     "emv"
-    t.text     "emvTagData"
-    t.text     "receiptData"
+    t.string   "cvv2",                                          :default => ""
   end
 
   add_index "card_transactions", ["reservation_id"], :name => "index_card_transactions_on_reservation_id"
@@ -145,37 +138,6 @@ ActiveRecord::Schema.define(:version => 106) do
 
   add_index "charges", ["reservation_id"], :name => "index_charges_on_reservation_id"
   add_index "charges", ["start_date"], :name => "index_charges_on_start_date"
-
-  create_table "ck_transactions", :force => true do |t|
-    t.boolean  "receiptData",                                    :default => false
-    t.integer  "process_mode"
-    t.string   "token"
-    t.decimal  "amount",          :precision => 12, :scale => 2, :default => 0.0
-    t.string   "currency",                                       :default => "USD"
-    t.integer  "reservation_id"
-    t.string   "month"
-    t.string   "year"
-    t.string   "card_brand"
-    t.string   "action"
-    t.string   "result"
-    t.string   "status"
-    t.string   "error"
-    t.string   "authcode"
-    t.string   "retref"
-    t.string   "batchid"
-    t.string   "avscode"
-    t.string   "avsresp"
-    t.string   "cvvcode"
-    t.string   "cvvtext"
-    t.string   "respcode"
-    t.string   "resptext"
-    t.string   "masked_card_num"
-    t.integer  "payment_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "ck_transactions", ["reservation_id"], :name => "index_ck_transactions_on_reservation_id"
 
   create_table "colors", :force => true do |t|
     t.string "name"
@@ -217,18 +179,6 @@ ActiveRecord::Schema.define(:version => 106) do
     t.decimal "amount_monthly",                   :precision => 12, :scale => 5, :default => 0.0
     t.integer "position"
     t.boolean "active",                                                          :default => true
-    t.integer "duration",                                                        :default => 0
-    t.integer "duration_units",                                                  :default => 1
-    t.integer "delay",                                                           :default => 0
-    t.integer "delay_units",                                                     :default => 1
-    t.boolean "sunday",                                                          :default => true
-    t.boolean "monday",                                                          :default => true
-    t.boolean "tuesday",                                                         :default => true
-    t.boolean "wednesday",                                                       :default => true
-    t.boolean "thursday",                                                        :default => true
-    t.boolean "friday",                                                          :default => true
-    t.boolean "saturday",                                                        :default => true
-    t.boolean "show_on_remote",                                                  :default => true
   end
 
   add_index "discounts", ["position"], :name => "index_discounts_on_position"
@@ -259,8 +209,6 @@ ActiveRecord::Schema.define(:version => 106) do
     t.string  "remote_res_subject",                       :default => "Reservation Received"
     t.string  "remote_res_confirm_subject",               :default => "Reservation Confirmed"
     t.string  "remote_res_reject_subject",                :default => "Reservation Not Confirmed"
-    t.string  "reservation_cancel_subject",               :default => "Reservation Cancelled"
-    t.string  "monthly_subject",                          :default => "Monthly reservation payments"
   end
 
   create_table "extra_charges", :force => true do |t|
@@ -287,23 +235,21 @@ ActiveRecord::Schema.define(:version => 106) do
   add_index "extra_charges", ["reservation_id"], :name => "index_extra_charges_on_reservation_id"
 
   create_table "extras", :force => true do |t|
-    t.string  "name",            :limit => 32
-    t.boolean "counted",                                                      :default => false
-    t.decimal "daily",                         :precision => 10, :scale => 2, :default => 0.0
-    t.decimal "weekly",                        :precision => 10, :scale => 2, :default => 0.0
-    t.decimal "monthly",                       :precision => 10, :scale => 2, :default => 0.0
-    t.boolean "onetime",                                                      :default => false
-    t.decimal "charge",                        :precision => 10, :scale => 2, :default => 0.0
-    t.boolean "measured",                                                     :default => false
-    t.decimal "rate",                          :precision => 12, :scale => 6, :default => 0.0
-    t.string  "unit_name",       :limit => 32
-    t.boolean "occasional",                                                   :default => false
-    t.integer "extra_type",                                                   :default => 0
+    t.string  "name",           :limit => 32
+    t.boolean "counted",                                                     :default => false
+    t.decimal "daily",                        :precision => 10, :scale => 2, :default => 0.0
+    t.decimal "weekly",                       :precision => 10, :scale => 2, :default => 0.0
+    t.decimal "monthly",                      :precision => 10, :scale => 2, :default => 0.0
+    t.boolean "onetime",                                                     :default => false
+    t.decimal "charge",                       :precision => 10, :scale => 2, :default => 0.0
+    t.boolean "measured",                                                    :default => false
+    t.decimal "rate",                         :precision => 12, :scale => 6, :default => 0.0
+    t.string  "unit_name",      :limit => 32
+    t.boolean "occasional",                                                  :default => false
+    t.integer "extra_type",                                                  :default => 0
     t.integer "position"
-    t.boolean "remote_display",                                               :default => true
-    t.boolean "active",                                                       :default => true
-    t.boolean "required",                                                     :default => false
-    t.boolean "remote_required",                                              :default => false
+    t.boolean "remote_display",                                              :default => true
+    t.boolean "active",                                                      :default => true
   end
 
   add_index "extras", ["position"], :name => "index_extras_on_position"
@@ -352,15 +298,6 @@ ActiveRecord::Schema.define(:version => 106) do
     t.boolean  "cc_display_amount",                 :default => false
     t.boolean  "cc_use_cvv",                        :default => true
     t.boolean  "cc_use_zip",                        :default => true
-    t.boolean  "use_pmt_dropdown",                  :default => false
-    t.string   "ck_api"
-  end
-
-  create_table "mail_attachments", :force => true do |t|
-    t.integer  "template_id"
-    t.string   "file_name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "mail_templates", :force => true do |t|
@@ -523,15 +460,6 @@ ActiveRecord::Schema.define(:version => 106) do
     t.boolean "all_troubleshoot",                                                        :default => false
     t.boolean "use_variable_charge",                                                     :default => false
     t.boolean "all_manage_variable",                                                     :default => true
-    t.string  "phone_home"
-    t.boolean "use_measured_emails",                                                     :default => false
-    t.boolean "use_long_term",                                                           :default => false
-    t.boolean "require_rigtype",                                                         :default => false
-    t.boolean "require_length",                                                          :default => false
-    t.boolean "require_age",                                                             :default => false
-    t.string  "font_family",                                                             :default => "serif"
-    t.integer "font_size",                                                               :default => 9
-    t.integer "sa_font_size",                                                            :default => 13
   end
 
   create_table "payments", :force => true do |t|
@@ -546,22 +474,9 @@ ActiveRecord::Schema.define(:version => 106) do
     t.string   "name",           :limit => 32
     t.date     "pmt_date"
     t.decimal  "cc_fee",                       :precision => 6,  :scale => 2, :default => 0.0
-    t.boolean  "refundable",                                                  :default => false
   end
 
   add_index "payments", ["reservation_id"], :name => "index_payments_on_reservation_id"
-
-  create_table "paypal_transactions", :force => true do |t|
-    t.decimal  "amount",         :precision => 12, :scale => 2, :default => 0.0
-    t.integer  "reservation_id"
-    t.integer  "payment_id"
-    t.string   "encrypted"
-    t.string   "url"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "paypal_transactions", ["reservation_id"], :name => "index_paypal_transactions_on_reservation_id"
 
   create_table "prices", :force => true do |t|
     t.string "name", :limit => 32, :default => "", :null => false
@@ -614,54 +529,51 @@ ActiveRecord::Schema.define(:version => 106) do
   end
 
   create_table "reservations", :force => true do |t|
-    t.integer  "camper_id",                                                        :default => 0,     :null => false
-    t.integer  "rigtype_id",          :limit => 3,                                 :default => 0,     :null => false
-    t.integer  "space_id",                                                         :default => 0,     :null => false
+    t.integer  "camper_id",                                                       :default => 0,     :null => false
+    t.integer  "rigtype_id",          :limit => 3,                                :default => 0,     :null => false
+    t.integer  "space_id",                                                        :default => 0,     :null => false
     t.integer  "discount_id"
     t.integer  "group_id"
-    t.date     "startdate",                                                                           :null => false
-    t.date     "enddate",                                                                             :null => false
-    t.decimal  "deposit",                           :precision => 8,  :scale => 2, :default => 0.0
-    t.decimal  "override_total",                    :precision => 8,  :scale => 2, :default => 0.0
-    t.text     "special_request"
-    t.integer  "slides",              :limit => 1,                                 :default => 0
-    t.integer  "length",              :limit => 3,                                 :default => 0
-    t.integer  "rig_age",             :limit => 3,                                 :default => 0
+    t.date     "startdate",                                                                          :null => false
+    t.date     "enddate",                                                                            :null => false
+    t.decimal  "deposit",                           :precision => 8, :scale => 2, :default => 0.0
+    t.decimal  "override_total",                    :precision => 8, :scale => 2, :default => 0.0
+    t.string   "special_request"
+    t.integer  "slides",              :limit => 1,                                :default => 0
+    t.integer  "length",              :limit => 3,                                :default => 0
+    t.integer  "rig_age",             :limit => 3,                                :default => 0
     t.string   "vehicle_license",     :limit => 20
     t.string   "vehicle_state",       :limit => 16
-    t.boolean  "checked_in",                                                       :default => false
-    t.integer  "adults",              :limit => 2,                                 :default => 2
-    t.integer  "pets",                :limit => 2,                                 :default => 0
-    t.integer  "kids",                :limit => 2,                                 :default => 0
-    t.integer  "lock_version",                                                     :default => 0
-    t.decimal  "total",                             :precision => 8,  :scale => 2, :default => 0.0
-    t.boolean  "confirm",                                                          :default => false
+    t.boolean  "checked_in",                                                      :default => false
+    t.integer  "adults",              :limit => 2,                                :default => 2
+    t.integer  "pets",                :limit => 2,                                :default => 0
+    t.integer  "kids",                :limit => 2,                                :default => 0
+    t.integer  "lock_version",                                                    :default => 0
+    t.decimal  "total",                             :precision => 8, :scale => 2, :default => 0.0
+    t.boolean  "confirm",                                                         :default => false
     t.datetime "created_at"
-    t.decimal  "ext_charges",                       :precision => 6,  :scale => 2, :default => 0.0
+    t.decimal  "ext_charges",                       :precision => 6, :scale => 2, :default => 0.0
     t.text     "tax_str"
-    t.decimal  "tax_amount",                        :precision => 6,  :scale => 2, :default => 0.0
-    t.boolean  "unconfirmed_remote",                                               :default => false
+    t.decimal  "tax_amount",                        :precision => 6, :scale => 2, :default => 0.0
+    t.boolean  "unconfirmed_remote",                                              :default => false
     t.text     "log"
     t.string   "vehicle_license_2",   :limit => 20
     t.string   "vehicle_state_2",     :limit => 16
-    t.integer  "recommender_id",                                                   :default => 0
-    t.decimal  "seasonal_rate",                     :precision => 8,  :scale => 2, :default => 0.0
-    t.decimal  "seasonal_charges",                  :precision => 8,  :scale => 2, :default => 0.0
-    t.boolean  "seasonal",                                                         :default => false
+    t.integer  "recommender_id",                                                  :default => 0
+    t.decimal  "seasonal_rate",                     :precision => 8, :scale => 2, :default => 0.0
+    t.decimal  "seasonal_charges",                  :precision => 8, :scale => 2, :default => 0.0
+    t.boolean  "seasonal",                                                        :default => false
     t.string   "gateway_transaction"
-    t.decimal  "onetime_discount",                  :precision => 8,  :scale => 2, :default => 0.0
-    t.boolean  "archived",                                                         :default => false
+    t.decimal  "onetime_discount",                  :precision => 8, :scale => 2, :default => 0.0
+    t.boolean  "archived",                                                        :default => false
     t.date     "updated_on"
-    t.boolean  "storage",                                                          :default => false
+    t.boolean  "storage",                                                         :default => false
     t.datetime "updated_at"
-    t.integer  "sitetype_id",                                                      :default => 0
+    t.integer  "sitetype_id",                                                     :default => 0
     t.integer  "next"
     t.integer  "prev"
-    t.boolean  "cancelled",                                                        :default => false
-    t.boolean  "checked_out",                                                      :default => false
-    t.boolean  "long_term_monthly",                                                :default => false
-    t.decimal  "cancel_charge",                     :precision => 10, :scale => 5, :default => 0.0,   :null => false
-    t.integer  "is_remote"                                                         :default => 0
+    t.boolean  "cancelled",                                                       :default => false
+    t.boolean  "checked_out",                                                     :default => false
   end
 
   add_index "reservations", ["enddate"], :name => "index_reservations_on_enddate"
@@ -687,10 +599,9 @@ ActiveRecord::Schema.define(:version => 106) do
   end
 
   create_table "sitetypes", :force => true do |t|
-    t.string  "name",      :limit => 32, :default => "",    :null => false
+    t.string  "name",     :limit => 32, :default => "",   :null => false
     t.integer "position"
-    t.boolean "active",                  :default => true
-    t.boolean "long_term",               :default => false
+    t.boolean "active",                 :default => true
   end
 
   add_index "sitetypes", ["position"], :name => "index_sitetypes_on_position"

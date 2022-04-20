@@ -374,9 +374,9 @@ module RemoteHelper
     ret_str = ''
     av_init
 
-    res = Reservation.all( :conditions => [ "(enddate >= ? or checked_in = ?) and confirm = ? and archived = ?",currentDate, true, true, false],
-    :include => ['camper'],
-			   :order => "space_id,startdate ASC")
+    res = Reservation.all( :conditions => [ "(enddate >= ? or checked_in = ?) and confirm = ? and archived = ? or unconfirmed_remote = ? or unconfirmed_remote = ?",currentDate, true, true, false, true, false],
+		:include => ['camper'],
+				 :order => "space_id,startdate ASC")
     # check for conflicts aka double booking
     res.each do |r|
       sp = Space.confirm_available r.id, r.space_id, r.startdate, r.enddate
@@ -715,7 +715,6 @@ module RemoteHelper
       cnt = enddate - startdate
       cnt = cnt > 1 ? cnt : 1
     end
-    debug "count for #{res.id}, #{res.camper.full_name} #{res.startdate} to #{res.enddate} is #{cnt}"
     debug "startdate is #{startdate}, enddate is #{enddate}, this_date is #{this_date}"
     return cnt
   end

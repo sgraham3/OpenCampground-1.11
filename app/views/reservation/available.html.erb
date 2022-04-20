@@ -1,22 +1,43 @@
-<div class="d-flex">
-  <%= button_to I18n.t('reservation.DownloadData'), :action => 'available_csv', :id => 'btn_download' %>
-  <input type="date" id="custom_date" class="custom_date" onchange="refreshTable()" style="margin-top:5px">
-  <input type="button" value="Back" onclick="PrevRes()" class="customArrow" style="margin-left:40px">
-  <input type="button" value="Forward" onclick="NextRes()" class="customArrow">
-</div>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
-<br>
-<% if session[:admin_status] %>
-  <div style="display:flex">
+<div class="elements" style="padding-bottom:15px;background-color:WhiteSmoke">
+  <div class="d-flex">
+    <%= button_to I18n.t('reservation.DownloadData'), :action => 'available_csv', :id => 'btn_download' %>
+    <input type="date" id="custom_date" class="custom_date" onchange="refreshTable()" style="margin-top:5px;margin-left:5px">
+    <a href="../images/sitemap.jpg" onclick="goclicky(this); return false;" target="_blank" class="sitemap" style="padding: 5px 12px;margin-left:40px">Site Map</a>
     <span class="occupied"><%= I18n.t('reservation.Occupied') %></span>
     <span class="reserved"><%= I18n.t('reservation.Reserved') %></span>
     <span class="late"><%= I18n.t('reservation.NotCheckedIn') %></span>
     <span class="unavailable"><%= I18n.t('reservation.Flash.SpaceUnavailable') %></span>
-    <span class="today"><%= I18n.t('reservation.Today') %></span>
   </div>
-  <br>
-<% end %>
+
+  <div class="row elements" style="background: none">
+    <span id="lblStatus" class="d-none">startdate</span>
+    <span id="startDateColumnIndex" class="d-none"></span>
+    <span id="endDateColumnIndex" class="d-none"></span>
+    <span id="startDateRowIndex" class="d-none"></span>
+    <div class="col-md-2 d-flex">
+      <input type="button" value="Back" onclick="PrevRes()" class="customArrow">
+      <input type="button" value="Clear" class="btnClear" onclick="clearSelect()">
+    </div>
+    <div class="col-md-8" id="explanation">
+      <span id="txtExplanation"><%= I18n.t('reservation.SelectStartDate') %></span>
+      <form action="/reservation/express_2" method="post" id="completeResForm" class="d-none">
+        <input type="text" id="selectedStartDate" name="reservation[startdate]" class="d-none">
+        <input type="text" id="selectedEndDate" name="reservation[enddate]" class="d-none">
+        <input type="hidden" name="is_remote" value="false">
+        <span id="spaces" class="d-none">
+          <%= render :partial => 'space_pulldown' %>
+        </span>
+        <%= submit_tag I18n.t('reservation.CompleteReservation'), :id => "btnCompleteRes" %>
+      </form>
+    </div>
+    <div class="col-md-2" style="text-align:right">
+      <input type="button" value="Forward" onclick="NextRes()" class="customArrow" style="margin-right:10px">
+    </div>
+  </div>
+</div>
+
 <div id="available_div">
-  <div id="available_head" style="z-index:1;top:0px" class="position-sticky">
+  <div id="available_head" style="z-index:1;top:125px" class="position-sticky">
     <%= header -%>
   </div>
   <table id="available" style="z-index:0" class="available" cellspacing="0" admin-session="<%= session[:admin_status] %>">
@@ -27,6 +48,8 @@
 </div>
 <script type="text/JavaScript">
   document.getElementById('custom_date').valueAsDate = new Date();
+  var tblHeight = getComputedStyle(document.getElementById("available_div"))["height"];
+  document.getElementById('columns').style.cssText += "height: " + tblHeight;
 
   //calc real width of cells and set width.
   var thElement = document.querySelectorAll('#lockedHeadDay')[0].childNodes[0].childNodes[0];
@@ -44,10 +67,6 @@
     var ths = document.querySelectorAll('.header-th');
     ths[i].style.cssText += "min-width: " + realWidth + "px";
   }
-
-  document.addEventListener('scroll', function(e) {
-    document.querySelector("#available_head").style.cssText += "top: 0px !important";
-  });
 
   //add link to available td
   var cells = document.querySelectorAll(".available td");
@@ -68,7 +87,7 @@
   function handler(param) {
     var parentTr = param.parentElement;
     var spaceTxt = parentTr.getElementsByTagName("td")[0].textContent;
-    var startSpace = "";
+    var lblStatus = document.getElementById("lblStatus").textContent;
     if(parentTr.getAttribute("hasspace") != "true") {
       var cellIndex = param.cellIndex;
       var currentTh = document.querySelectorAll('#flexDiv')[0].childNodes[cellIndex];
@@ -96,8 +115,115 @@
       var start_month = currentTh.childNodes[3].textContent;
       var start_date = currentTh.childNodes[2].textContent;
     }
-    console.log(spaceTxt+"@"+start_year+"@"+start_month+"@"+start_date);
-    location.href = "/reservation/express?" + "start_year=" + start_year + "&start_month=" + getMonthFromString(start_month) + "&start_date=" + start_date + "&space=" + spaceTxt;
+    if(lblStatus == "startdate") {
+      document.getElementById("txtExplanation").innerHTML = "<%= I18n.t('reservation.SelectEndDate') %>";
+      document.getElementById("explanation").classList.add("slide-right");
+      document.getElementById("lblStatus").innerText = "enddate";
+
+      var spaceSelect = document.getElementsByName("space[space_id]")[0];
+      for (var i = 0; i < spaceSelect.options.length; ++i) {
+          if (spaceSelect.options[i].text === spaceTxt) {
+            spaceSelect.options[i].selected = true;
+          }  
+      }
+
+      document.getElementById("startDateColumnIndex").textContent = cellIndex;
+      document.getElementById("startDateRowIndex").textContent = parentTr.rowIndex;
+      document.getElementById("selectedStartDate").value = start_date+"+"+start_month+"+"+start_year;
+      param.style.background = "darkGray";
+      param.style.cursor = "auto";
+    }else if(lblStatus == "enddate"){
+      var selectSpace = document.getElementById("space_space_id");
+      var space_space_id = selectSpace.options[selectSpace.selectedIndex].text;
+
+      if(param.parentElement.getElementsByTagName("td")[0].textContent != space_space_id) {
+        alert("You can only select end date from the same space");
+        return;
+      }
+
+      var selectedStartDate = document.getElementById("selectedStartDate").value;
+      var arrStart = selectedStartDate.split("+");
+      var strStart = arrStart[1] + " " + arrStart[0] + ", " + arrStart[2];
+      var startDate = Date.parse(strStart);
+
+      var strtemp = start_month + " " + start_date + ", " + start_year;
+      var datetemp = Date.parse(strtemp);
+
+      if(datetemp <= startDate) {
+        alert("The end date must be later than the start date");
+        return;
+      }
+      const spanElement = document.getElementById("txtExplanation");
+      const form = document.getElementById("completeResForm");
+      form.classList.remove("d-none");
+      if(screen.width >= 500) {
+        form.style.marginTop = "-8px";
+      }else{
+        form.style.marginBottom = "12px";
+      }
+      spanElement.style.display = "none";
+      form.style.display = "block";
+      document.getElementById("lblStatus").innerText = "complete";
+      document.getElementById("endDateColumnIndex").textContent = cellIndex;
+      document.getElementById("selectedEndDate").value = start_date+"+"+start_month+"+"+start_year;
+      param.style.background = "darkGray";
+      setCellHighlighted();
+    }
+  }
+  function clearSelect() {
+    document.getElementById("space_space_id").value = "";
+    document.getElementById("selectedStartDate").value = "";
+    document.getElementById("selectedEndDate").value = "";
+    document.getElementById("lblStatus").textContent = "startdate";
+    document.getElementById("startDateColumnIndex").textContent = "";
+    document.getElementById("endDateColumnIndex").textContent = "";
+    document.getElementById("startDateRowIndex").textContent = "";
+    document.getElementById("completeResForm").classList.add("d-none");
+    document.getElementById("txtExplanation").style.display = "block";
+    document.getElementById("txtExplanation").innerHTML = "<%= I18n.t('reservation.SelectStartDate') %>";
+    document.getElementById("explanation").classList.remove("slide-right");
+    let cells = document.querySelectorAll(".available td");
+    for (var i = 0; i < cells.length; i++) {
+      if (cells[i].hasChildNodes()) {
+        if(cells[i].childNodes[0].tagName == "A") {
+          cells[i].parentElement.setAttribute("hasspace", "true");
+        }
+      }else{  
+        cells[i].style.backgroundColor = "white";
+      }
+    }
+  }
+  function setCellHighlighted() {
+    var selectedStartDate = document.getElementById("selectedStartDate").value;
+    var selectedEndDate = document.getElementById("selectedEndDate").value;
+    var selectSpace = document.getElementById("space_space_id");
+    var space_space_id = selectSpace.options[selectSpace.selectedIndex].text;
+    var arrStart = selectedStartDate.split("+");
+    var arrEnd = selectedEndDate.split("+");
+    var strStart = arrStart[1] + " " + arrStart[0] + ", " + arrStart[2];
+    var strEnd = arrEnd[1] + " " + arrEnd[0] + ", " + arrEnd[2];
+    var startDate = Date.parse(strStart);
+    var endDate = Date.parse(strEnd);
+    let cells = document.querySelectorAll(".available td");
+    for (var i = 0; i < cells.length; i++) {
+      var tempIndex = cells[i].cellIndex;
+      if(tempIndex != 0) {
+        var tempTh = document.querySelectorAll('#flexDiv')[0].childNodes[tempIndex];
+        var temp_year = tempTh.childNodes[0].getAttribute("year");
+        var temp_month = tempTh.childNodes[3].textContent;
+        var temp_date = tempTh.childNodes[2].textContent;
+        var tempDate = Date.parse(temp_month + " " + temp_date + ", " + temp_year);
+        var temp_space = cells[i].parentElement.getElementsByTagName("td")[0].textContent;
+        if (space_space_id == temp_space) {
+          if(!endDate && startDate == tempDate) {
+            cells[i].style.cssText += "cursor:auto;background-color:darkgray";
+          }
+          if(tempDate <=endDate && tempDate >= startDate) {
+            cells[i].style.cssText += "cursor:auto;background-color:darkgray";
+          }
+        }
+      }
+    }
   }
   function refreshTable() {
     let start_date = document.getElementById("custom_date").value;
@@ -111,7 +237,10 @@
           ths[i].style.cssText += "min-width: " + realWidth + "px";
         }
 
+        document.querySelector("#available_head").style.cssText += "top: 125px !important";
+
         addLinkToTd();
+        setCellHighlighted();
       }
     });
   }
@@ -136,7 +265,10 @@
           ths[i].style.cssText += "min-width: " + realWidth + "px";
         }
 
+        document.querySelector("#available_head").style.cssText += "top: 125px !important";
+
         addLinkToTd();
+        setCellHighlighted();
       }
     });
   }
@@ -159,7 +291,10 @@
           ths[i].style.cssText += "min-width: " + realWidth + "px";
         }
 
+        document.querySelector("#available_head").style.cssText += "top: 125px !important";
+
         addLinkToTd();
+        setCellHighlighted();
       }
     });
   }
@@ -178,6 +313,41 @@
         });
       }
     }
+  }
+  //Open a pop-up window in the center of the screen
+  function FindLeftWindowBoundry()
+  {
+    // In Internet Explorer window.screenLeft is the window's left boundry
+    if (window.screenLeft)
+    {
+      return window.screenLeft;
+    }
+    
+    // In Firefox window.screenX is the window's left boundry
+    if (window.screenX)
+      return window.screenX;
+      
+    return 0;
+  }
+  function FindTopWindowBoundry()
+  {
+    // In Internet Explorer window.screenLeft is the window's left boundry
+    if (window.screenTop)
+    {
+      return window.screenTop;
+    }
+    
+    // In Firefox window.screenY is the window's left boundry
+    if (window.screenY)
+      return window.screenY;
+      
+    return 0;
+  }
+  function goclicky(meh)
+  {
+      var x = screen.width/2 - 700/2 + FindLeftWindowBoundry();
+      var y = screen.height/2 - 450/2 + FindTopWindowBoundry();
+      window.open(meh.href, 'sharegplus','height=600,width=700,left='+x+',top='+y);
   }
 </script>
 

@@ -119,9 +119,7 @@ class ReservationController < ApplicationController
 		@storage_ok = false
 		# we will not save the res because if we will 
 		# need it later it is already saved
-		@spaces  = Space.available( @reservation.startdate,
-							@reservation.enddate,
-							@reservation.sitetype_id)
+		@spaces  = Space.all()
 		@count = @spaces.size
 		@extras = Extra.active
 		session[:canx_action] = 'abandon'

@@ -169,7 +169,6 @@
     }else if(lblStatus == "enddate"){
       var selectSpace = document.getElementById("space_space_id");
       var space_space_id = selectSpace.options[selectSpace.selectedIndex].text;
-
       if(param.parentElement.getElementsByTagName("td")[0].textContent != space_space_id) {
         alert("You can only select end date from the same space");
         return;
@@ -378,32 +377,30 @@
   function setCellHighlighted() {
     var selectedStartDate = document.getElementById("selectedStartDate").value;
     var selectedEndDate = document.getElementById("selectedEndDate").value;
-    var selectSpace = document.getElementById("space_space_id");
-    var space_space_id = selectSpace.options[selectSpace.selectedIndex].text;
     var arrStart = selectedStartDate.split("+");
     var arrEnd = selectedEndDate.split("+");
     var strStart = arrStart[1] + " " + arrStart[0] + ", " + arrStart[2];
     var strEnd = arrEnd[1] + " " + arrEnd[0] + ", " + arrEnd[2];
     var startDate = Date.parse(strStart);
     var endDate = Date.parse(strEnd);
-    let cells = document.querySelectorAll(".available td");
-    for (var i = 0; i < cells.length; i++) {
-      var tempIndex = cells[i].cellIndex;
-      if(tempIndex != 0) {
-        var tempTh = document.querySelectorAll('#flexDiv')[0].childNodes[tempIndex];
-        var temp_year = tempTh.childNodes[0].getAttribute("year");
-        var temp_month = tempTh.childNodes[3].textContent;
-        var temp_date = tempTh.childNodes[2].textContent;
-        var tempDate = Date.parse(temp_month + " " + temp_date + ", " + temp_year);
-        var temp_space = cells[i].parentElement.getElementsByTagName("td")[0].textContent;
-        if (space_space_id == temp_space) {
-          if(!endDate && startDate == tempDate) {
-            cells[i].style.cssText += "cursor:auto;background-color:darkgray";
-          }
-          if(tempDate <=endDate && tempDate >= startDate) {
-            cells[i].style.cssText += "cursor:auto;background-color:darkgray";
-          }
-        }
+
+    var spaceRowIndex = document.getElementById("startDateRowIndex").textContent;
+    var table = document.getElementById("available");
+    var spaceRow = table.rows[spaceRowIndex];
+
+    var j = spaceRow.childElementCount;
+    var temp = 0;
+    for(var i = 1; i < j ; i++) {
+      if(spaceRow.childNodes[i].getAttribute("colspan")){
+        temp += Number(spaceRow.childNodes[i].getAttribute("colspan")-1);
+      }
+      var tempTh = document.querySelectorAll('#flexDiv')[0].childNodes[i+temp];
+      var temp_year = tempTh.childNodes[0].getAttribute("year");
+      var temp_month = tempTh.childNodes[3].textContent;
+      var temp_date = tempTh.childNodes[2].textContent;
+      var tempDate = Date.parse(temp_month + " " + temp_date + ", " + temp_year);
+      if(tempDate <= endDate && tempDate >= startDate) {
+        spaceRow.childNodes[i].style.cssText += "cursor:auto;background-color:darkgray";
       }
     }
   }

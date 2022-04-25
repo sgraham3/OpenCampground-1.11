@@ -134,10 +134,13 @@
       for (let i = 0; i <= param.cellIndex; i++) {
         if (parentTr.childNodes[i].hasAttribute("colspan")) {
           var tempIndex = parentTr.childNodes[i].getAttribute("colspan");
-          tempCount += Number(tempIndex);
-          isColspan = 1;
+          if (tempIndex != "1") {
+            tempCount += Number(tempIndex);
+            isColspan = 1;
+          }
         }
       }
+      
       if(isColspan == 0) {
         var cellIndex = Number(param.cellIndex);
       }else{

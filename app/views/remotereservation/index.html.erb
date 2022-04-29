@@ -33,11 +33,11 @@
   </div>
   <div id="available_div">
     <div id="available_head" style="z-index:1;top:80px" class="position-sticky">
-      <%= header -%>
+      <%= header %>
     </div>
     <table id="available" style="z-index:0" class="available" cellspacing="0" admin-session="<%= session[:admin_status] %>">
       <tbody id="available_body">
-        <%= available() %>
+        <%= available(@res) %>
       </tbody>
     </table>
   </div>

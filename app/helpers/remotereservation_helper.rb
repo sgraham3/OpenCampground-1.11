@@ -364,7 +364,7 @@ module RemotereservationHelper
     ret_str << "</div></div>\n"
   end
 
-  def available()
+  def available(res_hash)
     #############################################
     # res_array is a hash of arrays of reservations
     # with the key being the space_id.  Each

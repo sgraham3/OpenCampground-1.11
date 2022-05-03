@@ -128,6 +128,7 @@
       var start_year = currentTh.childNodes[0].getAttribute("year");
       var start_month = currentTh.childNodes[3].textContent;
       var start_date = currentTh.childNodes[2].textContent;
+      var real_start_date = Number(start_date) + 1;
     }else{
       var tempCount = 0;
       var isColspan = 0;
@@ -151,6 +152,7 @@
       var start_year = currentTh.childNodes[0].getAttribute("year");
       var start_month = currentTh.childNodes[3].textContent;
       var start_date = currentTh.childNodes[2].textContent;
+      var real_start_date = Number(start_date) + 1;
     }
     if(lblStatus == "startdate") {
       document.getElementById("txtExplanation").innerHTML = "<%= I18n.t('reservation.SelectEndDate') %>";
@@ -185,7 +187,7 @@
       var strtemp = start_month + " " + start_date + ", " + start_year;
       var datetemp = Date.parse(strtemp);
 
-      if(datetemp <= startDate) {
+      if(datetemp < startDate) {
         alert("The end date must be later than the start date");
         return;
       }
@@ -201,7 +203,7 @@
       form.style.display = "block";
       document.getElementById("lblStatus").innerText = "complete";
       document.getElementById("endDateColumnIndex").textContent = cellIndex;
-      document.getElementById("selectedEndDate").value = start_date+"+"+start_month+"+"+start_year;
+      document.getElementById("selectedEndDate").value = real_start_date+"+"+start_month+"+"+start_year;
       param.style.background = "darkGray";
       setCellHighlighted();
     }
@@ -383,7 +385,7 @@
     var arrStart = selectedStartDate.split("+");
     var arrEnd = selectedEndDate.split("+");
     var strStart = arrStart[1] + " " + arrStart[0] + ", " + arrStart[2];
-    var strEnd = arrEnd[1] + " " + arrEnd[0] + ", " + arrEnd[2];
+    var strEnd = arrEnd[1] + " " + (Number(arrEnd[0])-1) + ", " + arrEnd[2];
     var startDate = Date.parse(strStart);
     var endDate = Date.parse(strEnd);
 

@@ -572,8 +572,12 @@ module ReservationHelper
                 end
               end
             end
-            title = r.camper.full_name + ', '
-            title << I18n.l(r.startdate, :format => :short) + I18n.t('reservation.To') + I18n.l(r.enddate, :format => :short)
+            if r.camper
+              title = r.camper.full_name + ', '
+              title << I18n.l(r.startdate, :format => :short) + I18n.t('reservation.To') + I18n.l(r.enddate, :format => :short)
+            else
+              title = ''
+            end
             if admin_status
               if controllerName == "reservation"
                 amountDue = r.total + r.tax_amount - getReservedPayments(r.id)

@@ -44,8 +44,14 @@
 </div>
 
 <script type="text/javascript">
-  document.getElementById('custom_date').valueAsDate = new Date();
 
+	var today = new Date();
+	var dd = String(today.getDate()).padStart(2, '0');
+	var mm = String(today.getMonth() + 1).padStart(2, '0'); 
+	var yyyy = today.getFullYear();
+	document.getElementById('custom_date').value = yyyy + '-' + mm + '-' + dd;
+
+  
   //calc real width of cells and set width.
   var thElement = document.querySelectorAll('#lockedHeadDay')[0].childNodes[0].childNodes[0];
   var cellsCount = document.querySelectorAll('#lockedHeadDay')[0].childNodes[0].childElementCount;

@@ -42,10 +42,8 @@ class Report::ReservationsController < ApplicationController
   end
 
   def remoteResReport
-    strtemp1 = params[:reservation]["startdate(1i)"].to_s + "-" + params[:reservation]["startdate(2i)"].to_s + "-" + params[:reservation]["startdate(3i)"].to_s
-    strtemp2 = params[:reservation]["enddate(1i)"].to_s + "-" + params[:reservation]["enddate(2i)"].to_s + "-" + params[:reservation]["enddate(3i)"].to_s
-    @startdate = Date.parse(strtemp1)
-    @enddate = Date.parse(strtemp2)
+    @startdate = DateTime.new(params[:reservation]["startdate(1i)"].to_i, params[:reservation]["startdate(2i)"].to_i, params[:reservation]["startdate(3i)"].to_i, 00, 00, 00).strftime('%Y-%-m-%d %H:%M:%S')
+    @enddate = DateTime.new(params[:reservation]["enddate(1i)"].to_i, params[:reservation]["enddate(2i)"].to_i, params[:reservation]["enddate(3i)"].to_i, 23, 59, 59).strftime('%Y-%-m-%d %H:%M:%S')
 
     @result = get_remotereservations("false", @startdate, @enddate)
 
@@ -53,10 +51,8 @@ class Report::ReservationsController < ApplicationController
   end
 
   def allResReport
-    strtemp1 = params[:reservation]["startdate(1i)"].to_s + "-" + params[:reservation]["startdate(2i)"].to_s + "-" + params[:reservation]["startdate(3i)"].to_s
-    strtemp2 = params[:reservation]["enddate(1i)"].to_s + "-" + params[:reservation]["enddate(2i)"].to_s + "-" + params[:reservation]["enddate(3i)"].to_s
-    @startdate = Date.parse(strtemp1)
-    @enddate = Date.parse(strtemp2)
+    @startdate = DateTime.new(params[:reservation]["startdate(1i)"].to_i, params[:reservation]["startdate(2i)"].to_i, params[:reservation]["startdate(3i)"].to_i, 00, 00, 00).strftime('%Y-%-m-%d %H:%M:%S')
+    @enddate = DateTime.new(params[:reservation]["enddate(1i)"].to_i, params[:reservation]["enddate(2i)"].to_i, params[:reservation]["enddate(3i)"].to_i, 23, 59, 59).strftime('%Y-%-m-%d %H:%M:%S')
 
     @result = get_remotereservations(params[:status], @startdate, @enddate)
 
@@ -71,10 +67,10 @@ private
 
   def get_remotereservations(status, sd, ed)
     if status == "true"
-      res = Reservation.all(:conditions => ["is_remote = ? and startdate <= ? and enddate >= ?", true, ed, sd],
+      res = Reservation.all(:conditions => ["is_remote = ? and created_at <= ? and created_at >= ?", true, ed, sd],
       :include => ["camper","space"], :order => :startdate)
     else
-      res = Reservation.all(:conditions => ["is_remote = ? and unconfirmed_remote = ? and startdate <= ? and enddate >= ?", true, true, ed, sd],
+      res = Reservation.all(:conditions => ["is_remote = ? and unconfirmed_remote = ? and created_at <= ? and created_at >= ?", true, true, ed, sd],
       :include => ["camper","space"], :order => :startdate)
     end
     

@@ -1,0 +1,64 @@
+<div class="nodisplay" style="text-align: center;"><b><%= @page_title %> </b> </div>
+<%= render :partial => 'report/shared/print' %>
+<form method="post" action="<%= report_reservations_path %>" class="button-to" style="display:flex;align-items:center">
+    <input type="hidden" name="csv" value="1" /> 
+    <input type="submit" value="Download Data" />
+    <input type="checkbox" class="chkRes" id="chkRes" onclick="getAllRes()">
+    <label for="checkbox">All reservations</label>
+</form>
+<b>Reservations</b>
+<table >
+    <tr>
+        <th>Space</th>
+        <th>start date</th>
+        <th>end date</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>City</th>
+        <th>State</th>
+        <th>ZIP</th>
+        <th>Net</th>
+        <th>Taxes</th>
+        <th>Payments</th>
+        <th>Disposition</th>
+    </tr>
+    <tbody id="remoteRes">
+        
+    </tbody>
+</table>
+<script>
+    var current_url = window.location.href;
+    const url = new URL(
+        current_url
+    );
+    var startDate = url.searchParams.get('startdate');
+    var endDate = url.searchParams.get('enddate');
+    var arr1 = startDate.split("-");
+    var arr2 = endDate.split("-");
+    
+    new Ajax.Request('/report/remoteResReport', {
+        parameters: {"reservation[startdate(1i)]": arr1[0], "reservation[startdate(2i)]": arr1[1], "reservation[startdate(3i)]": arr1[2], "reservation[enddate(1i)]": arr2[0], "reservation[enddate(2i)]": arr2[1], "reservation[enddate(3i)]": arr2[2]},
+        onSuccess: function(res) {
+            var response = res.responseJSON;
+            var xml = ''
+            for(var row of response) {
+                xml += '<tr><td>' + row[0] + '</td><td>' + row[1] + '</td><td>' + row[2] + '</td><td>' + row[3] + '</td><td>' +  row[4] + '</td><td>' +  row[5] + '</td><td>' +  row[6] + '</td><td>' +  row[7] + '</td><td>' +  row[8] + '</td><td>' +  row[9] + '</td><td>' +  row[10] + '</td><td>' + row[11] + '</td></tr>';
+            }
+            document.getElementById("remoteRes").innerHTML = xml;
+        }
+    });
+    function getAllRes() {
+        var status = document.getElementById("chkRes").checked;
+        new Ajax.Request('/report/allResReport', {
+            parameters: {"status": status, "reservation[startdate(1i)]": arr1[0], "reservation[startdate(2i)]": arr1[1], "reservation[startdate(3i)]": arr1[2], "reservation[enddate(1i)]": arr2[0], "reservation[enddate(2i)]": arr2[1], "reservation[enddate(3i)]": arr2[2]},
+            onSuccess: function(res) {
+                var response = res.responseJSON;
+                var xml = ''
+                for(var row of response) {
+                    xml += '<tr><td>' + row[0] + '</td><td>' + row[1] + '</td><td>' + row[2] + '</td><td>' + row[3] + '</td><td>' +  row[4] + '</td><td>' +  row[5] + '</td><td>' +  row[6] + '</td><td>' +  row[7] + '</td><td>' +  row[8] + '</td><td>' +  row[9] + '</td><td>' +  row[10] + '</td><td>' + row[11] + '</td></tr>';
+                }
+                document.getElementById("remoteRes").innerHTML = xml;
+            }
+        });
+    }
+</script>

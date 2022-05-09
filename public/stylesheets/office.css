@@ -509,13 +509,19 @@ input[type="submit"] {
 input[type="button"] {
     background-color: #ffffff;
     color: #000000;
-    padding: 6px 20px;
+    padding: 5.5px 20px;
     border: 1px solid #000000;
     border-radius: 5px;
     margin: 5px 5px 0px 0px;
     letter-spacing: .5px;
     font-size: 16px;
     cursor: pointer;
+}
+
+.chkRes {
+    width: 20px;
+    height: 20px;
+    margin-left: 50px !important;
 }
 
 #month {

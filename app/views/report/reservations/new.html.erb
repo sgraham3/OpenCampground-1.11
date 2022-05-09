@@ -3,5 +3,23 @@
 Select start and end dates for desired report:
 </b></p>
 <%= render :partial => 'report/shared/dates' %>
-<p> <%= submit_tag "Generate Report", :disable_with => "Processing..." %></p>
+<p> 
+    <%= submit_tag "reservations", :disable_with => "Processing..." %> 
+    <input type="button" value="date created" id="btnDateCreated" onclick="viewResversionsByDate()"> 
+</p>
 <% end %>
+
+<script>
+    function viewResversionsByDate() {
+        let startYear = document.getElementById("reservation_startdate_1i").value;
+        let startMonth = document.getElementById("reservation_startdate_2i").value;
+        let startDay = document.getElementById("reservation_startdate_3i").value;
+        let startDate = startYear + "-" + startMonth + "-" + startDay;
+        let endYear = document.getElementById("reservation_enddate_1i").value;
+        let endMonth = document.getElementById("reservation_enddate_2i").value;
+        let endDay = document.getElementById("reservation_enddate_3i").value;
+        let endDate = endYear + "-" + endMonth + "-" + endDay;
+
+        location.href = "/report/remotereservations?startdate=" + startDate + "&enddate=" + endDate;
+    }
+</script>

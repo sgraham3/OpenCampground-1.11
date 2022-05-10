@@ -87,7 +87,7 @@ private
         state = ''
         mail_code = ''
       end 
-      temp = [row.space.name, row.startdate, row.enddate, full_name, city, state, mail_code, number_2_currency(row.total), number_2_currency(row.tax_amount), number_2_currency(Payment.total(row.id)), row.last_log_entry]
+      temp = [row.id, row.space.name, row.startdate, row.enddate, full_name, city, state, mail_code, number_2_currency(row.total), number_2_currency(row.tax_amount), number_2_currency(Payment.total(row.id)), row.last_log_entry]
       result << temp
     end
     return result

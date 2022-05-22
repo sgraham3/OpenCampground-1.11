@@ -12,13 +12,13 @@
       <% if @option.use_remote_children? %>
         <td><%= I18n.t('reservation.Children') %>: <b><%= @reservation.kids %></b></td>
       <% end %>
-      <% if @option.use_length? %>
+      <% if @option.use_remote_length? %>
         <td><%= I18n.t('reservation.Length') %>: <b><%= @reservation.length %></b></td>
       <% end %>
-      <% if @option.use_slides? %>
+      <% if @option.use_remote_slides? %>
         <td><%= I18n.t('reservation.Slides') %>: <b><%= @reservation.slides %></b></td>
       <% end %>
-      <% if @option.use_rig_age? %>
+      <% if @option.use_remote_age? %>
         <td><%= I18n.t('reservation.RigAge') %>: <b><%= @reservation.rig_age %></b></td>
       <% end %>
     <% else %>
@@ -52,13 +52,13 @@
       <% if @option.use_remote_children? %>
         <td><%= I18n.t('reservation.Children') %>: <b><%= in_place_editor_field_prompted :reservation, :kids %></b></td>
       <% end %>
-      <% if @option.use_length? %>
+      <% if @option.use_remote_length? %>
         <td><%= I18n.t('reservation.Length') %>: <b><%= in_place_editor_field_prompted :reservation, :length, {}, :size => 2 %></b></td>
       <% end %>
-      <% if @option.use_slides? %>
+      <% if @option.use_remote_slides? %>
         <td><%= I18n.t('reservation.Slides') %>: <b><%= in_place_editor_field_prompted :reservation, :slides, {}, :size => 2 %></b></td>
       <% end %>
-      <% if @option.use_rig_age? %>
+      <% if @option.use_remote_age? %>
         <td><%= I18n.t('reservation.RigAge') %>: <b><%= in_place_editor_field_prompted :reservation, :rig_age, {}, :size => 2 %></b></td>
       <% end %>
     <% else %>
@@ -84,10 +84,25 @@
   <% end %>
 </tr>
 </table>
-<%= render :partial => 'shared/rigtype' %>
+<% if @reservation.is_remote %>
+  <% if @option.use_remote_rig_type? %>
+    <%= render :partial => 'shared/rigtype' %>
+  <% end %>
+<% else %>
+  <% if @option.use_rig_type? %>
+    <%= render :partial => 'shared/rigtype' %>
+  <% end %>
+<% end %>
+
 <%= render :partial => 'shared/recommender' %>
-<% if @option.use_discount? %>
-  <%= render :partial => 'shared/discount' %>
+<% if @reservation.is_remote %>
+  <% if @option.remote_discount? %>
+    <%= render :partial => 'shared/discount' %>
+  <% end %>
+<% else %>
+  <% if @option.use_discount? %>
+    <%= render :partial => 'shared/discount' %>
+  <% end %>
 <% end %>
 <br />
 <span id="special" ><%= render :partial => 'shared/special' %></span>

@@ -85,7 +85,9 @@
 			<table>
 			<tr>
 			<td> <%= link_to I18n.t('general.Continue'), {:controller => 'camper', :action => 'find', :reservation_id => @reservation.id, :is_remote => @reservation.is_remote}, {:class => 'link_btn', :id => 'continue'} %> </td>
-			<%= override_button(@reservation.override_total) %>
+			<% if !@reservation.is_remote %>
+				<%= override_button(@reservation.override_total) %>
+			<% end %>
 			</tr>
 			</table>
 			<%= set_focus_to_id 'continue' %>

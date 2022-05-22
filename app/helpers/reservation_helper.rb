@@ -91,7 +91,7 @@ module ReservationHelper
 
   def override_button(override = 0.0)
     if @option.use_override
-      if !@option.use_login? || @user_login.admin? || @option.override_by_all?
+      if !@option.use_login? || session[:admin_status] || @option.override_by_all?
         if override == 0.0
           "<td>" + button_to(I18n.t('reservation.OverrideTotal'), :action => :get_override) + "</td>"
         else

@@ -755,7 +755,7 @@ class RemoteController < ApplicationController
     reservation = Reservation.find params[:id].to_i
     integration = Integration.find_by_name 'PayPal'
     @encrypted_basic = integration.paypal_fetch_decrypted(reservation, get_server_path)
-    @action_url = ENV['RAILS_ENV'] == "production" ? integration.pp_url : "https://www.sandbox.paypal.com/cgi-bin/webscr" 
+    @action_url = ENV['RAILS_ENV'] == "production" ? integration.pp_url : "https://www.paypal.com/cgi-bin/webscr" 
     render :layout => false
   rescue
     info 'reservation not found on PayPal attempted payment'

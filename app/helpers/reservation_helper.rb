@@ -426,7 +426,7 @@ module ReservationHelper
               title = ''
             end
             title << I18n.l(r.startdate, :format => :short) + I18n.t('reservation.To') + I18n.l(r.enddate, :format => :short)
-            amountDue = r.total + r.tax_amount - getReservedPayments(r.id)
+            amountDue = r.total - getReservedPayments(r.id)
             if session[:admin_status]
               if amountDue > 0 && r.startdate <= Date.today
                 ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{name}</a> ($)"
@@ -580,7 +580,7 @@ module ReservationHelper
             end
             if admin_status
               if controllerName == "reservation"
-                amountDue = r.total + r.tax_amount - getReservedPayments(r.id)
+                amountDue = r.total - getReservedPayments(r.id)
                 if amountDue > 0 && r.startdate <= Date.today
                   ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{name}</a> ($)"
                 else
@@ -727,7 +727,7 @@ module ReservationHelper
             title << I18n.l(r.startdate, :format => :short) + I18n.t('reservation.To') + I18n.l(r.enddate, :format => :short)
             if admin_status
               if controllerName == "reservation"
-                amountDue = r.total + r.tax_amount - getReservedPayments(r.id)
+                amountDue = r.total - getReservedPayments(r.id)
                 if amountDue > 0 && r.startdate <= Date.today
                   ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{name}</a> ($)"
                 else
@@ -874,7 +874,7 @@ module ReservationHelper
             title << I18n.l(r.startdate, :format => :short) + I18n.t('reservation.To') + I18n.l(r.enddate, :format => :short)
             if admin_status
               if controllerName == "reservation"
-                amountDue = r.total + r.tax_amount - getReservedPayments(r.id)
+                amountDue = r.total - getReservedPayments(r.id)
                 if amountDue > 0 && r.startdate <= Date.today
                   ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{name}</a> ($)"
                 else

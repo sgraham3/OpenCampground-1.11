@@ -93,7 +93,7 @@ module ReservationHelper
     if @option.use_override
       if !@option.use_login? || session[:admin_status] || @option.override_by_all?
         if override == 0.0
-          "<td>" + button_to(I18n.t('reservation.OverrideTotal'), :action => :get_override) + "</td>"
+          "<td style='padding-bottom:15px'>" + button_to(I18n.t('reservation.OverrideTotal'), :action => :get_override) + "</td>"
         else
           "<td>" + button_to(I18n.t('reservation.CancelOverride'), {:action => :cancel_override, :id =>@reservation.id}) + "</td>"
         end

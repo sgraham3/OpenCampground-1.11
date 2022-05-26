@@ -2137,10 +2137,18 @@ class ReservationController < ApplicationController
 			@payments = Payment.find_all_by_reservation_id @reservation.id
 			ec = ExtraCharge.find_by_extra_id_and_reservation_id(extra_id, @reservation.id)
 			debug "updating days to #{params[:days]}"
-			ec.update_attributes :days => params[:days].to_i
+
+			maxDays = @reservation.enddate - @reservation.startdate
+			if params[:days].to_i > maxDays
+				extraDays = maxDays
+			else
+				extraDays = params[:days].to_i
+			end
+			
+			ec.update_attributes :days => extraDays
 
 			temp = Charge.first(:conditions => ["reservation_id = ?", @reservation.id])
-			Charge.update(temp.id, :period => params[:days].to_i)
+			Charge.update(temp.id, :period => extraDays)
 			# period.update :period => params[:days].to_i
 
 			@skip_render = true

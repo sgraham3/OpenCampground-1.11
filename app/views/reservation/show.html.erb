@@ -136,7 +136,9 @@
 			<%= button_to I18n.t('reservation.RecalculateCharges'), {:action => 'recalculate_charges', :reservation_id => @reservation.id}%>
 			</td>
 			<%= render :partial => 'update_mail_msg' %>
-			<%= override_button(@reservation.override_total) %>
+			<% if !@reservation.is_remote %>
+				<%= override_button(@reservation.override_total) %>
+			<% end %>
 			<td><%= button_to_function I18n.t('reservation.ShowLog'),"showhide('log_entries');" %></td>
 			<% if @option.print? %>
 			<td> <input type="button" onclick="javascript:window.print()" value="<%= I18n.t('general.Print') %>" /> </td>
@@ -154,7 +156,9 @@
 				<td><%= button_to I18n.t('reservation.CheckInNow'), {:action => :checkin_now, :reservation_id => @reservation.id} %></td>
 			<% end %>
 			<td><%= button_to I18n.t('reservation.CompleteReservation'), {:action => :create, :reservation_id => @reservation.id} %></td>
-			<%= override_button(@reservation.override_total) %>
+			<% if !@reservation.is_remote %>
+				<%= override_button(@reservation.override_total) %>
+			<% end %>
 			<% if @option.print? %>
 				<td> <input type="button" onclick="javascript:window.print()" value="<%= I18n.t('general.Print') %>" /> </td>
 			<% end %>
@@ -174,7 +178,9 @@
 			<td> <%= button_to I18n.t('reservation.CompleteCheckin'), {:action => 'do_checkin', :reservation_id => @reservation.id} %> </td>
 			<td> <%= button_to I18n.t('reservation.CancelCheckin'), {:action => session[:fini_action]}, {:id => 'cancel'} %> </td>
 			<td> <%= button_to I18n.t('reservation.RecalculateCharges'), {:action => 'recalculate_charges', :reservation_id => @reservation.id}%> </td>
-			<%= override_button(@reservation.override_total) %>
+			<% if !@reservation.is_remote %>
+				<%= override_button(@reservation.override_total) %>
+			<% end %>
 			<td><%= button_to_function I18n.t('reservation.ShowLog'),"showhide('log_entries');" %></td>
 			<% if @option.print? %>
 				<td> <input type="button" onclick="javascript:window.print()" value="<%= I18n.t('general.Print') %>" /> </td>
@@ -214,7 +220,9 @@
 							{:id => 'finished'} %>
 			</td>
 			<td><%= button_to_function I18n.t('reservation.ShowLog'),"showhide('log_entries');" %></td>
-			<%= override_button(@reservation.override_total) %>
+			<% if !@reservation.is_remote %>
+				<%= override_button(@reservation.override_total) %>
+			<% end %>
 			</tr>
 			</table>
 			<%= set_focus_to_id 'finished' %>

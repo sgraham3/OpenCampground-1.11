@@ -1,42 +1,38 @@
 <div id="site">
-<table cellpadding="5" cellspacing="0" border="2">
-  <tr>
-    <th align="center"><%= I18n.t('reservation.Space') %></th>
-    <th align="center"><%= I18n.t('reservation.EWS') %>   </th>
-    
-    <% if @reservation.is_remote %>
-      <% if @option.disp_remote_length? %>
-        <th align="center"><%= I18n.t('reservation.Size') %></th>
+  <table cellpadding="5" cellspacing="0" border="2">
+    <tr>
+      <th align="center"><%= I18n.t('reservation.Space') %></th>
+      <% if @reservation.is_remote %>
+        <% if @option.disp_remote_length? %>
+          <th align="center"><%= I18n.t('reservation.Size') %></th>
+        <% end %>
+      <% else %>
+        <% if @option.disp_site_length? %>
+          <th align="center"><%= I18n.t('reservation.Size') %></th>
+        <% end %>
       <% end %>
-    <% else %>
-      <% if @option.disp_site_length? %>
-        <th align="center"><%= I18n.t('reservation.Size') %></th>
+      <th align="center"><%= I18n.t('reservation.Type') %></th>
+      
+    </tr>
+    <tr>
+      <td align="center"><%=@reservation.space.name %></td>
+      <% if @reservation.is_remote %>
+        <% if @option.disp_remote_length? %>
+          <td align="center"><%=@reservation.space.length %></td>
+        <% end %>
+      <% else %>
+        <% if @option.disp_site_length? %>
+          <td align="center"><%=@reservation.space.length %></td>
+        <% end %>
       <% end %>
-    <% end %>
-    <th align="center"><%= I18n.t('reservation.Type') %></th>
-    <th align="center"><%= I18n.t('reservation.Special') %></th>
-  </tr>
-  <tr>
-    <td align="center"><%=@reservation.space.name %></td>
-    <td align="center"><%=@reservation.space.ews %></td>
-    <% if @reservation.is_remote %>
-      <% if @option.disp_remote_length? %>
-        <td align="center"><%=@reservation.space.length %></td>
+      <td align="center"><%=@reservation.space.sitetype.name %></td>
+    </tr>
+  </table>
+  <% unless !@reservation.editable? or (defined? envelope and envelope?) %>
+    <% unless @remote && @static %>
+      <% if !@reservation.is_remote %>
+        <span class="noprint"><%= button_to I18n.t('titles.ChangeSpace'), {:action => 'select_change', :reservation_id => @reservation.id} %> </span>
       <% end %>
-    <% else %>
-      <% if @option.disp_site_length? %>
-        <td align="center"><%=@reservation.space.length %></td>
-      <% end %>
-    <% end %>
-    <td align="center"><%=@reservation.space.sitetype.name %></td>
-    <td align="center"><%=@reservation.space.special_condition %></td>
-  </tr>
-</table>
-<% unless !@reservation.editable? or (defined? envelope and envelope?) %>
-  <% unless @remote && @static %>
-    <% if !@reservation.is_remote %>
-      <span class="noprint"><%= button_to I18n.t('titles.ChangeSpace'), {:action => 'select_change', :reservation_id => @reservation.id} %> </span>
     <% end %>
   <% end %>
-<% end %>
 </div>

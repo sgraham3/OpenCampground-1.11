@@ -2042,7 +2042,8 @@ class ReservationController < ApplicationController
 		# start out with a value of 1
 		ec = ExtraCharge.create :reservation_id => @reservation.id,
 					:extra_id => extra.id,
-					:number => 1
+					:number => 1,
+					:days => (@reservation.enddate - @reservation.startdate)
 		hide = false
 		debug "created new entity"
 	end
@@ -2068,6 +2069,7 @@ class ReservationController < ApplicationController
 			# debug "recalculated charges"
 			debug "saved reservation"
 			cnt = "count_#{extra.id}".to_sym
+			cntdays = "days_#{extra.id}".to_sym
 			ext = "extra#{extra.id}".to_sym
 			render :update do |page|
 	case ec.extra.extra_type
@@ -2076,9 +2078,11 @@ class ReservationController < ApplicationController
 		if hide
 			# debug "hide"
 			page[cnt].hide
+			page[cntdays].hide
 		else
 			# debug "show"
 			page[cnt].show
+			page[cntdays].show
 		end
 	when Extra::MEASURED
 		# debug "measured"
@@ -2117,8 +2121,36 @@ class ReservationController < ApplicationController
 			# render :partial => 'space_summary', :layout => false
 			# debug "rendered space_summary"
 			render :update do |page|
-	# debug "reload charges"
-	page[:charges].reload
+				# debug "reload charges"
+				page[:charges].reload
+			end
+		else
+			error 'no params[:extra_id]'
+			render :nothing => true
+		end
+	end
+
+	def update_days
+		@reservation = get_reservation
+		if params[:extra_id]
+			extra_id = params[:extra_id].to_i
+			@payments = Payment.find_all_by_reservation_id @reservation.id
+			ec = ExtraCharge.find_by_extra_id_and_reservation_id(extra_id, @reservation.id)
+			debug "updating days to #{params[:days]}"
+			ec.update_attributes :days => params[:days].to_i
+
+			temp = Charge.first(:conditions => ["reservation_id = ?", @reservation.id])
+			Charge.update(temp.id, :period => params[:days].to_i)
+			# period.update :period => params[:days].to_i
+
+			@skip_render = true
+			# recalculate_charges.. skip recalc because the charges do not change
+			charges_for_display(@reservation)
+			# render :partial => 'space_summary', :layout => false
+			# debug "rendered space_summary"
+			render :update do |page|
+				# debug "reload charges"
+				page[:charges].reload
 			end
 		else
 			error 'no params[:extra_id]'

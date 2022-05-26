@@ -626,7 +626,7 @@ private
     extra_charges = 0.0
     ec.each do |e|
       # debug e.inspect
-      e.save_charges(e.number)
+      e.save_charges(e.number, e.days)
       extra_charges += (e.charge + e.monthly_charges + e.weekly_charges + e.daily_charges)
       debug "calculate_extras: Extra charges are #{extra_charges}"
     end

@@ -81,7 +81,7 @@ class ExtraCharge < ActiveRecord::Base
   # Instance methods
   ###################################################
   
-  def save_charges( number = 0)
+  def save_charges( number = 0, days = 0)
     ###################################################
     # calculate the charges associated with
     # this instance and save in self
@@ -116,6 +116,7 @@ class ExtraCharge < ActiveRecord::Base
     self.weekly_charges = 0.0 unless self.weeks > 0
     self.monthly_charges = 0.0 unless self.months > 0
     self.number = number.to_i
+    self.days = days.to_i
     if self.extra_id.to_i != 0 
       case self.extra.extra_type 
       when Extra::OCCASIONAL

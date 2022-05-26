@@ -152,6 +152,7 @@ en:
     ConfirmExtend: "Extend %{name} for one day?"
     ConfirmExtendMonth: "Extend %{name} to %{enddate}?"
     Count: "Count"
+    Days: "Days"
     Current: "Current"
     Daily: "Daily"
     Date: "Date"

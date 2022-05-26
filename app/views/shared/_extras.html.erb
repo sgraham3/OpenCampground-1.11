@@ -14,7 +14,7 @@
        else
          @ec_applies = ExtraCharge.exists?(e.id, @reservation.id) ? true : false
        end %>
-    <input type="checkbox" id="<%="extra#{e.id}"%>" <%= @ec_applies ? 'checked="no"' : '' %>
+    <input type="checkbox" style="margin-right:10px" id="<%="extra#{e.id}"%>" <%= @ec_applies ? 'checked="no"' : '' %>
 			   value=<%=@ec_applies%>
 			   onclick="<%= remote_function( :update => 'summary',
 			     :url => {:action => 'update_extras', :reservation_id => @reservation.id },
@@ -31,6 +31,17 @@
 			      :update => 'summary',
 			      :url => {:action => 'update_count', :only_path => false, :reservation_id => @reservation.id },
 			      :with => "'number='+encodeURIComponent(value)+'&extra_id='+#{e.id}" %>
+	    </span>
+		<span id=<%="days_#{e.id}"%> <%= "style=\"display:none;\"" unless @ec_applies %>>
+	    <b><%= I18n.t('reservation.Days') %></b>
+	    <% extra_charge1 = ExtraCharge.find_by_extra_id_and_reservation_id(e.id,  @reservation.id) %>
+		<% cnt1 = extra_charge ? extra_charge.days : (@reservation.enddate - @reservation.startdate)  %>
+	    <%= text_field_tag "days#{e.id}", cnt1, {:id => "days#{e.id}", :size => '1', :autocomplete => 'off'} %>
+	    <%= observe_field "days#{e.id}",
+			      :frequency => 0.4,
+			      :update => 'summary',
+			      :url => {:action => 'update_days', :only_path => false, :reservation_id => @reservation.id },
+			      :with => "'days='+encodeURIComponent(value)+'&extra_id='+#{e.id}" %>
 	    </span>
     <% when Extra::MEASURED %>
 	    <span id=<%="measure_#{e.id}"%> <%= "style=\"display:none;\"" %>>

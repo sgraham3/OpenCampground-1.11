@@ -95,7 +95,7 @@ module ReservationHelper
         if override == 0.0
           "<td style='padding-bottom:15px'>" + button_to(I18n.t('reservation.OverrideTotal'), :action => :get_override) + "</td>"
         else
-          "<td>" + button_to(I18n.t('reservation.CancelOverride'), {:action => :cancel_override, :id =>@reservation.id}) + "</td>"
+          "<td style='padding-bottom:15px'>" + button_to(I18n.t('reservation.CancelOverride'), {:action => :cancel_override, :id =>@reservation.id}) + "</td>"
         end
       end
     end

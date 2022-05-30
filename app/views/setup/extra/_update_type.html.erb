@@ -58,6 +58,11 @@
     <p><label for="extra_monthly">Monthly Rate</label><br/>
     <%= text_field 'extra', 'monthly'  %></p>
   </div>
+
+  <% if @extra.extra_type == Extra::COUNTED %>
+    <p><label for="extra_maximum">Maximum limit of count</label><br/>
+    <%= text_field 'extra', 'maximum'  %></p>
+  <% end %>
 </div>
 <!--[eoform:extra]-->
 

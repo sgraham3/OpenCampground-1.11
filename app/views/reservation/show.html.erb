@@ -84,7 +84,7 @@
 			<% elsif controller.action_name == 'space_selected' %>
 			<table>
 			<tr>
-			<td> <%= link_to I18n.t('general.Continue'), {:controller => 'camper', :action => 'find', :reservation_id => @reservation.id, :is_remote => @reservation.is_remote}, {:class => 'link_btn', :id => 'continue'} %> </td>
+			<td style="padding-top:14px"> <%= link_to I18n.t('general.Continue'), {:controller => 'camper', :action => 'find', :reservation_id => @reservation.id, :is_remote => @reservation.is_remote}, {:class => 'link_btn', :id => 'continue'} %> </td>
 			<% if !@reservation.is_remote %>
 				<%= override_button(@reservation.override_total) %>
 			<% end %>

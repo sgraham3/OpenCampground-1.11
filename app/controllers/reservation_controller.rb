@@ -2148,7 +2148,7 @@ class ReservationController < ApplicationController
 			ec.update_attributes :days => extraDays
 
 			temp = Charge.first(:conditions => ["reservation_id = ?", @reservation.id])
-			Charge.update(temp.id, :period => extraDays)
+			Charge.update(temp.id, :period => maxDays)
 			# period.update :period => params[:days].to_i
 
 			@skip_render = true

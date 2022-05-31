@@ -148,7 +148,7 @@ module ApplicationHelper
     str << "<td align='center'>" + DateFmt.format_date(charge.start_date) + "</td>" 
     str << "<td align='center'>" + DateFmt.format_date(charge.end_date) + "</td>" 
     str <<  "<td align='center'>" + charge.season.name + "</td>"  if season_count > 1
-    str <<  "<td align='right'>" + sprintf("%6.2f", charge.period) + "</td>" 
+    str <<  "<td align='center'>" + sprintf("%6.0f", charge.period) + "</td>" 
     str << "<td align='right'>" + number_2_currency(charge.rate) + "</td>"
     if use_discount
       str << "<td align='right'>" + number_2_currency(charge.amount) + "</td>" if @option.inline_subtotal?

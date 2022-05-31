@@ -25,7 +25,7 @@
 	    <b><%= I18n.t('reservation.Count') %></b>
 	    <% extra_charge = ExtraCharge.find_by_extra_id_and_reservation_id(e.id,  @reservation.id) %>
 	    <% cnt = extra_charge ? extra_charge.number : 1  %>
-	    <%= text_field_tag "count#{e.id}", cnt, {:id => "count#{e.id}", :size => '1', :autocomplete => 'off'} %>
+	    <%= text_field_tag "count#{e.id}", cnt, {:id => "count#{e.id}", :size => '1', :autocomplete => 'off', :onchange => "if($(this).value > '#{e.maximum}'){$(this).value = '#{e.maximum}'}"} %>
 	    <%= observe_field "count#{e.id}",
 			      :frequency => 0.4,
 			      :update => 'summary',
@@ -36,8 +36,8 @@
 	    <b><%= I18n.t('reservation.Days') %></b>
 	    <% extra_charge1 = ExtraCharge.find_by_extra_id_and_reservation_id(e.id,  @reservation.id) %>
 		<% cnt1 = extra_charge ? extra_charge.days : (@reservation.enddate - @reservation.startdate)  %>
-		<% max = @reservation.enddate - @reservation.startdate %>
-	    <%= text_field_tag "days#{e.id}", cnt1, {:id => "days#{e.id}", :size => '1', :autocomplete => 'off', :onchange => "if($(this).value > '#{max}'){$(this).value = '#{max}'}"} %>
+		<% maxDay = @reservation.enddate - @reservation.startdate %>
+	    <%= text_field_tag "days#{e.id}", cnt1, {:id => "days#{e.id}", :size => '1', :autocomplete => 'off', :onchange => "if($(this).value > '#{maxDay}'){$(this).value = '#{maxDay}'}"} %>
 	    <%= observe_field "days#{e.id}",
 			      :frequency => 0.4,
 			      :update => 'summary',

@@ -2109,20 +2109,23 @@ class ReservationController < ApplicationController
 	def update_count
 		@reservation = get_reservation
 		if params[:extra_id]
-			extra_id = params[:extra_id].to_i
-			@payments = Payment.find_all_by_reservation_id @reservation.id
-			ec = ExtraCharge.find_by_extra_id_and_reservation_id(extra_id, @reservation.id)
-			debug "updating count to #{params[:number]}"
-			ec.update_attributes :number => params[:number].to_i
+			temp = Extra.first(:conditions => ["id = ?", params[:extra_id].to_i])
+			if params[:number].to_i <= temp.maximum
+				extra_id = params[:extra_id].to_i
+				@payments = Payment.find_all_by_reservation_id @reservation.id
+				ec = ExtraCharge.find_by_extra_id_and_reservation_id(extra_id, @reservation.id)
+				debug "updating count to #{params[:number]}"
+				ec.update_attributes :number => params[:number].to_i
 
-			@skip_render = true
-			# recalculate_charges.. skip recalc because the charges do not change
-			charges_for_display(@reservation)
-			# render :partial => 'space_summary', :layout => false
-			# debug "rendered space_summary"
-			render :update do |page|
-				# debug "reload charges"
-				page[:charges].reload
+				@skip_render = true
+				# recalculate_charges.. skip recalc because the charges do not change
+				charges_for_display(@reservation)
+				# render :partial => 'space_summary', :layout => false
+				# debug "rendered space_summary"
+				render :update do |page|
+					# debug "reload charges"
+					page[:charges].reload
+				end
 			end
 		else
 			error 'no params[:extra_id]'

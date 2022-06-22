@@ -60,7 +60,7 @@
 			<%= @option.trailer %>
 			<% end %>
 		</div>
-		<div class="noprint">
+		<div class="noprint" style="display:flex">
 			<% if @reservation.archived? %>
 			<table>
 			<tr>
@@ -90,6 +90,9 @@
 			<% end %>
 			</tr>
 			</table>
+			<% if !@reservation.is_remote %>
+				<input type="button" class="link_btn" id="btnManualOverride" style="margin-top:23px;margin-bottom:17px" value="<%= I18n.t('reservation.ManualOverride') %>" onclick="manualOverride()">
+			<% end %>
 			<%= set_focus_to_id 'continue' %>
 			<% elsif controller.action_name == 'show' %>
 			<table>
@@ -246,3 +249,44 @@
     </div>
   <% end %>
 <% end%>
+<script>
+	function manualOverride() {
+		var input_extra_charge = document.getElementsByClassName('input_extra_charge');
+		var label_extra_charge = document.getElementsByClassName('label_extra_charge');
+		var btnValue = document.getElementById("btnManualOverride").value;
+		if (btnValue == "Manual Override") {
+			document.getElementById("btnManualOverride").value = "<%= I18n.t('reservation.SaveManualOverride') %>"
+			document.getElementById('input_days_charge').style.display = 'block';
+			document.getElementById('label_days_charge').style.display = 'none';
+			for(var i = 0; i < input_extra_charge.length; i++){
+				input_extra_charge[i].style.display = 'block';
+				label_extra_charge[i].style.display = 'none';
+			}
+		}else{
+			document.getElementById("btnManualOverride").value = "<%= I18n.t('reservation.ManualOverride') %>"
+			var input_days_charge_value = document.getElementById("input_days_charge").value;
+			var strExtra = '';
+			for(var i = 0; i < input_extra_charge.length; i++){
+				input_extra_charge[i].style.display = 'none';
+				label_extra_charge[i].style.display = 'block';
+				var temp = input_extra_charge[i].getAttribute("extraid") + ":" + input_extra_charge[i].value + "@";
+				strExtra += temp;
+			}
+			document.getElementById('input_days_charge').style.display = 'none';
+			document.getElementById('label_days_charge').style.display = 'block';
+			new Ajax.Request('manualOverride', {
+				parameters: {
+					"reservation_id": <%= @reservation.id %>,
+					"days_charge_value": input_days_charge_value,
+					"arrExtra": strExtra.substr(0, strExtra.length-1)
+				},
+				onSuccess: function(res) {
+					for(var i = 0; i < input_extra_charge.length; i++){
+						input_extra_charge[i].style.display = 'none';
+						label_extra_charge[i].style.display = 'block';
+					}
+				}
+			});
+		}
+	}
+</script>

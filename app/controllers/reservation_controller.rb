@@ -424,6 +424,32 @@ class ReservationController < ApplicationController
 		redirect_to :action => session[:current_action], :reservation_id => @reservation.id unless @skip_render
 	end
 
+	def manualOverride
+		@reservation = get_reservation
+		tempArr = request["arrExtra"].split("@")
+		tempArr.map{|n|
+			temp = n.split(":")
+
+			extraChargeQuery = ExtraCharge.first(:conditions => [ "extra_id = ? and reservation_id = ?", 
+								 temp[0].to_i, @reservation.id] )
+			ExtraCharge.update(extraChargeQuery.id, :is_manual_override => 1, :manual_override => temp[1].to_f, :manual_override_total => temp[1].to_f * extraChargeQuery.number.to_i * extraChargeQuery.days.to_i)
+		}
+		daysQuery = Charge.first(:conditions => ["reservation_id = ?", @reservation.id])
+		Charge.update(daysQuery.id, :is_manual_override => 1, :manual_override => request["days_charge_value"].to_f, :manual_override_total => request["days_charge_value"].to_f * daysQuery.period)
+		# charges_for_display(@reservation)
+		# recalculate_charges
+		# return render :json => ({"name" => "John", "age" => 45})
+		@skip_render = true
+		# recalculate_charges.. skip recalc because the charges do not change
+		charges_for_display(@reservation)
+		# render :partial => 'space_summary', :layout => false
+		# debug "rendered space_summary"
+		render :update do |page|
+			# debug "reload charges"
+			page[:charges].reload
+		end
+	end
+
 	def update_camper
 		####################################################
 		# store the data from an change of camper for a reservation
@@ -2013,55 +2039,57 @@ class ReservationController < ApplicationController
 			debug "extra_type is #{extra.extra_type.to_s}"
 			case extra.extra_type
 			when Extra::MEASURED
-	debug 'extra is MEASURED'
-	if params[:checked] == 'true'
-		old = ExtraCharge.find_all_by_extra_id_and_reservation_id_and_charge(extra.id, @reservation.id, 0.0)
-		old.each {|o| o.destroy } # get rid of partially filled out records
-		ec = ExtraCharge.create :reservation_id => @reservation.id, :extra_id => extra.id
-		session[:ec] = ec.id
-		@current = @reservation.space.current
-		hide = false
-		debug "created new measured entity"
-	else
-		ec = ExtraCharge.find session[:ec].to_i
-		ec.destroy
-		session[:ec] = nil
-		hide = true
-		debug "destroyed measured entity"
-	end
+				debug 'extra is MEASURED'
+				if params[:checked] == 'true'
+					old = ExtraCharge.find_all_by_extra_id_and_reservation_id_and_charge(extra.id, @reservation.id, 0.0)
+					old.each {|o| o.destroy } # get rid of partially filled out records
+					ec = ExtraCharge.create :reservation_id => @reservation.id, :extra_id => extra.id, :number => 1, :days => (@reservation.enddate - @reservation.startdate)
+					session[:ec] = ec.id
+					@current = @reservation.space.current
+					hide = false
+					debug "created new measured entity"
+				else
+					ec = ExtraCharge.find session[:ec].to_i
+					ec.destroy
+					session[:ec] = nil
+					hide = true
+					debug "destroyed measured entity"
+				end
 			when Extra::OCCASIONAL, Extra::COUNTED
-	debug 'extra COUNTED or OCCASIONAL'
-	if (ec = ExtraCharge.find_by_extra_id_and_reservation_id(extra.id, @reservation.id))
-		# extra charge currently is applied so we have dropped it
-		ec.destroy
-		hide = true
-		debug "destroyed entity"
-	else
-		# extra charge is not currently applied
-		# extra was added, apply it
-		# start out with a value of 1
-		ec = ExtraCharge.create :reservation_id => @reservation.id,
-					:extra_id => extra.id,
-					:number => 1,
-					:days => (@reservation.enddate - @reservation.startdate)
-		hide = false
-		debug "created new entity"
-	end
+				debug 'extra COUNTED or OCCASIONAL'
+				if (ec = ExtraCharge.find_by_extra_id_and_reservation_id(extra.id, @reservation.id))
+					# extra charge currently is applied so we have dropped it
+					ec.destroy
+					hide = true
+					debug "destroyed entity"
+				else
+					# extra charge is not currently applied
+					# extra was added, apply it
+					# start out with a value of 1
+					ec = ExtraCharge.create :reservation_id => @reservation.id,
+								:extra_id => extra.id,
+								:number => 1,
+								:days => (@reservation.enddate - @reservation.startdate)
+					hide = false
+					debug "created new entity"
+				end
 			else 
-	debug 'extra STANDARD'
-	if (ec = ExtraCharge.find_by_extra_id_and_reservation_id(extra.id, @reservation.id))
-		# extra charge currently is applied so we have dropped it
-		ec.destroy
-		hide = true
-		debug "destroyed entity"
-	else
-		# extra charge is not currently applied
-		# extra was added, apply it
-		ec = ExtraCharge.create :reservation_id => @reservation.id,
-					:extra_id => extra.id
-		hide = false
-		debug "created new entity"
-	end
+				debug 'extra STANDARD'
+				if (ec = ExtraCharge.find_by_extra_id_and_reservation_id(extra.id, @reservation.id))
+					# extra charge currently is applied so we have dropped it
+					ec.destroy
+					hide = true
+					debug "destroyed entity"
+				else
+					# extra charge is not currently applied
+					# extra was added, apply it
+					ec = ExtraCharge.create :reservation_id => @reservation.id,
+								:extra_id => extra.id,
+								:number => 1,
+								:days => (@reservation.enddate - @reservation.startdate)
+					hide = false
+					debug "created new entity"
+				end
 			end
 			@skip_render = true
 			# recalculate_charges.. skip recalc because the charges do not change
@@ -2072,31 +2100,31 @@ class ReservationController < ApplicationController
 			cntdays = "days_#{extra.id}".to_sym
 			ext = "extra#{extra.id}".to_sym
 			render :update do |page|
-	case ec.extra.extra_type
-	when Extra::COUNTED, Extra::OCCASIONAL
-		# debug "counted"
-		if hide
-			# debug "hide"
-			page[cnt].hide
-			page[cntdays].hide
-		else
-			# debug "show"
-			page[cnt].show
-			page[cntdays].show
-		end
-	when Extra::MEASURED
-		# debug "measured"
-		measure = "measure_#{extra.id}".to_sym
-		if hide
-			# debug "hide"
-			page[measure].hide
-		else
-			# debug "show"
-			page[measure].show
-		end
-	end
-	# debug "reload charges"
-	page[:charges].reload
+				case ec.extra.extra_type
+				when Extra::COUNTED, Extra::OCCASIONAL
+					# debug "counted"
+					if hide
+						# debug "hide"
+						page[cnt].hide
+						page[cntdays].hide
+					else
+						# debug "show"
+						page[cnt].show
+						page[cntdays].show
+					end
+				when Extra::MEASURED
+					# debug "measured"
+					measure = "measure_#{extra.id}".to_sym
+					if hide
+						# debug "hide"
+						page[measure].hide
+					else
+						# debug "show"
+						page[measure].show
+					end
+				end
+				# debug "reload charges"
+				page[:charges].reload
 			end
 			# render :partial => 'space_summary', :layout => false
 			debug "done with update_extras"
@@ -2499,7 +2527,11 @@ class ReservationController < ApplicationController
 		total = 0.0
 		@charges.each do |c| 
 			warn += "charge rate for season #{c.season.name} is zero. Correct in setup->prices." if c.amount == 0.00
-			total += c.amount - c.discount 
+			if c.is_manual_override
+				total = c.manual_override_total
+			else
+				total += c.amount - c.discount 
+			end
 		end
 		flash[:warning] = warn unless warn.empty?
 		debug "charges #{total}"
@@ -2519,7 +2551,6 @@ class ReservationController < ApplicationController
 		@season_cnt = Season.count(:conditions => ["active = ?", true])
 		debug "#{@season_cnt} seasons"
 	end
-
 
 	def get_sort
 		####################################################

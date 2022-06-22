@@ -627,7 +627,11 @@ private
     ec.each do |e|
       # debug e.inspect
       e.save_charges(e.number, e.days)
-      extra_charges += (e.charge + e.monthly_charges + e.weekly_charges + e.daily_charges)
+      if e.is_manual_override == 1
+        extra_charges += e.manual_override_total
+      else
+        extra_charges += (e.charge + e.monthly_charges + e.weekly_charges + e.daily_charges)
+      end
       debug "calculate_extras: Extra charges are #{extra_charges}"
     end
     return extra_charges

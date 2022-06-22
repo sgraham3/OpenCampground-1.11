@@ -201,6 +201,8 @@ en:
     OverdueforCheckIn: "Overdue for check in"
     OverdueforCheckOut: "Overdue for check out"
     OverrideTotal: "Override Total"
+    ManualOverride: "Manual Override"
+    SaveManualOverride: "Save Manual Override"
     Overstayed: "Overstayed"
     OverstayingReservation: "Overstaying reservation"
     PaymentType: "Payment Type"

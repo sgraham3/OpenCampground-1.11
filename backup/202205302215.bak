@@ -1,0 +1,1356 @@
+-- MySQL dump 10.10
+--
+-- Host: localhost    Database: demo_campground
+-- ------------------------------------------------------
+-- Server version	5.0.27-community
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `archives`
+--
+
+DROP TABLE IF EXISTS `archives`;
+CREATE TABLE `archives` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(66) collate utf8_unicode_ci NOT NULL default '',
+  `address` varchar(32) collate utf8_unicode_ci default NULL,
+  `city` varchar(32) collate utf8_unicode_ci default NULL,
+  `state` varchar(4) collate utf8_unicode_ci default NULL,
+  `mail_code` varchar(12) collate utf8_unicode_ci default NULL,
+  `adults` smallint(6) default '2',
+  `pets` smallint(6) default '0',
+  `kids` smallint(6) default '0',
+  `discount_name` varchar(32) collate utf8_unicode_ci default '',
+  `startdate` date default NULL,
+  `enddate` date default NULL,
+  `deposit` decimal(8,2) default '0.00',
+  `total_charge` decimal(8,2) default '0.00',
+  `special_request` varchar(255) collate utf8_unicode_ci default NULL,
+  `slides` tinyint(4) default '0',
+  `length` mediumint(9) default NULL,
+  `rig_age` mediumint(9) default NULL,
+  `vehicle_license` varchar(20) collate utf8_unicode_ci default NULL,
+  `vehicle_state` varchar(16) collate utf8_unicode_ci default NULL,
+  `rigtype_name` varchar(32) collate utf8_unicode_ci default '',
+  `space_name` varchar(32) collate utf8_unicode_ci default '',
+  `group_name` varchar(32) collate utf8_unicode_ci default NULL,
+  `close_reason` varchar(128) collate utf8_unicode_ci default NULL,
+  `phone` varchar(18) collate utf8_unicode_ci default NULL,
+  `email` varchar(128) collate utf8_unicode_ci default NULL,
+  `country` varchar(32) collate utf8_unicode_ci default NULL,
+  `canceled` date default NULL,
+  `extras` varchar(255) collate utf8_unicode_ci default NULL,
+  `tax_str` text collate utf8_unicode_ci,
+  `idnumber` varchar(24) collate utf8_unicode_ci default NULL,
+  `log` text collate utf8_unicode_ci,
+  `vehicle_license_2` varchar(20) collate utf8_unicode_ci default NULL,
+  `vehicle_state_2` varchar(16) collate utf8_unicode_ci default NULL,
+  `phone_2` varchar(18) collate utf8_unicode_ci default NULL,
+  `recommender` varchar(32) collate utf8_unicode_ci default NULL,
+  `seasonal` tinyint(1) default '0',
+  `reservation_id` int(11) default '0',
+  `selected` tinyint(1) default '0',
+  `address2` varchar(32) collate utf8_unicode_ci default NULL,
+  `payments` text collate utf8_unicode_ci,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `archives`
+--
+
+LOCK TABLES `archives` WRITE;
+/*!40000 ALTER TABLE `archives` DISABLE KEYS */;
+INSERT INTO `archives` VALUES (6,'Shattock, Stuart','18 Golden Ave WARRAGUL VIC 3820','PAKENHAM','VIC','3810',2,0,0,'none','2022-04-14','2022-04-19','0.00','159.09','firepit',0,0,0,NULL,NULL,'Campervan','UPR47','','abandoned','+61401743526','StuartShattock@gmail.com','','2022-04-11','--- []\n\n',NULL,NULL,'dates changed by: manager at: Mon Apr 11 15:33:45 +1000 2022<br/>space changed from UPS33A by: manager at: Mon Apr 11 15:36:11 +1000 2022<br/>space changed from UPR38 by: manager at: Mon Apr 11 15:40:42 +1000 2022<br/>',NULL,NULL,NULL,'',NULL,9,0,NULL,'--- []\n\n'),(10,'uuu, uuu','','uu','','',2,0,0,'none','2022-04-21','2022-04-24','0.00','120.00',NULL,0,0,0,NULL,NULL,'','UPR1','','cancelled at: Wed Apr 20 15:44:52 +0300 2022 reason: ','uuu','uuu@uuu','','2022-04-20','--- []\n\n',NULL,NULL,'reservation made at: Wed Apr 20 15:22:41 +0300 2022<br/>cancelled at: Wed Apr 20 15:44:52 +0300 2022<br/>',NULL,NULL,NULL,'',0,8,0,NULL,'--- []\n\n'),(11,'sss, sss','','','','',2,0,0,'none','2022-04-23','2022-04-25','0.00','70.91',NULL,0,0,0,NULL,NULL,'','PR11','','abandoned','sss','sss@sss','','2022-04-20','--- []\n\n',NULL,NULL,NULL,NULL,NULL,NULL,'',0,6,0,NULL,'--- []\n\n'),(12,'test, test','','','','',2,0,0,'none','2022-04-21','2022-04-24','0.00','106.36',NULL,0,0,0,NULL,NULL,'','PR8','','cancelled at: Wed Apr 20 16:00:23 +0300 2022 reason: ','123456789','test@test.com','','2022-04-20','--- []\n\n',NULL,NULL,'reservation made at: Wed Apr 20 15:03:57 +0300 2022<br/>cancelled at: Wed Apr 20 16:00:23 +0300 2022<br/>',NULL,NULL,NULL,'',0,2,0,NULL,'--- []\n\n'),(13,'test, test','','','','',2,0,0,'none','2022-04-21','2022-04-24','0.00','106.36',NULL,0,0,0,NULL,NULL,'','PR8','','cancelled at: Wed Apr 20 16:00:24 +0300 2022 reason: ','123456789','test@test.com','','2022-04-20','--- []\n\n',NULL,NULL,'reservation made at: Wed Apr 20 15:03:57 +0300 2022<br/>cancelled at: Wed Apr 20 16:00:23 +0300 2022<br/>cancelled at: Wed Apr 20 16:00:24 +0300 2022<br/>',NULL,NULL,NULL,'',0,2,0,NULL,'--- []\n\n'),(14,'vc, sdaf','','','','',2,0,0,'none','2022-04-20','2022-04-21','0.00','35.45','',0,0,0,NULL,NULL,'Tent','PR8','','cancelled at: Wed Apr 20 16:00:46 +0300 2022 reason: ','sdf','sdf@sdf','','2022-04-20','--- []\n\n',NULL,NULL,'reservation made at: Wed Apr 20 15:33:19 +0300 2022<br/>reservation made at: Wed Apr 20 15:34:04 +0300 2022<br/>cancelled at: Wed Apr 20 16:00:46 +0300 2022<br/>',NULL,NULL,NULL,'Friend',0,9,0,NULL,'--- []\n\n'),(15,'',NULL,NULL,NULL,NULL,2,0,0,'none','2022-04-30','2022-05-01','0.00','35.45',NULL,0,0,0,NULL,NULL,'','PR5','','abandoned',NULL,NULL,NULL,'2022-05-30','--- []\n\n',NULL,NULL,NULL,NULL,NULL,NULL,'',0,0,0,NULL,'--- []\n\n'),(16,'',NULL,NULL,NULL,NULL,2,0,0,'none','2022-05-01','2022-05-02','0.00','35.45',NULL,0,0,0,NULL,NULL,'','PR7','','abandoned',NULL,NULL,NULL,'2022-05-30','--- []\n\n',NULL,NULL,NULL,NULL,NULL,NULL,'',0,0,0,NULL,'--- []\n\n');
+/*!40000 ALTER TABLE `archives` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `blackouts`
+--
+
+DROP TABLE IF EXISTS `blackouts`;
+CREATE TABLE `blackouts` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(32) collate utf8_unicode_ci default NULL,
+  `startdate` date default NULL,
+  `enddate` date default NULL,
+  `active` tinyint(1) default '1',
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `blackouts`
+--
+
+LOCK TABLES `blackouts` WRITE;
+/*!40000 ALTER TABLE `blackouts` DISABLE KEYS */;
+/*!40000 ALTER TABLE `blackouts` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `campers`
+--
+
+DROP TABLE IF EXISTS `campers`;
+CREATE TABLE `campers` (
+  `id` int(11) NOT NULL auto_increment,
+  `last_name` varchar(32) collate utf8_unicode_ci NOT NULL default '',
+  `first_name` varchar(32) collate utf8_unicode_ci NOT NULL default '',
+  `address` varchar(32) collate utf8_unicode_ci NOT NULL default '',
+  `city` varchar(32) collate utf8_unicode_ci NOT NULL default '',
+  `state` varchar(16) collate utf8_unicode_ci NOT NULL default '',
+  `mail_code` varchar(12) collate utf8_unicode_ci NOT NULL default '',
+  `activity` date default NULL,
+  `lock_version` int(11) default '0',
+  `phone` varchar(18) collate utf8_unicode_ci default NULL,
+  `email` varchar(128) collate utf8_unicode_ci default NULL,
+  `idnumber` varchar(24) collate utf8_unicode_ci default NULL,
+  `country_id` int(11) default '0',
+  `phone_2` varchar(18) collate utf8_unicode_ci default NULL,
+  `address2` varchar(32) collate utf8_unicode_ci default NULL,
+  `notes` text collate utf8_unicode_ci,
+  `addl` text collate utf8_unicode_ci,
+  PRIMARY KEY  (`id`),
+  KEY `index_campers_on_last_name` (`last_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `campers`
+--
+
+LOCK TABLES `campers` WRITE;
+/*!40000 ALTER TABLE `campers` DISABLE KEYS */;
+INSERT INTO `campers` VALUES (55,'Shattock','Stuart','18 Golden Ave WARRAGUL VIC 3820','PAKENHAM','VIC','3810','2022-04-11',1,'+61401743526','StuartShattock@gmail.com',NULL,0,NULL,NULL,NULL,NULL),(56,'test','test','','','','','2022-04-20',0,'123456789','test@test.com',NULL,0,NULL,NULL,NULL,NULL),(57,'qqq','qqq','','','','','2022-04-20',0,'qqq','qqq@qqq.com',NULL,0,NULL,NULL,NULL,NULL),(58,'sss','sss','','','','','2022-04-20',0,'sss','sss@sss',NULL,0,NULL,NULL,NULL,NULL),(59,'nnn','nnn','','','','','2022-04-20',0,'nnn','nnn@nnn',NULL,0,NULL,NULL,NULL,NULL),(60,'uuu','uuu','','uu','','','2022-04-20',0,'uuu','uuu@uuu',NULL,0,NULL,NULL,NULL,NULL),(61,'vc','sdaf','','','','','2022-04-20',0,'sdf','sdf@sdf',NULL,0,NULL,NULL,NULL,NULL),(62,'asdf','asdf','','','','','2022-04-20',0,'asdf','asdf@asdf.com',NULL,0,NULL,NULL,NULL,NULL),(63,'ps43','ps43','','','','','2022-04-20',0,'ps43','ps43@ps43.com',NULL,0,NULL,NULL,NULL,NULL),(64,'pr12','pr12','','','','','2022-04-20',0,'pr12','pr12@pr12.com',NULL,0,NULL,NULL,NULL,NULL),(65,'pr1','pr1','','','','','2022-04-20',0,'pr1','pr1@pr1.com',NULL,0,NULL,NULL,NULL,NULL),(66,'kkk','kkk','','','','','2022-04-20',0,'kkkk','kkk@kk',NULL,0,NULL,NULL,NULL,NULL),(67,'test','test','','','','','2022-04-20',0,'123123123','test@test',NULL,0,NULL,NULL,NULL,NULL),(68,'test','test','','','','','2022-04-20',0,'123','test@test',NULL,0,NULL,NULL,NULL,NULL),(69,'temp','temp','','','','','2022-04-20',0,'111','temp@temp',NULL,0,NULL,NULL,NULL,NULL),(70,'aaa','aaa','','','','','2022-04-20',0,'333','aaa@aaa',NULL,0,NULL,NULL,NULL,NULL),(71,'gg','gg','','','','','2022-04-20',0,'3444','gg@gg',NULL,0,NULL,NULL,NULL,NULL),(72,'sdf','sdf','','','','','2022-04-20',0,'sdf','asdfsdf@sdf',NULL,0,NULL,NULL,NULL,NULL),(73,'bnm','bn','','','','','2022-04-20',0,'gh','bnm@h',NULL,0,NULL,NULL,NULL,NULL),(74,'ps19','ps19','','','','','2022-04-20',0,'ps19','ps19@q',NULL,0,NULL,NULL,NULL,NULL),(75,'hhh','h','','','','','2022-04-20',0,'hh','hh@hh',NULL,0,NULL,NULL,NULL,NULL),(76,'qq','qq','','','','','2022-04-20',0,'qq','qq@wq',NULL,0,NULL,NULL,NULL,NULL),(77,'ps50','ps50','','','','','2022-04-20',0,'sdf','ps50@sdf',NULL,0,NULL,NULL,NULL,NULL),(78,'hjk','jhgfj','','','','','2022-04-20',0,'gfjghj','hjk@',NULL,0,NULL,NULL,NULL,NULL),(79,'123','123','','','','','2022-04-20',0,'123','123@123.com',NULL,0,NULL,NULL,NULL,NULL),(80,'Shattock','Stuart','18 Golden Ave WARRAGUL VIC 3820','PAKENHAM','VIC','3810','2022-04-25',0,'+61401743526','stuartshattock@gmail.com',NULL,0,NULL,NULL,NULL,NULL);
+/*!40000 ALTER TABLE `campers` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `card_transactions`
+--
+
+DROP TABLE IF EXISTS `card_transactions`;
+CREATE TABLE `card_transactions` (
+  `id` int(11) NOT NULL auto_increment,
+  `account` varchar(255) collate utf8_unicode_ci default NULL,
+  `expiry` varchar(255) collate utf8_unicode_ci default NULL,
+  `amount` decimal(12,2) default '0.00',
+  `currency` varchar(255) collate utf8_unicode_ci default 'USD',
+  `retref` varchar(255) collate utf8_unicode_ci default NULL,
+  `reservation_id` int(11) default NULL,
+  `authcode` varchar(255) collate utf8_unicode_ci default NULL,
+  `avsresp` varchar(255) collate utf8_unicode_ci default NULL,
+  `batchid` varchar(255) collate utf8_unicode_ci default NULL,
+  `cvvresp` varchar(255) collate utf8_unicode_ci default NULL,
+  `name` varchar(255) collate utf8_unicode_ci default NULL,
+  `respproc` varchar(255) collate utf8_unicode_ci default NULL,
+  `resptext` varchar(255) collate utf8_unicode_ci default NULL,
+  `respcode` varchar(255) collate utf8_unicode_ci default NULL,
+  `respstat` varchar(255) collate utf8_unicode_ci default NULL,
+  `signature` varchar(255) collate utf8_unicode_ci default NULL,
+  `token` varchar(255) collate utf8_unicode_ci default NULL,
+  `accttype` varchar(255) collate utf8_unicode_ci default NULL,
+  `address` varchar(255) collate utf8_unicode_ci default NULL,
+  `city` varchar(255) collate utf8_unicode_ci default NULL,
+  `region` varchar(255) collate utf8_unicode_ci default NULL,
+  `country` varchar(255) collate utf8_unicode_ci default NULL,
+  `postal` varchar(255) collate utf8_unicode_ci default NULL,
+  `ecomind` varchar(255) collate utf8_unicode_ci default NULL,
+  `track` varchar(255) collate utf8_unicode_ci default NULL,
+  `tokenize` varchar(255) collate utf8_unicode_ci default NULL,
+  `mytoken` varchar(255) collate utf8_unicode_ci default NULL,
+  `payment_id` int(11) default NULL,
+  `card_present` tinyint(1) default NULL,
+  `session_key` varchar(255) collate utf8_unicode_ci default NULL,
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  `process_mode` int(11) default NULL,
+  `cvv2` varchar(255) collate utf8_unicode_ci default '',
+  PRIMARY KEY  (`id`),
+  KEY `index_card_transactions_on_reservation_id` (`reservation_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `card_transactions`
+--
+
+LOCK TABLES `card_transactions` WRITE;
+/*!40000 ALTER TABLE `card_transactions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `card_transactions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `charges`
+--
+
+DROP TABLE IF EXISTS `charges`;
+CREATE TABLE `charges` (
+  `id` int(11) NOT NULL auto_increment,
+  `reservation_id` int(11) default NULL,
+  `season_id` int(11) default '1',
+  `start_date` date default NULL,
+  `end_date` date default NULL,
+  `period` float default NULL,
+  `rate` decimal(8,2) default '0.00',
+  `amount` decimal(8,2) default '0.00',
+  `discount` decimal(8,2) default '0.00',
+  `charge_units` int(11) default NULL,
+  `temp` tinyint(1) default '0',
+  PRIMARY KEY  (`id`),
+  KEY `index_charges_on_reservation_id` (`reservation_id`),
+  KEY `index_charges_on_start_date` (`start_date`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `charges`
+--
+
+LOCK TABLES `charges` WRITE;
+/*!40000 ALTER TABLE `charges` DISABLE KEYS */;
+INSERT INTO `charges` VALUES (10,7,1,'2022-04-20','2022-04-21',1,'35.45','35.45','0.00',0,0),(12,8,1,'2022-04-21','2022-04-24',3,'40.00','120.00','0.00',0,0),(14,9,1,'2022-04-20','2022-04-21',1,'35.45','35.45','0.00',0,0),(16,10,1,'2022-04-21','2022-04-22',1,'40.00','40.00','0.00',0,0),(18,11,1,'2022-04-28','2022-04-30',2,'35.45','70.91','0.00',0,0),(29,13,6,'2022-04-25','2022-04-27',2,'39.09','78.18','0.00',0,0),(30,13,1,'2022-04-27','2022-04-28',1,'35.45','35.45','0.00',0,0),(33,12,1,'2022-04-21','2022-04-25',0.571429,'248.18','141.82','0.00',1,0),(34,12,6,'2022-04-25','2022-04-27',0.285714,'273.64','78.18','0.00',1,0),(35,12,1,'2022-04-27','2022-04-28',0.142857,'248.18','35.45','0.00',1,0),(36,12,1,'2022-04-28','2022-04-30',2,'35.45','70.91','0.00',0,0),(37,14,1,'2022-04-21','2022-04-23',2,'35.45','70.91','0.00',0,0),(38,17,1,'2022-04-21','2022-04-23',2,'40.00','80.00','0.00',0,0),(39,18,1,'2022-04-21','2022-04-24',3,'35.45','106.36','0.00',0,0),(40,19,1,'2022-04-24','2022-04-25',1,'35.45','35.45','0.00',0,0),(41,19,6,'2022-04-25','2022-04-27',2,'39.09','78.18','0.00',0,0),(42,19,1,'2022-04-27','2022-04-29',2,'35.45','70.91','0.00',0,0),(43,20,1,'2022-04-21','2022-04-24',3,'35.45','106.36','0.00',0,0),(44,21,1,'2022-04-23','2022-04-25',0.285714,'248.18','70.91','0.00',1,0),(45,21,6,'2022-04-25','2022-04-27',0.285714,'273.64','78.18','0.00',1,0),(46,21,1,'2022-04-27','2022-04-30',0.428571,'248.18','106.36','0.00',1,0),(47,21,1,'2022-04-30','2022-05-01',1,'35.45','35.45','0.00',0,0),(49,22,1,'2022-04-20','2022-04-21',1,'35.45','35.45','0.00',0,0),(52,23,6,'2022-04-25','2022-04-27',2,'39.09','78.18','0.00',0,0),(53,23,1,'2022-04-27','2022-04-29',2,'35.45','70.91','0.00',0,0),(56,25,1,'2022-04-27','2022-04-30',3,'35.45','106.36','0.00',0,0),(59,26,1,'2022-04-20','2022-04-25',5,'35.45','177.27','0.00',0,0),(60,26,6,'2022-04-25','2022-04-26',1,'39.09','39.09','0.00',0,0),(63,27,1,'2022-04-22','2022-04-25',3,'35.45','106.36','0.00',0,0),(64,27,6,'2022-04-25','2022-04-26',1,'39.09','39.09','0.00',0,0),(67,29,6,'2022-04-25','2022-04-27',2,'39.09','78.18','0.00',0,0),(68,29,1,'2022-04-27','2022-04-29',2,'35.45','70.91','0.00',0,0),(69,30,1,'2022-04-23','2022-04-24',1,'35.45','35.45','0.00',0,0),(74,31,1,'2022-04-22','2022-04-25',0.428571,'280.00','120.00','0.00',1,0),(75,31,6,'2022-04-25','2022-04-27',0.285714,'305.45','87.27','0.00',1,0),(76,31,1,'2022-04-27','2022-04-29',0.285714,'280.00','80.00','0.00',1,0),(77,31,1,'2022-04-29','2022-05-02',3,'40.00','120.00','0.00',0,0),(79,32,1,'2022-04-21','2022-04-24',3,'40.00','120.00','0.00',0,0),(83,33,1,'2022-04-20','2022-04-25',0.714286,'280.00','200.00','0.00',1,0),(84,33,6,'2022-04-25','2022-04-27',0.285714,'305.45','87.27','0.00',1,0),(85,33,1,'2022-04-27','2022-04-30',3,'40.00','120.00','0.00',0,0),(86,34,1,'2022-04-28','2022-04-29',1,'35.45','35.45','0.00',0,0),(87,35,6,'2022-04-26','2022-04-27',1,'39.09','39.09','0.00',0,0),(88,36,6,'2022-04-26','2022-04-27',1,'39.09','39.09','0.00',0,0),(89,37,1,'2022-04-28','2022-04-29',1,'35.45','35.45','0.00',0,0),(90,38,6,'2022-04-26','2022-04-27',1,'39.09','39.09','0.00',0,0),(92,39,1,'2022-04-30','2022-05-01',1,'35.45','35.45','0.00',0,0),(93,40,1,'2022-04-27','2022-04-28',1,'35.45','35.45','0.00',0,0),(97,3,1,'2022-04-29','2022-05-01',2,'35.45','70.91','0.00',0,0);
+/*!40000 ALTER TABLE `charges` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `colors`
+--
+
+DROP TABLE IF EXISTS `colors`;
+CREATE TABLE `colors` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(255) collate utf8_unicode_ci default NULL,
+  `value` varchar(255) collate utf8_unicode_ci default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `colors`
+--
+
+LOCK TABLES `colors` WRITE;
+/*!40000 ALTER TABLE `colors` DISABLE KEYS */;
+INSERT INTO `colors` VALUES (1,'body','Black'),(2,'body_background','WhiteSmoke'),(3,'main','Black'),(4,'main_background','WhiteSmoke'),(5,'columns','Black'),(6,'columns_background','LightSteelBlue'),(7,'banner','Black'),(8,'banner_background','MediumSlateBlue'),(9,'late','Black'),(10,'late_background','Darkorange'),(11,'locale','Black'),(12,'locale_background','White'),(13,'occupied','Black'),(14,'occupied_background','LimeGreen'),(15,'overstay','Black'),(16,'overstay_background','LightGray'),(17,'reserved','Black'),(18,'reserved_background','LightSteelBlue'),(19,'today','Red'),(20,'today_background','Khaki'),(21,'notice','Green'),(22,'notice_background','Snow'),(23,'error','Red'),(24,'error_background','Snow'),(25,'warning','Yellow'),(26,'warning_background','Snow'),(27,'user','Black'),(28,'unavailable','Red'),(29,'unconfirmed','Blue'),(30,'this_day','Red'),(31,'link','Black'),(32,'payment_due','Red'),(33,'ip_editor_field_background','White'),(34,'explain_background','White'),(35,'hover','LightGrey'),(36,'this_day_background','White'),(37,'unavailable_background','White');
+/*!40000 ALTER TABLE `colors` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `countries`
+--
+
+DROP TABLE IF EXISTS `countries`;
+CREATE TABLE `countries` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(32) collate utf8_unicode_ci default NULL,
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  `position` int(11) default NULL,
+  `active` tinyint(1) default '1',
+  PRIMARY KEY  (`id`),
+  KEY `index_countries_on_position` (`position`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `countries`
+--
+
+LOCK TABLES `countries` WRITE;
+/*!40000 ALTER TABLE `countries` DISABLE KEYS */;
+INSERT INTO `countries` VALUES (1,NULL,'2022-01-26 16:18:05','2022-01-26 16:18:05',NULL,1),(2,'United States','2022-01-26 16:18:05','2022-01-26 16:18:05',NULL,1),(3,'United Kingdom','2022-01-26 16:18:05','2022-01-26 16:18:05',NULL,1);
+/*!40000 ALTER TABLE `countries` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `creditcards`
+--
+
+DROP TABLE IF EXISTS `creditcards`;
+CREATE TABLE `creditcards` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(32) collate utf8_unicode_ci NOT NULL default '',
+  `is_credit_card` tinyint(1) default '1',
+  `validate_cc_number` tinyint(1) default '0',
+  `use_expiration` tinyint(1) default '0',
+  `validate_expiration` tinyint(1) default '0',
+  `position` int(11) default NULL,
+  `active` tinyint(1) default '1',
+  PRIMARY KEY  (`id`),
+  KEY `index_creditcards_on_position` (`position`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `creditcards`
+--
+
+LOCK TABLES `creditcards` WRITE;
+/*!40000 ALTER TABLE `creditcards` DISABLE KEYS */;
+INSERT INTO `creditcards` VALUES (1,'Cash',0,0,0,0,NULL,1),(2,'EFTPOS',1,1,1,1,NULL,1);
+/*!40000 ALTER TABLE `creditcards` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `discounts`
+--
+
+DROP TABLE IF EXISTS `discounts`;
+CREATE TABLE `discounts` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(32) collate utf8_unicode_ci NOT NULL default '',
+  `discount_percent` decimal(5,2) default '0.00',
+  `disc_appl_month` tinyint(1) default '0',
+  `disc_appl_week` tinyint(1) default '0',
+  `disc_appl_seasonal` tinyint(1) default '0',
+  `disc_appl_daily` tinyint(1) default '1',
+  `amount` decimal(8,2) default '0.00',
+  `amount_daily` decimal(11,5) default '0.00000',
+  `amount_weekly` decimal(11,5) default '0.00000',
+  `amount_monthly` decimal(12,5) default '0.00000',
+  `position` int(11) default NULL,
+  `active` tinyint(1) default '1',
+  PRIMARY KEY  (`id`),
+  KEY `index_discounts_on_position` (`position`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `discounts`
+--
+
+LOCK TABLES `discounts` WRITE;
+/*!40000 ALTER TABLE `discounts` DISABLE KEYS */;
+INSERT INTO `discounts` VALUES (1,'none','0.00',0,0,0,1,'0.00','0.00000','0.00000','0.00000',5,1),(2,'25%','25.00',1,0,0,1,'0.00','0.00000','0.00000','0.00000',4,1),(3,'20%','20.00',0,1,0,1,'0.00','0.00000','0.00000','0.00000',3,1),(4,'15%','15.00',0,0,0,1,'0.00','0.00000','0.00000','0.00000',2,1),(5,'10%','10.00',0,0,0,1,'0.00','0.00000','0.00000','0.00000',1,1),(6,'30%','30.00',0,0,0,1,'0.00','0.00000','0.00000','0.00000',6,1),(7,'35%','35.00',0,0,0,1,'0.00','0.00000','0.00000','0.00000',7,1),(8,'40%','40.00',0,0,0,1,'0.00','0.00000','0.00000','0.00000',8,1),(9,'45%','45.00',0,0,0,1,'0.00','0.00000','0.00000','0.00000',9,1),(10,'50%','50.00',0,0,0,1,'0.00','0.00000','0.00000','0.00000',10,1);
+/*!40000 ALTER TABLE `discounts` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `dynamic_strings`
+--
+
+DROP TABLE IF EXISTS `dynamic_strings`;
+CREATE TABLE `dynamic_strings` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(255) collate utf8_unicode_ci default NULL,
+  `text` blob,
+  `updated_at` datetime default NULL,
+  PRIMARY KEY  (`id`),
+  KEY `index_dynamic_strings_on_name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `dynamic_strings`
+--
+
+LOCK TABLES `dynamic_strings` WRITE;
+/*!40000 ALTER TABLE `dynamic_strings` DISABLE KEYS */;
+/*!40000 ALTER TABLE `dynamic_strings` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `emails`
+--
+
+DROP TABLE IF EXISTS `emails`;
+CREATE TABLE `emails` (
+  `id` int(11) NOT NULL auto_increment,
+  `smtp_address` varchar(64) collate utf8_unicode_ci default '',
+  `smtp_port` int(11) default '25',
+  `smtp_domain` varchar(64) collate utf8_unicode_ci default '',
+  `smtp_authentication_id` int(11) default '1',
+  `smtp_username` varchar(64) collate utf8_unicode_ci default '',
+  `smtp_password` varchar(64) collate utf8_unicode_ci default '',
+  `charset` varchar(255) collate utf8_unicode_ci default 'utf-8',
+  `cc` varchar(255) collate utf8_unicode_ci default '',
+  `bcc` varchar(255) collate utf8_unicode_ci default '',
+  `sender` varchar(255) collate utf8_unicode_ci default '',
+  `reply` varchar(255) collate utf8_unicode_ci default '',
+  `confirm_subject` varchar(255) collate utf8_unicode_ci default 'Reservation Confirmation',
+  `update_subject` varchar(255) collate utf8_unicode_ci default 'Reservation Update',
+  `feedback_subject` varchar(255) collate utf8_unicode_ci default 'Reservation Feedback',
+  `remote_res_subject` varchar(255) collate utf8_unicode_ci default 'Reservation Received',
+  `remote_res_confirm_subject` varchar(255) collate utf8_unicode_ci default 'Reservation Confirmed',
+  `remote_res_reject_subject` varchar(255) collate utf8_unicode_ci default 'Reservation Not Confirmed',
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `emails`
+--
+
+LOCK TABLES `emails` WRITE;
+/*!40000 ALTER TABLE `emails` DISABLE KEYS */;
+INSERT INTO `emails` VALUES (1,'smtp.gmail.com',587,'gmail.com',4,'stuartshattock@gmail.com','','utf-8','','','','','Reservation Confirmation','Reservation Update','Reservation Feedback','Reservation Received','Reservation Confirmed','Reservation Not Confirmed');
+/*!40000 ALTER TABLE `emails` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `extra_charges`
+--
+
+DROP TABLE IF EXISTS `extra_charges`;
+CREATE TABLE `extra_charges` (
+  `id` int(11) NOT NULL auto_increment,
+  `extra_id` int(11) default NULL,
+  `reservation_id` int(11) default NULL,
+  `number` int(11) default '0',
+  `days` int(11) default '0',
+  `weeks` int(11) default '0',
+  `months` int(11) default '0',
+  `daily_charges` decimal(12,2) default '0.00',
+  `weekly_charges` decimal(12,2) default '0.00',
+  `monthly_charges` decimal(12,2) default '0.00',
+  `initial` decimal(12,2) default '0.00',
+  `final` decimal(12,2) default '0.00',
+  `measured_charge` decimal(12,2) default '0.00',
+  `updated_on` date default NULL,
+  `charge` decimal(12,2) default '0.00',
+  `measured_rate` decimal(12,6) default '0.000000',
+  `created_on` date default NULL,
+  `precision` int(11) default '2',
+  PRIMARY KEY  (`id`),
+  KEY `index_extra_charges_on_extra_id` (`extra_id`),
+  KEY `index_extra_charges_on_reservation_id` (`reservation_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `extra_charges`
+--
+
+LOCK TABLES `extra_charges` WRITE;
+/*!40000 ALTER TABLE `extra_charges` DISABLE KEYS */;
+/*!40000 ALTER TABLE `extra_charges` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `extras`
+--
+
+DROP TABLE IF EXISTS `extras`;
+CREATE TABLE `extras` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(32) collate utf8_unicode_ci default NULL,
+  `counted` tinyint(1) default '0',
+  `daily` decimal(10,2) default '0.00',
+  `weekly` decimal(10,2) default '0.00',
+  `monthly` decimal(10,2) default '0.00',
+  `maximum` int(11) default '4',
+  `onetime` tinyint(1) default '0',
+  `charge` decimal(10,2) default '0.00',
+  `measured` tinyint(1) default '0',
+  `rate` decimal(12,6) default '0.000000',
+  `unit_name` varchar(32) collate utf8_unicode_ci default NULL,
+  `occasional` tinyint(1) default '0',
+  `extra_type` int(11) default '0',
+  `position` int(11) default NULL,
+  `remote_display` tinyint(1) default '1',
+  `active` tinyint(1) default '1',
+  PRIMARY KEY  (`id`),
+  KEY `index_extras_on_position` (`position`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `extras`
+--
+
+LOCK TABLES `extras` WRITE;
+/*!40000 ALTER TABLE `extras` DISABLE KEYS */;
+INSERT INTO `extras` VALUES (1,'WiFi Use',0,'4.55','31.82','130.45',4,0,'0.00',0,'0.000000','',0,0,NULL,1,0),(2,'Extra Adult',1,'13.64','95.45','391.36',4,0,'0.00',0,'0.000000','',0,1,NULL,1,1),(3,'Metered electric',0,'0.00','0.00','0.00',4,0,'0.00',0,'0.120000','Kwh',0,2,NULL,1,1),(4,'Tent Package',0,'45.45','318.18','1304.55',4,0,'0.00',0,'0.000000','',0,0,1,1,1),(5,'Extra Child (5-18yo)',0,'6.36','44.55','182.64',4,0,'0.00',0,'0.000000','',0,1,2,1,0),(6,'Day Visitor',0,'3.64','0.00','0.00',4,0,'0.00',0,'0.000000','',0,1,3,1,1),(7,'Day Visitor Car',0,'4.55','0.00','0.00',4,0,'0.00',0,'0.000000','',0,1,4,1,1),(8,'Extra Child (0-5yo)',0,'0.00','0.00','0.00',4,0,'0.00',0,'0.000000','',0,1,5,1,1),(9,'kkk',0,'2.00','2.00','2.00',3,0,'0.00',0,'0.000000','',0,1,6,1,1),(10,'333',0,'3.00','3.00','3.00',4,0,'0.00',0,'0.000000','',0,0,7,1,1),(11,'111',0,'1.00','1.00','1.00',3,0,'0.00',0,'0.000000','',0,1,8,1,1),(12,'sdf',0,'333.00','333.00','333.00',4,0,'0.00',0,'0.000000','',0,0,9,1,1),(13,'eee',0,'0.00','0.00','0.00',4,0,'1.10',0,'0.000000','',0,3,10,1,1),(14,'www',0,'3.00','2.00','1.00',3,0,'0.00',0,'0.000000','',0,1,11,1,1),(15,'ggg',0,'1.00','11.00','111.00',2,0,'0.00',0,'0.000000','',0,1,12,1,1);
+/*!40000 ALTER TABLE `extras` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `extras_taxrates`
+--
+
+DROP TABLE IF EXISTS `extras_taxrates`;
+CREATE TABLE `extras_taxrates` (
+  `extra_id` int(11) NOT NULL,
+  `taxrate_id` int(11) NOT NULL,
+  KEY `index_extras_taxrates_on_extra_id` (`extra_id`),
+  KEY `index_extras_taxrates_on_taxrate_id` (`taxrate_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `extras_taxrates`
+--
+
+LOCK TABLES `extras_taxrates` WRITE;
+/*!40000 ALTER TABLE `extras_taxrates` DISABLE KEYS */;
+INSERT INTO `extras_taxrates` VALUES (1,1),(2,1),(4,1),(5,1),(6,1),(7,1),(8,1),(9,1),(10,1),(11,1),(12,1),(13,1),(14,1),(15,1);
+/*!40000 ALTER TABLE `extras_taxrates` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `groups`
+--
+
+DROP TABLE IF EXISTS `groups`;
+CREATE TABLE `groups` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(32) collate utf8_unicode_ci NOT NULL default '',
+  `expected_number` int(11) NOT NULL default '0',
+  `startdate` date default NULL,
+  `enddate` date default NULL,
+  `camper_id` int(11) default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `groups`
+--
+
+LOCK TABLES `groups` WRITE;
+/*!40000 ALTER TABLE `groups` DISABLE KEYS */;
+/*!40000 ALTER TABLE `groups` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `integrations`
+--
+
+DROP TABLE IF EXISTS `integrations`;
+CREATE TABLE `integrations` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(32) collate utf8_unicode_ci default 'None',
+  `pp_cert_id` varchar(32) collate utf8_unicode_ci default NULL,
+  `pp_business` varchar(128) collate utf8_unicode_ci default NULL,
+  `pp_currency_code` varchar(12) collate utf8_unicode_ci default 'USD',
+  `pp_country` varchar(12) collate utf8_unicode_ci default 'US',
+  `pp_url` varchar(128) collate utf8_unicode_ci default 'https://www.paypal.com/cgi-bin/webscr',
+  `fd_login` varchar(32) collate utf8_unicode_ci default NULL,
+  `fd_transaction_key` varchar(32) collate utf8_unicode_ci default NULL,
+  `fd_response_key` varchar(32) collate utf8_unicode_ci default NULL,
+  `fd_currency_code` varchar(12) collate utf8_unicode_ci default 'USD',
+  `fd_country` varchar(12) collate utf8_unicode_ci default 'US',
+  `fd_url` varchar(128) collate utf8_unicode_ci default NULL,
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  `cc_merchant_id` varchar(255) collate utf8_unicode_ci default NULL,
+  `cc_api_username` varchar(255) collate utf8_unicode_ci default NULL,
+  `cc_api_password` varchar(255) collate utf8_unicode_ci default NULL,
+  `cc_endpoint` varchar(255) collate utf8_unicode_ci default 'https://boltgw.cardconnect.com:6443',
+  `cc_bolt_endpoint` varchar(255) collate utf8_unicode_ci default 'https://bolt-uat.cardpointe.com:6443',
+  `cc_bolt_api_key` varchar(255) collate utf8_unicode_ci default NULL,
+  `cc_currency_code` varchar(255) collate utf8_unicode_ci default 'USD',
+  `cc_hsn` varchar(255) collate utf8_unicode_ci default NULL,
+  `cc_greeting` varchar(255) collate utf8_unicode_ci default 'Open Campground',
+  `cc_use_signature` tinyint(1) default '1',
+  `cc_display_amount` tinyint(1) default '0',
+  `cc_use_cvv` tinyint(1) default '1',
+  `cc_use_zip` tinyint(1) default '1',
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `integrations`
+--
+
+LOCK TABLES `integrations` WRITE;
+/*!40000 ALTER TABLE `integrations` DISABLE KEYS */;
+INSERT INTO `integrations` VALUES (695659695,'PayPal','MTM8LWYC6CYZ2','contact@glencromiereserve.net.au','AUD','AU','https://www.paypal.com/au/cgi-bin/webscr','','','','USD','US','','2022-01-26 16:18:06','2022-03-04 18:59:32',NULL,NULL,NULL,'https://boltgw.cardconnect.com:6443','https://bolt-uat.cardpointe.com:6443',NULL,'USD',NULL,'Open Campground',1,0,1,1);
+/*!40000 ALTER TABLE `integrations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `mail_templates`
+--
+
+DROP TABLE IF EXISTS `mail_templates`;
+CREATE TABLE `mail_templates` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(32) collate utf8_unicode_ci default NULL,
+  `body` text collate utf8_unicode_ci,
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `mail_templates`
+--
+
+LOCK TABLES `mail_templates` WRITE;
+/*!40000 ALTER TABLE `mail_templates` DISABLE KEYS */;
+INSERT INTO `mail_templates` VALUES (1,'reservation_confirmation','Dear {{camper}},\r\n\r\nThank you for making a reservation at Glen Cromie Reserve. You are scheduled to arrive on {{start}} and depart on {{departure}}. We have assigned you to site {{space_name}}. The total charges are estimated at {{charges}}. Your reservation confirmation number is {{number}}.\r\n\r\nWe look forward to seeing you,\r\nMary and Mark Shattock.','2022-01-26 16:18:06','2022-04-02 16:53:54'),(2,'reservation_update','Dear {{camper}},\n\nYour reservation at My RV Park has been updated.  You are now scheduled to arrive on {{start}} and depart on {{departure}}.  We have assigned you site {{space_name}}.  The total charges are estimated at {{charges}}.  Your reservation confirmation number is {{number}}.\n\nWe look forward to serving you\nTy Coon\nManager','2022-01-26 16:18:06','2022-01-26 16:18:06'),(3,'reservation_feedback','Dear {{camper}},\n\nThank you for staying at My RV Park.\n\nPlease reply to this message and tell us how you enjoyed your stay and if there is anything we could do to make your next stay with us more enjoyable.\n\nWe enjoyed having your company\nTy Coon\nManager','2022-01-26 16:18:06','2022-01-26 16:18:06'),(4,'remote_reservation_received','Dear {{camper}},\n\nThank you for making a reservation at My RV Park.  Your reservation will be reviewed by the management and you will sent a confirmation.  \n\nWe look forward to serving you\nTy Coon\nManager','2022-01-26 16:18:06','2022-01-26 16:18:06'),(5,'remote_reservation_confirmation','Dear {{camper}},\n\nThank you for making a reservation at My RV Park.  You are scheduled to arrive on {{start}} and depart on {{departure}}.  We have assigned you site {{space_name}}.  The total charges are estimated at {{charges}}.  Your reservation confirmation number is {{number}}. \n\nWe look forward to serving you\nTy Coon\nManager','2022-01-26 16:18:06','2022-01-26 16:18:06'),(6,'remote_reservation_reject','Dear {{camper}},\n\nYour reservation for arrival on {{start}} and departure on {{departure}} has not been confirmed.  Please call us at (111) 555-1212 to resolve the problems.  \n\nWe look forward to serving you\nTy Coon\nManager','2022-01-26 16:18:06','2022-01-26 16:18:06'),(7,'tst','This is a test message','2022-01-26 16:18:06','2022-01-26 16:18:06');
+/*!40000 ALTER TABLE `mail_templates` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `options`
+--
+
+DROP TABLE IF EXISTS `options`;
+CREATE TABLE `options` (
+  `id` int(11) NOT NULL auto_increment,
+  `use_country` tinyint(1) default '0',
+  `use_id` tinyint(1) default '0',
+  `unit` varchar(12) collate utf8_unicode_ci default '$',
+  `separator` varchar(2) collate utf8_unicode_ci default '.',
+  `delimiter` varchar(2) collate utf8_unicode_ci default ',',
+  `header` text collate utf8_unicode_ci,
+  `trailer` text collate utf8_unicode_ci,
+  `use_login` tinyint(1) default '0',
+  `sa_columns` int(11) default '120',
+  `custom_sa_columns` int(11) default NULL,
+  `max_spacename` int(11) default '3',
+  `disp_rows` int(11) default '12',
+  `find_by_id` tinyint(1) default '0',
+  `no_vehicles` int(11) default '1',
+  `no_phones` int(11) default '1',
+  `lookback` int(11) default '7',
+  `use_recommend` tinyint(1) default '1',
+  `use_seasonal` tinyint(1) default '0',
+  `season_start` date default '2012-01-01',
+  `season_end` date default '2012-12-31',
+  `print` tinyint(1) default '0',
+  `use_confirm_email` tinyint(1) default '0',
+  `res_list_sort` varchar(255) collate utf8_unicode_ci default 'unconfirmed_remote desc, startdate, group_id, spaces.position asc',
+  `inpark_list_sort` varchar(255) collate utf8_unicode_ci default 'unconfirmed_remote desc, enddate, startdate, group_id, spaces.position asc',
+  `archive_list_sort` varchar(255) collate utf8_unicode_ci default 'id',
+  `use_autologin` tinyint(1) default '0',
+  `use_override` tinyint(1) default '0',
+  `override_by_all` tinyint(1) default '0',
+  `use_2nd_address` tinyint(1) default '0',
+  `use_remote_reservations` tinyint(1) default '0',
+  `home` varchar(255) collate utf8_unicode_ci default NULL,
+  `locale` varchar(16) collate utf8_unicode_ci default 'en',
+  `use_checkout_time` tinyint(1) default '0',
+  `checkout_time` time default NULL,
+  `use_reserve_by_wk` tinyint(1) default '0',
+  `remote_discount` tinyint(1) default '0',
+  `remote_recommendations` tinyint(1) default '0',
+  `use_onetime_discount` tinyint(1) default '0',
+  `list_payments` tinyint(1) default '0',
+  `keep_reservations` int(11) default '13',
+  `use_feedback` tinyint(1) default '0',
+  `require_gateway` tinyint(1) default '1',
+  `allow_gateway` tinyint(1) default '0',
+  `auto_checkin_remote` tinyint(1) default '0',
+  `current_version` varchar(16) collate utf8_unicode_ci default NULL,
+  `current_revision` varchar(16) collate utf8_unicode_ci default NULL,
+  `ftp_server` varchar(128) collate utf8_unicode_ci default NULL,
+  `ftp_account` varchar(32) collate utf8_unicode_ci default NULL,
+  `ftp_passwd` varchar(32) collate utf8_unicode_ci default NULL,
+  `match_firstname` tinyint(1) default '0',
+  `match_city` tinyint(1) default '0',
+  `js` text collate utf8_unicode_ci,
+  `remote_css` text collate utf8_unicode_ci,
+  `remote_js` text collate utf8_unicode_ci,
+  `variable_rates` tinyint(1) default '0',
+  `use_update` tinyint(1) default '1',
+  `use_cc_fee` tinyint(1) default '1',
+  `tabs` tinyint(1) default '0',
+  `require_email` tinyint(1) default '0',
+  `require_phone` tinyint(1) default '0',
+  `css` text collate utf8_unicode_ci,
+  `use_remote_res_email` tinyint(1) default '1',
+  `use_remote_res_confirm` tinyint(1) default '1',
+  `use_remote_res_reject` tinyint(1) default '1',
+  `rates_decimal` int(11) default '2',
+  `use_rig_age` tinyint(1) default '1',
+  `use_length` tinyint(1) default '1',
+  `disp_site_length` tinyint(1) default '1',
+  `use_rig_type` tinyint(1) default '1',
+  `use_slides` tinyint(1) default '1',
+  `use_adults` tinyint(1) default '1',
+  `use_children` tinyint(1) default '1',
+  `use_pets` tinyint(1) default '1',
+  `use_remote_age` tinyint(1) default '1',
+  `use_remote_length` tinyint(1) default '1',
+  `disp_remote_length` tinyint(1) default '1',
+  `use_remote_rig_type` tinyint(1) default '1',
+  `use_remote_slides` tinyint(1) default '1',
+  `use_remote_adults` tinyint(1) default '1',
+  `use_remote_children` tinyint(1) default '1',
+  `use_remote_pets` tinyint(1) default '1',
+  `inline_subtotal` tinyint(1) default '0',
+  `use_storage` tinyint(1) default '0',
+  `use_closed` tinyint(1) default '0',
+  `closed_start` date default NULL,
+  `closed_end` date default NULL,
+  `all_onetime_discount` tinyint(1) default '0',
+  `all_backup` tinyint(1) default '1',
+  `all_manage_backup` tinyint(1) default '0',
+  `all_manage_logs` tinyint(1) default '0',
+  `all_manage_payments` tinyint(1) default '0',
+  `all_manage_measured` tinyint(1) default '0',
+  `all_checkin_rpt` tinyint(1) default '1',
+  `all_leave_rpt` tinyint(1) default '1',
+  `all_arrival_rpt` tinyint(1) default '1',
+  `all_departure_rpt` tinyint(1) default '1',
+  `all_in_park_rpt` tinyint(1) default '1',
+  `all_space_sum_rpt` tinyint(1) default '1',
+  `all_occupancy_rpt` tinyint(1) default '0',
+  `all_campers_rpt` tinyint(1) default '0',
+  `all_transactions_rpt` tinyint(1) default '0',
+  `all_payments_rpt` tinyint(1) default '0',
+  `all_measured_rpt` tinyint(1) default '0',
+  `all_recommend_rpt` tinyint(1) default '0',
+  `all_archives` tinyint(1) default '0',
+  `all_updates` tinyint(1) default '0',
+  `show_available` tinyint(1) default '1',
+  `show_remote_available` tinyint(1) default '1',
+  `express` tinyint(1) default '0',
+  `use_discount` tinyint(1) default '1',
+  `use_links` tinyint(1) default '0',
+  `cookie_token` varchar(255) collate utf8_unicode_ci default NULL,
+  `session_token` varchar(255) collate utf8_unicode_ci default NULL,
+  `use_envelope` tinyint(1) default '0',
+  `margin_top` varchar(12) collate utf8_unicode_ci default '0.5in',
+  `margin_left` varchar(12) collate utf8_unicode_ci default '0.56in',
+  `margin_bottom` varchar(12) collate utf8_unicode_ci default '0.5in',
+  `use_license` tinyint(1) default '0',
+  `use_map` tinyint(1) default '0',
+  `use_remote_map` tinyint(1) default '0',
+  `map` varchar(255) collate utf8_unicode_ci default NULL,
+  `remote_map` varchar(255) collate utf8_unicode_ci default NULL,
+  `edit_archives` tinyint(1) default '1',
+  `all_edit_archives` tinyint(1) default '0',
+  `require_first` tinyint(1) default '0',
+  `require_addr` tinyint(1) default '0',
+  `require_city` tinyint(1) default '0',
+  `require_state` tinyint(1) default '0',
+  `require_mailcode` tinyint(1) default '0',
+  `require_country` tinyint(1) default '0',
+  `require_id` tinyint(1) default '0',
+  `use_addl` tinyint(1) default '0',
+  `use_ssl` tinyint(1) default '0',
+  `l_require_first` tinyint(1) default '0',
+  `l_require_addr` tinyint(1) default '0',
+  `l_require_city` tinyint(1) default '0',
+  `l_require_state` tinyint(1) default '0',
+  `l_require_mailcode` tinyint(1) default '0',
+  `l_require_country` tinyint(1) default '0',
+  `l_require_id` tinyint(1) default '0',
+  `l_require_phone` tinyint(1) default '0',
+  `l_require_email` tinyint(1) default '0',
+  `deposit_type` int(11) default '0',
+  `deposit` decimal(11,5) default '0.00000',
+  `remote_auto_accept` tinyint(1) default '0',
+  `date_format` varchar(12) collate utf8_unicode_ci default NULL,
+  `all_reservations_rpt` tinyint(1) default '0',
+  `all_card_transactions_rpt` tinyint(1) default '0',
+  `use_remote_sitetype` tinyint(1) default '1',
+  `all_troubleshoot` tinyint(1) default '0',
+  `use_variable_charge` tinyint(1) default '0',
+  `all_manage_variable` tinyint(1) default '1',
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `options`
+--
+
+LOCK TABLES `options` WRITE;
+/*!40000 ALTER TABLE `options` DISABLE KEYS */;
+INSERT INTO `options` VALUES (1,0,0,'$','.',',','','',1,120,7,5,20,0,1,1,0,1,0,'2022-01-01','2022-12-31',1,1,'unconfirmed_remote desc, startdate, group_id, spaces.position asc','unconfirmed_remote desc, enddate, startdate, group_id, spaces.position asc','id',0,0,0,0,1,'remotereservation','en',0,'17:01:00',0,0,0,0,0,13,0,1,0,1,'1.11',NULL,'ocsrv.net','anonymous','opencampground',0,0,NULL,NULL,NULL,0,1,1,0,1,1,NULL,1,1,1,2,0,1,1,1,0,1,1,1,1,1,1,1,0,1,1,1,0,0,0,'2022-01-26','2022-01-26',0,1,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,0,1,1,1,1,0,NULL,NULL,0,'0.5in','0.56in','0.5in',0,1,1,NULL,NULL,1,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,1,0,'0.00000',1,NULL,0,0,1,0,0,1);
+/*!40000 ALTER TABLE `options` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `payments`
+--
+
+DROP TABLE IF EXISTS `payments`;
+CREATE TABLE `payments` (
+  `id` int(11) NOT NULL auto_increment,
+  `amount` decimal(11,5) default '0.00000',
+  `reservation_id` int(11) default NULL,
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  `memo` varchar(255) collate utf8_unicode_ci default NULL,
+  `creditcard_id` int(11) default NULL,
+  `credit_card_no` varchar(20) collate utf8_unicode_ci default '',
+  `cc_expire` date default NULL,
+  `name` varchar(32) collate utf8_unicode_ci default NULL,
+  `pmt_date` date default NULL,
+  `cc_fee` decimal(6,2) default '0.00',
+  PRIMARY KEY  (`id`),
+  KEY `index_payments_on_reservation_id` (`reservation_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `payments`
+--
+
+LOCK TABLES `payments` WRITE;
+/*!40000 ALTER TABLE `payments` DISABLE KEYS */;
+/*!40000 ALTER TABLE `payments` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `prices`
+--
+
+DROP TABLE IF EXISTS `prices`;
+CREATE TABLE `prices` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(32) collate utf8_unicode_ci NOT NULL default '',
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `prices`
+--
+
+LOCK TABLES `prices` WRITE;
+/*!40000 ALTER TABLE `prices` DISABLE KEYS */;
+INSERT INTO `prices` VALUES (1,'Powered'),(2,'Unpowered'),(3,'River Powered'),(4,'River Unpowered'),(5,'Cabin 1');
+/*!40000 ALTER TABLE `prices` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `prompts`
+--
+
+DROP TABLE IF EXISTS `prompts`;
+CREATE TABLE `prompts` (
+  `id` int(11) NOT NULL auto_increment,
+  `display` varchar(32) collate utf8_unicode_ci default NULL,
+  `locale` varchar(16) collate utf8_unicode_ci default 'en',
+  `body` text collate utf8_unicode_ci,
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `prompts`
+--
+
+LOCK TABLES `prompts` WRITE;
+/*!40000 ALTER TABLE `prompts` DISABLE KEYS */;
+INSERT INTO `prompts` VALUES (1,'confirmation','en','This page is your reservation confirmation.  Print it on a printer or to a file for your records.','2022-01-26 16:18:07','2022-01-26 16:18:07'),(2,'find_space','en','On this page are listed all of the sites that are available on the dates you selected.  The EWS column indicates whether the sites have Electricity, Water and Sewer and for those having Electricity the amp capacity.  The size column indicates the size in the common measure of the locale (normally feet or meters depending on the locale).  Daily, Weekly and Monthly columns give the Daily, Weekly and Monthly rate for the space.  If there is no amount indicated the space does not have a rate for that period.  Type is the space type which was selected on the previous page.  The Special column contains information that may help you in deciding whether or not you would like the site.  <p> When you find the site you want just click on the <span style=\"text-decoration: underline\">Select</span> link to the right of that site.  You will have an opportunity to change your selection on a following page if you change your mind.  There is a <em>Cancel</em> button at the bottom of the page.</p>','2022-01-26 16:18:07','2022-01-26 16:18:07'),(3,'index','en','Using this series of web pages you can make your own reservations.  Just enter into the fields the information on your party.  The most important piece of information is the dates you want.  When you have entered the requested information, pressing the \'Find Space\' button will cause the system to find spaces which are available on the dates indicated.  At any time you can terminate the process with the \'Cancel\' button.','2022-01-26 16:18:07','2022-01-26 16:18:07'),(4,'show','en','This is your last chance to change things before you complete your reservation. Any fields that are boxed can be modified by selecting them and typing the new data. To change date or space select the buttons so labeled.  <p> Select the <em>Complete Reservation</em> button to continue the reservation process on the Camper Name page.</p>','2022-01-26 16:18:07','2022-01-26 16:18:07'),(5,'wait_for_confirm','en','This page is shown while we are waiting for PayPal to respond with a confirmation of the transaction.  This usually only takes a few seconds.  When the transaction is complete the confirmation page will be presented.','2022-01-26 16:18:07','2022-01-26 16:18:07'),(6,'find_remote','en','On this page enter your name etc.  Any fields with a asterisk after the name of the field are required.  You will not be able to proceed any further in the process until you have filled in the information required.','2022-01-26 16:18:07','2022-01-26 16:18:07'),(7,'CardConnect-payment','en','This page is your secure credit card gateway.  Enter your credit card number, expiration date and security code as prompted then select \'Submit\'','2022-01-26 16:18:07','2022-01-26 16:18:07'),(8,'CardConnect-a-payment','en','This page is your secure credit card gateway.  Enter your credit card number, expiration date and security code as prompted then select \'Submit\'<p>If you will not be paying now select Finish Reservation.</p>','2022-01-26 16:18:07','2022-01-26 16:18:07'),(9,'PayPal-a-payment','en','Review the amount to be charged using PayPal and then select the PayPal Buy Now button.  This button will take you to the PayPal secure payments page.<p>If you will not be paying now select Finish Reservation.</p>','2022-01-26 16:18:07','2022-01-26 16:18:07'),(10,'PayPal-payment','en','Review the amount to be charged using PayPal and then select the PayPal Buy Now button.  This button will take you to the PayPal secure payments page.\")','2022-01-26 16:18:07','2022-01-26 16:18:07');
+/*!40000 ALTER TABLE `prompts` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `rates`
+--
+
+DROP TABLE IF EXISTS `rates`;
+CREATE TABLE `rates` (
+  `id` int(11) NOT NULL auto_increment,
+  `season_id` int(11) default NULL,
+  `price_id` int(11) default NULL,
+  `daily_rate` decimal(10,5) NOT NULL default '0.00000',
+  `weekly_rate` decimal(10,5) NOT NULL default '0.00000',
+  `monthly_rate` decimal(11,5) NOT NULL default '0.00000',
+  `seasonal_rate` decimal(8,2) NOT NULL default '0.00',
+  `sunday` decimal(10,5) NOT NULL default '0.00000',
+  `monday` decimal(10,5) NOT NULL default '0.00000',
+  `tuesday` decimal(10,5) NOT NULL default '0.00000',
+  `wednesday` decimal(10,5) NOT NULL default '0.00000',
+  `thursday` decimal(10,5) NOT NULL default '0.00000',
+  `friday` decimal(10,5) NOT NULL default '0.00000',
+  `saturday` decimal(10,5) NOT NULL default '0.00000',
+  `monthly_storage` decimal(11,5) default '0.00000',
+  PRIMARY KEY  (`id`),
+  KEY `index_rates_on_price_id` (`price_id`),
+  KEY `index_rates_on_season_id` (`season_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `rates`
+--
+
+LOCK TABLES `rates` WRITE;
+/*!40000 ALTER TABLE `rates` DISABLE KEYS */;
+INSERT INTO `rates` VALUES (1,1,1,'36.36364','254.54545','1043.63636','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(2,1,2,'31.81818','222.72727','913.18182','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(3,1,3,'40.00000','280.00000','1148.00000','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(4,1,4,'35.45455','248.18182','1017.54545','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(5,1,5,'127.27273','890.90909','3652.72727','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(6,2,1,'40.00000','280.00000','1148.00000','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(7,2,2,'35.45455','248.18182','1017.54545','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(8,2,3,'43.63636','305.45455','1252.36400','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(9,2,4,'39.09091','273.63636','1121.90909','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(10,2,5,'145.45455','1018.18182','4174.54545','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(11,3,1,'40.00000','280.00000','1148.00000','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(12,3,2,'35.45455','248.18182','1017.54545','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(13,3,3,'43.63636','305.45455','1252.36400','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(14,3,4,'39.09091','273.63636','1121.90909','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(15,3,5,'145.45455','1018.18182','4174.54545','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(16,4,1,'40.00000','280.00000','1148.00000','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(17,4,2,'35.45455','248.18182','1017.54545','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(18,4,3,'43.63636','305.45455','1252.36400','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(19,4,4,'39.09091','273.63636','1121.90909','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(20,4,5,'145.45455','1018.18182','4174.54545','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(21,5,1,'40.00000','280.00000','1148.00000','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(22,5,2,'35.45455','248.18182','1017.54545','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(23,5,3,'43.63636','305.45455','1252.36400','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(24,5,4,'39.09091','273.63636','1121.90909','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(25,5,5,'145.45455','1018.18182','4174.54545','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(26,6,1,'40.00000','280.00000','1148.00000','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(27,6,2,'35.45455','248.18182','1017.54545','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(28,6,3,'43.63636','305.45455','1252.36400','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(29,6,4,'39.09091','273.63636','1121.90909','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(30,6,5,'145.45455','1018.18182','4174.54545','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(31,7,1,'40.00000','280.00000','1148.00000','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(32,7,2,'35.45455','248.18182','1017.54545','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(33,7,3,'43.63636','305.45455','1252.36400','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(34,7,4,'39.09091','273.63636','1121.90909','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(35,7,5,'145.45455','1018.18182','4174.54545','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(36,8,1,'40.00000','280.00000','1148.00000','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(37,8,2,'35.45455','248.18182','1017.54545','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(38,8,3,'43.63636','305.45455','1252.36400','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(39,8,4,'39.09091','273.63636','1121.90909','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(40,8,5,'145.45455','1018.18182','4174.54545','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(41,9,1,'40.00000','280.00000','1148.00000','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(42,9,2,'35.45455','248.18182','1017.54545','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(43,9,3,'43.63636','305.45455','1252.36400','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(44,9,4,'39.09091','273.63636','1121.90909','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(45,9,5,'145.45455','1018.18182','4174.54545','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(46,10,1,'40.00000','280.00000','1148.00000','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(47,10,2,'35.45455','248.18182','1017.54545','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(48,10,3,'43.63636','305.45455','1252.36400','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(49,10,4,'39.09091','273.63636','1121.90909','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(50,10,5,'145.45455','1018.18182','4174.54545','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(51,11,1,'40.00000','280.00000','1148.00000','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(52,11,2,'35.45455','248.18182','1017.54545','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(53,11,3,'43.63636','305.45455','1252.36400','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(54,11,4,'39.09091','273.63636','1121.90909','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(55,11,5,'145.45455','1018.18182','4174.54545','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(56,12,1,'40.00000','280.00000','1148.00000','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(57,12,2,'35.45455','248.18182','1017.54545','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(58,12,3,'43.63636','305.45455','1252.36400','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(59,12,4,'39.09091','273.63636','1121.90909','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000'),(60,12,5,'145.45455','1018.18182','4174.54545','0.00','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000','0.00000');
+/*!40000 ALTER TABLE `rates` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `recommenders`
+--
+
+DROP TABLE IF EXISTS `recommenders`;
+CREATE TABLE `recommenders` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(32) collate utf8_unicode_ci default NULL,
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  `position` int(11) default NULL,
+  `active` tinyint(1) default '1',
+  PRIMARY KEY  (`id`),
+  KEY `index_recommenders_on_position` (`position`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `recommenders`
+--
+
+LOCK TABLES `recommenders` WRITE;
+/*!40000 ALTER TABLE `recommenders` DISABLE KEYS */;
+INSERT INTO `recommenders` VALUES (2,'Friend','2022-01-26 16:18:07','2022-01-26 16:18:07',NULL,1);
+/*!40000 ALTER TABLE `recommenders` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `remember_logins`
+--
+
+DROP TABLE IF EXISTS `remember_logins`;
+CREATE TABLE `remember_logins` (
+  `id` int(11) NOT NULL auto_increment,
+  `user_id` int(11) default NULL,
+  `token` varchar(255) collate utf8_unicode_ci default NULL,
+  `token_expires` datetime default NULL,
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `remember_logins`
+--
+
+LOCK TABLES `remember_logins` WRITE;
+/*!40000 ALTER TABLE `remember_logins` DISABLE KEYS */;
+/*!40000 ALTER TABLE `remember_logins` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `reservations`
+--
+
+DROP TABLE IF EXISTS `reservations`;
+CREATE TABLE `reservations` (
+  `id` int(11) NOT NULL auto_increment,
+  `camper_id` int(11) NOT NULL default '0',
+  `rigtype_id` mediumint(9) NOT NULL default '0',
+  `space_id` int(11) NOT NULL default '0',
+  `discount_id` int(11) default NULL,
+  `group_id` int(11) default NULL,
+  `startdate` date NOT NULL,
+  `enddate` date NOT NULL,
+  `deposit` decimal(8,2) default '0.00',
+  `override_total` decimal(8,2) default '0.00',
+  `special_request` varchar(255) collate utf8_unicode_ci default NULL,
+  `slides` tinyint(4) default '0',
+  `length` mediumint(9) default '0',
+  `rig_age` mediumint(9) default '0',
+  `vehicle_license` varchar(20) collate utf8_unicode_ci default NULL,
+  `vehicle_state` varchar(16) collate utf8_unicode_ci default NULL,
+  `checked_in` tinyint(1) default '0',
+  `adults` smallint(6) default '2',
+  `pets` smallint(6) default '0',
+  `kids` smallint(6) default '0',
+  `lock_version` int(11) default '0',
+  `total` decimal(8,2) default '0.00',
+  `confirm` tinyint(1) default '0',
+  `created_at` datetime default NULL,
+  `ext_charges` decimal(6,2) default '0.00',
+  `tax_str` text collate utf8_unicode_ci,
+  `tax_amount` decimal(6,2) default '0.00',
+  `unconfirmed_remote` tinyint(1) default '0',
+  `log` text collate utf8_unicode_ci,
+  `vehicle_license_2` varchar(20) collate utf8_unicode_ci default NULL,
+  `vehicle_state_2` varchar(16) collate utf8_unicode_ci default NULL,
+  `recommender_id` int(11) default '0',
+  `seasonal_rate` decimal(8,2) default '0.00',
+  `seasonal_charges` decimal(8,2) default '0.00',
+  `seasonal` tinyint(1) default '0',
+  `gateway_transaction` varchar(255) collate utf8_unicode_ci default NULL,
+  `onetime_discount` decimal(8,2) default '0.00',
+  `archived` tinyint(1) default '0',
+  `updated_on` date default NULL,
+  `storage` tinyint(1) default '0',
+  `updated_at` datetime default NULL,
+  `sitetype_id` int(11) default '0',
+  `next` int(11) default NULL,
+  `prev` int(11) default NULL,
+  `cancelled` tinyint(1) default '0',
+  `checked_out` tinyint(1) default '0',
+  `is_remote` tinyint(1) default '0',
+  PRIMARY KEY  (`id`),
+  KEY `index_reservations_on_enddate` (`enddate`),
+  KEY `index_reservations_on_group_id` (`group_id`),
+  KEY `index_reservations_on_space_id` (`space_id`),
+  KEY `index_reservations_on_startdate` (`startdate`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `reservations`
+--
+
+LOCK TABLES `reservations` WRITE;
+/*!40000 ALTER TABLE `reservations` DISABLE KEYS */;
+/*!40000 ALTER TABLE `reservations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `rigtypes`
+--
+
+DROP TABLE IF EXISTS `rigtypes`;
+CREATE TABLE `rigtypes` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(32) collate utf8_unicode_ci NOT NULL default '',
+  `position` int(11) default NULL,
+  `active` tinyint(1) default '1',
+  PRIMARY KEY  (`id`),
+  KEY `index_rigtypes_on_position` (`position`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `rigtypes`
+--
+
+LOCK TABLES `rigtypes` WRITE;
+/*!40000 ALTER TABLE `rigtypes` DISABLE KEYS */;
+INSERT INTO `rigtypes` VALUES (5,'Tent',NULL,1),(9,'Caravan',1,1),(10,'Campervan',2,1);
+/*!40000 ALTER TABLE `rigtypes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `schema_migrations`
+--
+
+DROP TABLE IF EXISTS `schema_migrations`;
+CREATE TABLE `schema_migrations` (
+  `version` varchar(255) collate utf8_unicode_ci NOT NULL,
+  UNIQUE KEY `unique_schema_migrations` (`version`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `schema_migrations`
+--
+
+LOCK TABLES `schema_migrations` WRITE;
+/*!40000 ALTER TABLE `schema_migrations` DISABLE KEYS */;
+INSERT INTO `schema_migrations` VALUES ('1'),('10'),('11'),('12'),('13'),('14'),('15'),('16'),('17'),('18'),('19'),('2'),('20'),('21'),('22'),('23'),('24'),('25'),('26'),('27'),('28'),('29'),('3'),('30'),('31'),('32'),('33'),('34'),('35'),('36'),('37'),('38'),('39'),('4'),('40'),('41'),('42'),('43'),('44'),('45'),('46'),('47'),('48'),('49'),('5'),('50'),('51'),('52'),('53'),('54'),('55'),('56'),('57'),('58'),('59'),('6'),('60'),('61'),('62'),('63'),('64'),('65'),('66'),('67'),('68'),('69'),('7'),('70'),('71'),('72'),('73'),('74'),('75'),('76'),('77'),('78'),('79'),('8'),('80'),('81'),('82'),('83'),('84'),('85'),('86'),('87'),('9');
+/*!40000 ALTER TABLE `schema_migrations` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `seasons`
+--
+
+DROP TABLE IF EXISTS `seasons`;
+CREATE TABLE `seasons` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(32) collate utf8_unicode_ci default NULL,
+  `startdate` date default NULL,
+  `enddate` date default NULL,
+  `applies_to_weekly` tinyint(1) default '1',
+  `applies_to_monthly` tinyint(1) default '1',
+  `active` tinyint(1) default '1',
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `seasons`
+--
+
+LOCK TABLES `seasons` WRITE;
+/*!40000 ALTER TABLE `seasons` DISABLE KEYS */;
+INSERT INTO `seasons` VALUES (1,'Off-Peak','2000-01-01','2100-01-01',1,1,1),(2,'Peak','2022-01-23','2022-01-27',1,1,1),(3,'School Holidays 2','2022-06-25','2022-07-10',1,1,1),(4,'School Holidays 3','2022-09-17','2022-10-02',1,1,1),(5,'Summer Holidays','2022-12-21','2023-01-29',1,1,1),(6,'Anzac Day','2022-04-25','2022-04-26',1,1,1),(7,'Queen\'s Birthday','2022-06-13','2022-06-14',1,1,1),(8,'AFL Grand Final Holiday','2022-09-20','2022-09-21',1,1,1),(9,'Melbourne Cup','2022-11-01','2022-11-02',1,1,1),(10,'Christmas Day','2022-12-25','2022-12-26',1,1,1),(11,'Boxing Day','2022-12-26','2022-12-27',1,1,1),(12,'Christmas Day Public Holiday','2022-12-27','2022-12-28',1,1,1);
+/*!40000 ALTER TABLE `seasons` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `sitetypes`
+--
+
+DROP TABLE IF EXISTS `sitetypes`;
+CREATE TABLE `sitetypes` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(32) collate utf8_unicode_ci NOT NULL default '',
+  `position` int(11) default NULL,
+  `active` tinyint(1) default '1',
+  PRIMARY KEY  (`id`),
+  KEY `index_sitetypes_on_position` (`position`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `sitetypes`
+--
+
+LOCK TABLES `sitetypes` WRITE;
+/*!40000 ALTER TABLE `sitetypes` DISABLE KEYS */;
+INSERT INTO `sitetypes` VALUES (1,'River Powered',1,1),(2,'River Unpowered',2,1),(3,'Grassed Powered',3,1),(4,'Grassed Unpowered',4,1),(5,'Caravan',5,1),(6,'Cabin 1',6,1),(7,'Cabin 2',7,0);
+/*!40000 ALTER TABLE `sitetypes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `sitetypes_taxrates`
+--
+
+DROP TABLE IF EXISTS `sitetypes_taxrates`;
+CREATE TABLE `sitetypes_taxrates` (
+  `sitetype_id` int(11) NOT NULL,
+  `taxrate_id` int(11) NOT NULL,
+  KEY `index_sitetypes_taxrates_on_sitetype_id` (`sitetype_id`),
+  KEY `index_sitetypes_taxrates_on_taxrate_id` (`taxrate_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `sitetypes_taxrates`
+--
+
+LOCK TABLES `sitetypes_taxrates` WRITE;
+/*!40000 ALTER TABLE `sitetypes_taxrates` DISABLE KEYS */;
+INSERT INTO `sitetypes_taxrates` VALUES (1,1),(2,1),(3,1),(4,1),(5,1),(6,1),(7,1);
+/*!40000 ALTER TABLE `sitetypes_taxrates` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `smtp_authentications`
+--
+
+DROP TABLE IF EXISTS `smtp_authentications`;
+CREATE TABLE `smtp_authentications` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(32) collate utf8_unicode_ci default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `smtp_authentications`
+--
+
+LOCK TABLES `smtp_authentications` WRITE;
+/*!40000 ALTER TABLE `smtp_authentications` DISABLE KEYS */;
+INSERT INTO `smtp_authentications` VALUES (1,'none'),(2,'plain'),(3,'login'),(4,'cram_md5');
+/*!40000 ALTER TABLE `smtp_authentications` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `space_allocs`
+--
+
+DROP TABLE IF EXISTS `space_allocs`;
+CREATE TABLE `space_allocs` (
+  `id` int(11) NOT NULL auto_increment,
+  `space_id` int(11) default NULL,
+  `reservation_id` int(11) default NULL,
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `space_allocs`
+--
+
+LOCK TABLES `space_allocs` WRITE;
+/*!40000 ALTER TABLE `space_allocs` DISABLE KEYS */;
+/*!40000 ALTER TABLE `space_allocs` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `spaces`
+--
+
+DROP TABLE IF EXISTS `spaces`;
+CREATE TABLE `spaces` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(32) collate utf8_unicode_ci NOT NULL default '',
+  `power_15a` tinyint(1) default '0',
+  `power_30a` tinyint(1) default '0',
+  `power_50a` tinyint(1) default '0',
+  `water` tinyint(1) default '0',
+  `sewer` tinyint(1) default '0',
+  `length` mediumint(9) NOT NULL default '0',
+  `width` mediumint(9) default '102',
+  `sitetype_id` mediumint(9) NOT NULL default '0',
+  `price_id` mediumint(9) NOT NULL default '0',
+  `special_condition` varchar(255) collate utf8_unicode_ci default NULL,
+  `unavailable` tinyint(1) default '0',
+  `position` int(11) default NULL,
+  `remote_reservable` tinyint(1) default '1',
+  `current` decimal(8,2) default '0.00',
+  `active` tinyint(1) default '1',
+  PRIMARY KEY  (`id`),
+  KEY `index_spaces_on_position` (`position`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `spaces`
+--
+
+LOCK TABLES `spaces` WRITE;
+/*!40000 ALTER TABLE `spaces` DISABLE KEYS */;
+INSERT INTO `spaces` VALUES (1,'PR1',1,1,1,1,1,60,102,2,4,'',0,1,1,'0.00',1),(2,'PR2',1,1,1,1,1,60,102,2,4,NULL,0,2,1,'0.00',1),(3,'PR3',1,1,1,1,1,60,102,2,4,NULL,0,3,1,'0.00',1),(4,'PR4',1,1,1,1,1,60,102,2,4,NULL,0,4,1,'0.00',1),(5,'PR5',1,1,1,1,1,60,102,2,4,NULL,0,5,1,'0.00',1),(6,'PR6',1,1,1,1,1,60,102,2,4,NULL,0,6,1,'0.00',1),(7,'PR7',1,1,1,1,1,60,102,2,4,NULL,0,7,1,'0.00',1),(8,'PR8',1,1,1,1,1,60,102,2,4,NULL,0,8,1,'0.00',1),(9,'PR9',1,1,1,1,1,60,102,2,4,NULL,0,9,1,'0.00',1),(10,'PR10',1,1,1,1,1,60,102,2,4,NULL,0,10,1,'0.00',1),(11,'PR11',1,1,1,1,1,60,102,2,4,NULL,0,11,1,'0.00',1),(12,'PR12',1,1,1,1,1,60,102,2,4,NULL,0,12,1,'0.00',1),(13,'PR13',1,1,1,1,1,60,102,2,4,NULL,0,13,1,'0.00',1),(14,'PR14',1,1,1,1,1,60,102,2,4,NULL,0,14,1,'0.00',1),(15,'PS19',1,1,1,1,1,60,102,2,4,NULL,0,15,1,'0.00',1),(16,'PS20',1,1,1,1,1,60,102,2,4,NULL,0,16,1,'0.00',1),(17,'PS21',1,1,1,1,1,60,102,2,4,NULL,0,17,1,'0.00',1),(18,'PS43',1,1,1,1,1,60,102,2,4,NULL,0,18,1,'0.00',1),(19,'PS44',1,1,1,1,1,60,102,2,4,NULL,0,19,1,'0.00',1),(20,'PS45',1,1,1,1,1,60,102,2,4,NULL,0,20,1,'0.00',1),(21,'PS46',1,1,0,1,1,40,102,2,3,NULL,0,21,1,'0.00',1),(22,'PS47',1,1,0,1,1,40,102,2,3,'',0,22,1,'0.00',1),(23,'PS48',1,1,0,1,1,40,102,2,3,NULL,0,23,1,'0.00',1),(24,'PS49',1,1,0,1,1,40,102,2,3,NULL,0,24,1,'0.00',1),(25,'PS50',1,1,0,1,1,40,102,2,3,NULL,0,25,1,'0.00',1),(26,'PS51',1,1,0,1,1,40,102,2,3,NULL,0,26,1,'0.00',1),(27,'PS52',1,1,0,1,1,40,102,2,3,NULL,0,27,1,'0.00',1),(28,'PS53',1,1,0,1,1,40,102,2,3,NULL,0,28,1,'0.00',1),(29,'PS54',1,1,0,1,1,40,102,2,3,NULL,0,29,1,'0.00',1),(30,'PS55',1,1,0,1,1,40,102,2,3,NULL,0,30,1,'0.00',1),(31,'UPR1',1,1,0,1,1,40,102,2,3,NULL,0,31,1,'0.00',1),(32,'UPR2',1,1,0,1,1,40,102,2,3,NULL,0,32,1,'0.00',1),(33,'UPR3',1,1,0,1,1,40,102,2,3,NULL,0,33,1,'0.00',1),(34,'UPR4',1,1,0,1,1,40,102,2,3,NULL,0,34,1,'0.00',1),(35,'UPR34',1,1,0,1,1,40,102,2,3,NULL,0,35,1,'0.00',1),(36,'UPR35',1,1,0,1,0,40,102,2,2,NULL,0,36,1,'0.00',1),(37,'UPR36',1,1,0,1,0,40,102,2,2,NULL,0,37,1,'0.00',1),(38,'UPR37',1,1,0,1,0,40,102,2,2,NULL,0,38,1,'0.00',1),(39,'UPR38',1,1,0,1,0,40,102,2,2,NULL,0,39,1,'0.00',1),(40,'UPR39',1,1,0,1,0,40,102,2,2,NULL,0,40,1,'0.00',1),(41,'UPR39A',1,1,0,1,0,40,102,2,2,NULL,0,41,1,'0.00',1),(42,'UPR39B',1,1,0,1,0,40,102,2,2,NULL,0,42,1,'0.00',1),(43,'UPR40',1,1,0,1,0,40,102,2,2,NULL,0,43,1,'0.00',1),(44,'UPR41',1,1,0,1,0,40,102,2,2,NULL,0,44,1,'0.00',1),(45,'UPR42',1,1,0,1,0,40,102,2,2,NULL,0,45,1,'0.00',1),(46,'UPR43',1,1,0,1,0,40,102,2,2,NULL,0,46,1,'0.00',1),(47,'UPR44',1,1,0,1,0,40,102,2,2,NULL,0,47,1,'0.00',1),(48,'UPR45',1,1,0,1,0,40,102,2,2,NULL,0,48,1,'0.00',1),(49,'UPR46',1,1,0,1,0,40,102,2,2,NULL,0,49,1,'0.00',1),(50,'UPR47',1,1,0,1,0,40,102,2,2,NULL,0,50,1,'0.00',1),(51,'UPS5',1,1,1,1,1,80,102,3,5,NULL,0,51,1,'0.00',1),(52,'UPS6',1,1,1,1,1,80,102,3,5,NULL,0,52,1,'0.00',1),(53,'UPS7',1,1,1,1,1,80,102,3,5,NULL,0,53,1,'0.00',1),(54,'UPS8',1,1,1,1,1,80,102,3,5,NULL,0,54,1,'0.00',1),(55,'UPS9',1,1,1,1,1,80,102,3,5,NULL,0,55,1,'0.00',1),(56,'UPS10',1,1,1,1,1,80,102,3,5,NULL,0,56,1,'0.00',1),(57,'UPS11',1,1,1,1,1,80,102,3,5,NULL,0,57,1,'0.00',1),(58,'UPS12',1,1,1,1,1,80,102,3,5,NULL,0,58,1,'0.00',1),(59,'UPS13',1,1,1,1,1,80,102,3,5,NULL,0,59,1,'0.00',1),(60,'UPS13A',1,1,1,1,1,80,102,3,5,NULL,0,60,1,'0.00',1),(61,'UPS13B',0,0,1,1,1,80,102,3,5,NULL,0,61,1,'0.00',1),(62,'UPS14',0,0,1,1,1,80,102,3,5,NULL,0,62,1,'0.00',1),(63,'UPS15',0,0,1,1,1,80,102,3,5,NULL,0,63,1,'0.00',1),(64,'UPS16',0,0,1,1,1,80,102,3,5,NULL,0,64,1,'0.00',1),(65,'UPS17',0,0,1,1,1,80,102,3,5,NULL,0,65,1,'0.00',1),(66,'UPS18',0,0,1,1,1,80,102,3,5,NULL,0,66,1,'0.00',1),(67,'UPS48',0,0,1,1,1,80,102,3,5,NULL,0,67,1,'0.00',1),(68,'UPS49',0,0,1,1,1,80,102,3,5,NULL,0,68,1,'0.00',1),(69,'UPS23',0,0,1,1,1,80,102,3,5,NULL,0,69,1,'0.00',1),(70,'UPS24',0,0,1,1,1,80,102,3,5,NULL,0,70,1,'0.00',1),(71,'UPS25',0,0,1,1,1,80,102,3,5,NULL,0,71,1,'0.00',1),(72,'UPS26',0,0,1,1,1,80,102,3,5,NULL,0,72,1,'0.00',1),(73,'UPS27',0,0,1,1,1,80,102,3,5,NULL,0,73,1,'0.00',1),(74,'UPS28',0,0,1,1,1,80,102,3,5,NULL,0,74,1,'0.00',1),(75,'UPS29',0,0,1,1,1,80,102,3,5,NULL,0,75,1,'0.00',1),(76,'UPS30',0,0,1,1,1,80,102,3,5,NULL,0,76,1,'0.00',1),(77,'UPS31',0,0,1,1,1,80,102,3,5,NULL,0,77,1,'0.00',1),(78,'UPS32',0,0,1,1,1,80,102,3,5,NULL,0,78,1,'0.00',1),(79,'UPS32A',0,0,1,1,1,80,102,3,5,NULL,0,79,1,'0.00',1),(80,'UPS33',0,0,1,1,1,80,102,3,5,NULL,0,80,1,'0.00',1),(81,'UPS33A',1,0,0,0,1,20,102,1,1,NULL,0,81,1,'0.00',1),(82,'UPR55',1,0,0,0,1,20,102,1,1,NULL,0,82,1,'0.00',1),(83,'UPR56',1,0,0,0,1,20,102,1,1,NULL,0,83,1,'0.00',1),(84,'UPR57',1,0,0,0,1,20,102,1,1,NULL,0,84,1,'0.00',1),(85,'UPR58',1,0,0,0,1,20,102,1,1,NULL,0,85,1,'0.00',1),(86,'UPS51',1,0,0,0,1,20,102,1,1,NULL,0,86,1,'0.00',1),(87,'UPS52',1,0,0,0,1,20,102,1,1,NULL,0,87,1,'0.00',1),(88,'UPS53',1,0,0,0,1,20,102,1,1,NULL,0,88,1,'0.00',1),(89,'UPS54',1,0,0,0,1,20,102,1,1,NULL,0,89,1,'0.00',1),(90,'Caravan',1,0,0,0,1,20,102,1,1,NULL,0,90,1,'0.00',1),(91,'Cabin 1',1,0,0,0,1,20,102,1,1,NULL,0,91,1,'0.00',1);
+/*!40000 ALTER TABLE `spaces` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `taxes`
+--
+
+DROP TABLE IF EXISTS `taxes`;
+CREATE TABLE `taxes` (
+  `id` int(11) NOT NULL auto_increment,
+  `reservation_id` int(11) default NULL,
+  `name` varchar(32) collate utf8_unicode_ci default NULL,
+  `rate` varchar(32) collate utf8_unicode_ci default NULL,
+  `count` int(11) default '0',
+  `amount` decimal(6,2) default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `taxes`
+--
+
+LOCK TABLES `taxes` WRITE;
+/*!40000 ALTER TABLE `taxes` DISABLE KEYS */;
+INSERT INTO `taxes` VALUES (57,8,'GST','10.0%',0,'12.00'),(61,10,'GST','10.0%',0,'4.00'),(64,11,'GST','10.0%',0,'7.09'),(68,13,'GST','10.0%',0,'11.36'),(71,12,'GST','10.0%',0,'32.64'),(73,14,'GST','10.0%',0,'7.09'),(74,7,'GST','10.0%',0,'3.55'),(75,9,'GST','10.0%',0,'3.55'),(76,17,'GST','10.0%',0,'8.00'),(78,18,'GST','10.0%',0,'10.64'),(79,19,'GST','10.0%',0,'18.45'),(81,20,'GST','10.0%',0,'10.64'),(82,21,'GST','10.0%',0,'29.09'),(84,22,'GST','10.0%',0,'3.55'),(86,23,'GST','10.0%',0,'14.91'),(89,25,'GST','10.0%',0,'10.64'),(91,26,'GST','10.0%',0,'21.64'),(93,27,'GST','10.0%',0,'14.55'),(95,29,'GST','10.0%',0,'14.91'),(96,30,'GST','10.0%',0,'3.55'),(98,31,'GST','10.0%',0,'40.73'),(100,32,'GST','10.0%',0,'12.00'),(102,33,'GST','10.0%',0,'40.73'),(103,34,'GST','10.0%',0,'3.55'),(104,35,'GST','10.0%',0,'3.91'),(105,36,'GST','10.0%',0,'3.91'),(106,37,'GST','10.0%',0,'3.55'),(107,38,'GST','10.0%',0,'3.91'),(109,39,'GST','10.0%',0,'3.55'),(110,40,'GST','10.0%',0,'3.55'),(113,3,'GST','10.0%',0,'7.09');
+/*!40000 ALTER TABLE `taxes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `taxrates`
+--
+
+DROP TABLE IF EXISTS `taxrates`;
+CREATE TABLE `taxrates` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(32) collate utf8_unicode_ci default NULL,
+  `is_percent` tinyint(1) default '0',
+  `percent` float default '0',
+  `amount` decimal(6,2) default '0.00',
+  `apl_week` tinyint(1) default '0',
+  `apl_month` tinyint(1) default '0',
+  `apl_seasonal` tinyint(1) default '0',
+  `apl_daily` tinyint(1) default '1',
+  `weekly_charge_daily` tinyint(1) default '1',
+  `monthly_charge_daily` tinyint(1) default '1',
+  `seasonal_charge_daily` tinyint(1) default '1',
+  `position` int(11) default NULL,
+  `active` tinyint(1) default '1',
+  `apl_storage` tinyint(1) default '0',
+  PRIMARY KEY  (`id`),
+  KEY `index_taxrates_on_position` (`position`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `taxrates`
+--
+
+LOCK TABLES `taxrates` WRITE;
+/*!40000 ALTER TABLE `taxrates` DISABLE KEYS */;
+INSERT INTO `taxrates` VALUES (1,'GST',1,10,NULL,1,1,1,1,1,1,1,NULL,1,0);
+/*!40000 ALTER TABLE `taxrates` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `taxrates_variable_charges`
+--
+
+DROP TABLE IF EXISTS `taxrates_variable_charges`;
+CREATE TABLE `taxrates_variable_charges` (
+  `variable_charge_id` int(11) NOT NULL,
+  `taxrate_id` int(11) NOT NULL,
+  KEY `index_taxrates_variable_charges_on_taxrate_id` (`taxrate_id`),
+  KEY `index_taxrates_variable_charges_on_variable_charge_id` (`variable_charge_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `taxrates_variable_charges`
+--
+
+LOCK TABLES `taxrates_variable_charges` WRITE;
+/*!40000 ALTER TABLE `taxrates_variable_charges` DISABLE KEYS */;
+/*!40000 ALTER TABLE `taxrates_variable_charges` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL auto_increment,
+  `name` varchar(32) collate utf8_unicode_ci default NULL,
+  `hashed_password` varchar(255) collate utf8_unicode_ci default NULL,
+  `salt` varchar(255) collate utf8_unicode_ci default NULL,
+  `admin` tinyint(1) default '0',
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  `remember_me` tinyint(1) default '0',
+  `remember_token` varchar(255) collate utf8_unicode_ci default NULL,
+  `remember_token_expires` datetime default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+INSERT INTO `users` VALUES (113326033,'manager','87e66cfefc470003d7a6567bb4d44445d42999e4','1575564000.86481085790966',1,'2022-01-26 16:18:09','2022-01-26 17:03:54',0,NULL,NULL),(113326035,'guest','a6531053662abbe7ec7d25aee3f385f29b0e0379','1556845600.317886214211642',0,'2022-01-26 17:03:33','2022-01-26 17:03:33',0,NULL,NULL);
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `variable_charges`
+--
+
+DROP TABLE IF EXISTS `variable_charges`;
+CREATE TABLE `variable_charges` (
+  `id` int(11) NOT NULL auto_increment,
+  `reservation_id` int(11) default NULL,
+  `detail` varchar(255) collate utf8_unicode_ci default NULL,
+  `amount` decimal(12,2) default '0.00',
+  `taxable` tinyint(1) NOT NULL default '1',
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `variable_charges`
+--
+
+LOCK TABLES `variable_charges` WRITE;
+/*!40000 ALTER TABLE `variable_charges` DISABLE KEYS */;
+/*!40000 ALTER TABLE `variable_charges` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `versions`
+--
+
+DROP TABLE IF EXISTS `versions`;
+CREATE TABLE `versions` (
+  `id` int(11) NOT NULL auto_increment,
+  `release` varchar(16) collate utf8_unicode_ci default NULL,
+  `revision` varchar(16) collate utf8_unicode_ci default NULL,
+  `description` text collate utf8_unicode_ci,
+  `install_pending` tinyint(1) default '1',
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `versions`
+--
+
+LOCK TABLES `versions` WRITE;
+/*!40000 ALTER TABLE `versions` DISABLE KEYS */;
+INSERT INTO `versions` VALUES (1,'1.11','1344','revision for release 1.11',0),(2,'1.11','1758','<h2>\nChanges in update 1758</h2>\n<b>You should backup your database before doing this or any update.</b>\n<p>\n<ul>\n<li>\nUpdated User\'s Manual\n</li><li>\nMake the actions and files created by reports more consistant.\n</li><li>\nCorrect the exit tab for change space and date.\n</li><li>\nCorrect the functioning of troubleshoot reservations delete function.\n</li><li>\nExtend the range of card expiration date in payments to 7 years from present.\n</li></ul>\n</p>\n',1),(3,'1.11','1825','<h2>\nChanges in update 1825\n</h2>\n<b>You should backup your database before doing this or any update.</b>\n<p>\n<ul>\n<li>\nChanges to <em>report->site summary</em> add a column so that a site can be occupied and at the same time available or unavailable.\nPreviously if a site was occupied it could not be made unavailable.\n</li><li>\nA button is added to the camper display to enable you to send an email using your computers default email setup to the camper.\nIt will bring up an addressed empty email for you to use for any purpose.\n</li><li>\nThe <em>maintenance->manage payments</em> page was modified to add a <em>find by reservation</em> and the <em>maintenance -> manage measured extras</em>page was modified to add a <em>find by space</em>.\nIn each case all items that match the request will be shown.\nThis is intended to make these displays more useful.\n</li><li>\nThe remote reservations interface was modified to use a date select pulldown on a mobile device.\nThe previously used calendar was very hard to use on a mobile device.\nThe determination of what is a mobile device is fairly difficult so tablets that could use the calendar for date select may end up using the date select pulldown.\nThis will function fine on those devices.\n</li><li>\nA display was added in <em>admin->maintenance->Check for Conflicts</em> to display reservation conflicts.\nThe system should not allow a conflict but if one does occur this display will show the conflict.\nIf reservation a and reservation b will occupy the same space at one time the display will show a conflicts with b and b conflicts with a.\nThis ends up with two listings for each conflict.\n</li><li>\nA number of visible and internal changes have been made in the CardConnect credit card handling.\n<ul>\n<li>\nThe year selection for remote credit card expiration is extended to 7 years.\n</li><li>\nThe handling of mobile devices has been improved.\n</li><li>\nProblems using a card reader were corrected.\n</li>\n</ul>\n</li><li>\nA large number of changes have been made that are not visible but many are intended to facilitate future updates of the system to an updated version of the Ruby on Rails software and the Ruby language.\nThese future changes will ultimately result in a faster and more secure system.\n</li>\n</ul>\n',1),(4,'1.11','1826','<h2>\nChanges in update 1826\n</h2>\n<b>You should backup your database before doing this or any update.</b>\n<p>\n<ul>\n<li>\nChanges to remove a possible way to create a reservation conflict by changing the date or space.\nThis makes no user visible changes except for an enhanced message if a conflict is detected during startup.\n</li>\n<li>\nCorrects a error where a change in CardConnect configuration was ommitted from a previous update.\n</li>\n</ul>\n',1),(5,'1.11','1916','<h2>\nChanges in update 1916\n</h2>\n<b>You should backup your database before doing this or any update.</b>\n<p>\n<ul>\n<li>\nAdd the ability to initialize campers from a .csv file. \nThis can be used to initialize a set of campers from some previous\nsystem or spreadsheet.\nThe <em>admin->setup->create campers</em> display has a description of how the file must be set up.\n</li><li>\nThe ability to use PayPal from the office setting to accept charges has been added.\nPreviously PayPal could only be used for remote reservations.\nThe setup in <em>admin->setup->Payment Configurations</em> is used to set the capability up.\n</li><li>\nAn option has been added to the payments report to generate output in a format used by the \'BSA\' accounting system used by many municipalities.\n</li><li>\nAn email has been defined to be sent when a reservation is cancelled.\nThis email is defined in the same manner as the other emails.\n</li><li>\nA required extra has been defined for remote reservations.\nThis extra will always be applied on a remote reservation and there is no checkbox for the guest to unselect it.\nThis is intended for things like a reservation fee etc.\n</li><li>\nDiscounts have been enhanced to give the ability to have a limited duration for a discount and to specify the days of the week the discount will apply.\n</li><li>\nThe CardConnect credit card processing capability has been modified to take the api_key from an environment variable.\n</li><li>\nA large number of changes have been made that are not visible but many are intended to facilitate future updates of the system to an updated version of the Ruby on Rails software and the Ruby language.\nThese future changes will ultimately result in a faster and more secure system.\n</li>\n</ul>\n',1),(6,'1.11','1954','<h2>\nChanges in update 1954\n</h2>\n<b>You should backup your database before doing this or any update.</b>\n<p>\n<ul>\n<li>\nAdded the capability to \ngive a phone number for people to call\nif you use blackout dates for remote reservations.\nIt will be given in the message you get when a date is blacked out.\nThe phone number will be entered on the <i>Admin->Setup->Remote Reservations</i>\ndisplay and will only be available if you have defined one or more\nblackout dates.\n</li><li>\nAdd capability to use 100% discount\n</li><li>\nEnhanced the handling of CardConnect transactions to give the capability\nfor partial refunds and added the printing of receipts.\n</li><li>\nIf you have remote reservations enabled and you choose to display discounts\non the remote, the the capability to identify discounts that would not be\ndisplayed on remote reservations is added.\nThat setting can be changed in\n<i>Admin->Setup->Discounts</i>.\n</li><li>\nEnhanced payments report to include space name and sitetype\n</li><li>\nA large number of small error corrections that are usually visible have\nbeen made as well as some small changes to make the system more useful.\n</li></ul>\n',1),(7,'1.11','1988','<h2>\nChanges in update 1988\n</h2>\n<b>You should backup your database before doing this or any update.</b>\n<p>\n<ul>\n<li>\nCorrections were made so that the length check on remote reservations works properly.\n</li><li>\nAn id which can be used as a reference if needed\nis now displayed for all payments.\n</li><li>\nChanges were made to compute the charges to be $0 on a cancellation except for a\ncancellation charge (if any) and payment amounts to be returned.\nThe amounts due to be returned will be displayed with a minus sign.\nYou can record payments with a negative value for refunds.\n</li><li>\nThe group checkout/checkin display has been changed to be more useful.\n</li><li>\nA large number of small error corrections that are usually not visible have\nbeen made as well as some small changes to make the system more useful and \nmore efficient and maintainable.\n</li></ul>\n',1),(8,'1.11','1990','<h2>\nChanges in update 1990\n</h2>\n<b>You should backup your database before doing this or any update.</b>\n<p>\n<ul>\n<li>\nA correction was made to fix a problem with the payments report.\n</li></ul>\n',1),(9,'1.11','2062','<h2>\nChanges in update 2062\n</h2>\nThis update replaces update 2061 which had an error<br/>\n<b>You should backup your database before doing this or any update.</b>\n<p>\n<ul>\n<li>\nChanges have been made to minimize page breaks in the middle of the trailer or the charges table when printing out a reservation.\nThis is not foolproof, if either of these is over a page long there will be a break in it.\n</li><li>\nThe capability to find a camper by phone number has been added to the <em>find camper</em> and <em>find reservation</em> display.\nBecause of the wide variety of ways people enter phone names this works on the right hand end of the phone number.\nWhat works best is to just enter the last 4 of the phone number and you may get a few campers but you can usually pick the one you want out of a small list.\nIf there is a single entry <em>find camper by phone</em> will display that camper and <em>find reservation by phone</em> will display the camper and a list of reservations by that camper.\nIf there are multiple entries that correspond to the number a list to choose the desired one from will be presented.\nThe odds of two persons having the same last 4 are about 1 in 10,000 so usually when you enter 4 digits and get a match with multiple campers, they are multiple camper entries for the same person.\n</li><li>\nThe capability to specify font family and font size for reservation printouts has been added to <em>setup->system options</em>.\n</li><li>\nYou can now add more mandatory entries for a remote reservation. \nSee <em>setup->system options</em> to see what can be made mandatory.\nIt was not possible to make number of children, pets and slides mandatory as the default answer of zero may be correct or not.\n</li><li>\nThe capability to add an email attachment to any of the email messages has been added to <em>setup->mail messages</em>.\nThe attachment must be a .png, .jpg or .jpeg graphic file, a .txt plain text file, a .doc file generated by a word processing program or a .pdf text/image file.\nMultiple attachments can be specified for a single email message.\nIt is recommended you use .txt or .pdf files.\n</li><li>\nThe capability of a remote reservation user to make multiple reservations in the same session has been added.\n</li><li>\nA large number of small error corrections that are usually not visible have\nbeen made as well as some small changes to make the system more useful and\nmore efficient and maintainable.\n</li></ul>\n',1),(10,'1.11','2091','<h2>\nChanges in update 2091\n</h2>\n<b>You should backup your database before doing this or any update</b>\n<p>\nThe majority of changes in this update were rearranging code and functions so as to make the system more error resistant and make error correction easier.\nFollowing are changes that will be noticed by the user.\n<ul>\n<li>\nCorrect a problem where the archive database configuration did not match reservation or camper database configuration.  This would sometimes cause errors doing a checkout or cancel.\n</li><li>\nImprove handling of reservation date conflicts and Change dates dialog.\nThe change will show fewer wrong choices on dates that result in conflict errors.\n</li><li>\nAdd reservation created date to items that could be included in confirmation emails.\nYou will have to edit your email messages if you want to include that information in your email.\n</li><li>\nCorrect a problem where adding a single camper did not always work.\n</li><li>\nCorrect a problem where changing colors through the setup->colors dialog did not always work.\n</li>\n</ul>\n',1),(11,'1.11','2094','<h2>\nChanges in update 2094\n</h2>\n<b>You should backup your database before doing this or any update</b>\n<p>\nThis update only consists of two files that were left out of update 2091 and a version number update.\n</p>\n',1);
+/*!40000 ALTER TABLE `versions` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2022-05-30 19:15:46

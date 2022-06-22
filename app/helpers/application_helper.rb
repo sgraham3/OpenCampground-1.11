@@ -149,12 +149,19 @@ module ApplicationHelper
     str << "<td align='center'>" + DateFmt.format_date(charge.end_date) + "</td>" 
     str <<  "<td align='center'>" + charge.season.name + "</td>"  if season_count > 1
     str <<  "<td align='center'>" + sprintf("%6.0f", charge.period) + "</td>" 
-    str << "<td align='right'>" + number_2_currency(charge.rate) + "</td>"
+    if charge.is_manual_override
+      rate = charge.manual_override
+      amount = charge.manual_override_total
+    else
+      rate = charge.rate
+      amount = charge.amount - charge.discount
+    end
+    str << "<td align='right'><input type='number' class='input_days_charge' id='input_days_charge' value=#{rate}><label class='label_days_charge' id='label_days_charge'>#{number_2_currency(rate)}</label></td>"
     if use_discount
-      str << "<td align='right'>" + number_2_currency(charge.amount) + "</td>" if @option.inline_subtotal?
+      str << "<td align='right'>" + number_2_currency(amount) + "</td>" if @option.inline_subtotal?
       str << "<td align='right'>" + number_2_currency(charge.discount) + "</td>" 
     end
-    str << "<td align='right'>" + number_2_currency(charge.amount - charge.discount) + "</td>"
+    str << "<td align='right'>" + number_2_currency(amount) + "</td>"
   end
 
   def charge_variable(v, use_discount, season_count)
@@ -178,76 +185,86 @@ module ApplicationHelper
     case e.extra.extra_type
     when Extra::OCCASIONAL
       if e.charge != 0.0
-	str << "<tr><td align='left'>#{e.extra.name}</td>"
-	str << "<td></td> <td></td>"
-	str << "<td></td>" unless @reservation.seasonal? || @season_cnt == 1 
-	str << "<td align='center'> #{ e.number.to_s  }</td>"
-	str << "<td align='right'> #{number_2_currency(e.extra.charge)} </td>"
-	if use_discount
-	  if @option.inline_subtotal?
-	    str << "<td></td>"
-	  end
-	  str << "<td></td>"
-	end
-	str << "<td align='right'> #{number_2_currency(e.charge)} </td></tr>"
+        str << "<tr><td align='left'>#{e.extra.name}</td>"
+        str << "<td></td> <td></td>"
+        str << "<td></td>" unless @reservation.seasonal? || @season_cnt == 1 
+        str << "<td align='center'> #{ e.number.to_s  }</td>"
+        str << "<td align='right'> #{number_2_currency(e.extra.charge)} </td>"
+        if use_discount
+          if @option.inline_subtotal?
+            str << "<td></td>"
+          end
+          str << "<td></td>"
+        end
+	      str << "<td align='right'> #{number_2_currency(e.charge)} </td></tr>"
       end
     when Extra::MEASURED
       if e.charge > 0.0
-	str << "<tr><td align='left'> #{e.extra.name} #{e.extra.unit_name} </td>"
-	str << "<td>#{e.initial}:#{e.final}</td>"
-	str << "<td>#{ DateFmt.format_date(e.created_on)}</td>"
-	str << "<td></td>" unless @reservation.seasonal? || @season_cnt == 1 
-	str << "<td align='right'> #{e.final - e.initial} </td>"
-	str << "<td align='right'> #{number_2_currency(e.measured_rate)} </td>"
-	if use_discount
-	  if @option.inline_subtotal?
-	    str << "<td></td>"
-	  end
-	  str << "<td></td>"
-	end
-	str << "<td align='right'> #{number_2_currency(e.charge)} </td></tr>"
+        str << "<tr><td align='left'> #{e.extra.name} #{e.extra.unit_name} </td>"
+        str << "<td>#{e.initial}:#{e.final}</td>"
+        str << "<td>#{ DateFmt.format_date(e.created_on)}</td>"
+        str << "<td></td>" unless @reservation.seasonal? || @season_cnt == 1 
+        str << "<td align='right'> #{e.final - e.initial} </td>"
+        str << "<td align='right'> #{number_2_currency(e.measured_rate)} </td>"
+        if use_discount
+          if @option.inline_subtotal?
+            str << "<td></td>"
+          end
+          str << "<td></td>"
+        end
+	      str << "<td align='right'> #{number_2_currency(e.charge)} </td></tr>"
       end
     else
       unless (e.extra.extra_type == Extra::COUNTED) && (e.number == 0)
-	if e.days > 0
-	  str << "<tr><td align='left'>#{e.extra.name} days</td> <td></td> <td></td>"
-	  str << "<td></td>" unless @reservation.seasonal? || @season_cnt == 1 
-	  str << "<td align='center'> #{ (e.extra.extra_type == Extra::COUNTED) ?  (e.days * e.number).to_s : e.days.to_s } </td>"
-	  str << "<td align='right'> #{number_2_currency(e.extra.daily)} </td>"
-	  if use_discount
-	    if @option.inline_subtotal?
-	      str << "<td></td>"
-	    end
-	    str << "<td></td>"
-	  end
-	  str << "<td align='right'> #{number_2_currency(e.daily_charges)} </td></tr>"
-	end 
-	if e.weeks > 0
-	  str << "<tr><td align='left'>#{e.extra.name} weeks</td> <td></td> <td></td>"
-	  str << "<td></td>" unless @reservation.seasonal? || @season_cnt == 1 
-	  str << "<td align='center'> #{ (e.extra.extra_type == Extra::COUNTED) ?  (e.weeks * e.number).to_s : e.weeks.to_s } </td>"
-	  str << "<td align='right'> #{number_2_currency(e.extra.weekly)} </td>"
-	  if use_discount
-	    if @option.inline_subtotal?
-	      str << "<td></td>"
-	    end
-	    str << "<td></td>"
-	  end
-	  str << "<td align='right'> #{number_2_currency(e.weekly_charges)} </td></tr>"
-	end
-	if e.months > 0 
-	  str << "<tr><td align='left'>#{e.extra.name} months</td> <td></td> <td></td>"
-	  str << "<td></td>" unless @reservation.seasonal? || @season_cnt == 1 
-	  str << "<td align='center'> #{ (e.extra.extra_type == Extra::COUNTED) ?  (e.months * e.number).to_s : e.months.to_s } </td>"
-	  str << "<td align='right'> #{number_2_currency(e.extra.monthly)} </td>"
-	  if use_discount
-	    if @option.inline_subtotal?
-	      str << "<td></td>"
-	    end
-	    str << "<td></td>"
-	  end
-	  str << "<td align='right'> #{number_2_currency(e.monthly_charges)} </td></tr>"
-	end
+        if e.days > 0
+          temp = ExtraCharge.first(:conditions => [ "extra_id = ? and reservation_id = ?", 
+								 e.extra.id, @reservation.id] )
+          if temp.is_manual_override == 1
+            daily = temp.manual_override
+            daily_charges = temp.manual_override_total
+          else
+            daily = e.extra.daily
+            daily_charges = e.daily_charges
+          end
+
+          str << "<tr><td align='left'>#{e.extra.name} days</td> <td></td> <td></td>"
+          str << "<td></td>" unless @reservation.seasonal? || @season_cnt == 1 
+          str << "<td align='center'> #{ (e.extra.extra_type == Extra::COUNTED) ?  (e.days * e.number).to_s : e.days.to_s } </td>"
+          str << "<td align='right'> <input type='number' class='input_extra_charge' id=input_extra_#{e.extra.id} value=#{daily} extraID = #{e.extra.id}><label class='label_extra_charge' id=label_extra_#{e.extra.id}>#{number_2_currency(daily)}</label></td>"
+          if use_discount
+            if @option.inline_subtotal?
+              str << "<td></td>"
+            end
+            str << "<td></td>"
+          end
+          str << "<td align='right'> #{number_2_currency(daily_charges)} </td></tr>"
+        end 
+        if e.weeks > 0
+          str << "<tr><td align='left'>#{e.extra.name} weeks</td> <td></td> <td></td>"
+          str << "<td></td>" unless @reservation.seasonal? || @season_cnt == 1 
+          str << "<td align='center'> #{ (e.extra.extra_type == Extra::COUNTED) ?  (e.weeks * e.number).to_s : e.weeks.to_s } </td>"
+          str << "<td align='right'> <input type='number' class='input_extra_charge' id=input_extra_#{e.extra.id} value=#{e.extra.weekly} extraID = #{e.extra.id}><label class='label_extra_charge' id=label_extra_#{e.extra.id}>#{number_2_currency(e.extra.weekly)}</label></td>"
+          if use_discount
+            if @option.inline_subtotal?
+              str << "<td></td>"
+            end
+            str << "<td></td>"
+          end
+          str << "<td align='right'> #{number_2_currency(e.weekly_charges)} </td></tr>"
+        end
+        if e.months > 0 
+          str << "<tr><td align='left'>#{e.extra.name} months</td> <td></td> <td></td>"
+          str << "<td></td>" unless @reservation.seasonal? || @season_cnt == 1 
+          str << "<td align='center'> #{ (e.extra.extra_type == Extra::COUNTED) ?  (e.months * e.number).to_s : e.months.to_s } </td>"
+          str << "<td align='right'> <input type='number' class='input_extra_charge' id=input_extra_#{e.extra.id} value=#{e.extra.monthly} extraID = #{e.extra.id}><label class='label_extra_charge' id=label_extra_#{e.extra.id}>#{number_2_currency(e.extra.monthly)}</label></td>"
+          if use_discount
+            if @option.inline_subtotal?
+              str << "<td></td>"
+            end
+            str << "<td></td>"
+          end
+          str << "<td align='right'> #{number_2_currency(e.monthly_charges)} </td></tr>"
+        end
       end
     end 
     str

@@ -14,21 +14,21 @@
 			<% if @reservation.archived? %>
 				<%= I18n.t('reservation.Archived') %>
 			<% elsif @reservation.checked_in? %>
-			<% if @reservation.enddate > current_Date %>
-			<%= I18n.t('reservation.Inpark') %>
-			<% elsif @reservation.enddate == current_Date %>
-			<%= I18n.t('reservation.ScheduledtoCheckOutToday') %>
+				<% if @reservation.enddate > current_Date %>
+					<%= I18n.t('reservation.Inpark') %>
+				<% elsif @reservation.enddate == current_Date %>
+					<%= I18n.t('reservation.ScheduledtoCheckOutToday') %>
+				<% else %>
+					<%= I18n.t('reservation.OverdueforCheckOut') %>
+				<% end %>
 			<% else %>
-			<%= I18n.t('reservation.OverdueforCheckOut') %>
-			<% end %>
-			<% else %>
-			<% if @reservation.startdate < current_Date %>
-			<%= I18n.t('reservation.OverdueforCheckIn') %>
-			<% elsif @reservation.startdate == current_Date %>
-			<%= I18n.t('reservation.ScheduledtoCheckInToday') %>
-			<% else %>
-			<%= I18n.t('reservation.NotArrivingYet') %>
-			<% end %>
+				<% if @reservation.startdate < current_Date %>
+					<%= I18n.t('reservation.OverdueforCheckIn') %>
+				<% elsif @reservation.startdate == current_Date %>
+					<%= I18n.t('reservation.ScheduledtoCheckInToday') %>
+				<% else %>
+					<%= I18n.t('reservation.NotArrivingYet') %>
+				<% end %>
 			<% end %>
 			</b> &nbsp;
 		<% end %>
@@ -38,8 +38,8 @@
 		</table>
 		<table>
 			<% unless controller.action_name == 'space_selected' || session[:express] %>
-			<%= render :partial => 'shared/camper', :object => @reservation.camper if @reservation.camper_id > 0 %>
-			<%= render :partial => 'vehicle' %>
+				<%= render :partial => 'shared/camper', :object => @reservation.camper if @reservation.camper_id > 0 %>
+				<%= render :partial => 'vehicle' %>
 			<% end %>
 		</table>
 		<%= render :partial => 'shared/misc' %>
@@ -56,179 +56,185 @@
 		</div>
 		<div id="trailer">
 			<% if @option.trailer? %>
-			<hr />
-			<%= @option.trailer %>
+				<hr />
+				<%= @option.trailer %>
 			<% end %>
 		</div>
 		<div class="noprint" style="display:flex">
 			<% if @reservation.archived? %>
-			<table>
-			<tr>
-			<td><%= button_to I18n.t('reservation.Finished'), {:action => session[:fini_action],
-							:controller => 'reservation'}, {:id => 'finished'} %></td>
-			<% if @reservation.editable? %>
-			<% if @reservation.cancelled? %>
-			<td> <%= button_to I18n.t('reservation.UndoCancel'), {:action => :undo_cancel, :controller => 'reservation', :reservation_id => @reservation.id} %> </td>
-			<% elsif @reservation.checked_out? %>
-			<td> <%= button_to I18n.t('reservation.UndoCheckout'), {:action => :undo_checkout, :controller => 'reservation', :reservation_id => @reservation.id} %> </td>
-			<% end %>
-			<td><%= button_to_function I18n.t('reservation.ShowLog'),"showhide('log_entries');" %></td>
-			<% if @reservation.archived? && User.authorized?(controller.controller_name, 'purge') %>
-			<td> <%= button_to I18n.t('reservation.Purge'), {:action => :purge, :controller => 'reservation', :reservation_id => @reservation.id},
-							:confirm => I18n.t('reservation.ConfirmPurge', :name => @reservation.camper.full_name, :number => @reservation.id),
-							:method => "post" %> </td>
-			<% end %>
-			</tr>
-			</table>
-			<% end %>
+				<table>
+					<tr>
+						<td><%= button_to I18n.t('reservation.Finished'), {:action => session[:fini_action],
+									:controller => 'reservation'}, {:id => 'finished'} %></td>
+						<% if @reservation.editable? %>
+							<% if @reservation.cancelled? %>
+								<td> <%= button_to I18n.t('reservation.UndoCancel'), {:action => :undo_cancel, :controller => 'reservation', :reservation_id => @reservation.id} %> </td>
+							<% elsif @reservation.checked_out? %>
+								<td> <%= button_to I18n.t('reservation.UndoCheckout'), {:action => :undo_checkout, :controller => 'reservation', :reservation_id => @reservation.id} %> </td>
+							<% end %>
+							<td><%= button_to_function I18n.t('reservation.ShowLog'),"showhide('log_entries');" %></td>
+							<% if @reservation.archived? && User.authorized?(controller.controller_name, 'purge') %>
+								<td> <%= button_to I18n.t('reservation.Purge'), {:action => :purge, :controller => 'reservation', :reservation_id => @reservation.id},
+									:confirm => I18n.t('reservation.ConfirmPurge', :name => @reservation.camper.full_name, :number => @reservation.id),
+									:method => "post" %> </td>
+							<% end %>
+						<% end %>
+					</tr>
+				</table>
 			<% elsif controller.action_name == 'space_selected' %>
-			<table>
-			<tr>
-			<td style="padding-top:14px"> <%= link_to I18n.t('general.Continue'), {:controller => 'camper', :action => 'find', :reservation_id => @reservation.id, :is_remote => @reservation.is_remote}, {:class => 'link_btn', :id => 'continue'} %> </td>
-			<% if !@reservation.is_remote %>
-				<%= override_button(@reservation.override_total) %>
-			<% end %>
-			</tr>
-			</table>
-			<% if !@reservation.is_remote %>
-				<input type="button" class="link_btn" id="btnManualOverride" style="margin-top:23px;margin-bottom:17px" value="<%= I18n.t('reservation.ManualOverride') %>" onclick="manualOverride()">
-			<% end %>
-			<%= set_focus_to_id 'continue' %>
+				<table>
+					<tr>
+						<td style="padding-top:14px"> <%= link_to I18n.t('general.Continue'), {:controller => 'camper', :action => 'find', :reservation_id => @reservation.id, :is_remote => @reservation.is_remote}, {:class => 'link_btn', :id => 'continue'} %> </td>
+						<% if !@reservation.is_remote %>
+							<%= override_button(@reservation.override_total) %>
+						<% end %>
+					</tr>
+				</table>
+				<% if !@reservation.is_remote %>
+					<input type="button" class="link_btn" id="btnManualOverride" style="margin-top:23px;margin-bottom:17px" value="<%= I18n.t('reservation.ManualOverride') %>" onclick="manualOverride()">
+				<% end %>
+				<%= set_focus_to_id 'continue' %>
 			<% elsif controller.action_name == 'show' %>
-			<table>
-			<tr>
-			<% if @reservation.checked_in && !@reservation.archived %>
-			<td>
-			<%= button_to I18n.t('reservation.Checkout'), {:action => 'do_checkout', :reservation_id => @reservation.id},
-						:confirm => I18n.t('reservation.ConfirmCheckout', :name => @reservation.camper.full_name),
-						:method => "post" %>
-			</td>
-			<% if @cancel_ci %>
-			<td>
-			<%= button_to I18n.t('reservation.CancelCheckin'), {:action => 'cancel_checkin', :reservation_id => @reservation.id},
-							:confirm => I18n.t('reservation.ConfirmCancelCheckin', :name => @reservation.camper.full_name),
-							:method => "post" %>
-			</td>
-			<% end %>
-			<% else %>
-			<% if @reservation.startdate <= current_Date && !@reservation.unconfirmed_remote? %>
-			<td>
-			<%= button_to I18n.t('reservation.Checkin'), {:action => 'do_checkin', :reservation_id => @reservation.id},
-							:confirm => I18n.t('reservation.ConfirmCheckin', :name => @reservation.camper.full_name) if @reservation.camper_id > 0 %>
-			</td>
-			<% end %>
-			<td>
-			<%= button_to I18n.t('titles.CancelReservation'), { :action => 'cancel', :reservation_id => @reservation.id },
-								:confirm => I18n.t('reservation.ConfirmCancel', :name => @reservation.camper.full_name),
-								:method => "post" if @reservation.camper_id > 0  %>
-			</td>
-			<% end %>
-			<td>
-			<%= button_to I18n.t('titles.ChangeCamper'), {:action => 'change', :controller => 'camper', :reservation_id => @reservation.id} %>
-			</td>
-			<td>
-			<% unless @remote %>
-			<% if @reservation.confirm? %>
-			<%= button_to I18n.t('reservation.Finished'), {:action => session[:fini_action], :controller => 'reservation'}, {'id' => 'finished'} %>
-			<% else %>
-			<%= button_to I18n.t('reservation.CompleteReservation'), {:action => :create, :reservation_id => @reservation.id} %>
-			<% end %>
-			<% end %>
-			</td>
-			<td>
-			<%= button_to I18n.t('reservation.RecalculateCharges'), {:action => 'recalculate_charges', :reservation_id => @reservation.id}%>
-			</td>
-			<%= render :partial => 'update_mail_msg' %>
-			<% if !@reservation.is_remote %>
-				<%= override_button(@reservation.override_total) %>
-			<% end %>
-			<td><%= button_to_function I18n.t('reservation.ShowLog'),"showhide('log_entries');" %></td>
-			<% if @option.print? %>
-			<td> <input type="button" onclick="javascript:window.print()" value="<%= I18n.t('general.Print') %>" /> </td>
-			<% end %>
-			<% if @option.use_envelope? %>
-			<td> <%= button_to_function I18n.t('reservation.Envelope'),"showhide2('envelope','normal' );" %> </td> 
-			<% end %>
-			</tr>
-			</table>
-			<%= set_focus_to_id 'finished' %>
+				<table>
+					<tr>
+						<% if @reservation.checked_in && !@reservation.archived %>
+							<td>
+								<%= button_to I18n.t('reservation.Checkout'), {:action => 'do_checkout', :reservation_id => @reservation.id},
+										:confirm => I18n.t('reservation.ConfirmCheckout', :name => @reservation.camper.full_name),
+										:method => "post" %>
+							</td>
+							<% if @cancel_ci %>
+								<td>
+									<%= button_to I18n.t('reservation.CancelCheckin'), {:action => 'cancel_checkin', :reservation_id => @reservation.id},
+												:confirm => I18n.t('reservation.ConfirmCancelCheckin', :name => @reservation.camper.full_name),
+												:method => "post" %>
+								</td>
+							<% end %>
+						<% else %>
+							<% if @reservation.startdate <= current_Date && !@reservation.unconfirmed_remote? %>
+								<td>
+									<%= button_to I18n.t('reservation.Checkin'), {:action => 'do_checkin', :reservation_id => @reservation.id},
+												:confirm => I18n.t('reservation.ConfirmCheckin', :name => @reservation.camper.full_name) if @reservation.camper_id > 0 %>
+								</td>
+							<% end %>
+							<td>
+								<%= button_to I18n.t('titles.CancelReservation'), { :action => 'cancel', :reservation_id => @reservation.id },
+												:confirm => I18n.t('reservation.ConfirmCancel', :name => @reservation.camper.full_name),
+												:method => "post" if @reservation.camper_id > 0  %>
+							</td>
+						<% end %>
+						<td>
+							<%= button_to I18n.t('titles.ChangeCamper'), {:action => 'change', :controller => 'camper', :reservation_id => @reservation.id} %>
+						</td>
+						<td>
+							<% unless @remote %>
+								<% if @reservation.confirm? %>
+									<%= button_to I18n.t('reservation.Finished'), {:action => session[:fini_action], :controller => 'reservation'}, {'id' => 'finished'} %>
+								<% else %>
+									<%= button_to I18n.t('reservation.CompleteReservation'), {:action => :create, :reservation_id => @reservation.id} %>
+								<% end %>
+							<% end %>
+						</td>
+						<td>
+							<%= button_to I18n.t('reservation.RecalculateCharges'), {:action => 'recalculate_charges', :reservation_id => @reservation.id}%>
+						</td>
+						<%= render :partial => 'update_mail_msg' %>
+						<% if !@reservation.is_remote %>
+							<%= override_button(@reservation.override_total) %>
+						<% end %>
+						<% if !@reservation.is_remote %>
+							<td><input type="button" class="link_btn" id="btnManualOverride" style="margin-top:23px;margin-bottom:17px" value="<%= I18n.t('reservation.ManualOverride') %>" onclick="manualOverride()"></td>
+						<% end %>
+						<td><%= button_to_function I18n.t('reservation.ShowLog'),"showhide('log_entries');" %></td>
+						<% if @option.print? %>
+							<td> <input type="button" onclick="javascript:window.print()" value="<%= I18n.t('general.Print') %>" /> </td>
+						<% end %>
+						<% if @option.use_envelope? %>
+							<td> <%= button_to_function I18n.t('reservation.Envelope'),"showhide2('envelope','normal' );" %> </td> 
+						<% end %>
+					</tr>
+				</table>
+				<%= set_focus_to_id 'finished' %>
 			<% elsif controller.action_name == 'confirm_res' %>
-			<table>
-			<tr>
-			<% if @reservation.startdate <= current_Date %>
-				<td><%= button_to I18n.t('reservation.CheckInNow'), {:action => :checkin_now, :reservation_id => @reservation.id} %></td>
-			<% end %>
-			<td><%= button_to I18n.t('reservation.CompleteReservation'), {:action => :create, :reservation_id => @reservation.id} %></td>
-			<% if !@reservation.is_remote %>
-				<%= override_button(@reservation.override_total) %>
-			<% end %>
-			<% if @option.print? %>
-				<td> <input type="button" onclick="javascript:window.print()" value="<%= I18n.t('general.Print') %>" /> </td>
-			<% end %>
-			<% if @option.use_envelope? %>
-				<td> <%= button_to_function I18n.t('reservation.Envelope'),"showhide2('envelope','normal' );" %> </td> 
-			<% end %>
-			</tr>
-			</table>
-			<%= if @reservation.startdate <= current_Date
-				set_focus_to_id 'checkin_now'
-			else
-				set_focus_to_id 'complete'
-			end %>
+				<table>
+					<tr>
+						<% if @reservation.startdate <= current_Date %>
+							<td><%= button_to I18n.t('reservation.CheckInNow'), {:action => :checkin_now, :reservation_id => @reservation.id} %></td>
+						<% end %>
+						<td><%= button_to I18n.t('reservation.CompleteReservation'), {:action => :create, :reservation_id => @reservation.id} %></td>
+						<% if !@reservation.is_remote %>
+							<%= override_button(@reservation.override_total) %>
+						<% end %>
+						<% if @option.print? %>
+							<td> <input type="button" onclick="javascript:window.print()" value="<%= I18n.t('general.Print') %>" /> </td>
+						<% end %>
+						<% if @option.use_envelope? %>
+							<td> <%= button_to_function I18n.t('reservation.Envelope'),"showhide2('envelope','normal' );" %> </td> 
+						<% end %>
+					</tr>
+				</table>
+				<% if !@reservation.is_remote %>
+					<input type="button" class="link_btn" id="btnManualOverride" style="margin-top:23px;margin-bottom:17px" value="<%= I18n.t('reservation.ManualOverride') %>" onclick="manualOverride()">
+				<% end %>
+				<%= if @reservation.startdate <= current_Date
+					set_focus_to_id 'checkin_now'
+				else
+					set_focus_to_id 'complete'
+				end %>
 			<% elsif controller.action_name == 'checkin' %>
-			<table>
-			<tr>
-			<td> <%= button_to I18n.t('reservation.CompleteCheckin'), {:action => 'do_checkin', :reservation_id => @reservation.id} %> </td>
-			<td> <%= button_to I18n.t('reservation.CancelCheckin'), {:action => session[:fini_action]}, {:id => 'cancel'} %> </td>
-			<td> <%= button_to I18n.t('reservation.RecalculateCharges'), {:action => 'recalculate_charges', :reservation_id => @reservation.id}%> </td>
-			<% if !@reservation.is_remote %>
-				<%= override_button(@reservation.override_total) %>
-			<% end %>
-			<td><%= button_to_function I18n.t('reservation.ShowLog'),"showhide('log_entries');" %></td>
-			<% if @option.print? %>
-				<td> <input type="button" onclick="javascript:window.print()" value="<%= I18n.t('general.Print') %>" /> </td>
-			<% end %>
-			<% if @option.use_envelope? %>
-				<td> <%= button_to_function I18n.t('reservation.Envelope'),"showhide2('envelope','normal' );" %> </td> 
-			<% end %>
-			</tr>
-			</table>
-			<%= if flash[:error]
-				set_focus_to_id 'cancel'
-			else
-				set_focus_to_id 'complete'
-			end %>
+				<table>
+					<tr>
+						<td> <%= button_to I18n.t('reservation.CompleteCheckin'), {:action => 'do_checkin', :reservation_id => @reservation.id} %> </td>
+						<td> <%= button_to I18n.t('reservation.CancelCheckin'), {:action => session[:fini_action]}, {:id => 'cancel'} %> </td>
+						<td> <%= button_to I18n.t('reservation.RecalculateCharges'), {:action => 'recalculate_charges', :reservation_id => @reservation.id}%> </td>
+						<% if !@reservation.is_remote %>
+							<%= override_button(@reservation.override_total) %>
+						<% end %>
+						<td><%= button_to_function I18n.t('reservation.ShowLog'),"showhide('log_entries');" %></td>
+						<% if @option.print? %>
+							<td> <input type="button" onclick="javascript:window.print()" value="<%= I18n.t('general.Print') %>" /> </td>
+						<% end %>
+						<% if @option.use_envelope? %>
+							<td> <%= button_to_function I18n.t('reservation.Envelope'),"showhide2('envelope','normal' );" %> </td> 
+						<% end %>
+					</tr>
+				</table>
+				<%= if flash[:error]
+					set_focus_to_id 'cancel'
+				else
+					set_focus_to_id 'complete'
+				end %>
 			<% elsif controller.action_name == 'review' %>
-			<table>
-			<tr>
-			<td><%= button_to_function I18n.t('reservation.ShowLog'),"showhide('log_entries');" %></td>
-			<td>
-				<%= button_to I18n.t('titles.CancelReservation'), { :action => 'remote_not_confirmed', :reservation_id => @reservation.id },
-								:confirm => I18n.t('reservation.ConfirmCancel', :name => @reservation.camper.full_name),
-								:method => "post" %>
-			<td>
-			<td>
-				<%= button_to I18n.t('titles.ConfirmRes'), { :action => 'remote_confirmed', :reservation_id => @reservation.id },
-								:confirm => I18n.t('reservation.ConfirmRes', :name => @reservation.camper.full_name),
-								:method => "post" %>
-			</td>
-			</tr>
-			</table>
+				<table>
+					<tr>
+						<td><%= button_to_function I18n.t('reservation.ShowLog'),"showhide('log_entries');" %></td>
+						<td>
+							<%= button_to I18n.t('titles.CancelReservation'), { :action => 'remote_not_confirmed', :reservation_id => @reservation.id },
+											:confirm => I18n.t('reservation.ConfirmCancel', :name => @reservation.camper.full_name),
+											:method => "post" %>
+						<td>
+						<td>
+							<%= button_to I18n.t('titles.ConfirmRes'), { :action => 'remote_confirmed', :reservation_id => @reservation.id },
+											:confirm => I18n.t('reservation.ConfirmRes', :name => @reservation.camper.full_name),
+											:method => "post" %>
+						</td>
+					</tr>
+				</table>
 			<% else %>
-			<table>
-			<tr>
-			<td>
-				<%= button_to I18n.t('reservation.Finished'), {:action => session[:fini_action],
-							:controller => 'reservation'},
-							{:id => 'finished'} %>
-			</td>
-			<td><%= button_to_function I18n.t('reservation.ShowLog'),"showhide('log_entries');" %></td>
-			<% if !@reservation.is_remote %>
-				<%= override_button(@reservation.override_total) %>
-			<% end %>
-			</tr>
-			</table>
-			<%= set_focus_to_id 'finished' %>
+				<table>
+					<tr>
+						<td>
+							<%= button_to I18n.t('reservation.Finished'), {:action => session[:fini_action],
+										:controller => 'reservation'},
+										{:id => 'finished'} %>
+						</td>
+						<td><%= button_to_function I18n.t('reservation.ShowLog'),"showhide('log_entries');" %></td>
+						<% if !@reservation.is_remote %>
+							<%= override_button(@reservation.override_total) %>
+						<% end %>
+					</tr>
+				</table>
+				<%= set_focus_to_id 'finished' %>
 			<% end %>
 		</div>
 	<% end %>

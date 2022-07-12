@@ -25,8 +25,12 @@ class Charges
     # delete all old records
 	chargeRow = Charge.first(:conditions => ["reservation_id = ?", res_id])
 	if chargeRow
-		Charge.update(chargeRow.id, :is_manual_override => 1, :manual_override => chargeRow.manual_override, :manual_override_total => chargeRow.manual_override_total)
-		# output = Array.new
+		if chargeRow.clicked_manual_override_button == 1
+			Charge.update(chargeRow.id, :is_manual_override => 1, :manual_override => chargeRow.manual_override, :manual_override_total => chargeRow.manual_override_total)
+		else
+			Charge.update(chargeRow.id, :is_manual_override => 0, :manual_override => chargeRow.manual_override, :manual_override_total => chargeRow.manual_override_total)
+		end
+			# output = Array.new
 		# output << Charge.update(chargeRow.id, :is_manual_override => 1, :manual_override => chargeRow.manual_override, :manual_override_total => chargeRow.manual_override_total) 
 	else
 		Charge.destroy_all(["reservation_id = ?", res_id])

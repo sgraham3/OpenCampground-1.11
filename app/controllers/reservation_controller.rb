@@ -435,7 +435,7 @@ class ReservationController < ApplicationController
 			ExtraCharge.update(extraChargeQuery.id, :is_manual_override => 1, :manual_override => temp[1].to_f, :manual_override_total => temp[1].to_f * extraChargeQuery.number.to_i * extraChargeQuery.days.to_i)
 		}
 		daysQuery = Charge.first(:conditions => ["reservation_id = ?", @reservation.id])
-		Charge.update(daysQuery.id, :is_manual_override => 1, :manual_override => request["days_charge_value"].to_f, :manual_override_total => request["days_charge_value"].to_f * daysQuery.period)
+		Charge.update(daysQuery.id, :is_manual_override => 1, :clicked_manual_override_button => 1, :manual_override => request["days_charge_value"].to_f, :manual_override_total => request["days_charge_value"].to_f * daysQuery.period)
 		# charges_for_display(@reservation)
 		# recalculate_charges
 		# return render :json => ({"name" => "John", "age" => 45})

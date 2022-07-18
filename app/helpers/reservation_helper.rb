@@ -390,57 +390,59 @@ module ReservationHelper
           end
           if res_hash[space.id][0] && (date >= res_hash[space.id][0].startdate) # && (date < res_hash[space.id][0].enddate)
             r = res_hash[space.id].shift # shift it out
-            if r.enddate <= @startDate
-              next
-            end
-            cnt = day_count(r,date)
-            if cnt == 0
-              next
-            end
-            name = trunc_name(cnt, r)
-            ret_str << "<td colspan=\"#{cnt}\" align=\"center\" "
-            if r.checked_in
+            if r.cancelled === false
+              if r.enddate <= @startDate
+                next
+              end
+              cnt = day_count(r,date)
+              if cnt == 0
+                next
+              end
+              name = trunc_name(cnt, r)
+              ret_str << "<td colspan=\"#{cnt}\" align=\"center\" "
+              if r.checked_in
+                if session[:admin_status]
+                  ret_str << 'style="background-color:LimeGreen">' # occupied
+                else
+                  ret_str << 'style="background-color:lightGrey">' # occupied 
+                end     
+              else
+                if currentDate > r.startdate
+                  if session[:admin_status]
+                    ret_str << 'style="background-color:Yellow">' # overdue
+                  else
+                    ret_str << 'style="background-color:lightGrey">' # overdue
+                  end
+                else
+                  if session[:admin_status]
+                    ret_str << 'style="background-color:LightSteelBlue">' # reserved
+                  else
+                    ret_str << 'style="background-color:lightGrey">' # reserved
+                  end
+                end
+              end
+              if r.camper
+                title = r.camper.full_name + ', '
+              else
+                title = ''
+              end
+              title << I18n.l(r.startdate, :format => :short) + I18n.t('reservation.To') + I18n.l(r.enddate, :format => :short)
+              amountDue = r.total - getReservedPayments(r.id)
               if session[:admin_status]
-                ret_str << 'style="background-color:LimeGreen">' # occupied
-              else
-                ret_str << 'style="background-color:lightGrey">' # occupied 
-              end     
-            else
-              if currentDate > r.startdate
-                if session[:admin_status]
-                  ret_str << 'style="background-color:Yellow">' # overdue
+                if amountDue > 0 && r.startdate <= Date.today
+                  ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{name}</a> ($)"
                 else
-                  ret_str << 'style="background-color:lightGrey">' # overdue
+                  ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{name}</a>"
                 end
               else
-                if session[:admin_status]
-                  ret_str << 'style="background-color:LightSteelBlue">' # reserved
-                else
-                  ret_str << 'style="background-color:lightGrey">' # reserved
-                end
+                ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{}</a>"
               end
-            end
-            if r.camper
-              title = r.camper.full_name + ', '
-            else
-              title = ''
-            end
-            title << I18n.l(r.startdate, :format => :short) + I18n.t('reservation.To') + I18n.l(r.enddate, :format => :short)
-            amountDue = r.total - getReservedPayments(r.id)
-            if session[:admin_status]
-              if amountDue > 0 && r.startdate <= Date.today
-                ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{name}</a> ($)"
+              if @option.use_closed && r.enddate > @cs && r.enddate < @ce
+                ret_str << handle_cells(@cs, @ce)
+                date = @ce
               else
-                ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{name}</a>"
+                date = r.enddate
               end
-            else
-              ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{}</a>"
-            end
-            if @option.use_closed && r.enddate > @cs && r.enddate < @ce
-              ret_str << handle_cells(@cs, @ce)
-              date = @ce
-            else
-              date = r.enddate
             end
           else # open
             if res_hash[space.id].empty?

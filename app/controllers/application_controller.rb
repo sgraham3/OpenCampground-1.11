@@ -64,11 +64,16 @@ class ApplicationController < ActionController::Base
       @reservation.enddate = @date_end
       @reservation.seasonal = seasonal
       @reservation.storage = storage
+
+      chargeQuery = Charge.first(:conditions => [ "reservation_id = ?", 
+								 @reservation.id])
+      Charge.update(chargeQuery.id, :start_date => @date_start, :end_date => @date_end)              
+
       if Campground.open?(@reservation.startdate, @reservation.enddate)
-	debug 'update_dates: Campground open...updating'
-	@reservation.add_log("dates changed")
-	@skip_render = true
-	recalculate_charges
+        debug 'update_dates: Campground open...updating'
+        @reservation.add_log("dates changed")
+        @skip_render = true
+        recalculate_charges
       else
         # debug 'update_dates: Campground closed'
 	flash[:error] = I18n.t('reservation.Flash.SpaceUnavailable') +

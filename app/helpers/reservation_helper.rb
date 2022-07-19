@@ -430,7 +430,7 @@ module ReservationHelper
               amountDue = r.total - getReservedPayments(r.id)
               if session[:admin_status]
                 if amountDue > 0 && r.startdate <= Date.today
-                  ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{name}</a> ($)"
+                  ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{name}($)</a>"
                 else
                   ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{name}</a>"
                 end
@@ -532,73 +532,75 @@ module ReservationHelper
           end
           if res_hash[space.id][0] && (date >= res_hash[space.id][0].startdate) # && (date < res_hash[space.id][0].enddate)
             r = res_hash[space.id].shift # shift it out
-            if r.enddate <= @startDate
-              next
-            end
-            cnt = day_count(r,date)
-            if cnt == 0
-              next
-            end
-            name = trunc_name(cnt, r)
-            ret_str << "<td colspan=\"#{cnt}\" align=\"center\" "
-            if r.checked_in
-              if admin_status
-                if controllerName == "reservation"
-                  ret_str << 'style="background-color:LimeGreen">' # occupied
-                else
-                  ret_str << 'style="background-color:lightGrey">' # occupied 
-                end
-              else
-                ret_str << 'style="background-color:lightGrey">' # occupied 
-              end     
-            else
-              if currentDate > r.startdate
+            if r.cancelled === false
+              if r.enddate <= @startDate
+                next
+              end
+              cnt = day_count(r,date)
+              if cnt == 0
+                next
+              end
+              name = trunc_name(cnt, r)
+              ret_str << "<td colspan=\"#{cnt}\" align=\"center\" "
+              if r.checked_in
                 if admin_status
                   if controllerName == "reservation"
-                    ret_str << 'style="background-color:Yellow">' # overdue
+                    ret_str << 'style="background-color:LimeGreen">' # occupied
+                  else
+                    ret_str << 'style="background-color:lightGrey">' # occupied 
+                  end
+                else
+                  ret_str << 'style="background-color:lightGrey">' # occupied 
+                end     
+              else
+                if currentDate > r.startdate
+                  if admin_status
+                    if controllerName == "reservation"
+                      ret_str << 'style="background-color:Yellow">' # overdue
+                    else
+                      ret_str << 'style="background-color:lightGrey">' # overdue
+                    end
                   else
                     ret_str << 'style="background-color:lightGrey">' # overdue
                   end
                 else
-                  ret_str << 'style="background-color:lightGrey">' # overdue
-                end
-              else
-                if admin_status
-                  if controllerName == "reservation"
-                    ret_str << 'style="background-color:LightSteelBlue">' # reserved
+                  if admin_status
+                    if controllerName == "reservation"
+                      ret_str << 'style="background-color:LightSteelBlue">' # reserved
+                    else
+                      ret_str << 'style="background-color:lightGrey">' # reserved
+                    end
                   else
                     ret_str << 'style="background-color:lightGrey">' # reserved
                   end
-                else
-                  ret_str << 'style="background-color:lightGrey">' # reserved
                 end
               end
-            end
-            if r.camper
-              title = r.camper.full_name + ', '
-              title << I18n.l(r.startdate, :format => :short) + I18n.t('reservation.To') + I18n.l(r.enddate, :format => :short)
-            else
-              title = ''
-            end
-            if admin_status
-              if controllerName == "reservation"
-                amountDue = r.total - getReservedPayments(r.id)
-                if amountDue > 0 && r.startdate <= Date.today
-                  ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{name}</a> ($)"
+              if r.camper
+                title = r.camper.full_name + ', '
+                title << I18n.l(r.startdate, :format => :short) + I18n.t('reservation.To') + I18n.l(r.enddate, :format => :short)
+              else
+                title = ''
+              end
+              if admin_status
+                if controllerName == "reservation"
+                  amountDue = r.total - getReservedPayments(r.id)
+                  if amountDue > 0 && r.startdate <= Date.today
+                    ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{name}($)</a>"
+                  else
+                    ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{name}</a>"
+                  end
                 else
-                  ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{name}</a>"
+                  ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{}</a>"
                 end
               else
                 ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{}</a>"
               end
-            else
-              ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{}</a>"
-            end
-            if @option.use_closed && r.enddate > @cs && r.enddate < @ce
-              ret_str << handle_cells(@cs, @ce)
-              date = @ce
-            else
-              date = r.enddate
+              if @option.use_closed && r.enddate > @cs && r.enddate < @ce
+                ret_str << handle_cells(@cs, @ce)
+                date = @ce
+              else
+                date = r.enddate
+              end
             end
           else # open
             if res_hash[space.id].empty?
@@ -679,73 +681,75 @@ module ReservationHelper
           end
           if res_hash[space.id][0] && (date >= res_hash[space.id][0].startdate) # && (date < res_hash[space.id][0].enddate)
             r = res_hash[space.id].shift # shift it out
-            if r.enddate <= @startDate
-              next
-            end
-            cnt = day_count(r,date)
-            if cnt == 0
-              next
-            end
-            name = trunc_name(cnt, r)
-            ret_str << "<td colspan=\"#{cnt}\" align=\"center\" "
-            if r.checked_in
-              if admin_status
-                if controllerName == "reservation"
-                  ret_str << 'style="background-color:LimeGreen">' # occupied
-                else
-                  ret_str << 'style="background-color:lightGrey">' # occupied 
-                end
-              else
-                ret_str << 'style="background-color:lightGrey">' # occupied 
-              end     
-            else
-              if currentDate > r.startdate
+            if r.cancelled === false
+              if r.enddate <= @startDate
+                next
+              end
+              cnt = day_count(r,date)
+              if cnt == 0
+                next
+              end
+              name = trunc_name(cnt, r)
+              ret_str << "<td colspan=\"#{cnt}\" align=\"center\" "
+              if r.checked_in
                 if admin_status
                   if controllerName == "reservation"
-                    ret_str << 'style="background-color:Yellow">' # overdue
+                    ret_str << 'style="background-color:LimeGreen">' # occupied
+                  else
+                    ret_str << 'style="background-color:lightGrey">' # occupied 
+                  end
+                else
+                  ret_str << 'style="background-color:lightGrey">' # occupied 
+                end     
+              else
+                if currentDate > r.startdate
+                  if admin_status
+                    if controllerName == "reservation"
+                      ret_str << 'style="background-color:Yellow">' # overdue
+                    else
+                      ret_str << 'style="background-color:lightGrey">' # overdue
+                    end
                   else
                     ret_str << 'style="background-color:lightGrey">' # overdue
                   end
                 else
-                  ret_str << 'style="background-color:lightGrey">' # overdue
-                end
-              else
-                if admin_status
-                  if controllerName == "reservation"
-                    ret_str << 'style="background-color:LightSteelBlue">' # reserved
+                  if admin_status
+                    if controllerName == "reservation"
+                      ret_str << 'style="background-color:LightSteelBlue">' # reserved
+                    else
+                      ret_str << 'style="background-color:lightGrey">' # reserved
+                    end
                   else
                     ret_str << 'style="background-color:lightGrey">' # reserved
                   end
-                else
-                  ret_str << 'style="background-color:lightGrey">' # reserved
                 end
               end
-            end
-            if r.camper
-              title = r.camper.full_name + ', '
-            else
-              title = ''
-            end
-            title << I18n.l(r.startdate, :format => :short) + I18n.t('reservation.To') + I18n.l(r.enddate, :format => :short)
-            if admin_status
-              if controllerName == "reservation"
-                amountDue = r.total - getReservedPayments(r.id)
-                if amountDue > 0 && r.startdate <= Date.today
-                  ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{name}</a> ($)"
+              if r.camper
+                title = r.camper.full_name + ', '
+              else
+                title = ''
+              end
+              title << I18n.l(r.startdate, :format => :short) + I18n.t('reservation.To') + I18n.l(r.enddate, :format => :short)
+              if admin_status
+                if controllerName == "reservation"
+                  amountDue = r.total - getReservedPayments(r.id)
+                  if amountDue > 0 && r.startdate <= Date.today
+                    ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{name}($)</a>"
+                  else
+                    ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{name}</a>"                  
+                  end
                 else
-                  ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{name}</a>"                  
+                  ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{}</a>"
                 end
               else
                 ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{}</a>"
               end
-            else
-              ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{}</a>"
-            end
-            if @option.use_closed && r.enddate > @cs && r.enddate < @ce
-              ret_str << handle_cells(@cs, @ce)
-              date = @ce
-            else
-              date = r.enddate
+              if @option.use_closed && r.enddate > @cs && r.enddate < @ce
+                ret_str << handle_cells(@cs, @ce)
+                date = @ce
+              else
+                date = r.enddate
+              end
             end
           else # open
             if res_hash[space.id].empty?
@@ -826,73 +830,75 @@ module ReservationHelper
           end
           if res_hash[space.id][0] && (date >= res_hash[space.id][0].startdate) # && (date < res_hash[space.id][0].enddate)
             r = res_hash[space.id].shift # shift it out
-            if r.enddate <= @startDate
-              next
-            end
-            cnt = day_count(r,date)
-            if cnt == 0
-              next
-            end
-            name = trunc_name(cnt, r)
-            ret_str << "<td colspan=\"#{cnt}\" align=\"center\" "
-            if r.checked_in
-              if admin_status
-                if controllerName == "reservation"
-                  ret_str << 'style="background-color:LimeGreen">' # occupied
-                else
-                  ret_str << 'style="background-color:lightGrey">' # occupied 
-                end
-              else
-                ret_str << 'style="background-color:lightGrey">' # occupied 
-              end     
-            else
-              if currentDate > r.startdate
+            if r.cancelled === false
+              if r.enddate <= @startDate
+                next
+              end
+              cnt = day_count(r,date)
+              if cnt == 0
+                next
+              end
+              name = trunc_name(cnt, r)
+              ret_str << "<td colspan=\"#{cnt}\" align=\"center\" "
+              if r.checked_in
                 if admin_status
                   if controllerName == "reservation"
-                    ret_str << 'style="background-color:Yellow">' # overdue
+                    ret_str << 'style="background-color:LimeGreen">' # occupied
+                  else
+                    ret_str << 'style="background-color:lightGrey">' # occupied 
+                  end
+                else
+                  ret_str << 'style="background-color:lightGrey">' # occupied 
+                end     
+              else
+                if currentDate > r.startdate
+                  if admin_status
+                    if controllerName == "reservation"
+                      ret_str << 'style="background-color:Yellow">' # overdue
+                    else
+                      ret_str << 'style="background-color:lightGrey">' # overdue
+                    end
                   else
                     ret_str << 'style="background-color:lightGrey">' # overdue
                   end
                 else
-                  ret_str << 'style="background-color:lightGrey">' # overdue
-                end
-              else
-                if admin_status
-                  if controllerName == "reservation"
-                    ret_str << 'style="background-color:LightSteelBlue">' # reserved
+                  if admin_status
+                    if controllerName == "reservation"
+                      ret_str << 'style="background-color:LightSteelBlue">' # reserved
+                    else
+                      ret_str << 'style="background-color:lightGrey">' # reserved
+                    end
                   else
                     ret_str << 'style="background-color:lightGrey">' # reserved
                   end
-                else
-                  ret_str << 'style="background-color:lightGrey">' # reserved
                 end
               end
-            end
-            if r.camper
-              title = r.camper.full_name + ', '
-            else
-              title = ''
-            end
-            title << I18n.l(r.startdate, :format => :short) + I18n.t('reservation.To') + I18n.l(r.enddate, :format => :short)
-            if admin_status
-              if controllerName == "reservation"
-                amountDue = r.total - getReservedPayments(r.id)
-                if amountDue > 0 && r.startdate <= Date.today
-                  ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{name}</a> ($)"
+              if r.camper
+                title = r.camper.full_name + ', '
+              else
+                title = ''
+              end
+              title << I18n.l(r.startdate, :format => :short) + I18n.t('reservation.To') + I18n.l(r.enddate, :format => :short)
+              if admin_status
+                if controllerName == "reservation"
+                  amountDue = r.total - getReservedPayments(r.id)
+                  if amountDue > 0 && r.startdate <= Date.today
+                    ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{name}($)</a>"
+                  else
+                    ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{name}</a>"
+                  end
                 else
-                  ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{name}</a>"
+                  ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{}</a>"
                 end
               else
                 ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{}</a>"
               end
-            else
-              ret_str << "<a href=\"/reservation/show?reservation_id=#{r.id}\" title=\"#{title}\">#{}</a>"
-            end
-            if @option.use_closed && r.enddate > @cs && r.enddate < @ce
-              ret_str << handle_cells(@cs, @ce)
-              date = @ce
-            else
-              date = r.enddate
+              if @option.use_closed && r.enddate > @cs && r.enddate < @ce
+                ret_str << handle_cells(@cs, @ce)
+                date = @ce
+              else
+                date = r.enddate
+              end
             end
           else # open
             if res_hash[space.id].empty?
@@ -931,15 +937,16 @@ module ReservationHelper
   def trunc_name(cnt, res)
     name_cnt = (cnt * 2).to_i
     if res.camper
-      if res.camper.full_name.size > name_cnt
-        if res.camper.last_name.size > name_cnt
-          res.camper.last_name[0,name_cnt]
-        else
-          res.camper.last_name
-        end
-      else
-        res.camper.full_name
-      end
+      # if res.camper.full_name.size > name_cnt
+      #   if res.camper.last_name.size > name_cnt
+      #     res.camper.last_name[0,name_cnt]
+      #   else
+      #     res.camper.last_name
+      #   end
+      # else
+      #   res.camper.full_name
+      # end
+      res.camper.full_name
     else
       return ""
     end

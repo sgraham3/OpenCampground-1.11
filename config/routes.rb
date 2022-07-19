@@ -18,6 +18,7 @@ ActionController::Routing::Routes.draw do |map|
   map.purchase 'remote/completeRes', :controller => 'remote', :action => 'customCompleteRes'
   map.purchase 'completeRemoteReservation', :controller => 'reservation', :action => 'express_2'
   map.purchase 'manualOverride', :controller => 'reservation', :action => 'manualOverride'
+  map.purchase 'saveArrivalTime', :controller => 'reservation', :action => 'saveArrivalTime'
   map.purchase '/report/remotereservations', :controller => 'report/reservations', :action => 'res_date'
   map.purchase '/report/remoteResReport', :controller => 'report/reservations', :action => 'remoteResReport'
   map.purchase '/report/allResReport', :controller => 'report/reservations', :action => 'allResReport'

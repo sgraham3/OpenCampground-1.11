@@ -450,6 +450,17 @@ class ReservationController < ApplicationController
 		end
 	end
 
+	def saveArrivalTime
+		@reservation = get_reservation
+		if @reservation
+			@reservation.arrival_time = request["arrivalTime"]
+			@reservation.save!
+			return true
+		else
+			return false
+		end
+	end
+
 	def update_camper
 		####################################################
 		# store the data from an change of camper for a reservation

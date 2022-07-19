@@ -65,7 +65,7 @@
 				<table>
 					<tr>
 						<td><%= button_to I18n.t('reservation.Finished'), {:action => session[:fini_action],
-									:controller => 'reservation'}, {:id => 'finished'} %></td>
+									:controller => 'reservation'}, {:id => 'finished', :onclick => "return handleArrivalTime()"} %></td>
 						<% if @reservation.editable? %>
 							<% if @reservation.cancelled? %>
 								<td> <%= button_to I18n.t('reservation.UndoCancel'), {:action => :undo_cancel, :controller => 'reservation', :reservation_id => @reservation.id} %> </td>
@@ -84,7 +84,7 @@
 			<% elsif controller.action_name == 'space_selected' %>
 				<table>
 					<tr>
-						<td style="padding-top:14px"> <%= link_to I18n.t('general.Continue'), {:controller => 'camper', :action => 'find', :reservation_id => @reservation.id, :is_remote => @reservation.is_remote}, {:class => 'link_btn', :id => 'continue'} %> </td>
+						<td style="padding-top:14px"> <%= link_to I18n.t('general.Continue'), {:controller => 'camper', :action => 'find', :reservation_id => @reservation.id, :is_remote => @reservation.is_remote,}, {:class => 'link_btn', :id => 'continue', :onclick => "return handleArrivalTime()"} %> </td>
 						<% if !@reservation.is_remote %>
 							<%= override_button(@reservation.override_total) %>
 						<% end %>
@@ -129,7 +129,7 @@
 						<td>
 							<% unless @remote %>
 								<% if @reservation.confirm? %>
-									<%= button_to I18n.t('reservation.Finished'), {:action => session[:fini_action], :controller => 'reservation'}, {'id' => 'finished'} %>
+									<%= button_to I18n.t('reservation.Finished'), {:action => session[:fini_action], :controller => 'reservation'}, {'id' => 'finished', :onclick => "return handleArrivalTime()"} %>
 								<% else %>
 									<%= button_to I18n.t('reservation.CompleteReservation'), {:action => :create, :reservation_id => @reservation.id} %>
 								<% end %>
@@ -161,7 +161,7 @@
 						<% if @reservation.startdate <= current_Date %>
 							<td><%= button_to I18n.t('reservation.CheckInNow'), {:action => :checkin_now, :reservation_id => @reservation.id} %></td>
 						<% end %>
-						<td><%= button_to I18n.t('reservation.CompleteReservation'), {:action => :create, :reservation_id => @reservation.id} %></td>
+						<td><%= button_to I18n.t('reservation.CompleteReservation'), {:action => :create, :reservation_id => @reservation.id}, :onclick => "return handleArrivalTime()" %></td>
 						<% if !@reservation.is_remote %>
 							<%= override_button(@reservation.override_total) %>
 						<% end %>
@@ -226,7 +226,7 @@
 						<td>
 							<%= button_to I18n.t('reservation.Finished'), {:action => session[:fini_action],
 										:controller => 'reservation'},
-										{:id => 'finished'} %>
+										{:id => 'finished', :onclick => "return handleArrivalTime()"} %>
 						</td>
 						<td><%= button_to_function I18n.t('reservation.ShowLog'),"showhide('log_entries');" %></td>
 						<% if !@reservation.is_remote %>
@@ -249,7 +249,7 @@
 		<% if controller.action_name == 'show' %>
 			<%= button_to I18n.t('reservation.Finished'), {:action => session[:fini_action],
 								:controller => 'reservation'},
-								{:id => 'finished'} %>
+								{:id => 'finished', :onclick => "return handleArrivalTime()"} %>
 		<% end%>
       </div>
     </div>
@@ -294,5 +294,18 @@
 				}
 			});
 		}
+	}
+	function handleArrivalTime() {
+		arrivalTime = document.getElementById("arrival_time").value;
+		console.log(arrivalTime);
+		new Ajax.Request('saveArrivalTime', {
+			parameters: {
+				"reservation_id": <%= @reservation.id %>,
+				"arrivalTime": arrivalTime
+			},
+			onSuccess: function(res) {
+				return res;
+			}
+		});
 	}
 </script>

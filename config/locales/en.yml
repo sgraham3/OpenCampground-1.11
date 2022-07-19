@@ -190,6 +190,7 @@ en:
     NotArrivingYet: "Not arriving yet"
     NotCheckedIn: "Not Checked In"
     Notes: "Notes"
+    ArrivalTime: "Arrival time"
     notspecified: "not specified"
     nr_Adults: "# Adults"
     nr_Children: "# Children"

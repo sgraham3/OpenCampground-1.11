@@ -5,4 +5,5 @@
   <% else %>
     <%= I18n.t('reservation.Notes') %>: <b><%= in_place_editor_field_prompted :reservation, :special_request %></b>
   <% end %>
+  <%= I18n.t('reservation.ArrivalTime') %>: <%= arrival_time(@reservation.arrival_time) %>
 <% end %>

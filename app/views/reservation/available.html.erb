@@ -74,6 +74,9 @@
     cells[i].style.minWidth = realWidth + "px";
     if (cells[i].hasChildNodes()) {
       if(cells[i].childNodes[0].tagName == "A") {
+        var cntColspan = cells[i].getAttribute("colspan");
+        cells[i].childNodes[0].style.cssText += "width: " + realWidth*cntColspan + "px";
+        cells[i].childNodes[0].style.cssText += 'overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block';
         cells[i].parentElement.setAttribute("hasspace", "true");
       }
     }else{
@@ -306,6 +309,9 @@
       cells[i].style.minWidth = realWidth + "px";
       if (cells[i].hasChildNodes()) {
         if(cells[i].childNodes[0].tagName == "A") {
+          var cntColspan = cells[i].getAttribute("colspan");
+          cells[i].childNodes[0].style.cssText += "width: " + realWidth*cntColspan + "px";
+          cells[i].childNodes[0].style.cssText += 'overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block';
           cells[i].parentElement.setAttribute("hasspace", "true");
         }
       }else{  

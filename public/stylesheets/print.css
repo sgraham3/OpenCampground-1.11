@@ -1,4 +1,7 @@
-#banner { display: none; }
+#banner { 
+	display: grid;
+	justify-content: center;
+}
 #side { display: none; }
 #tabs { display: none; }
 #flash { display: none; }
@@ -28,3 +31,13 @@ input { display: none; }
 	font-size: 9pt;
 }
 h {font: 15pt Times bold;}
+
+#user {
+	display: none;
+}
+
+#imgLogo {
+	width: 150px;
+	height: 100px;
+	margin-bottom: 15px;
+}

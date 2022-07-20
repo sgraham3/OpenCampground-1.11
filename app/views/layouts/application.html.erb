@@ -50,16 +50,16 @@
 </head>
 <body>
   <div id="banner">
-    <% if File.readable?("#{RAILS_ROOT}/public/images/Logo.png")%>
-      <img src="/images/Logo.png" height="46" alt="Logo" />
-    <% elsif File.readable?("#{RAILS_ROOT}/public/images/Logo.jpg")%>
-      <img src="/images/Logo.jpg" height="46" alt="Logo" />
-    <% elsif File.readable?("#{RAILS_ROOT}/public/images/OC_logo.2.png")%>
-      <img src="/images/OC_logo.2.png" height="46" alt="Logo" />
-    <% elsif File.readable?("#{RAILS_ROOT}/public/images/OC_logo.png")%>
-      <img src="/images/OC_logo.png" height="46" alt="Logo" />
-    <% end %>
-    <%= @page_title || controller.action_name %>
+	<% if File.readable?("#{RAILS_ROOT}/public/images/Logo.png")%>
+	<img src="/images/Logo.png" id="imgLogo" height="46" alt="Logo" />
+	<% elsif File.readable?("#{RAILS_ROOT}/public/images/Logo.jpg")%>
+	<img src="/images/Logo.jpg" id="imgLogo" height="46" alt="Logo" />
+	<% elsif File.readable?("#{RAILS_ROOT}/public/images/OC_logo.2.png")%>
+	<img src="/images/OC_logo.2.png" id="imgLogo" height="46" alt="Logo" />
+	<% elsif File.readable?("#{RAILS_ROOT}/public/images/OC_logo.png")%>
+	<img src="/images/OC_logo.png" id="imgLogo" height="46" alt="Logo" />
+	<% end %>
+    <span><%= @page_title || controller.action_name %></span>
     <span id="user">
       <% if ENV['RAILS_ENV'] != 'production' %>
 	Mode: <%= ENV['RAILS_ENV'] %>

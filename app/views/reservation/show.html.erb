@@ -48,6 +48,7 @@
 		<% if @option.use_onetime_discount? %>
 			<%= render :partial => 'get_one_time_discount' %>
 		<% end %>
+		<%= I18n.t('reservation.ArrivalTime') %>: <%= arrival_time(@reservation.arrival_time) %>
 		<%= render :partial => 'shared/extras' %>
 		<%= render :partial => 'variable_charge' if @option.use_variable_charge?  %>
 		<%= render :partial => 'shared/space_summary' %>

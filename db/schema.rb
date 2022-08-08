@@ -125,15 +125,19 @@ ActiveRecord::Schema.define(:version => 87) do
 
   create_table "charges", :force => true do |t|
     t.integer "reservation_id"
-    t.integer "season_id",                                    :default => 1
+    t.integer "season_id",                                                    :default => 1
     t.date    "start_date"
     t.date    "end_date"
     t.float   "period"
-    t.decimal "rate",           :precision => 8, :scale => 2, :default => 0.0
-    t.decimal "amount",         :precision => 8, :scale => 2, :default => 0.0
-    t.decimal "discount",       :precision => 8, :scale => 2, :default => 0.0
+    t.decimal "rate",                           :precision => 8, :scale => 2, :default => 0.0
+    t.decimal "amount",                         :precision => 8, :scale => 2, :default => 0.0
+    t.decimal "discount",                       :precision => 8, :scale => 2, :default => 0.0
     t.integer "charge_units"
-    t.boolean "temp",                                         :default => false
+    t.boolean "temp",                                                         :default => false
+    t.boolean "is_manual_override",                                           :default => false
+    t.decimal "manual_override",                :precision => 8, :scale => 2, :default => 0.0
+    t.decimal "manual_override_total",          :precision => 8, :scale => 2, :default => 0.0
+    t.decimal "clicked_manual_override_button", :precision => 8, :scale => 2, :default => 0.0
   end
 
   add_index "charges", ["reservation_id"], :name => "index_charges_on_reservation_id"
@@ -214,21 +218,24 @@ ActiveRecord::Schema.define(:version => 87) do
   create_table "extra_charges", :force => true do |t|
     t.integer "extra_id"
     t.integer "reservation_id"
-    t.integer "number",                                         :default => 0
-    t.integer "days",                                           :default => 0
-    t.integer "weeks",                                          :default => 0
-    t.integer "months",                                         :default => 0
-    t.decimal "daily_charges",   :precision => 12, :scale => 2, :default => 0.0
-    t.decimal "weekly_charges",  :precision => 12, :scale => 2, :default => 0.0
-    t.decimal "monthly_charges", :precision => 12, :scale => 2, :default => 0.0
-    t.decimal "initial",         :precision => 12, :scale => 2, :default => 0.0
-    t.decimal "final",           :precision => 12, :scale => 2, :default => 0.0
-    t.decimal "measured_charge", :precision => 12, :scale => 2, :default => 0.0
+    t.integer "number",                                                            :default => 0
+    t.integer "days",                                                              :default => 0
+    t.integer "weeks",                                                             :default => 0
+    t.integer "months",                                                            :default => 0
+    t.decimal "daily_charges",                      :precision => 12, :scale => 2, :default => 0.0
+    t.decimal "weekly_charges",                     :precision => 12, :scale => 2, :default => 0.0
+    t.decimal "monthly_charges",                    :precision => 12, :scale => 2, :default => 0.0
+    t.decimal "initial",                            :precision => 12, :scale => 2, :default => 0.0
+    t.decimal "final",                              :precision => 12, :scale => 2, :default => 0.0
+    t.decimal "measured_charge",                    :precision => 12, :scale => 2, :default => 0.0
     t.date    "updated_on"
-    t.decimal "charge",          :precision => 12, :scale => 2, :default => 0.0
-    t.decimal "measured_rate",   :precision => 12, :scale => 6, :default => 0.0
+    t.decimal "charge",                             :precision => 12, :scale => 2, :default => 0.0
+    t.decimal "measured_rate",                      :precision => 12, :scale => 6, :default => 0.0
     t.date    "created_on"
-    t.integer "precision",                                      :default => 2
+    t.integer "precision",                                                         :default => 2
+    t.integer "is_manual_override",    :limit => 1,                                :default => 0
+    t.decimal "manual_override",                    :precision => 12, :scale => 2, :default => 0.0
+    t.decimal "manual_override_total",              :precision => 12, :scale => 2, :default => 0.0
   end
 
   add_index "extra_charges", ["extra_id"], :name => "index_extra_charges_on_extra_id"
@@ -240,6 +247,7 @@ ActiveRecord::Schema.define(:version => 87) do
     t.decimal "daily",                        :precision => 10, :scale => 2, :default => 0.0
     t.decimal "weekly",                       :precision => 10, :scale => 2, :default => 0.0
     t.decimal "monthly",                      :precision => 10, :scale => 2, :default => 0.0
+    t.integer "maximum",                                                     :default => 4
     t.boolean "onetime",                                                     :default => false
     t.decimal "charge",                       :precision => 10, :scale => 2, :default => 0.0
     t.boolean "measured",                                                    :default => false

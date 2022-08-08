@@ -64,10 +64,10 @@ class ApplicationController < ActionController::Base
       @reservation.enddate = @date_end
       @reservation.seasonal = seasonal
       @reservation.storage = storage
-
+      
       chargeQuery = Charge.first(:conditions => [ "reservation_id = ?", 
 								 @reservation.id])
-      Charge.update(chargeQuery.id, :start_date => @date_start, :end_date => @date_end)              
+      Charge.update(chargeQuery.id, :start_date => @date_start, :end_date => @date_end, :period => (@date_end - @date_start).to_i, :amount => (chargeQuery.rate).to_f * (@date_end - @date_start).to_i)              
 
       if Campground.open?(@reservation.startdate, @reservation.enddate)
         debug 'update_dates: Campground open...updating'

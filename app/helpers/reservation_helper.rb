@@ -402,7 +402,11 @@ module ReservationHelper
               ret_str << "<td colspan=\"#{cnt}\" align=\"center\" "
               if r.checked_in
                 if session[:admin_status]
-                  ret_str << 'style="background-color:LimeGreen">' # occupied
+                  if r.checked_out
+                    ret_str << 'style="background-color:red">'
+                  else
+                    ret_str << 'style="background-color:LimeGreen">' # occupied
+                  end
                 else
                   ret_str << 'style="background-color:lightGrey">' # occupied 
                 end     
@@ -545,7 +549,11 @@ module ReservationHelper
               if r.checked_in
                 if admin_status
                   if controllerName == "reservation"
-                    ret_str << 'style="background-color:LimeGreen">' # occupied
+                    if r.checked_out
+                      ret_str << 'style="background-color:red">'
+                    else
+                      ret_str << 'style="background-color:LimeGreen">' # occupied
+                    end
                   else
                     ret_str << 'style="background-color:lightGrey">' # occupied 
                   end
@@ -694,7 +702,11 @@ module ReservationHelper
               if r.checked_in
                 if admin_status
                   if controllerName == "reservation"
-                    ret_str << 'style="background-color:LimeGreen">' # occupied
+                    if r.checked_out
+                      ret_str << 'style="background-color:red">'
+                    else
+                      ret_str << 'style="background-color:LimeGreen">' # occupied
+                    end
                   else
                     ret_str << 'style="background-color:lightGrey">' # occupied 
                   end
@@ -843,7 +855,11 @@ module ReservationHelper
               if r.checked_in
                 if admin_status
                   if controllerName == "reservation"
-                    ret_str << 'style="background-color:LimeGreen">' # occupied
+                    if r.checked_out
+                      ret_str << 'style="background-color:red">'
+                    else
+                      ret_str << 'style="background-color:LimeGreen">' # occupied
+                    end
                   else
                     ret_str << 'style="background-color:lightGrey">' # occupied 
                   end

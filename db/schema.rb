@@ -583,6 +583,7 @@ ActiveRecord::Schema.define(:version => 87) do
     t.boolean  "cancelled",                                                       :default => false
     t.boolean  "checked_out",                                                     :default => false
     t.boolean  "is_remote",                                                       :default => false
+    t.string   "arrival_time",        :limit => 50
   end
 
   add_index "reservations", ["enddate"], :name => "index_reservations_on_enddate"

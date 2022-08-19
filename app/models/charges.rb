@@ -26,9 +26,9 @@ class Charges
 	chargeRow = Charge.first(:conditions => ["reservation_id = ?", res_id])
 	if chargeRow
 		if chargeRow.clicked_manual_override_button == 1
-			Charge.update(chargeRow.id, :is_manual_override => 1, :manual_override => chargeRow.manual_override, :manual_override_total => chargeRow.manual_override_total)
+			Charge.update(chargeRow.id, :discount => (chargeRow.amount.to_f * disc.discount_percent / 100), :is_manual_override => 1, :manual_override => chargeRow.manual_override, :manual_override_total => chargeRow.manual_override_total)
 		else
-			Charge.update(chargeRow.id, :is_manual_override => 0, :manual_override => chargeRow.manual_override, :manual_override_total => chargeRow.manual_override_total)
+			Charge.update(chargeRow.id, :discount => (chargeRow.amount.to_f * disc.discount_percent / 100), :is_manual_override => 0, :manual_override => chargeRow.manual_override, :manual_override_total => chargeRow.manual_override_total)
 		end
 			# output = Array.new
 		# output << Charge.update(chargeRow.id, :is_manual_override => 1, :manual_override => chargeRow.manual_override, :manual_override_total => chargeRow.manual_override_total) 

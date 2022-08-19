@@ -137,7 +137,7 @@ ActiveRecord::Schema.define(:version => 87) do
     t.boolean "is_manual_override",                                           :default => false
     t.decimal "manual_override",                :precision => 8, :scale => 2, :default => 0.0
     t.decimal "manual_override_total",          :precision => 8, :scale => 2, :default => 0.0
-    t.decimal "clicked_manual_override_button", :precision => 8, :scale => 2, :default => 0.0
+    t.decimal "clicked_manual_override_button", :default => 0
   end
 
   add_index "charges", ["reservation_id"], :name => "index_charges_on_reservation_id"

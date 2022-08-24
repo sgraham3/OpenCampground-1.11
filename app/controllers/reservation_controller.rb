@@ -426,6 +426,10 @@ class ReservationController < ApplicationController
 
 	def manualOverride
 		@reservation = get_reservation
+
+		discountQuery = Discount.first(:conditions => ["discount_percent = ?", 0])
+		Reservation.update(@reservation.id, :discount_id => discountQuery.id)
+
 		tempArr = request["arrExtra"].split("@")
 		tempArr.map{|n|
 			temp = n.split(":")
@@ -435,10 +439,12 @@ class ReservationController < ApplicationController
 			ExtraCharge.update(extraChargeQuery.id, :is_manual_override => 1, :manual_override => temp[1].to_f, :manual_override_total => temp[1].to_f * extraChargeQuery.number.to_i * extraChargeQuery.days.to_i)
 		}
 		daysQuery = Charge.first(:conditions => ["reservation_id = ?", @reservation.id])
-		Charge.update(daysQuery.id, :is_manual_override => 1, :clicked_manual_override_button => 1, :manual_override => request["days_charge_value"].to_f, :manual_override_total => request["days_charge_value"].to_f * daysQuery.period)
+		Charge.update(daysQuery.id, :is_manual_override => 1, :clicked_manual_override_button => 1, :manual_override => request["days_charge_value"].to_f, :manual_override_total => request["days_charge_value"].to_f * daysQuery.period, :discount => 0)
 		# charges_for_display(@reservation)
 		# recalculate_charges
 		# return render :json => ({"name" => "John", "age" => 45})
+
+
 		@skip_render = true
 		# recalculate_charges.. skip recalc because the charges do not change
 		charges_for_display(@reservation)
@@ -2020,6 +2026,8 @@ class ReservationController < ApplicationController
 	end
 
 	def update_discount
+		puts "ggggggggggg"
+		puts params[:discount_id]
 		@reservation = get_reservation
 		if params[:discount_id]
 			if @reservation.seasonal? && Discount.skip_seasonal?

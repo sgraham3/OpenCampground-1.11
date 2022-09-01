@@ -58,13 +58,13 @@
         <td></td>
         <td></td>
         <% unless @reservation.seasonal? || @season_cnt == 1 -%>
-    <td></td>
+          <td></td>
         <% end %>
         <% if @discount == true -%>
-    <% if @option.inline_subtotal? %>
-      <td></td>
-    <% end %>
-    <td></td>
+          <% if @option.inline_subtotal? %>
+            <td></td>
+          <% end %>
+          <td></td>
         <% end %>
         <td></td>
         <td align="right"> <%=number_2_currency(@reservation.onetime_discount)  %> </td>
@@ -76,15 +76,15 @@
         <td></td>
         <td></td>
         <% unless @reservation.seasonal? || @season_cnt == 1 -%>
-    <td></td>
+          <td></td>
         <% end %>
         <td></td>
         <td></td>
         <% if @discount == true -%>
-    <% if @option.inline_subtotal? %>
-      <td></td>
-    <% end %>
-    <td></td>
+          <% if @option.inline_subtotal? %>
+            <td></td>
+          <% end %>
+          <td></td>
         <% end %>
         <td align="right"><%=number_2_currency(@reservation.total) %></td>
       </tr>
@@ -94,20 +94,20 @@
         <td align="left"><%= t.name %></td>
         <td></td>
         <% unless @reservation.seasonal? || @season_cnt == 1 -%>
-    <td></td>
+          <td></td>
         <% end %>
         <td></td>
         <td align="center">
-    <% if t.count > 0 %>
-      <%= t.count.to_s %>
-    <% end %>
+          <% if t.count > 0 %>
+            <%= t.count.to_s %>
+          <% end %>
         </td>
         <td align="right"><%= t.rate %></td>
         <% if @discount == true -%>
-    <% if @option.inline_subtotal? %>
-      <td></td>
-    <% end %>
-    <td></td>
+          <% if @option.inline_subtotal? %>
+            <td></td>
+          <% end %>
+          <td></td>
         <% end %>
         <td align="right"><%=number_2_currency(t.amount) %></td>
       </tr>

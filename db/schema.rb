@@ -662,6 +662,7 @@ ActiveRecord::Schema.define(:version => 87) do
     t.string  "rate",           :limit => 32
     t.integer "count",                                                      :default => 0
     t.decimal "amount",                       :precision => 6, :scale => 2
+    t.integer "clicked_manual_override_button", :default => 0
   end
 
   create_table "taxrates", :force => true do |t|

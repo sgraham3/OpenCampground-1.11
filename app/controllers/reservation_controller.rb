@@ -440,9 +440,14 @@ class ReservationController < ApplicationController
 		}
 		daysQuery = Charge.first(:conditions => ["reservation_id = ?", @reservation.id])
 		Charge.update(daysQuery.id, :is_manual_override => 1, :clicked_manual_override_button => 1, :manual_override => request["days_charge_value"].to_f, :manual_override_total => request["days_charge_value"].to_f * daysQuery.period, :discount => 0)
-		# charges_for_display(@reservation)
-		# recalculate_charges
-		# return render :json => ({"name" => "John", "age" => 45})
+		
+		taxQuery = Tax.first(:conditions => ["reservation_id = ?", @reservation.id])
+		taxRateQuery = Taxrate.first(:conditions => ["name = ?", taxQuery.name])
+
+		manualTaxAmount = request["days_charge_value"].to_f * daysQuery.period * taxRateQuery.percent.to_f / 100;
+
+		Reservation.update(@reservation.id, :tax_amount => manualTaxAmount)
+		Tax.update(taxQuery.id, :clicked_manual_override_button => 1, :amount => manualTaxAmount)
 
 
 		@skip_render = true
